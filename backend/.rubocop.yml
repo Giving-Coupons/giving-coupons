@@ -1,0 +1,31 @@
+require: rubocop-rails
+
+AllCops:
+  NewCops: enable
+  Exclude:
+    - "vendor/**/*"
+    - "spec/fixtures/**/*"
+    - "tmp/**/*"
+    - ".git/**/*"
+    - "bin/*"
+    - "db/schema.rb"
+
+Metrics/AbcSize:
+  Enabled: false
+  Exclude:
+    - "db/**/*"
+
+Metrics/BlockLength:
+  Exclude:
+    - "config/routes.rb"
+
+Metrics/MethodLength:
+  Max: 20
+  Exclude:
+    - "db/**/*"
+
+Rails/FilePath:
+  EnforcedStyle: "arguments"
+
+Style/Documentation:
+  Enabled: false

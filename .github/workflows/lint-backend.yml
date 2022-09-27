@@ -1,0 +1,30 @@
+name: Lint backend
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Source
+        uses: actions/checkout@v2
+      - name: Set up Ruby & Install Dependencies
+        uses: ruby/setup-ruby@v1
+        env:
+          BUNDLE_GEMFILE: backend/Gemfile
+        with:
+          ruby-version: 3.0.3
+          bundler-cache: true
+      - name: Run RuboCop
+        uses: reviewdog/action-rubocop@v2
+        with:
+          github_token: ${{ secrets.github_token }}
+          rubocop_version: gemfile
+          rubocop_extensions: rubocop-rails:gemfile
+          reporter: github-pr-review
+          workdir: backend
+          use_bundler: true

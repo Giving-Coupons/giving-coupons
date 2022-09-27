@@ -1,0 +1,22 @@
+#!/bin/sh
+
+echo -n '\n\n\n\n'
+echo -n '############################\n'
+echo -n 'Running pre-commit hook...\n'
+echo -n '############################\n\n'
+
+echo -n '############################\n'
+echo -n 'Running yarn lint...\n'
+cd frontend
+yarn lint
+echo -n '############################\n\n'
+
+echo -n '############################\n'
+echo -n 'Running rubobop...\n'
+cd ../backend
+rubocop
+echo -n '############################\n\n'
+
+echo -n '############################\n'
+echo -n 'Pre-commit hook complete...\n'
+echo -n '############################\n\n'
