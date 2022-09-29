@@ -2,6 +2,7 @@ class Campaign < ApplicationRecord
   # Associations
   belongs_to :primary_donor
   has_many :coupons, dependent: :destroy
+  has_and_belongs_to_many :charities
 
   # Validations
   validates :name, presence: true
