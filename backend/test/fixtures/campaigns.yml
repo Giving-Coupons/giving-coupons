@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyText
+  promised_amount: 1
+  start: 2022-09-30 01:32:00
+  end: 2022-09-30 01:32:00
+  primary_donor: one
+
+two:
+  name: MyString
+  description: MyText
+  promised_amount: 1
+  start: 2022-09-30 01:32:00
+  end: 2022-09-30 01:32:00
+  primary_donor: two
