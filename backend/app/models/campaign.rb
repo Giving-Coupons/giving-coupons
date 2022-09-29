@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Campaign < ApplicationRecord
   # Associations
   belongs_to :primary_donor
