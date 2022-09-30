@@ -13,7 +13,7 @@ echo -n 'Running yarn lint...\n'
 cd frontend
 yarn lint
 if [ $? -ne 0 ]; then
-  echo "${RED}Please fix lint warnings and errors before pushing.${NC}"
+  echo "${RED}Please fix lint warnings and errors before pushing.${NC}\n"
   exit 1
 fi
 echo -n '############################\n\n'
@@ -23,7 +23,7 @@ echo -n 'Running rubocop...\n'
 cd ../backend
 rubocop
 if [ $? -ne 0 ]; then
-  echo "${RED}Please fix rubocop warnings and errors before pushing.${NC}"
+  echo "${RED}Please fix rubocop warnings and errors before pushing.${NC}\n"
   exit 1
 fi
 echo -n '############################\n\n'
