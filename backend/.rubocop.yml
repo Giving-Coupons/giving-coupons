@@ -27,8 +27,5 @@ Metrics/MethodLength:
 Rails/FilePath:
   EnforcedStyle: "arguments"
 
-Rails/HasAndBelongsToMany:
-  Enabled: false
-
 Style/Documentation:
   Enabled: false
