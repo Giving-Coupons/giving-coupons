@@ -1,9 +1,10 @@
+# frozen_string_literal: true
+
 class DeviseTokenAuthCreateAdmins < ActiveRecord::Migration[7.0]
   def change
-    
     create_table(:admins) do |t|
       ## Required
-      t.string :provider, null: false, default: "username"
+      t.string :provider, null: false, default: 'username'
       t.string :uid, null: false
 
       ## Database authenticatable
@@ -35,7 +36,7 @@ class DeviseTokenAuthCreateAdmins < ActiveRecord::Migration[7.0]
 
     add_index :admins, :username,             unique: true
     add_index :admins, :email,                unique: true
-    add_index :admins, [:uid, :provider],     unique: true
+    add_index :admins, %i[uid provider], unique: true
     add_index :admins, :reset_password_token, unique: true
     add_index :admins, :confirmation_token,   unique: true
   end
