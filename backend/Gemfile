@@ -51,3 +51,7 @@ end
 gem 'rubocop', '~> 1.36'
 
 gem 'rubocop-rails', '~> 2.16'
+
+# Authentication
+gem 'devise'
+gem 'devise_token_auth'
