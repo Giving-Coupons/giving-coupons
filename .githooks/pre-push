@@ -1,5 +1,8 @@
 #!/bin/sh
 
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+
 echo -n '\n\n\n\n'
 echo -n '############################\n'
 echo -n 'Running pre-commit hook...\n'
@@ -12,9 +15,13 @@ yarn lint
 echo -n '############################\n\n'
 
 echo -n '############################\n'
-echo -n 'Running rubobop...\n'
+echo -n 'Running rubocop...\n'
 cd ../backend
 rubocop
+if [ $? -ne 0 ]; then
+  echo "${RED}Please fix rubocop warnings and errors before pushing.${NC}"
+  exit $rubocop_exit_status
+fi
 echo -n '############################\n\n'
 
 echo -n '############################\n'
