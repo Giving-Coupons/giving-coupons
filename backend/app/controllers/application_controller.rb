@@ -6,7 +6,7 @@ class ApplicationController < ActionController::API
   include StatusMessages
 
   layout 'application'
-  
+
   before_action :underscore_params!
   before_action :configure_permitted_parameters, if: :devise_controller?
 
@@ -16,7 +16,7 @@ class ApplicationController < ActionController::API
   def configure_permitted_parameters
     sign_up_params = %i[username password password_confirmation]
     sign_in_params = %i[username password]
-    
+
     devise_parameter_sanitizer.permit :sign_up, keys: sign_up_params
     devise_parameter_sanitizer.permit :sign_in, keys: sign_in_params
   end
