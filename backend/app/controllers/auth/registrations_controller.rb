@@ -2,6 +2,8 @@
 
 module Auth
   class RegistrationsController < DeviseTokenAuth::RegistrationsController
+    wrap_parameters format: []
+    
     private
 
     def render_create_success
