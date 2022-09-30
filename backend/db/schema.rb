@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_29_190002) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_30_064420) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "campaign_charities", force: :cascade do |t|
+    t.bigint "campaign_id", null: false
+    t.bigint "charity_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["campaign_id"], name: "index_campaign_charities_on_campaign_id"
+    t.index ["charity_id"], name: "index_campaign_charities_on_charity_id"
+  end
 
   create_table "campaigns", force: :cascade do |t|
     t.string "name", null: false
@@ -24,15 +33,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_29_190002) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["primary_donor_id"], name: "index_campaigns_on_primary_donor_id"
-  end
-
-  create_table "campaigns_charities", id: false, force: :cascade do |t|
-    t.bigint "campaign_id", null: false
-    t.bigint "charity_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["campaign_id"], name: "index_campaigns_charities_on_campaign_id"
-    t.index ["charity_id"], name: "index_campaigns_charities_on_charity_id"
   end
 
   create_table "charities", force: :cascade do |t|
@@ -59,8 +59,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_29_190002) do
     t.index ["email"], name: "index_primary_donors_on_email", unique: true
   end
 
+  add_foreign_key "campaign_charities", "campaigns"
+  add_foreign_key "campaign_charities", "charities"
   add_foreign_key "campaigns", "primary_donors"
-  add_foreign_key "campaigns_charities", "campaigns"
-  add_foreign_key "campaigns_charities", "charities"
   add_foreign_key "coupons", "campaigns"
 end
