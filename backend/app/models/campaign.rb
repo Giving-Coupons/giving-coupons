@@ -9,7 +9,8 @@ class Campaign < ApplicationRecord
 
   # Validations
   validates :name, presence: true
+  validates :description, presence: true, allow_blank: false
   validates :promised_amount, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :start, presence: true
-  validates :end, presence: true, comparison: { greater_than: :start }
+  validates :end, comparison: { greater_than: :start }
 end
