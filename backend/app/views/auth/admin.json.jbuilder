@@ -1,4 +1,8 @@
 # frozen_string_literal: true
 
-json.id @resource.id
-json.username @resource.username
+if @resource
+  json.id @resource.id
+  json.username @resource.username
+else
+  json.nil!
+end
