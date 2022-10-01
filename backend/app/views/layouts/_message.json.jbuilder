@@ -1,3 +1,7 @@
 # frozen_string_literal: true
 
-json.call(@message, :type, :message) if @message
+if @message
+  json.call(@message, :type, :message)
+else
+  json.nil!
+end
