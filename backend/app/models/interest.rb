@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Interest < ApplicationRecord
+  enum :status, { pending: 0, approved: 1, rejected: 2 }
+
   # Associations
   has_one :campaign, required: false, dependent: nil
 
@@ -15,11 +17,13 @@ class Interest < ApplicationRecord
   validate :promised_amount_multiple_of_coupon_denomination
 
   def approve
-    primary_donor = PrimaryDonor.find_or_create_by!(email: donor_email) do |new_donor|
+    self.status = :approved
+
+    primary_donor = PrimaryDonor.find_or_initialize_by(email: donor_email) do |new_donor|
       new_donor.name = donor_name
     end
 
-    campaign = Campaign.create!(
+    campaign = Campaign.new(
       name: campaign_name,
       description: campaign_description,
       promised_amount: promised_amount,
@@ -30,6 +34,8 @@ class Interest < ApplicationRecord
     )
 
     campaign.generate_coupons
+
+    save!
   end
 
   private

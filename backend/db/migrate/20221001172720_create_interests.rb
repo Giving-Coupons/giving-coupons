@@ -10,6 +10,7 @@ class CreateInterests < ActiveRecord::Migration[7.0]
       t.integer :promised_amount, null: false
       t.datetime :start, null: false
       t.datetime :end, null: false
+      t.integer :status, null: false, default: 0
 
       t.timestamps
     end
