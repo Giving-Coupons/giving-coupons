@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Interest < ApplicationRecord
+  include PromisedAmountValidator
+
   enum :status, { pending: 0, approved: 1, rejected: 2 }
 
   # Associations
@@ -11,12 +13,10 @@ class Interest < ApplicationRecord
   validates :donor_email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :campaign_name, presence: true
   validates :campaign_description, presence: true, allow_blank: false
-  validates :promised_amount, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :start, presence: true
   validates :end, comparison: { greater_than: :start }
-  validate :promised_amount_multiple_of_coupon_denomination
 
-  def approve
+  def approve_campaign
     self.status = :approved
 
     primary_donor = PrimaryDonor.find_or_initialize_by(email: donor_email) do |new_donor|
@@ -36,13 +36,5 @@ class Interest < ApplicationRecord
     campaign.generate_coupons
 
     save!
-  end
-
-  private
-
-  def promised_amount_multiple_of_coupon_denomination
-    return if (promised_amount % Campaign::COUPON_DENOMINATION).zero?
-
-    errors.add(:promised_amount, 'must be a multiple of coupon denomination')
   end
 end
