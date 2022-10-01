@@ -10,6 +10,7 @@
     "lint:fix": "eslint --no-error-on-unmatched-pattern --ext .js, .ts, .jsx, .tsx --fix './**'"
   },
   "dependencies": {
+    "axios": "^0.27.2",
     "next": "12.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
