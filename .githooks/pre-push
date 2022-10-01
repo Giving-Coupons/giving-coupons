@@ -3,33 +3,33 @@
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
-echo -n '\n\n\n\n'
-echo -n '############################\n'
-echo -n 'Running pre-push hook...\n'
-echo -n '############################\n\n'
+echo '\n\n\n'
+echo '############################'
+echo 'Running pre-push hook...'
+echo "############################\n"
 
-echo -n '############################\n'
-echo -n 'Running yarn lint...\n'
+echo '############################'
+echo 'Running yarn lint...'
 cd frontend
 yarn lint
 if [ $? -ne 0 ]; then
   echo "${RED}Please fix lint warnings and errors before pushing.${NC}\n"
   exit 1
 fi
-echo -n '############################\n\n'
+echo '############################\n'
 
-echo -n '############################\n'
-echo -n 'Running rubocop...\n'
+echo '############################'
+echo 'Running rubocop...'
 cd ../backend
 rubocop
 if [ $? -ne 0 ]; then
   echo "${RED}Please fix rubocop warnings and errors before pushing.${NC}\n"
   exit 1
 fi
-echo -n '############################\n\n'
+echo '############################\n'
 
-echo -n '############################\n'
-echo -n 'Pre-push hook complete...\n'
-echo -n '############################\n\n'
+echo '############################'
+echo 'Pre-push hook complete...'
+echo '############################\n'
 
 exit 0
