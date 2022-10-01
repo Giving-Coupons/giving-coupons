@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_30_074207) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_01_172720) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -32,6 +32,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_30_074207) do
     t.bigint "primary_donor_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "interest_id"
+    t.index ["interest_id"], name: "index_campaigns_on_interest_id"
     t.index ["primary_donor_id"], name: "index_campaigns_on_primary_donor_id"
   end
 
@@ -51,6 +53,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_30_074207) do
     t.index ["url_token"], name: "index_coupons_on_url_token", unique: true
   end
 
+  create_table "interests", force: :cascade do |t|
+    t.string "donor_name", null: false
+    t.string "donor_email", null: false
+    t.string "campaign_name", null: false
+    t.text "campaign_description", null: false
+    t.integer "promised_amount", null: false
+    t.datetime "start", null: false
+    t.datetime "end", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "primary_donors", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
@@ -61,6 +75,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_30_074207) do
 
   add_foreign_key "campaign_charities", "campaigns"
   add_foreign_key "campaign_charities", "charities"
+  add_foreign_key "campaigns", "interests"
   add_foreign_key "campaigns", "primary_donors"
   add_foreign_key "coupons", "campaigns"
 end
