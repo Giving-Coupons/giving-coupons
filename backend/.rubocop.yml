@@ -3,29 +3,32 @@ require: rubocop-rails
 AllCops:
   NewCops: enable
   Exclude:
-    - "vendor/**/*"
-    - "spec/fixtures/**/*"
-    - "tmp/**/*"
-    - ".git/**/*"
-    - "bin/*"
-    - "db/schema.rb"
+    - 'vendor/**/*'
+    - 'spec/fixtures/**/*'
+    - 'tmp/**/*'
+    - '.git/**/*'
+    - 'bin/*'
+    - 'db/schema.rb'
 
 Metrics/AbcSize:
   Enabled: false
   Exclude:
-    - "db/**/*"
+    - 'db/**/*'
 
 Metrics/BlockLength:
   Exclude:
-    - "config/routes.rb"
+    - 'config/routes.rb'
 
 Metrics/MethodLength:
   Max: 20
   Exclude:
-    - "db/**/*"
+    - 'db/**/*'
 
 Rails/FilePath:
-  EnforcedStyle: "arguments"
+  EnforcedStyle: 'arguments'
+
+Rails/I18nLocaleTexts:
+  Enabled: false
 
 Style/Documentation:
   Enabled: false

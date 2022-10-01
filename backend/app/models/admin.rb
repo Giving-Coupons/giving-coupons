@@ -13,4 +13,6 @@ class Admin < ApplicationRecord
   end
 
   validates :username, presence: true, uniqueness: { case_sensitive: false }
+  validates :password_confirmation, presence: true, on: :create,
+                                    comparison: { equal_to: :password, message: 'does not match password' }
 end

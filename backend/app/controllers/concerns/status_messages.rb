@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
+# StatusMessageType
+#   Error: 0,
+#   Success: 1
+
 module StatusMessages
   extend ActiveSupport::Concern
-
-  # StatusMessageType
-  #   Error: 0,
-  #   Success: 1
 
   included do
     prepend_before_action :setup_variable

@@ -2,6 +2,8 @@
 
 module Auth
   class SessionsController < DeviseTokenAuth::SessionsController
+    include AuthErrorHandler
+
     wrap_parameters format: []
 
     private
@@ -16,12 +18,6 @@ module Auth
       add_success_message('Successfully logged out!')
 
       render 'layouts/empty', status: :ok
-    end
-
-    def render_error(status, message, _data = nil)
-      add_error_message(message)
-
-      render 'layouts/empty', status: status
     end
   end
 end
