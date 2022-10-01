@@ -21,7 +21,7 @@ class Campaign < ApplicationRecord
   def generate_coupons
     num_coupons = promised_amount / COUPON_DENOMINATION
     num_coupons.times do
-      coupons.new(denomination: COUPON_DENOMINATION, url_token: SecureRandom.alphanumeric(6))
+      coupons.new(denomination: COUPON_DENOMINATION, url_token: Coupon.generate_unique_url_token)
     end
   end
 end
