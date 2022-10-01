@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
-# StatusMessageType
-#   Error: 0,
-#   Success: 1
+# enum StatusMessageType {
+#   ERROR = 'ERROR',
+#   SUCCESS = 'SUCCESS',
+# }
 
 module StatusMessages
   extend ActiveSupport::Concern
@@ -12,11 +13,11 @@ module StatusMessages
   end
 
   def add_error_message(message)
-    @message = { type: 0, message: message }
+    @message = { type: 'ERROR', message: message }
   end
 
   def add_success_message(message)
-    @message = { type: 1, message: message }
+    @message = { type: 'SUCCESS', message: message }
   end
 
   private
