@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_02_120958) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_02_172411) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -102,9 +102,21 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_02_120958) do
     t.index ["email"], name: "index_primary_donors_on_email", unique: true
   end
 
+  create_table "secondary_donations", force: :cascade do |t|
+    t.integer "amount"
+    t.bigint "coupon_id"
+    t.bigint "campaign_charity_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["campaign_charity_id"], name: "index_secondary_donations_on_campaign_charity_id"
+    t.index ["coupon_id"], name: "index_secondary_donations_on_coupon_id"
+  end
+
   add_foreign_key "campaign_charities", "campaigns"
   add_foreign_key "campaign_charities", "charities"
   add_foreign_key "campaigns", "interests"
   add_foreign_key "campaigns", "primary_donors"
   add_foreign_key "coupons", "campaigns"
+  add_foreign_key "secondary_donations", "campaign_charities"
+  add_foreign_key "secondary_donations", "coupons"
 end

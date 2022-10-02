@@ -4,6 +4,7 @@ class Coupon < ApplicationRecord
   NUM_ALPHANUMERIC_CHARS_IN_TOKEN = 6
 
   belongs_to :campaign
+  has_one :secondary_donation, required: false, dependent: nil
 
   validates :url_token, presence: true, uniqueness: true
   validates :denomination, presence: true, numericality: { only_integer: true, greater_than: 0 }

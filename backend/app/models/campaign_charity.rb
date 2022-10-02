@@ -3,4 +3,5 @@
 class CampaignCharity < ApplicationRecord
   belongs_to :campaign
   belongs_to :charity
+  has_many :secondary_donations, dependent: :destroy
 end
