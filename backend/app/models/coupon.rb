@@ -9,7 +9,7 @@ class Coupon < ApplicationRecord
   validates :url_token, presence: true, uniqueness: true
   validates :denomination, presence: true, numericality: { only_integer: true, greater_than: 0 }
 
-  def is_redeemed?
+  def redeemed?
     secondary_donation.present?
   end
 

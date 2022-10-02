@@ -89,7 +89,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_02_182251) do
   end
 
   create_table "secondary_donations", force: :cascade do |t|
-    t.integer "amount"
+    t.integer "amount", null: false
     t.bigint "coupon_id"
     t.bigint "campaign_charity_id", null: false
     t.datetime "created_at", null: false
