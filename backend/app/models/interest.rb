@@ -16,14 +16,14 @@ class Interest < ApplicationRecord
   validates :start, presence: true
   validates :end, comparison: { greater_than: :start }
 
-  def approve_campaign
+  def approve
     self.status = :approved
 
     primary_donor = PrimaryDonor.find_or_initialize_by(email: donor_email) do |new_donor|
       new_donor.name = donor_name
     end
 
-    campaign = Campaign.new(
+    Campaign.create!(
       name: campaign_name,
       description: campaign_description,
       promised_amount: promised_amount,
@@ -32,7 +32,5 @@ class Interest < ApplicationRecord
       primary_donor: primary_donor,
       interest: self
     )
-
-    save!
   end
 end
