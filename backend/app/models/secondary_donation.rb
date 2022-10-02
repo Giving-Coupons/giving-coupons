@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SecondaryDonation < ApplicationRecord
   belongs_to :coupon, optional: true
   belongs_to :campaign_charity
