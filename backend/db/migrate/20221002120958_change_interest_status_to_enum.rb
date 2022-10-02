@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChangeInterestStatusToEnum < ActiveRecord::Migration[7.0]
   def self.up
     create_enum :interest_status, %i[pending approved rejected]
