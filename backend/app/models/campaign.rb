@@ -10,6 +10,7 @@ class Campaign < ApplicationRecord
   has_many :coupons, dependent: :destroy
   has_many :campaign_charities, dependent: :destroy
   has_many :charities, through: :campaign_charities
+  has_many :secondary_donations, through: :campaign_charities
 
   after_create :generate_coupons
 
