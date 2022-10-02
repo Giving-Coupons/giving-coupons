@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_02_172411) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_02_180157) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -81,6 +81,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_02_172411) do
     t.index ["url_token"], name: "index_coupons_on_url_token", unique: true
   end
 
+  create_table "interest_charities", force: :cascade do |t|
+    t.bigint "interest_id", null: false
+    t.bigint "charity_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["charity_id"], name: "index_interest_charities_on_charity_id"
+    t.index ["interest_id"], name: "index_interest_charities_on_interest_id"
+  end
+
   create_table "interests", force: :cascade do |t|
     t.string "donor_name", null: false
     t.string "donor_email", null: false
@@ -117,6 +126,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_02_172411) do
   add_foreign_key "campaigns", "interests"
   add_foreign_key "campaigns", "primary_donors"
   add_foreign_key "coupons", "campaigns"
+  add_foreign_key "interest_charities", "charities"
+  add_foreign_key "interest_charities", "interests"
   add_foreign_key "secondary_donations", "campaign_charities"
   add_foreign_key "secondary_donations", "coupons"
 end

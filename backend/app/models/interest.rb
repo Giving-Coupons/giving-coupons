@@ -6,6 +6,8 @@ class Interest < ApplicationRecord
   enum :status, { pending: 'pending', approved: 'approved', rejected: 'rejected' }
 
   has_one :campaign, required: false, dependent: nil
+  has_many :interest_charities, dependent: :destroy
+  has_many :charities, through: :interest_charities
 
   validates :donor_name, presence: true
   validates :donor_email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
@@ -30,7 +32,8 @@ class Interest < ApplicationRecord
       start: start,
       end: self.end,
       primary_donor: primary_donor,
-      interest: self
+      interest: self,
+      charities: charities
     )
 
     save!
