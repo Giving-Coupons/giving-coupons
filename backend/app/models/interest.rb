@@ -3,7 +3,7 @@
 class Interest < ApplicationRecord
   include PromisedAmountValidator
 
-  enum :status, { pending: 0, approved: 1, rejected: 2 }
+  enum :status, { pending: 'pending', approved: 'approved', rejected: 'rejected' }
 
   has_one :campaign, required: false, dependent: nil
 
@@ -23,7 +23,7 @@ class Interest < ApplicationRecord
       new_donor.name = donor_name
     end
 
-    Campaign.create!(
+    Campaign.new(
       name: campaign_name,
       description: campaign_description,
       promised_amount: promised_amount,
@@ -32,5 +32,7 @@ class Interest < ApplicationRecord
       primary_donor: primary_donor,
       interest: self
     )
+
+    save!
   end
 end
