@@ -15,6 +15,7 @@ class Interest < ApplicationRecord
   validates :campaign_description, presence: true, allow_blank: false
   validates :start, presence: true
   validates :end, comparison: { greater_than: :start }
+  validates :charities, presence: true
 
   def approve
     return if approved?
