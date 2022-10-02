@@ -3,8 +3,6 @@
 class Campaign < ApplicationRecord
   include PromisedAmountValidator
 
-  COUPON_DENOMINATION = 10
-
   belongs_to :primary_donor
   belongs_to :interest, optional: true
   has_many :coupons, dependent: :destroy
@@ -21,10 +19,13 @@ class Campaign < ApplicationRecord
 
   private
 
+  def num_coupons
+    promised_amount / coupon_denomination
+  end
+
   def generate_coupons
-    num_coupons = promised_amount / COUPON_DENOMINATION
     num_coupons.times do
-      coupons.new(denomination: COUPON_DENOMINATION, url_token: Coupon.generate_unique_url_token)
+      coupons.new(denomination: coupon_denomination, url_token: Coupon.generate_unique_url_token)
     end
 
     save!

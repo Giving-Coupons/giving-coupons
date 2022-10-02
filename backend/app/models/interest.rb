@@ -29,6 +29,7 @@ class Interest < ApplicationRecord
       name: campaign_name,
       description: campaign_description,
       promised_amount: promised_amount,
+      coupon_denomination: coupon_denomination,
       start: start,
       end: self.end,
       primary_donor: primary_donor,
