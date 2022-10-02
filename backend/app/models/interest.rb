@@ -33,8 +33,6 @@ class Interest < ApplicationRecord
       interest: self
     )
 
-    campaign.generate_coupons
-
     save!
   end
 end

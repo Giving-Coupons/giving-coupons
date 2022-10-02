@@ -12,16 +12,23 @@ class Campaign < ApplicationRecord
   has_many :campaign_charities, dependent: :destroy
   has_many :charities, through: :campaign_charities
 
+  # Callbacks
+  after_create :generate_coupons
+
   # Validations
   validates :name, presence: true
   validates :description, presence: true, allow_blank: false
   validates :start, presence: true
   validates :end, comparison: { greater_than: :start }
 
+  private
+
   def generate_coupons
     num_coupons = promised_amount / COUPON_DENOMINATION
     num_coupons.times do
       coupons.new(denomination: COUPON_DENOMINATION, url_token: Coupon.generate_unique_url_token)
     end
+
+    save!
   end
 end
