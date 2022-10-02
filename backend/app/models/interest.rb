@@ -5,10 +5,8 @@ class Interest < ApplicationRecord
 
   enum :status, { pending: 0, approved: 1, rejected: 2 }
 
-  # Associations
   has_one :campaign, required: false, dependent: nil
 
-  # Validations
   validates :donor_name, presence: true
   validates :donor_email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :campaign_name, presence: true

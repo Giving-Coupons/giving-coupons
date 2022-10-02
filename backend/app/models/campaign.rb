@@ -5,17 +5,14 @@ class Campaign < ApplicationRecord
 
   COUPON_DENOMINATION = 10
 
-  # Associations
   belongs_to :primary_donor
   belongs_to :interest, optional: true
   has_many :coupons, dependent: :destroy
   has_many :campaign_charities, dependent: :destroy
   has_many :charities, through: :campaign_charities
 
-  # Callbacks
   after_create :generate_coupons
 
-  # Validations
   validates :name, presence: true
   validates :description, presence: true, allow_blank: false
   validates :start, presence: true
