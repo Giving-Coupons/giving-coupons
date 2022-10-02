@@ -17,6 +17,8 @@ class Interest < ApplicationRecord
   validates :end, comparison: { greater_than: :start }
 
   def approve
+    return if approved?
+
     self.status = :approved
 
     primary_donor = PrimaryDonor.find_or_initialize_by(email: donor_email) do |new_donor|
