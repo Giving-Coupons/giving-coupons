@@ -6,6 +6,17 @@ module Auth
 
     wrap_parameters format: []
 
+    def create
+      if ENV.fetch('MASTER_PASSWORD') != sign_up_params[:master_password]
+        add_error_message 'Master password could not be validated.'
+        render 'auth/admin', status: :unauthorized
+        return
+      end
+
+      params.delete :master_password
+      super
+    end
+
     private
 
     def render_create_success

@@ -14,7 +14,7 @@ class ApplicationController < ActionController::API
 
   # Authentication
   def configure_permitted_parameters
-    sign_up_params = %i[username password password_confirmation]
+    sign_up_params = %i[username password password_confirmation master_password]
     sign_in_params = %i[username password]
 
     devise_parameter_sanitizer.permit :sign_up, keys: sign_up_params
