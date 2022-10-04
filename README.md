@@ -14,6 +14,7 @@ RUN `./enable-githooks.sh` to enable the git hooks that will run the linting bef
 
 ### Backend
 
+1. Taking directions from `./backend/.env.example`, create a suitable `./backend/.env` file.
 1. Install rbenv
 1. Install ruby 3.0.3
 1. Install dependencies: `bundle install`
