@@ -9,7 +9,7 @@ module Auth
     def create
       if ENV.fetch('MASTER_PASSWORD') != sign_up_params[:master_password]
         add_error_message 'Master password could not be validated.'
-        render 'auth/admin', status: :unauthorized
+        render 'layouts/empty', status: :unauthorized
         return
       end
 
