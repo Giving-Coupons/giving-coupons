@@ -1,25 +1,9 @@
-import axios, { AxiosError, AxiosPromise, AxiosRequestConfig, AxiosResponse } from 'axios';
+import { AxiosError, AxiosPromise, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { ApiPromise, ApiResponse, StatusMessageType } from '../types/api';
-import { saveAuthHeaders, setAuthHeaders } from './helpers/authHeaders';
+import AxiosClient from './axiosClient';
 
 class BaseAPI {
-  private static init() {
-    const client = axios.create({
-      baseURL: process.env.NEXT_PUBLIC_BASE_SERVER_URL,
-      headers: {
-        accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      timeout: 10000 /* 10s */,
-    });
-
-    client.interceptors.request.use((requestConfig) => setAuthHeaders(requestConfig));
-    client.interceptors.response.use((resp) => saveAuthHeaders(resp));
-
-    return client;
-  }
-
-  private client = BaseAPI.init();
+  private client = AxiosClient.instance;
 
   private clientGet<D, R>(url: string, params?: AxiosRequestConfig<D>): AxiosPromise<ApiResponse<R>> {
     return this.client.get(url, params);
