@@ -10,10 +10,14 @@
     "lint:fix": "eslint --no-error-on-unmatched-pattern --ext .js, .ts, .jsx, .tsx --fix './**'"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
+    "@mui/material": "^5.10.8",
     "@types/js-cookie": "^3.0.2",
     "axios": "^0.27.2",
     "js-cookie": "^3.0.1",
     "next": "12.3.1",
+    "notistack": "^2.0.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "sass": "^1.55.0"
