@@ -12,15 +12,8 @@ class BaseAPI {
       },
     });
 
-    client.interceptors.request.use(
-      (requestConfig) => setAuthHeaders(requestConfig),
-      (error) => Promise.reject(error),
-    );
-
-    client.interceptors.response.use(
-      (resp) => saveAuthHeaders(resp),
-      (error) => Promise.reject(error),
-    );
+    client.interceptors.request.use((requestConfig) => setAuthHeaders(requestConfig));
+    client.interceptors.response.use((resp) => saveAuthHeaders(resp));
 
     return client;
   }
