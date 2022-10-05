@@ -29,7 +29,7 @@ class InterestsController < ApplicationController
   def destroy
     @interest.destroy!
 
-    show_success_message("Interest for \"#{@interest.donor_name}\" successfully deleted!")
+    show_success_message "Interest for \"#{@interest.donor_name}\" successfully deleted!"
   end
 
   private
@@ -43,17 +43,5 @@ class InterestsController < ApplicationController
               :coupon_denomination, { charity_ids: [] }]
 
     params.require(:interest).permit(permit)
-  end
-
-  rescue_from ActiveRecord::RecordInvalid, ArgumentError do |e|
-    @errors = e
-
-    add_error_message(@errors)
-    render 'layouts/empty', status: :unprocessable_entity
-  end
-
-  rescue_from ActiveRecord::RecordNotFound do |e|
-    add_error_message "#{e.model} not found!"
-    render 'layouts/empty', status: :not_found
   end
 end
