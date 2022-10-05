@@ -3,53 +3,57 @@
 class InterestsController < ApplicationController
   before_action :set_interest, only: %i[show update destroy]
 
-  # GET /interests
-  # GET /interests.json
+  wrap_parameters format: :json, include: %w[donorName donorEmail campaignName campaignDescription promisedAmount start
+                                             end status couponDenomination charityIds]
+
   def index
     @interests = Interest.all
   end
 
-  # GET /interests/1
-  # GET /interests/1.json
   def show; end
 
-  # POST /interests
-  # POST /interests.json
   def create
-    @interest = Interest.new(interest_params)
+    @interest = Interest.create!(interest_params)
 
-    if @interest.save
-      render :show, status: :created, location: @interest
-    else
-      render json: @interest.errors, status: :unprocessable_entity
-    end
+    add_success_message "Interest for \"#{@interest.donor_name}\" successfully created!"
+    render :show, status: :created, location: @interest
   end
 
-  # PATCH/PUT /interests/1
-  # PATCH/PUT /interests/1.json
   def update
-    if @interest.update(interest_params)
-      render :show, status: :ok, location: @interest
-    else
-      render json: @interest.errors, status: :unprocessable_entity
-    end
+    @interest.update!(interest_params)
+
+    add_success_message "Interest for \"#{@interest.donor_name}\" successfully updated!"
+    render :show, status: :ok, location: @interest
   end
 
-  # DELETE /interests/1
-  # DELETE /interests/1.json
   def destroy
-    @interest.destroy
+    @interest.destroy!
+
+    show_success_message("Interest for \"#{@interest.donor_name}\" successfully deleted!")
   end
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_interest
     @interest = Interest.find(params[:id])
   end
 
-  # Only allow a list of trusted parameters through.
   def interest_params
-    params.fetch(:interest, {})
+    permit = [:donor_name, :donor_email, :campaign_name, :campaign_description, :promised_amount, :start, :end, :status,
+              :coupon_denomination, { charity_ids: [] }]
+
+    params.require(:interest).permit(permit)
+  end
+
+  rescue_from ActiveRecord::RecordInvalid, ArgumentError do |e|
+    @errors = e
+
+    add_error_message(@errors)
+    render 'layouts/empty', status: :unprocessable_entity
+  end
+
+  rescue_from ActiveRecord::RecordNotFound do |e|
+    add_error_message "#{e.model} not found!"
+    render 'layouts/empty', status: :not_found
   end
 end
