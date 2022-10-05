@@ -5,8 +5,8 @@ import AxiosClient from './axiosClient';
 class BaseAPI {
   private client = AxiosClient.instance;
 
-  private clientGet<D, R>(url: string, params?: AxiosRequestConfig<D>): AxiosPromise<ApiResponse<R>> {
-    return this.client.get(url, params);
+  private clientGet<D, R>(url: string, config?: AxiosRequestConfig<D>): AxiosPromise<ApiResponse<R>> {
+    return this.client.get(url, config);
   }
 
   private clientPost<D, R>(url: string, data: D): AxiosPromise<ApiResponse<R>> {
@@ -25,8 +25,8 @@ class BaseAPI {
     return this.client.delete(url);
   }
 
-  protected get<D, R>(url: string, params?: AxiosRequestConfig<D>): ApiPromise<R> {
-    return processRequest(url, this.clientGet(url, params));
+  protected get<D, R>(url: string, config?: AxiosRequestConfig<D>): ApiPromise<R> {
+    return processRequest(url, this.clientGet(url, config));
   }
 
   protected post<D, R>(url: string, data: D): ApiPromise<R> {
