@@ -10,9 +10,11 @@ export interface StatusMessage {
   message: string;
 }
 
-export interface ApiResponse<D> {
-  payload: Nullable<D>;
+export interface Response<D> {
+  payload: D;
   message: Nullable<StatusMessage>;
 }
+
+export type ApiResponse<D> = Response<D | null>;
 
 export type ApiPromise<D> = Promise<ApiResponse<D>>;

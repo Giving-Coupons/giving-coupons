@@ -1,0 +1,95 @@
+import axios, { AxiosError, AxiosPromise, AxiosRequestConfig, AxiosResponse } from 'axios';
+import { ApiPromise, ApiResponse, StatusMessageType } from '../types/api';
+import { saveAuthHeaders, setAuthHeaders } from './helpers/authHeaders';
+
+class BaseAPI {
+  private static init() {
+    const client = axios.create({
+      baseURL: process.env.NEXT_PUBLIC_BASE_SERVER_URL,
+      headers: {
+        accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      timeout: 10000 /* 10s */,
+    });
+
+    client.interceptors.request.use((requestConfig) => setAuthHeaders(requestConfig));
+    client.interceptors.response.use((resp) => saveAuthHeaders(resp));
+
+    return client;
+  }
+
+  private client = BaseAPI.init();
+
+  private clientGet<D, R>(url: string, params?: AxiosRequestConfig<D>): AxiosPromise<ApiResponse<R>> {
+    return this.client.get(url, params);
+  }
+
+  private clientPost<D, R>(url: string, data: D): AxiosPromise<ApiResponse<R>> {
+    return this.client.post(url, data);
+  }
+
+  private clientPut<D, R>(url: string, data: D): AxiosPromise<ApiResponse<R>> {
+    return this.client.put(url, data);
+  }
+
+  private clientPatch<D, R>(url: string, data: D): AxiosPromise<ApiResponse<R>> {
+    return this.client.patch(url, data);
+  }
+
+  private clientDelete<R>(url: string): AxiosPromise<ApiResponse<R>> {
+    return this.client.delete(url);
+  }
+
+  protected get<D, R>(url: string, params?: AxiosRequestConfig<D>): ApiPromise<R> {
+    return processRequest(url, this.clientGet(url, params));
+  }
+
+  protected post<D, R>(url: string, data: D): ApiPromise<R> {
+    return processRequest(url, this.clientPost(url, data));
+  }
+
+  protected put<D, R>(url: string, data: D): ApiPromise<R> {
+    return processRequest(url, this.clientPut(url, data));
+  }
+
+  protected patch<D, R>(url: string, data: D): ApiPromise<R> {
+    return processRequest(url, this.clientPatch(url, data));
+  }
+
+  protected delete<R>(url: string): ApiPromise<R> {
+    return processRequest(url, this.clientDelete<R>(url));
+  }
+}
+
+function processRequest<D>(endpoint: string, promise: AxiosPromise<ApiResponse<D>>): ApiPromise<D> {
+  const DEFAULT_API_RESPONSE: ApiResponse<null> = Object.freeze({
+    payload: null,
+    message: {
+      message: 'Request failed. Please check your Internet connection.',
+      type: StatusMessageType.ERROR,
+    },
+  });
+
+  return promise
+    .then((response: AxiosResponse<ApiResponse<D>>) => {
+      const apiResponse: ApiResponse<D> = response.data;
+
+      if (process.env.NODE_ENV === 'development') {
+        console.info(`[API] ${endpoint} : ${apiResponse.message}`);
+      }
+
+      return apiResponse;
+    })
+    .catch((error: AxiosError<ApiResponse<D>>) => {
+      const apiResponse: ApiResponse<D> = error.response?.data ?? DEFAULT_API_RESPONSE;
+
+      if (process.env.NODE_ENV === 'development') {
+        console.error(`[API] ${endpoint} : ${apiResponse.message}`);
+      }
+
+      throw apiResponse;
+    });
+}
+
+export default BaseAPI;
