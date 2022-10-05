@@ -6,9 +6,9 @@ import AxiosClient from './axiosClient';
 
 import { saveAuthHeaders, setAuthHeaders } from './helpers/authHeaders';
 
-type Props = {
+interface Props {
   children: ReactElement;
-};
+}
 
 const AxiosInterceptor = ({ children }: Props) => {
   const { enqueueSnackbar } = useSnackbar();
