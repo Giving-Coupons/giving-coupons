@@ -1,2 +1,6 @@
-json.extract! interest, :id, :created_at, :updated_at
-json.url interest_url(interest, format: :json)
+# frozen_string_literal: true
+
+json.key_format! camelize: :lower
+json.extract! interest, :id, :donor_name, :donor_email, :campaign_name, :campaign_description, :promised_amount,
+              :start, :end, :status
+json.charities interest.charities, partial: 'charities/charity', as: :charity
