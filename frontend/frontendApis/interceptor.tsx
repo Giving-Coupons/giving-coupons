@@ -19,6 +19,7 @@ const AxiosInterceptor = ({ children }: Props) => {
       setAuthHeaders(requestConfig),
     );
 
+    // We do not know the type of ApiResponse<D> so we use null to get type information about StatusMessage
     const responseInterceptor = AxiosClient.instance.interceptors.response.use(
       (response: AxiosResponse<ApiResponse<null>>) => {
         const statusMessage = response?.data?.message?.message;
