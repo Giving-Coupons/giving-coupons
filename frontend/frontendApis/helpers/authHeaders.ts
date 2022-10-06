@@ -1,6 +1,10 @@
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
 import Cookies from 'js-cookie';
 
+export function isAuthHeaderSaved(): boolean {
+  return Boolean(Cookies.get('authHeaders'));
+}
+
 export function setAuthHeaders(requestConfig: AxiosRequestConfig) {
   const rawAuthHeaders = Cookies.get('authHeaders');
   if (!rawAuthHeaders) {
