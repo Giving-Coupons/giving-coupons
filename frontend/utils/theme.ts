@@ -1,11 +1,18 @@
 import { createTheme } from '@mui/material/styles';
+import { alpha } from '@mui/material';
 
 declare module '@mui/material/styles' {
   interface Palette {
     contrast: Palette['primary'];
+    primaryTranslucent: Palette['primary'];
+    secondaryTranslucent: Palette['primary'];
+    overlayTranslucent: Palette['primary'];
   }
   interface PaletteOptions {
     contrast: PaletteOptions['primary'];
+    primaryTranslucent: PaletteOptions['primary'];
+    secondaryTranslucent: PaletteOptions['primary'];
+    overlayTranslucent: PaletteOptions['primary'];
   }
 }
 
@@ -27,6 +34,16 @@ export const theme = createTheme({
       light: '#BDE7FF',
       main: '#1E76DD',
       dark: '#002584',
+    },
+    primaryTranslucent: {
+      main: alpha('#FF7200', 0.5),
+    },
+    secondaryTranslucent: {
+      light: alpha('#FFE7AB', 0.5),
+      main: alpha('#FFC428', 0.5),
+    },
+    overlayTranslucent: {
+      main: alpha('#0B0B0C', 0.6),
     },
     error: {
       main: '#FF4343',
