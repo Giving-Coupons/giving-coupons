@@ -9,6 +9,7 @@ class ApplicationController < ActionController::API
 
   before_action :underscore_params!
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :set_default_request_format
 
   protected
 
@@ -26,6 +27,10 @@ class ApplicationController < ActionController::API
   end
 
   private
+
+  def set_default_request_format
+    request.format = :json
+  end
 
   # Convert all JSON keys from camelCase to snake_case
   def underscore_params!
