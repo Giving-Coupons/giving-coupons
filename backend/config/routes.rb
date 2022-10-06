@@ -8,6 +8,8 @@ Rails.application.routes.draw do
         registrations: 'auth/registrations',
         sessions: 'auth/sessions'
       }
+
+      resources :interests
     end
   end
 end
