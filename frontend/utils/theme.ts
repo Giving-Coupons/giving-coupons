@@ -49,6 +49,7 @@ export const theme = createTheme({
           style: {
             borderRadius: 30,
             boxShadow: '0px 0px 8px 0px #FF9315',
+            fontWeight: 700,
           },
         },
         {
