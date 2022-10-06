@@ -9,7 +9,7 @@ class ApplicationController < ActionController::API
 
   before_action :underscore_params!
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :set_default_request_format
+  before_action :force_request_accept_header_to_json
 
   protected
 
@@ -28,7 +28,12 @@ class ApplicationController < ActionController::API
 
   private
 
-  def set_default_request_format
+  # Ruby on Rails does not follow the HTTP ACCEPT header spec. As long as '*/*' appears in it, rails will return HTML,
+  # even if the client requests 'application/json' as more preferable. As we only support JSON in this server, rails
+  # will be unable to create the layout and will return 500: Internal Server Error.
+  # To fix this issue, as a workaround we will force rails to treat every request as accepting JSON since that is the
+  # only response type we support anyway.
+  def force_request_accept_header_to_json
     request.format = :json
   end
 
