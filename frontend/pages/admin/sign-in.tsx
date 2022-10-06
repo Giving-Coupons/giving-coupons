@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import api from '../../frontendApis';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -7,13 +7,14 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import PersonAddOutlinedIcon from '@mui/icons-material/PersonAdd';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from 'next/link';
 import { adminLoginDataSchema } from '../../types/admin';
 import { useSnackbar } from 'notistack';
 import { useRouter } from 'next/router';
+import { isAuthHeaderSaved } from '../../frontendApis/helpers/authHeaders';
+import { LockOpenOutlined } from '@mui/icons-material';
 
 const adminApi = api.admin;
 
@@ -22,9 +23,14 @@ interface FormState {
   password?: string;
 }
 
-const SignUp: NextPage = () => {
+const SignIn: NextPage = () => {
   const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
+  useEffect(() => {
+    if (!isAuthHeaderSaved()) {
+      router.push('/admin/sign-in');
+    }
+  });
   const [formState, setFormState] = useState<FormState>({
     username: '',
     password: '',
@@ -71,10 +77,10 @@ const SignUp: NextPage = () => {
         }}
       >
         <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-          <PersonAddOutlinedIcon />
+          <LockOpenOutlined />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          Sign in
         </Typography>
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
@@ -92,7 +98,7 @@ const SignUp: NextPage = () => {
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            Sign Up
+            Sign In
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
@@ -105,4 +111,4 @@ const SignUp: NextPage = () => {
   );
 };
 
-export default SignUp;
+export default SignIn;
