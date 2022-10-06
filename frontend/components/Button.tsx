@@ -24,6 +24,8 @@ const Button = ({ actionType, children, ...rest }: Props) => {
           {children}
         </MuiButton>
       );
+    default:
+      return null;
   }
 };
 

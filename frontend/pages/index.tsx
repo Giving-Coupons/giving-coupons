@@ -26,36 +26,47 @@ const Home: NextPage = () => {
           <Typography variant="h1" align="center">
             [h1] This is our app&apos;s theme
           </Typography>
+
           <Typography variant="h2" align="center">
             [h2] Refer to index.tsx to see some examples
           </Typography>
+
           <Typography variant="h3" align="center">
             [h3] Refer to index.tsx to see some examples
           </Typography>
+
           <Typography variant="h4" align="center">
             [h4] Refer to index.tsx to see some examples
           </Typography>
+
           <Typography variant="h5" align="center">
             [h5] Why are you still reading this
           </Typography>
+
           <Typography variant="h6" align="center">
             [h6] Why are you still reading this
           </Typography>
+
           <Typography variant="subtitle1" align="center" sx={contrastText}>
             [subtitle1] Test contrasting color
           </Typography>
+
           <Typography variant="subtitle2" align="center" sx={contrastText}>
             [subtitle2] Test contrasting color
           </Typography>
+
           <Typography variant="body1" align="center" sx={contrastText}>
             [body1] Test contrasting color
           </Typography>
+
           <Typography variant="body2" align="center" sx={contrastText}>
             [body2] Test contrasting color
           </Typography>
+
           <Typography variant="button" align="center" sx={contrastText}>
             [button] Test contrasting color
           </Typography>
+
           <Typography variant="caption" align="center" sx={contrastText}>
             [caption] Test contrasting color
           </Typography>
