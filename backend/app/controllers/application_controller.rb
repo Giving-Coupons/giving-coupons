@@ -33,10 +33,9 @@ class ApplicationController < ActionController::API
   end
 
   rescue_from ActiveRecord::StatementInvalid, ActionController::ParameterMissing do |e|
-    add_error_message 'Request contains invalid or malformed parameters.'
+    add_error_message "Request contains invalid or malformed parameters: #{e}"
     render 'layouts/empty', status: :bad_request
   end
-
 
   rescue_from ActiveRecord::RecordInvalid, ArgumentError do |e|
     add_error_message e
