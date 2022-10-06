@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import api from '../../frontendApis';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -13,7 +13,7 @@ import Link from 'next/link';
 import { adminLoginDataSchema } from '../../types/admin';
 import { useSnackbar } from 'notistack';
 import { useRouter } from 'next/router';
-import { isAuthHeaderSaved } from '../../frontendApis/helpers/authHeaders';
+import useAdminLoginCheck from '../../hooks/useAdminLogInCheck';
 import { LockOpenOutlined } from '@mui/icons-material';
 
 const adminApi = api.admin;
@@ -26,11 +26,7 @@ interface FormState {
 const SignIn: NextPage = () => {
   const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
-  useEffect(() => {
-    if (!isAuthHeaderSaved()) {
-      router.push('/admin/sign-in');
-    }
-  });
+  useAdminLoginCheck();
   const [formState, setFormState] = useState<FormState>({
     username: '',
     password: '',

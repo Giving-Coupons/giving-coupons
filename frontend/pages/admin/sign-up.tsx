@@ -14,6 +14,7 @@ import Link from 'next/link';
 import { adminPostDataSchema } from '../../types/admin';
 import { useSnackbar } from 'notistack';
 import { useRouter } from 'next/router';
+import useAdminLoginCheck from '../../hooks/useAdminLogInCheck';
 
 const adminApi = api.admin;
 
@@ -26,6 +27,7 @@ interface FormState {
 
 const SignUp: NextPage = () => {
   const { enqueueSnackbar } = useSnackbar();
+  useAdminLoginCheck();
   const router = useRouter();
   const [formState, setFormState] = useState<FormState>({
     username: '',
