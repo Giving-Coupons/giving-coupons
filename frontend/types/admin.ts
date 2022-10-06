@@ -5,10 +5,12 @@ export interface AdminData {
   username: string;
 }
 
-export interface AdminLoginData {
-  username: string;
-  password: string;
-}
+export const adminLoginDataSchema = object({
+  username: string().required(),
+  password: string().required(),
+});
+
+export type AdminLoginData = InferType<typeof adminLoginDataSchema>;
 
 export const adminPostDataSchema = object({
   username: string().required(),
