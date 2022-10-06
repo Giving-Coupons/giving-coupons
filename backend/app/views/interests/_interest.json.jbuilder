@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-json.key_format! camelize: :lower
 json.id interest.id
 json.donorName interest.donor_name
 json.donorEmail interest.donor_email
