@@ -32,6 +32,12 @@ class ApplicationController < ActionController::API
     params.deep_transform_keys!(&:underscore)
   end
 
+  rescue_from ActiveRecord::StatementInvalid, ActionController::ParameterMissing do |e|
+    add_error_message 'Request contains invalid or malformed parameters.'
+    render 'layouts/empty', status: :bad_request
+  end
+
+
   rescue_from ActiveRecord::RecordInvalid, ArgumentError do |e|
     add_error_message e
     render 'layouts/empty', status: :unprocessable_entity
