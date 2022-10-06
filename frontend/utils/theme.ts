@@ -10,6 +10,9 @@ declare module '@mui/material/styles' {
 }
 
 export const theme = createTheme({
+  typography: {
+    fontFamily: `"Urbanist", sans-serif`,
+  },
   palette: {
     primary: {
       light: '#FFE4AE',
