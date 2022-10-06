@@ -1,54 +1,18 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Button from '../components/Button';
-import { Box, Stack, SxProps } from '@mui/system';
-import { theme } from '../utils/theme';
-import { Grid } from '@mui/material';
-
-const examplesContainerSx: SxProps = {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-};
-
-const buttonSx: SxProps = {
-  width: '50%',
-  margin: '10px 0px',
-};
-
-const imageContainerSx: SxProps = {
-  position: 'relative',
-};
-
-const imageOverlaySx: SxProps = {
-  width: '100%',
-  height: '100%',
-  position: 'absolute',
-  backgroundColor: theme.palette.overlayTranslucent.main,
-  zIndex: 10,
-};
-
-const graphSx: SxProps = {
-  position: 'absolute',
-  bottom: '2em',
-  left: '50%',
-  transform: 'translate(-50%, 0)',
-  width: '90%',
-  height: '2em',
-  zIndex: 20,
-};
-
-const primaryTranslucentOverlaySx: SxProps = {
-  textAlign: 'center',
-  color: '#FFFFFF',
-  backgroundColor: theme.palette.primaryTranslucent.main,
-};
-
-const secondaryTranslucentOverlaySx: SxProps = {
-  textAlign: 'center',
-  color: '#FFFFFF',
-  backgroundColor: theme.palette.secondaryTranslucent.main,
-};
+import { Box, Stack } from '@mui/system';
+import { Grid, Typography } from '@mui/material';
+import {
+  buttonSx,
+  contrastText,
+  examplesContainerSx,
+  graphSx,
+  imageContainerSx,
+  imageOverlaySx,
+  primaryTranslucentOverlaySx,
+  secondaryTranslucentOverlaySx,
+} from '../styles/indexStyles';
 
 const Home: NextPage = () => {
   return (
@@ -59,7 +23,42 @@ const Home: NextPage = () => {
 
       <main>
         <Stack spacing={2}>
-          <h1>This is our app&apos;s theme</h1>
+          <Typography variant="h1" align="center">
+            [h1] This is our app&apos;s theme
+          </Typography>
+          <Typography variant="h2" align="center">
+            [h2] Refer to index.tsx to see some examples
+          </Typography>
+          <Typography variant="h3" align="center">
+            [h3] Refer to index.tsx to see some examples
+          </Typography>
+          <Typography variant="h4" align="center">
+            [h4] Refer to index.tsx to see some examples
+          </Typography>
+          <Typography variant="h5" align="center">
+            [h5] Why are you still reading this
+          </Typography>
+          <Typography variant="h6" align="center">
+            [h6] Why are you still reading this
+          </Typography>
+          <Typography variant="subtitle1" align="center" sx={contrastText}>
+            [subtitle1] Test contrasting color
+          </Typography>
+          <Typography variant="subtitle2" align="center" sx={contrastText}>
+            [subtitle2] Test contrasting color
+          </Typography>
+          <Typography variant="body1" align="center" sx={contrastText}>
+            [body1] Test contrasting color
+          </Typography>
+          <Typography variant="body2" align="center" sx={contrastText}>
+            [body2] Test contrasting color
+          </Typography>
+          <Typography variant="button" align="center" sx={contrastText}>
+            [button] Test contrasting color
+          </Typography>
+          <Typography variant="caption" align="center" sx={contrastText}>
+            [caption] Test contrasting color
+          </Typography>
 
           <Box sx={examplesContainerSx}>
             <Box sx={imageContainerSx}>

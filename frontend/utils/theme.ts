@@ -19,6 +19,30 @@ declare module '@mui/material/styles' {
 export const theme = createTheme({
   typography: {
     fontFamily: `"Urbanist", sans-serif`,
+    h1: {
+      fontSize: '2em',
+      fontWeight: 700,
+    },
+    h2: {
+      fontSize: '1.5em',
+      fontWeight: 700,
+    },
+    h3: {
+      fontSize: '1.3em',
+      fontWeight: 700,
+    },
+    h4: {
+      fontSize: '1em',
+      fontWeight: 700,
+    },
+    h5: {
+      fontSize: '0.8em',
+      fontWeight: 700,
+    },
+    h6: {
+      fontSize: '0.7em',
+      fontWeight: 700,
+    },
   },
   palette: {
     primary: {
