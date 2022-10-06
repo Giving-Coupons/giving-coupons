@@ -9,7 +9,6 @@ Rails.application.routes.draw do
         sessions: 'auth/sessions'
       }
 
-
       resources :interests
       resources :primary_donors
     end
