@@ -5,6 +5,10 @@ export function isAuthHeaderSaved(): boolean {
   return Boolean(Cookies.get('authHeaders'));
 }
 
+export function unsetAuthHeaders() {
+  Cookies.remove('authHeaders');
+}
+
 export function setAuthHeaders(requestConfig: AxiosRequestConfig) {
   const rawAuthHeaders = Cookies.get('authHeaders');
   if (!rawAuthHeaders) {
