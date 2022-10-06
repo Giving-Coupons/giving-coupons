@@ -98,7 +98,7 @@ const SignIn: NextPage = () => {
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link href="/admin/sign-up">Don't have an account? Sign up</Link>
+              <Link href="/admin/sign-up">{`Don't have an account? Sign up`}</Link>
             </Grid>
           </Grid>
         </Box>
