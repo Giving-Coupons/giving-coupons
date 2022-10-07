@@ -4,7 +4,7 @@ import Link from 'next/link';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useState } from 'react';
 import NavDrawer from './NavDrawer';
-import { navigationTextPathMap } from '../utils/routes';
+import { isTabForCurrentPage, navigationTextPathMap } from '../utils/routes';
 import { useRouter } from 'next/router';
 import { theme } from '../utils/theme';
 
@@ -24,13 +24,6 @@ const NavBar = () => {
   const router = useRouter();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [drawerIsOpen, setDrawerIsOpen] = useState<boolean>(false);
-
-  const isTabForCurrentPage = (tabPath: string) => {
-    const fullPath = router.pathname;
-    const pathParts = fullPath.split('/');
-    const pathSubdirectory = pathParts.length > 1 ? '/' + pathParts[1] : '/';
-    return tabPath === pathSubdirectory;
-  };
 
   return (
     <AppBar position="sticky" elevation={0}>
@@ -54,7 +47,7 @@ const NavBar = () => {
             {navigationTextPathMap.entrySeq().map((pair) => (
               <Link key={pair[0]} href={pair[1]}>
                 <a>
-                  <Box sx={isTabForCurrentPage(pair[1]) ? activeTabSx : inactiveTabSx}>
+                  <Box sx={isTabForCurrentPage(pair[1], router.pathname) ? activeTabSx : inactiveTabSx}>
                     <Typography variant="h4">{pair[0]}</Typography>
                   </Box>
                 </a>
