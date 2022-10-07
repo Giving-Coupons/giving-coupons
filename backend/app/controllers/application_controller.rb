@@ -41,4 +41,19 @@ class ApplicationController < ActionController::API
   def underscore_params!
     params.deep_transform_keys!(&:underscore)
   end
+
+  rescue_from ActiveRecord::StatementInvalid, ActionController::ParameterMissing do |e|
+    add_error_message "Request contains invalid or malformed parameters: #{e}"
+    render 'layouts/empty', status: :bad_request
+  end
+
+  rescue_from ActiveRecord::RecordInvalid, ArgumentError do |e|
+    add_error_message e
+    render 'layouts/empty', status: :unprocessable_entity
+  end
+
+  rescue_from ActiveRecord::RecordNotFound do |e|
+    add_error_message "#{e.model} not found!"
+    render 'layouts/empty', status: :not_found
+  end
 end
