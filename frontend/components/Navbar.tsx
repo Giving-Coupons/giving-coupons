@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, useMediaQuery } from '@mui/material';
+import { AppBar, Toolbar, Typography, useMediaQuery } from '@mui/material';
 import { Stack, useTheme } from '@mui/system';
 import Link from 'next/link';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -12,20 +12,24 @@ const NavBar = () => {
   const [drawerIsOpen, setDrawerIsOpen] = useState<boolean>(false);
 
   return (
-    <AppBar position="sticky">
+    <AppBar position="sticky" elevation={0}>
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Stack direction="row" spacing={1} sx={{ display: 'flex', alignItems: 'center' }}>
-          {isMobile && <MenuIcon onClick={() => setDrawerIsOpen(true)} />}
+        <Stack direction="row" spacing={1} sx={{ display: 'flex', alignItems: 'center' }} component="div">
+          {isMobile && <MenuIcon color="primary" onClick={() => setDrawerIsOpen(true)} />}
           <Link href="/">
-            <a>Giving Coupons</a>
+            <a>
+              <Typography variant={isMobile ? 'h4' : 'h3'}>Giving Coupons</Typography>
+            </a>
           </Link>
         </Stack>
 
         {!isMobile && (
-          <Stack direction="row" spacing={2}>
+          <Stack direction="row" spacing={2} component="div">
             {navigationTextPathMap.entrySeq().map((pair) => (
               <Link key={pair[0]} href={pair[1]}>
-                <a>{pair[0]}</a>
+                <a>
+                  <Typography variant="h4">{pair[0]}</Typography>
+                </a>
               </Link>
             ))}
           </Stack>

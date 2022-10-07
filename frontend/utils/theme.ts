@@ -83,6 +83,14 @@ export const theme = createTheme({
     },
   },
   components: {
+    MuiAppBar: {
+      styleOverrides: {
+        colorPrimary: {
+          color: '#000000',
+          backgroundColor: alpha('#FFFFFF', 0.9),
+        },
+      },
+    },
     MuiButton: {
       variants: [
         {
