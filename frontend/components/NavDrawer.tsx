@@ -1,8 +1,9 @@
-import { Drawer, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
+import { Drawer, List, ListItem, ListItemButton, ListItemText, Typography } from '@mui/material';
 import { navigationTextPathMap } from '../utils/routes';
 import { Dispatch, SetStateAction } from 'react';
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+import CloseIcon from '@mui/icons-material/Close';
 import Button from '@mui/material/Button';
+import { useTheme } from '@mui/system';
 
 interface Props {
   isOpen: boolean;
@@ -10,16 +11,18 @@ interface Props {
 }
 
 const NavDrawer = ({ isOpen, setIsOpen }: Props) => {
+  const theme = useTheme();
+
   return (
     <Drawer anchor="left" open={isOpen} onClose={() => setIsOpen(false)}>
       <List>
         <ListItem>
-          <ListItem sx={{ display: 'flex', justifyContent: 'end' }}>
+          <ListItem sx={{ display: 'flex', justifyContent: 'start' }}>
             <Button
               sx={{ borderRadius: '100%', padding: 0, minHeight: 0, minWidth: 0 }}
               onClick={() => setIsOpen(false)}
             >
-              <KeyboardArrowLeftIcon />
+              <CloseIcon sx={{ color: theme.palette.neutral.main }} />
             </Button>
           </ListItem>
         </ListItem>
@@ -27,7 +30,9 @@ const NavDrawer = ({ isOpen, setIsOpen }: Props) => {
         {navigationTextPathMap.entrySeq().map((pair) => (
           <ListItem key={pair[0]}>
             <ListItemButton href={pair[1]} component="a">
-              <ListItemText primary={pair[0]} />
+              <ListItemText>
+                <Typography variant="h4">{pair[0]}</Typography>
+              </ListItemText>
             </ListItemButton>
           </ListItem>
         ))}
