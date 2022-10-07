@@ -1,23 +1,19 @@
 import { AppBar, Toolbar, Typography, useMediaQuery } from '@mui/material';
-import { Box, Stack, SxProps, useTheme } from '@mui/system';
+import { Box, Stack, useTheme } from '@mui/system';
 import Link from 'next/link';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useState } from 'react';
 import NavDrawer from './NavDrawer';
 import { isTabForCurrentPage, navigationTextPathMap } from '../utils/routes';
 import { useRouter } from 'next/router';
-import { theme } from '../utils/theme';
-
-const inactiveTabSx: SxProps = {
-  padding: '4px 16px',
-};
-
-const activeTabSx: SxProps = {
-  ...inactiveTabSx,
-  color: theme.palette.primary.main,
-  borderBottom: '4px solid',
-  borderBottomColor: theme.palette.primary.main,
-};
+import {
+  activeTabSx,
+  inactiveTabSx,
+  toolbarHamburgerSx,
+  toolbarLeftContainerSx,
+  toolbarLogoSx,
+  toolbarSx,
+} from '../styles/components/NavbarStyles';
 
 const NavBar = () => {
   const theme = useTheme();
@@ -27,14 +23,14 @@ const NavBar = () => {
 
   return (
     <AppBar position="sticky" elevation={0}>
-      <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Stack direction="row" spacing={1} sx={{ display: 'flex', alignItems: 'center' }} component="div">
+      <Toolbar sx={toolbarSx}>
+        <Stack direction="row" spacing={1} sx={toolbarLeftContainerSx} component="div">
           {isMobile && <MenuIcon color="primary" onClick={() => setDrawerIsOpen(true)} />}
 
           <Link href="/">
             <a>
-              <Stack direction="row" component="div" spacing={1} sx={{ display: 'flex', alignItems: 'center' }}>
-                {!isMobile && <Box sx={{ height: '1.5em' }} component="img" src="/logo.png" />}
+              <Stack direction="row" component="div" spacing={1} sx={toolbarLogoSx}>
+                {!isMobile && <Box sx={toolbarHamburgerSx} component="img" src="/logo.png" />}
 
                 <Typography variant={isMobile ? 'h4' : 'h3'}>Giving Coupons</Typography>
               </Stack>
