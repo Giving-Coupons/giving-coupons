@@ -23,7 +23,7 @@ const NavDrawer = ({ isOpen, setIsOpen }: Props) => {
   const router = useRouter();
 
   return (
-    <Drawer anchor="left" open={isOpen} onClose={() => setIsOpen(false)} PaperProps={{ sx: drawerPaperSx }}>
+    <Drawer PaperProps={{ sx: drawerPaperSx }} anchor="left" open={isOpen} onClose={() => setIsOpen(false)}>
       <List>
         <ListItem sx={headerListItemSx}>
           <Button sx={closeButtonSx} onClick={() => setIsOpen(false)}>
@@ -34,9 +34,9 @@ const NavDrawer = ({ isOpen, setIsOpen }: Props) => {
         {navigationTextPathMap.entrySeq().map((pair) => (
           <ListItem key={pair[0]} sx={tabListItemSx}>
             <ListItemButton
-              href={pair[1]}
-              component="a"
               sx={isTabForCurrentPage(pair[1], router.pathname) ? activeTabSx : inactiveTabSx}
+              component="a"
+              href={pair[1]}
             >
               <ListItemText>
                 <Typography variant="h4">{pair[0]}</Typography>

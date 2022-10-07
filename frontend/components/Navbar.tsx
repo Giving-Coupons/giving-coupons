@@ -24,12 +24,12 @@ const NavBar = () => {
   return (
     <AppBar position="sticky" elevation={0}>
       <Toolbar sx={toolbarSx}>
-        <Stack direction="row" spacing={1} sx={toolbarLeftContainerSx} component="div">
+        <Stack sx={toolbarLeftContainerSx} component="div" direction="row" spacing={1}>
           {isMobile && <MenuIcon color="primary" onClick={() => setDrawerIsOpen(true)} />}
 
           <Link href="/">
             <a>
-              <Stack direction="row" component="div" spacing={1} sx={toolbarLogoSx}>
+              <Stack sx={toolbarLogoSx} component="div" direction="row" spacing={1}>
                 {!isMobile && <Box sx={toolbarHamburgerSx} component="img" src="/logo.png" />}
 
                 <Typography variant={isMobile ? 'h4' : 'h3'}>Giving Coupons</Typography>
@@ -39,7 +39,7 @@ const NavBar = () => {
         </Stack>
 
         {!isMobile && (
-          <Stack direction="row" component="div">
+          <Stack component="div" direction="row">
             {navigationTextPathMap.entrySeq().map((pair) => (
               <Link key={pair[0]} href={pair[1]}>
                 <a>
