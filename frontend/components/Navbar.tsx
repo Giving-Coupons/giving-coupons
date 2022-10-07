@@ -1,15 +1,36 @@
 import { AppBar, Toolbar, Typography, useMediaQuery } from '@mui/material';
-import { Box, Stack, useTheme } from '@mui/system';
+import { Box, Stack, SxProps, useTheme } from '@mui/system';
 import Link from 'next/link';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useState } from 'react';
 import NavDrawer from './NavDrawer';
 import { navigationTextPathMap } from '../utils/routes';
+import { useRouter } from 'next/router';
+import { theme } from '../utils/theme';
+
+const inactiveTabSx: SxProps = {
+  padding: '4px 16px',
+};
+
+const activeTabSx: SxProps = {
+  ...inactiveTabSx,
+  color: theme.palette.primary.main,
+  borderBottom: '4px solid',
+  borderBottomColor: theme.palette.primary.main,
+};
 
 const NavBar = () => {
   const theme = useTheme();
+  const router = useRouter();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [drawerIsOpen, setDrawerIsOpen] = useState<boolean>(false);
+
+  const isTabForCurrentPage = (tabPath: string) => {
+    const fullPath = router.pathname;
+    const pathParts = fullPath.split('/');
+    const pathSubdirectory = pathParts.length > 1 ? '/' + pathParts[1] : '/';
+    return tabPath === pathSubdirectory;
+  };
 
   return (
     <AppBar position="sticky" elevation={0}>
@@ -20,7 +41,7 @@ const NavBar = () => {
           <Link href="/">
             <a>
               <Stack direction="row" component="div" spacing={1} sx={{ display: 'flex', alignItems: 'center' }}>
-                {!isMobile && <Box sx={{ height: '1.5em' }} component="img" src="logo.png" />}
+                {!isMobile && <Box sx={{ height: '1.5em' }} component="img" src="/logo.png" />}
 
                 <Typography variant={isMobile ? 'h4' : 'h3'}>Giving Coupons</Typography>
               </Stack>
@@ -29,11 +50,13 @@ const NavBar = () => {
         </Stack>
 
         {!isMobile && (
-          <Stack direction="row" spacing={2} component="div">
+          <Stack direction="row" component="div">
             {navigationTextPathMap.entrySeq().map((pair) => (
               <Link key={pair[0]} href={pair[1]}>
                 <a>
-                  <Typography variant="h4">{pair[0]}</Typography>
+                  <Box sx={isTabForCurrentPage(pair[1]) ? activeTabSx : inactiveTabSx}>
+                    <Typography variant="h4">{pair[0]}</Typography>
+                  </Box>
                 </a>
               </Link>
             ))}

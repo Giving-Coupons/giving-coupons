@@ -75,7 +75,7 @@ const Home: NextPage = () => {
           <Box sx={imageContainerSx}>
             <Box sx={imageOverlaySx} />
 
-            <Box sx={imageSx} component="img" src="sample.png" />
+            <Box sx={imageSx} component="img" src="/sample.png" />
 
             <Grid container sx={graphSx}>
               <Grid item xs={7} sx={primaryTranslucentOverlaySx}>
