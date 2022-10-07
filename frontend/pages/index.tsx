@@ -10,6 +10,7 @@ import {
   graphSx,
   imageContainerSx,
   imageOverlaySx,
+  imageSx,
   primaryTranslucentOverlaySx,
   secondaryTranslucentOverlaySx,
 } from '../styles/indexStyles';
@@ -74,14 +75,14 @@ const Home: NextPage = () => {
           <Box sx={imageContainerSx}>
             <Box sx={imageOverlaySx} />
 
-            <Box component="img" src="sample.png" />
+            <Box sx={imageSx} component="img" src="sample.png" />
 
             <Grid container sx={graphSx}>
-              <Grid xs={7} sx={primaryTranslucentOverlaySx}>
+              <Grid item xs={7} sx={primaryTranslucentOverlaySx}>
                 Primary Translucent
               </Grid>
 
-              <Grid xs={5} sx={secondaryTranslucentOverlaySx}>
+              <Grid item xs={5} sx={secondaryTranslucentOverlaySx}>
                 Secondary Translucent
               </Grid>
             </Grid>
