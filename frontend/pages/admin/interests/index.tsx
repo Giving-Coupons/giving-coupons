@@ -1,4 +1,3 @@
-import { css } from '@emotion/react';
 import React from 'react';
 import SimpleTable from '../../../components/SimpleTable';
 import { Interest, InterestStatus } from '../../../types/interest';

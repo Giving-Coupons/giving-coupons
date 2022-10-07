@@ -10,6 +10,7 @@ import Paper from '@mui/material/Paper';
 type TableColumn<D> = {
   title: string;
   key: keyof D;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   transformValue?: (value: any) => React.ReactNode;
 };
 
@@ -24,16 +25,16 @@ export default function SimpleTable<D>({ columns, rows }: Props<D>) {
       <Table>
         <TableHead>
           <TableRow>
-            {columns.map(({ title }) => (
-              <TableCell>{title}</TableCell>
+            {columns.map(({ title }, index) => (
+              <TableCell key={index}>{title}</TableCell>
             ))}
           </TableRow>
         </TableHead>
         <TableBody>
           {rows.map((row, index) => (
             <TableRow key={index}>
-              {columns.map(({ key, transformValue = (value) => value }) => (
-                <TableCell>{transformValue(row[key])}</TableCell>
+              {columns.map(({ key, transformValue = (value) => value }, index) => (
+                <TableCell key={index}>{transformValue(row[key])}</TableCell>
               ))}
             </TableRow>
           ))}
