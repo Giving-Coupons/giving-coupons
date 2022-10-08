@@ -6,7 +6,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Grid } from '@mui/material';
+import { CircularProgress, Grid } from '@mui/material';
 
 type TableColumn<D> = {
   title: string;
@@ -19,9 +19,12 @@ type Props<D> = {
   columns: TableColumn<D>[];
   rows: D[];
   actions?: React.ReactNode[];
+  isLoading?: boolean;
 };
 
-export default function SimpleTable<D>({ columns, rows, actions }: Props<D>) {
+export default function SimpleTable<D>({ columns, rows, actions, isLoading }: Props<D>) {
+  const numColumns = columns.length + (actions ? actions.length : 0);
+
   return (
     <TableContainer component={Paper}>
       <Table>
@@ -34,6 +37,11 @@ export default function SimpleTable<D>({ columns, rows, actions }: Props<D>) {
           </TableRow>
         </TableHead>
         <TableBody>
+          {isLoading && (
+            <TableCell colSpan={numColumns} align="center">
+              <CircularProgress />
+            </TableCell>
+          )}
           {rows.map((row, index) => (
             <TableRow key={index}>
               {columns.map(({ key, transformValue = (value) => value }, index) => (
