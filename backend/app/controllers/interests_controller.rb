@@ -57,7 +57,8 @@ class InterestsController < ApplicationController
   def destroy
     @interest.destroy!
 
-    show_success_message "Interest for \"#{@interest.donor_name}\" successfully deleted!"
+    add_success_message "Interest for \"#{@interest.donor_name}\" successfully deleted!"
+    render 'layouts/empty', status: :ok
   end
 
   private
