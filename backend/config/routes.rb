@@ -9,7 +9,12 @@ Rails.application.routes.draw do
         sessions: 'auth/sessions'
       }
 
-      resources :interests
+      resources :interests do
+        member do
+          post 'approve'
+          post 'reject'
+        end
+      end
       resources :primary_donors
     end
   end

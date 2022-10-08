@@ -29,7 +29,7 @@ class BaseAPI {
     return processRequest(url, this.clientGet(url, config));
   }
 
-  protected post<D, R>(url: string, data: D): ApiPromise<R> {
+  protected post<D, R>(url: string, data?: D): ApiPromise<R> {
     return processRequest(url, this.clientPost(url, data));
   }
 

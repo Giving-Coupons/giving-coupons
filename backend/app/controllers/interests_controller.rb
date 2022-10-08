@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class InterestsController < ApplicationController
-  before_action :set_interest, only: %i[show update destroy]
+  before_action :set_interest, only: %i[show update approve reject destroy]
 
   wrap_parameters format: :json, include: %w[donorName donorEmail campaignName campaignDescription promisedAmount start
                                              end status couponDenomination charityIds]
@@ -23,6 +23,34 @@ class InterestsController < ApplicationController
     @interest.update!(interest_params)
 
     add_success_message "Interest for \"#{@interest.donor_name}\" successfully updated!"
+    render :show, status: :ok, location: @interest
+  end
+
+  def approve
+    can_update_status = @interest.pending?
+    unless can_update_status
+      add_error_message "This interest has already been #{@interest.status}!"
+      render :show, status: :bad_request, location: @interest
+      return
+    end
+
+    @interest.approve
+
+    add_success_message "Interest for \"#{@interest.donor_name}\" successfully approved!"
+    render :show, status: :ok, location: @interest
+  end
+
+  def reject
+    can_update_status = @interest.pending?
+    unless can_update_status
+      add_error_message "This interest has already been #{@interest.status}!"
+      render :show, status: :bad_request, location: @interest
+      return
+    end
+
+    @interest.reject
+
+    add_success_message "Interest for \"#{@interest.donor_name}\" successfully rejected!"
     render :show, status: :ok, location: @interest
   end
 

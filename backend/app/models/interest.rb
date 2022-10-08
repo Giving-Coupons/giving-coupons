@@ -18,7 +18,7 @@ class Interest < ApplicationRecord
   validates :charities, presence: true
 
   def approve
-    return if approved?
+    return unless pending?
 
     self.status = :approved
 
@@ -38,6 +38,13 @@ class Interest < ApplicationRecord
       charities: charities
     )
 
+    save!
+  end
+
+  def reject
+    return unless pending?
+
+    self.status = :rejected
     save!
   end
 end
