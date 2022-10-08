@@ -1,7 +1,8 @@
-import { Box, Stack, SxProps } from '@mui/system';
+import { Box, Container, Stack, SxProps } from '@mui/system';
 import { theme } from '../utils/theme';
 import { Typography, Grid } from '@mui/material';
 import Button from './Button';
+import ImageWithOverlay from './ImageWithOverlay';
 
 const borderRadius = '20px';
 const graphBorderRadius = '200px';
@@ -13,8 +14,7 @@ const containerSx: SxProps = {
   borderRadius: borderRadius,
 };
 
-export const imageContainerSx: SxProps = {
-  position: 'relative',
+const imageContainerSx: SxProps = {
   minWidth: '100%',
   maxWidth: '100%',
   minHeight: '40%',
@@ -24,31 +24,12 @@ export const imageContainerSx: SxProps = {
   borderTopRightRadius: borderRadius,
 };
 
-export const imageOverlaySx: SxProps = {
-  width: '100%',
-  height: '100%',
-  position: 'absolute',
-  backgroundColor: theme.palette.overlayTranslucent.main,
-  zIndex: 10,
-  borderTopLeftRadius: borderRadius,
-  borderTopRightRadius: borderRadius,
-};
-
-const imageSx: SxProps = {
-  minWidth: '100%',
-  maxWidth: '100%',
-  height: '100%',
-  borderTopLeftRadius: borderRadius,
-  borderTopRightRadius: borderRadius,
-};
-
 const graphContainerSx: SxProps = {
-  position: 'absolute',
-  bottom: '1em',
-  left: '50%',
-  transform: 'translate(-50%, 0)',
-  width: '90%',
-  zIndex: 20,
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'end',
+  height: '100%',
+  paddingBottom: '8px',
 };
 
 const graphSx: SxProps = {
@@ -118,35 +99,35 @@ const buttonSx: SxProps = {
 const DisplayCard = () => {
   return (
     <Stack component="div" sx={containerSx}>
-      <Box sx={imageContainerSx} component="div">
-        <Stack sx={graphContainerSx} component="div" spacing={0.5}>
-          <Box sx={topGraphLabelSx}>
-            <Typography variant="caption" sx={graphLabelSx}>
-              $XX
-            </Typography>
-            <Typography variant="caption" sx={graphLabelSx}>
-              by the primary donor
-            </Typography>
-          </Box>
+      <Box sx={imageContainerSx}>
+        <ImageWithOverlay imageSrc="/sample.png">
+          <Container sx={graphContainerSx} component="div">
+            <Stack component="div" spacing={0.5}>
+              <Box sx={topGraphLabelSx}>
+                <Typography variant="caption" sx={graphLabelSx}>
+                  $XX
+                </Typography>
+                <Typography variant="caption" sx={graphLabelSx}>
+                  by the primary donor
+                </Typography>
+              </Box>
 
-          <Box sx={graphSx}>
-            <Box width={'60%'} sx={leftGraphSx} />
-            <Box width={'40%'} sx={rightGraphSx} />
-          </Box>
+              <Box sx={graphSx}>
+                <Box width={'60%'} sx={leftGraphSx} />
+                <Box width={'40%'} sx={rightGraphSx} />
+              </Box>
 
-          <Box sx={bottomGraphLabelSx}>
-            <Typography variant="caption" sx={graphLabelSx}>
-              $YY
-            </Typography>
-            <Typography variant="caption" sx={graphLabelSx}>
-              by the secondary donor
-            </Typography>
-          </Box>
-        </Stack>
-
-        <Box sx={imageOverlaySx} />
-
-        <Box sx={imageSx} component="img" src="/sample.png" />
+              <Box sx={bottomGraphLabelSx}>
+                <Typography variant="caption" sx={graphLabelSx}>
+                  $YY
+                </Typography>
+                <Typography variant="caption" sx={graphLabelSx}>
+                  by the secondary donor
+                </Typography>
+              </Box>
+            </Stack>
+          </Container>
+        </ImageWithOverlay>
       </Box>
 
       <Box sx={bottomContainerSx} component="div">
