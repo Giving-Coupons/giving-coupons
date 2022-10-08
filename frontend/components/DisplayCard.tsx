@@ -3,9 +3,9 @@ import { theme } from '../utils/theme';
 import { Typography, Grid } from '@mui/material';
 import Button from './Button';
 import ImageWithOverlay from './ImageWithOverlay';
+import CompetingGraph from './CompetingGraph';
 
 const borderRadius = '20px';
-const graphBorderRadius = '200px';
 
 const containerSx: SxProps = {
   alignItems: 'center',
@@ -35,41 +35,6 @@ const graphContainerSx: SxProps = {
 const graphSx: SxProps = {
   height: '1em',
   width: '100%',
-  display: 'flex',
-};
-
-const graphLabelSx: SxProps = {
-  color: '#FFFFFF',
-  fontWeight: 600,
-  lineHeight: 1.2,
-};
-
-const topGraphLabelSx: SxProps = {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'start',
-};
-
-const bottomGraphLabelSx: SxProps = {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'end',
-};
-
-const leftGraphSx: SxProps = {
-  borderTop: '2px solid #FFFFFF',
-  borderLeft: '2px solid #FFFFFF',
-  borderBottom: '2px solid #FFFFFF',
-  borderTopLeftRadius: graphBorderRadius,
-  borderBottomLeftRadius: graphBorderRadius,
-  backgroundColor: theme.palette.primaryTranslucent.main,
-};
-
-const rightGraphSx: SxProps = {
-  border: '2px solid #FFFFFF',
-  borderTopRightRadius: graphBorderRadius,
-  borderBottomRightRadius: graphBorderRadius,
-  backgroundColor: theme.palette.secondaryTranslucent.main,
 };
 
 const bottomContainerSx: SxProps = {
@@ -96,42 +61,28 @@ const buttonSx: SxProps = {
   width: '100%',
 };
 
+const topLabels = ['$XX', 'by the primary donor'];
+const bottomLabels = ['$YY', 'by the secondary donor'];
+const barFractions = [0.6, 0.4];
+
 const DisplayCard = () => {
   return (
     <Stack component="div" sx={containerSx}>
       <Box sx={imageContainerSx}>
         <ImageWithOverlay imageSrc="/sample.png">
           <Container sx={graphContainerSx} component="div">
-            <Stack component="div" spacing={0.5}>
-              <Box sx={topGraphLabelSx}>
-                <Typography variant="caption" sx={graphLabelSx}>
-                  $XX
-                </Typography>
-                <Typography variant="caption" sx={graphLabelSx}>
-                  by the primary donor
-                </Typography>
-              </Box>
-
-              <Box sx={graphSx}>
-                <Box width={'60%'} sx={leftGraphSx} />
-                <Box width={'40%'} sx={rightGraphSx} />
-              </Box>
-
-              <Box sx={bottomGraphLabelSx}>
-                <Typography variant="caption" sx={graphLabelSx}>
-                  $YY
-                </Typography>
-                <Typography variant="caption" sx={graphLabelSx}>
-                  by the secondary donor
-                </Typography>
-              </Box>
-            </Stack>
+            <CompetingGraph
+              overrideGraphSx={graphSx}
+              topLabels={topLabels}
+              bottomLabels={bottomLabels}
+              barFractions={barFractions}
+            />
           </Container>
         </ImageWithOverlay>
       </Box>
 
       <Box sx={bottomContainerSx} component="div">
-        <Stack sx={descriptionContainerSx} spacing={0.5}>
+        <Stack sx={descriptionContainerSx} spacing={0.5} component="div">
           <Typography variant="h3">Campaign Name</Typography>
           <Typography variant="caption">For the following beneficiaries</Typography>
 
