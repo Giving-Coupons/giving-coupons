@@ -68,9 +68,10 @@ export default function Interests() {
       ]}
       rows={interests}
       actions={[
-        <IconButtonWithTooltip icon={<DoneIcon />} tooltip="Approve" />,
-        <IconButtonWithTooltip icon={<ClearIcon />} tooltip="Reject" />,
+        <IconButtonWithTooltip key="approve" icon={<DoneIcon />} tooltip="Approve" />,
+        <IconButtonWithTooltip key="reject" icon={<ClearIcon />} tooltip="Reject" />,
         <DeleteButton
+          key="delete"
           onDelete={() => {
             alert('deleted');
           }}
