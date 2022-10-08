@@ -1,8 +1,6 @@
 import {SxProps} from "@mui/system";
 import {theme} from "../../../utils/theme";
 
-const borderRadius = '20px';
-
 export const imageContainerSx: SxProps = {
   position: 'relative',
   minWidth: '100%',
@@ -10,8 +8,7 @@ export const imageContainerSx: SxProps = {
   minHeight: '100%',
   height: '100%',
   maxHeight: '100%',
-  borderTopLeftRadius: borderRadius,
-  borderTopRightRadius: borderRadius,
+  borderRadius: 'inherit',
 };
 
 export const aboveImageOverlayContainerSx: SxProps = {
@@ -27,14 +24,12 @@ export const imageOverlaySx: SxProps = {
   height: '100%',
   backgroundColor: theme.palette.overlayTranslucent.main,
   zIndex: 10,
-  borderTopLeftRadius: borderRadius,
-  borderTopRightRadius: borderRadius,
+  borderRadius: 'inherit',
 };
 
 export const imageSx: SxProps = {
   minWidth: '100%',
   maxWidth: '100%',
   height: '100%',
-  borderTopLeftRadius: borderRadius,
-  borderTopRightRadius: borderRadius,
+  borderRadius: 'inherit',
 };
