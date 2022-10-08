@@ -27,7 +27,7 @@ const CampaignListCard = ({ campaign }: Props) => {
         topLabelTitle={`$${primaryDonorDonationData.amount}`}
         topLabels={['by the primary donor']}
         bottomLabelTitle={`$${secondaryDonorDonationData.amount}`}
-        bottomLabels={['by the secondary donor']}
+        bottomLabels={['by the secondary donors']}
         barFractions={[primaryDonorDonationData.fraction, secondaryDonorDonationData.fraction]}
       />
     </Container>
