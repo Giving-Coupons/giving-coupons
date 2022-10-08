@@ -62,6 +62,7 @@ export const theme = createTheme({
       dark: '#002584',
     },
     neutral: {
+      light: '#717171',
       main: '#000000',
     },
     primaryTranslucent: {
@@ -72,7 +73,7 @@ export const theme = createTheme({
       main: alpha('#FFC428', 0.5),
     },
     overlayTranslucent: {
-      main: alpha('#0B0B0C', 0.6),
+      main: alpha('#0B0B0C', 0.5),
     },
     error: {
       main: '#FF4343',
