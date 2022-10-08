@@ -4,6 +4,7 @@ import { Typography, Grid } from '@mui/material';
 import Button from './Button';
 import ImageWithOverlay from './ImageWithOverlay';
 import CompetingGraph from './CompetingGraph';
+import { CampaignListData } from '../types/campaigns';
 
 const borderRadius = '20px';
 
@@ -14,7 +15,7 @@ const containerSx: SxProps = {
   borderRadius: borderRadius,
 };
 
-const imageContainerSx: SxProps = {
+const topContainerSx: SxProps = {
   minWidth: '100%',
   maxWidth: '100%',
   minHeight: '40%',
@@ -61,15 +62,21 @@ const buttonSx: SxProps = {
   width: '100%',
 };
 
-const topLabels = ['$XX', 'by the primary donor'];
-const bottomLabels = ['$YY', 'by the secondary donor'];
-const barFractions = [0.6, 0.4];
+interface Props {
+  campaign: CampaignListData;
+}
 
-const DisplayCard = () => {
+const CampaignListCard = ({ campaign }: Props) => {
+  const primaryDonorDonationData = campaign.donations.primaryDonor;
+  const secondaryDonorDonationData = campaign.donations.secondaryDonors;
+  const topLabels = [`$${primaryDonorDonationData.amount}`, 'by the primary donor'];
+  const bottomLabels = [`$${secondaryDonorDonationData.amount}`, 'by the secondary donor'];
+  const barFractions = [primaryDonorDonationData.fraction, secondaryDonorDonationData.fraction];
+
   return (
     <Stack component="div" sx={containerSx}>
-      <Box sx={imageContainerSx}>
-        <ImageWithOverlay imageSrc="/sample.png">
+      <Box sx={topContainerSx}>
+        <ImageWithOverlay imageSrc={campaign.imageUrl}>
           <Container sx={graphContainerSx} component="div">
             <CompetingGraph
               overrideGraphSx={graphSx}
@@ -84,20 +91,18 @@ const DisplayCard = () => {
       <Box sx={bottomContainerSx} component="div">
         <Stack sx={descriptionContainerSx} spacing={0.5} component="div">
           <Typography variant="h3">Campaign Name</Typography>
+
           <Typography variant="caption">For the following beneficiaries</Typography>
 
           <Grid container>
-            {[1, 2, 3, 4].map((index) => (
+            {campaign.charities.map((charity, index) => (
               <Grid item xs={3} key={index}>
-                <Box sx={beneficiaryLogoSx} component="img" src="/sample-beneficiary-logo.png" />
+                <Box sx={beneficiaryLogoSx} component="img" src={charity.logoUrl} />
               </Grid>
             ))}
           </Grid>
 
-          <Typography variant="caption">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sit amet accumsan dolor. Sed fermentum ex
-            neque, sit amet dapibus ante rutrum non.{' '}
-          </Typography>
+          <Typography variant="caption">{campaign.description}</Typography>
         </Stack>
 
         <Box>
@@ -114,4 +119,4 @@ const DisplayCard = () => {
   );
 };
 
-export default DisplayCard;
+export default CampaignListCard;
