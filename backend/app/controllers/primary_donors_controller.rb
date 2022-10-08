@@ -13,21 +13,21 @@ class PrimaryDonorsController < ApplicationController
   def create
     @primary_donor = PrimaryDonor.create!(primary_donor_params)
 
-    add_success_message "Primay Donor, \"#{@primary_donor.name.capitalize}\", successfully created!"
+    add_success_message "Primary Donor, \"#{@primary_donor.name}\", successfully created!"
     render :show, status: :created, location: @primary_donor
   end
 
   def update
     @primary_donor.update!(primary_donor_params)
 
-    add_success_message "Primay Donor, \"#{@primary_donor.name.capitalize}\", successfully updated!"
+    add_success_message "Primary Donor, \"#{@primary_donor.name}\", successfully updated!"
     render :show, status: :ok, location: @primary_donor
   end
 
   def destroy
     @primary_donor.destroy!
 
-    add_success_message "Primay Donor, \"#{@primary_donor.name.capitalize}\", successfully deleted!"
+    add_success_message "Primary Donor, \"#{@primary_donor.name}\", successfully deleted!"
     render :show, status: :ok, location: @primary_donor
   end
 
