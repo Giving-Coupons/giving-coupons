@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       }
 
       resources :interests
+      resources :primary_donors
     end
   end
 end
