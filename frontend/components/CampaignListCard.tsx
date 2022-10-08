@@ -19,17 +19,16 @@ interface Props {
 const CampaignListCard = ({ campaign }: Props) => {
   const primaryDonorDonationData = campaign.donations.primaryDonor;
   const secondaryDonorDonationData = campaign.donations.secondaryDonors;
-  const topLabels = [`$${primaryDonorDonationData.amount}`, 'by the primary donor'];
-  const bottomLabels = [`$${secondaryDonorDonationData.amount}`, 'by the secondary donor'];
-  const barFractions = [primaryDonorDonationData.fraction, secondaryDonorDonationData.fraction];
 
   const imageOverlayContent = (
     <Container sx={graphContainerSx} component="div">
       <CompetingGraph
         overrideGraphSx={graphSx}
-        topLabels={topLabels}
-        bottomLabels={bottomLabels}
-        barFractions={barFractions}
+        topLabelTitle={`$${primaryDonorDonationData.amount}`}
+        topLabels={['by the primary donor']}
+        bottomLabelTitle={`$${secondaryDonorDonationData.amount}`}
+        bottomLabels={['by the secondary donor']}
+        barFractions={[primaryDonorDonationData.fraction, secondaryDonorDonationData.fraction]}
       />
     </Container>
   );
