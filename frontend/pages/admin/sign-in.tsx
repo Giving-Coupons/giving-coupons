@@ -16,7 +16,7 @@ import { useRouter } from 'next/router';
 import useAdminLoginCheck from '../../hooks/useAdminLogInCheck';
 import { LockOpenOutlined } from '@mui/icons-material';
 
-const adminApi = api.admin;
+const adminApi = api.admins;
 
 interface FormState {
   username?: string;

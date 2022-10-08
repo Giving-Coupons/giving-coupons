@@ -3,16 +3,16 @@ import { Interest, InterestWithoutId, InterestData, InterestPostData, InterestPa
 import BaseAPI from './base';
 import { mapOnApiResponse } from './helpers/typeConverter';
 
-class InterestAPI extends BaseAPI {
-  protected static INTEREST_URL = 'interests';
+class InterestsAPI extends BaseAPI {
+  protected static INTERESTS_URL = 'interests';
 
   public list(): ApiPromise<Interest[]> {
-    return this.get(InterestAPI.INTEREST_URL);
+    return this.get(InterestsAPI.INTERESTS_URL);
   }
 
   public addInterest(data: InterestWithoutId): ApiPromise<Interest> {
     const promise: ApiPromise<InterestData> = this.post(
-      `${InterestAPI.INTEREST_URL}`,
+      `${InterestsAPI.INTERESTS_URL}`,
       convertInterestToDataWithoutId(data) as InterestPostData,
     );
     return promise.then(mapOnApiResponse(convertDataToInterest));
@@ -20,14 +20,14 @@ class InterestAPI extends BaseAPI {
 
   public putInterest(interestId: number, data: InterestWithoutId): ApiPromise<Interest> {
     const promise: ApiPromise<InterestData> = this.put(
-      `${InterestAPI.INTEREST_URL}/${interestId}`,
+      `${InterestsAPI.INTERESTS_URL}/${interestId}`,
       convertInterestToDataWithoutId(data) as InterestPatchData,
     );
     return promise.then(mapOnApiResponse(convertDataToInterest));
   }
 
   public deleteInterest(interestId: number): ApiPromise<null> {
-    return this.delete(`${InterestAPI.INTEREST_URL}/${interestId}`);
+    return this.delete(`${InterestsAPI.INTERESTS_URL}/${interestId}`);
   }
 }
 
@@ -61,4 +61,4 @@ function convertDataToInterest(data: InterestData): Interest {
   return { ...data, start: new Date(data.start), end: new Date(data.end) };
 }
 
-export default InterestAPI;
+export default InterestsAPI;

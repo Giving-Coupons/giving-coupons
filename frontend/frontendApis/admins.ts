@@ -2,20 +2,20 @@ import { AdminData, AdminLoginData, AdminPostData } from '../types/admin';
 import { ApiPromise } from '../types/api';
 import BaseAPI from './base';
 
-class AdminAPI extends BaseAPI {
+class AdminsAPI extends BaseAPI {
   protected static AUTH_URL = 'auth';
 
   public registerNewAdmin(adminPostData: AdminPostData): ApiPromise<AdminData> {
-    return this.post(AdminAPI.AUTH_URL, adminPostData);
+    return this.post(AdminsAPI.AUTH_URL, adminPostData);
   }
 
   public loginAdmin(adminLoginData: AdminLoginData): ApiPromise<AdminData> {
-    return this.post(`${AdminAPI.AUTH_URL}/sign_in`, adminLoginData);
+    return this.post(`${AdminsAPI.AUTH_URL}/sign_in`, adminLoginData);
   }
 
   public logoutAdmin(): ApiPromise<void> {
-    return this.delete(`${AdminAPI.AUTH_URL}/sign_out`);
+    return this.delete(`${AdminsAPI.AUTH_URL}/sign_out`);
   }
 }
 
-export default AdminAPI;
+export default AdminsAPI;
