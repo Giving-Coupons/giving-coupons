@@ -28,7 +28,8 @@ type Props<D> = {
 };
 
 export default function SimpleTable<D>({ columns, rows, actions, isLoading }: Props<D>) {
-  const numColumns = columns.length + (actions ? actions.length : 0);
+  const hasActions = actions && actions.length > 0;
+  const numColumns = columns.length + (hasActions ? actions.length : 0);
 
   return (
     <TableContainer component={Paper}>
@@ -38,7 +39,7 @@ export default function SimpleTable<D>({ columns, rows, actions, isLoading }: Pr
             {columns.map(({ title }, index) => (
               <TableCell key={index}>{title}</TableCell>
             ))}
-            {actions && <TableCell title="Actions">Actions</TableCell>}
+            {hasActions && <TableCell title="Actions">Actions</TableCell>}
           </TableRow>
         </TableHead>
         <TableBody>
