@@ -1,7 +1,7 @@
-import CampaignListCard from '../../components/CampaignListCard';
-import { Grid } from '@mui/material';
-import { Container } from '@mui/system';
+import { Box } from '@mui/system';
 import { CampaignCharityData, CampaignListData } from '../../types/campaigns';
+import Head from 'next/head';
+import CampaignList from '../../components/CampaignList';
 
 const sampleCharity: CampaignCharityData = {
   id: 1,
@@ -33,15 +33,13 @@ const sampleCampaigns: CampaignListData[] = Array(11).fill(sampleCampaign);
 
 const Campaigns = () => {
   return (
-    <Container sx={{ width: '70%', paddingTop: '8px', paddingBottom: '8px' }}>
-      <Grid container spacing={2}>
-        {sampleCampaigns.map((campaign, index) => (
-          <Grid item xs={4} sx={{ height: '480px' }} key={index}>
-            <CampaignListCard campaign={campaign} />
-          </Grid>
-        ))}
-      </Grid>
-    </Container>
+    <Box>
+      <Head>
+        <title>Campaigns</title>
+      </Head>
+
+      <CampaignList campaigns={sampleCampaigns} />
+    </Box>
   );
 };
 
