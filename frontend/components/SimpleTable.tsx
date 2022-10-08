@@ -27,9 +27,9 @@ type Props<D> = {
   isLoading?: boolean;
 };
 
-export default function SimpleTable<D>({ columns, rows, actions, isLoading }: Props<D>) {
-  const hasActions = actions && actions.length > 0;
-  const numColumns = columns.length + (hasActions ? actions.length : 0);
+export default function SimpleTable<D>({ columns, rows, actions = [], isLoading }: Props<D>) {
+  const hasActions = actions.length > 0;
+  const numColumns = columns.length + (hasActions ? 1 : 0);
 
   return (
     <TableContainer component={Paper}>
@@ -53,15 +53,17 @@ export default function SimpleTable<D>({ columns, rows, actions, isLoading }: Pr
               {columns.map(({ key, transformValue = (value) => value }, index) => (
                 <TableCell key={index}>{transformValue(row[key])}</TableCell>
               ))}
-              <TableCell>
-                <Grid container>
-                  {actions?.map((action, index) => (
-                    <Grid item key={index} xs={12} lg={3}>
-                      {React.cloneElement(action.component, { onClick: () => action.onClick(row) })}
-                    </Grid>
-                  ))}
-                </Grid>
-              </TableCell>
+              {hasActions && (
+                <TableCell>
+                  <Grid container>
+                    {actions?.map((action, index) => (
+                      <Grid item key={index} xs={12} lg={3}>
+                        {React.cloneElement(action.component, { onClick: () => action.onClick(row) })}
+                      </Grid>
+                    ))}
+                  </Grid>
+                </TableCell>
+              )}
             </TableRow>
           ))}
         </TableBody>
