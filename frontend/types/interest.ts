@@ -1,7 +1,4 @@
-type CharityId = number;
-
-// Charity model is TBD, this is all that exists right now.
-type Charity = { id: number };
+import { Charity } from './charity';
 
 export enum InterestStatus {
   PENDING = 'pending',
@@ -9,7 +6,8 @@ export enum InterestStatus {
   REJECTED = 'rejected',
 }
 
-export type InterestWithoutId = {
+export type Interest = {
+  id: number;
   donorName: string;
   donorEmail: string;
   campaignName: string;
@@ -22,15 +20,12 @@ export type InterestWithoutId = {
   couponDenomination: number;
 };
 
-export type Interest = InterestWithoutId & { id: number };
-
-// The following types are used in the API request / response.
-export type InterestPostData = Omit<InterestWithoutId, 'start' | 'end' | 'charities'> & {
+export type InterestPostData = Omit<Interest, 'id' | 'start' | 'end' | 'charities'> & {
   start: string;
   end: string;
-  charityIds: CharityId[];
+  charityIds: number[];
 };
-export type InterestPatchData = InterestPostData;
+export type InterestPutData = InterestPostData;
 export type InterestData = Omit<Interest, 'start' | 'end'> & {
   start: string;
   end: string;

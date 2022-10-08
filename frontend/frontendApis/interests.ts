@@ -1,5 +1,6 @@
 import { ApiPromise } from '../types/api';
-import { Interest, InterestWithoutId, InterestData, InterestPostData, InterestPatchData } from '../types/interest';
+import { Interest, InterestData, InterestPostData, InterestPutData } from '../types/interest';
+import { WithoutId } from '../types/utils';
 import BaseAPI from './base';
 import { mapOnApiResponse } from './helpers/typeConverter';
 
@@ -7,10 +8,11 @@ class InterestsAPI extends BaseAPI {
   protected static INTERESTS_URL = 'interests';
 
   public list(): ApiPromise<Interest[]> {
-    return this.get(InterestsAPI.INTERESTS_URL);
+    const promise: ApiPromise<InterestData[]> = this.get(InterestsAPI.INTERESTS_URL);
+    return promise.then(mapOnApiResponse((arr) => arr.map(convertDataToInterest)));
   }
 
-  public addInterest(data: InterestWithoutId): ApiPromise<Interest> {
+  public addInterest(data: WithoutId<Interest>): ApiPromise<Interest> {
     const promise: ApiPromise<InterestData> = this.post(
       `${InterestsAPI.INTERESTS_URL}`,
       convertInterestToDataWithoutId(data) as InterestPostData,
@@ -18,10 +20,10 @@ class InterestsAPI extends BaseAPI {
     return promise.then(mapOnApiResponse(convertDataToInterest));
   }
 
-  public putInterest(interestId: number, data: InterestWithoutId): ApiPromise<Interest> {
+  public putInterest(interestId: number, data: WithoutId<Interest>): ApiPromise<Interest> {
     const promise: ApiPromise<InterestData> = this.put(
       `${InterestsAPI.INTERESTS_URL}/${interestId}`,
-      convertInterestToDataWithoutId(data) as InterestPatchData,
+      convertInterestToDataWithoutId(data) as InterestPutData,
     );
     return promise.then(mapOnApiResponse(convertDataToInterest));
   }
@@ -31,29 +33,12 @@ class InterestsAPI extends BaseAPI {
   }
 }
 
-function convertInterestToDataWithoutId({
-  donorName,
-  donorEmail,
-  campaignName,
-  campaignDescription,
-  promisedAmount,
-  start,
-  end,
-  status,
-  charities,
-  couponDenomination,
-}: InterestWithoutId) {
+function convertInterestToDataWithoutId({ charities, ...interestData }: WithoutId<Interest>) {
   return {
-    donorName,
-    donorEmail,
-    campaignName,
-    campaignDescription,
-    promisedAmount,
-    start: start.toISOString(),
-    end: end.toISOString(),
-    status,
+    ...interestData,
+    start: interestData.start.toISOString(),
+    end: interestData.end.toISOString(),
     charityIds: charities.map((c) => c.id),
-    couponDenomination,
   };
 }
 
