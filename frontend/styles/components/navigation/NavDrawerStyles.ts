@@ -1,5 +1,5 @@
 import {SxProps} from "@mui/system";
-import {theme} from "../../utils/theme";
+import {theme} from "../../../utils/theme";
 
 export const drawerPaperSx: SxProps = {
   width: '70%',

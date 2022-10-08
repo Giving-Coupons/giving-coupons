@@ -4,7 +4,7 @@ import Link from 'next/link';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useState } from 'react';
 import NavDrawer from './NavDrawer';
-import { isTabForCurrentPage, navigationTextPathMap } from '../utils/routes';
+import { isTabForCurrentPage, navigationTextPathMap } from '../../utils/routes';
 import { useRouter } from 'next/router';
 import {
   activeTabSx,
@@ -13,7 +13,7 @@ import {
   toolbarLeftContainerSx,
   toolbarLogoSx,
   toolbarSx,
-} from '../styles/components/NavbarStyles';
+} from '../../styles/components/navigation/NavbarStyles';
 
 const NavBar = () => {
   const theme = useTheme();

@@ -1,5 +1,5 @@
 import {SxProps} from "@mui/system";
-import {theme} from "../../utils/theme";
+import {theme} from "../../../utils/theme";
 
 export const toolbarSx: SxProps = {
   display: 'flex',

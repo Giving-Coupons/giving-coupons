@@ -1,5 +1,5 @@
 import { Drawer, List, ListItem, ListItemButton, ListItemText, Typography } from '@mui/material';
-import { isTabForCurrentPage, navigationTextPathMap } from '../utils/routes';
+import { isTabForCurrentPage, navigationTextPathMap } from '../../utils/routes';
 import { Dispatch, SetStateAction } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import Button from '@mui/material/Button';
@@ -12,7 +12,7 @@ import {
   headerListItemSx,
   inactiveTabSx,
   tabListItemSx,
-} from '../styles/components/NavDrawerStyles';
+} from '../../styles/components/navigation/NavDrawerStyles';
 
 interface Props {
   isOpen: boolean;
