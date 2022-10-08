@@ -1,6 +1,6 @@
 import React from 'react';
 import SimpleTable from '../../../components/SimpleTable';
-import { Interest, InterestStatus } from '../../../types/interest';
+import { InterestData, InterestStatus } from '../../../types/interest';
 import IconButtonWithTooltip from '../../../components/IconButtonWithTooltip';
 import DeleteButton from '../../../components/DeleteButton';
 import DoneIcon from '@mui/icons-material/Done';
@@ -9,7 +9,7 @@ import Tabbed from '../../../components/Tabs';
 import { Box, Paper, Typography } from '@mui/material';
 
 export default function Interests() {
-  const data: Interest[] = [
+  const data: InterestData[] = [
     {
       id: 1,
       donorName: 'Donor 1',
@@ -21,6 +21,7 @@ export default function Interests() {
       end: new Date(2022, 12, 0),
       status: InterestStatus.PENDING,
       couponDenomination: 10,
+      charities: [],
     },
     {
       id: 2,
@@ -33,6 +34,7 @@ export default function Interests() {
       end: new Date(2022, 12, 0),
       status: InterestStatus.APPROVED,
       couponDenomination: 20,
+      charities: [],
     },
     {
       id: 3,
@@ -45,6 +47,7 @@ export default function Interests() {
       end: new Date(2022, 12, 0),
       status: InterestStatus.REJECTED,
       couponDenomination: 30,
+      charities: [],
     },
   ];
 
@@ -52,7 +55,7 @@ export default function Interests() {
   const approvedInterests = data.filter((interest) => interest.status === InterestStatus.APPROVED);
   const rejectedInterests = data.filter((interest) => interest.status === InterestStatus.REJECTED);
 
-  const makeInterestsTable = (interests: Interest[]) => (
+  const makeInterestsTable = (interests: InterestData[]) => (
     <SimpleTable
       columns={[
         { title: 'ID', key: 'id' },
