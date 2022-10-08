@@ -6,6 +6,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { Grid } from '@mui/material';
 
 type TableColumn<D> = {
   title: string;
@@ -17,9 +18,10 @@ type TableColumn<D> = {
 type Props<D> = {
   columns: TableColumn<D>[];
   rows: D[];
+  actions?: React.ReactNode[];
 };
 
-export default function SimpleTable<D>({ columns, rows }: Props<D>) {
+export default function SimpleTable<D>({ columns, rows, actions }: Props<D>) {
   return (
     <TableContainer component={Paper}>
       <Table>
@@ -28,6 +30,7 @@ export default function SimpleTable<D>({ columns, rows }: Props<D>) {
             {columns.map(({ title }, index) => (
               <TableCell key={index}>{title}</TableCell>
             ))}
+            {actions && <TableCell title="Actions">Actions</TableCell>}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -36,6 +39,15 @@ export default function SimpleTable<D>({ columns, rows }: Props<D>) {
               {columns.map(({ key, transformValue = (value) => value }, index) => (
                 <TableCell key={index}>{transformValue(row[key])}</TableCell>
               ))}
+              <TableCell>
+                <Grid container>
+                  {actions?.map((action, index) => (
+                    <Grid item key={index} xs={12} lg={3}>
+                      {action}
+                    </Grid>
+                  ))}
+                </Grid>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

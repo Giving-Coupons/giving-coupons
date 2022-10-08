@@ -1,6 +1,12 @@
 import React from 'react';
 import SimpleTable from '../../../components/SimpleTable';
 import { Interest, InterestStatus } from '../../../types/interest';
+import IconButtonWithTooltip from '../../../components/IconButtonWithTooltip';
+import DeleteButton from '../../../components/DeleteButton';
+import DoneIcon from '@mui/icons-material/Done';
+import ClearIcon from '@mui/icons-material/Clear';
+import Tabbed from '../../../components/Tabs';
+import { Box, Paper, Typography } from '@mui/material';
 
 export default function Interests() {
   const data: Interest[] = [
@@ -25,7 +31,7 @@ export default function Interests() {
       promisedAmount: 2000,
       start: new Date(2022, 11, 1),
       end: new Date(2022, 12, 0),
-      status: InterestStatus.PENDING,
+      status: InterestStatus.APPROVED,
       couponDenomination: 20,
     },
     {
@@ -37,28 +43,65 @@ export default function Interests() {
       promisedAmount: 3000,
       start: new Date(2022, 11, 1),
       end: new Date(2022, 12, 0),
-      status: InterestStatus.PENDING,
+      status: InterestStatus.REJECTED,
       couponDenomination: 30,
     },
   ];
 
+  const pendingInterests = data.filter((interest) => interest.status === InterestStatus.PENDING);
+  const approvedInterests = data.filter((interest) => interest.status === InterestStatus.APPROVED);
+  const rejectedInterests = data.filter((interest) => interest.status === InterestStatus.REJECTED);
+
+  const makeInterestsTable = (interests: Interest[]) => (
+    <SimpleTable
+      columns={[
+        { title: 'ID', key: 'id' },
+        { title: 'Donor Name', key: 'donorName' },
+        { title: 'Donor Email', key: 'donorEmail' },
+        { title: 'Campaign Name', key: 'campaignName' },
+        { title: 'Campaign Description', key: 'campaignDescription' },
+        { title: 'Promised Amount', key: 'promisedAmount' },
+        { title: 'Start', key: 'start', transformValue: (value: Date) => value.toLocaleDateString() },
+        { title: 'End', key: 'end', transformValue: (value: Date) => value.toLocaleDateString() },
+        { title: 'Status', key: 'status' },
+        { title: 'Coupon Denomination', key: 'couponDenomination' },
+      ]}
+      rows={interests}
+      actions={[
+        <IconButtonWithTooltip icon={<DoneIcon />} tooltip="Approve" />,
+        <IconButtonWithTooltip icon={<ClearIcon />} tooltip="Reject" />,
+        <DeleteButton
+          onDelete={() => {
+            alert('deleted');
+          }}
+        />,
+      ]}
+    />
+  );
+
   return (
-    <div>
-      <SimpleTable
-        columns={[
-          { title: 'ID', key: 'id' },
-          { title: 'Donor Name', key: 'donorName' },
-          { title: 'Donor Email', key: 'donorEmail' },
-          { title: 'Campaign Name', key: 'campaignName' },
-          { title: 'Campaign Description', key: 'campaignDescription' },
-          { title: 'Promised Amount', key: 'promisedAmount' },
-          { title: 'Start', key: 'start', transformValue: (value: Date) => value.toLocaleDateString() },
-          { title: 'End', key: 'end', transformValue: (value: Date) => value.toLocaleDateString() },
-          { title: 'Status', key: 'status' },
-          { title: 'Coupon Denomination', key: 'couponDenomination' },
-        ]}
-        rows={data}
-      />
-    </div>
+    <Box sx={{ padding: '20px' }}>
+      <Typography variant="h1" gutterBottom>
+        Interests
+      </Typography>
+      <Paper>
+        <Tabbed
+          tabs={[
+            {
+              label: 'Pending',
+              content: makeInterestsTable(pendingInterests),
+            },
+            {
+              label: 'Approved',
+              content: makeInterestsTable(approvedInterests),
+            },
+            {
+              label: 'Rejected',
+              content: makeInterestsTable(rejectedInterests),
+            },
+          ]}
+        />
+      </Paper>
+    </Box>
   );
 }
