@@ -25,12 +25,13 @@ export type InterestWithoutId = {
 export type Interest = InterestWithoutId & { id: number };
 
 // The following types are used in the API request / response.
-export type InterestDataInput = Omit<InterestWithoutId, 'start' | 'end' | 'charities'> & {
+export type InterestPostData = Omit<InterestWithoutId, 'start' | 'end' | 'charities'> & {
   start: string;
   end: string;
   charityIds: CharityId[];
 };
-export type InterestDataOutput = Omit<Interest, 'start' | 'end'> & {
+export type InterestPatchData = InterestPostData;
+export type InterestData = Omit<Interest, 'start' | 'end'> & {
   start: string;
   end: string;
 };

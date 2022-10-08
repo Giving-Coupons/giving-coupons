@@ -1,5 +1,5 @@
 import { ApiPromise } from '../types/api';
-import { Interest, InterestWithoutId, InterestDataInput, InterestDataOutput } from '../types/interest';
+import { Interest, InterestWithoutId, InterestData, InterestPostData, InterestPatchData } from '../types/interest';
 import BaseAPI from './base';
 import { mapOnApiResponse } from './helpers/typeConverter';
 
@@ -11,17 +11,17 @@ class InterestAPI extends BaseAPI {
   }
 
   public addInterest(data: InterestWithoutId): ApiPromise<Interest> {
-    const promise: ApiPromise<InterestDataOutput> = this.post(
+    const promise: ApiPromise<InterestData> = this.post(
       `${InterestAPI.INTEREST_URL}`,
-      convertInterestToDataWithoutId(data),
+      convertInterestToDataWithoutId(data) as InterestPostData,
     );
     return promise.then(mapOnApiResponse(convertDataToInterest));
   }
 
   public putInterest(interestId: number, data: InterestWithoutId): ApiPromise<Interest> {
-    const promise: ApiPromise<InterestDataOutput> = this.put(
+    const promise: ApiPromise<InterestData> = this.put(
       `${InterestAPI.INTEREST_URL}/${interestId}`,
-      convertInterestToDataWithoutId(data),
+      convertInterestToDataWithoutId(data) as InterestPatchData,
     );
     return promise.then(mapOnApiResponse(convertDataToInterest));
   }
@@ -42,7 +42,7 @@ function convertInterestToDataWithoutId({
   status,
   charities,
   couponDenomination,
-}: InterestWithoutId): InterestDataInput {
+}: InterestWithoutId) {
   return {
     donorName,
     donorEmail,
@@ -57,7 +57,7 @@ function convertInterestToDataWithoutId({
   };
 }
 
-function convertDataToInterest(data: InterestDataOutput): Interest {
+function convertDataToInterest(data: InterestData): Interest {
   return { ...data, start: new Date(data.start), end: new Date(data.end) };
 }
 
