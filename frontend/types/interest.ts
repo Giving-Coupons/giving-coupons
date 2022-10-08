@@ -13,8 +13,8 @@ export type Interest = {
   campaignName: string;
   campaignDescription: string;
   promisedAmount: number;
-  start: Date;
-  end: Date;
+  start: string;
+  end: string;
   status: InterestStatus;
   charities: Charity[];
   couponDenomination: number;

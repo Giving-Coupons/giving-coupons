@@ -6,56 +6,27 @@ import DeleteButton from '../../../components/DeleteButton';
 import DoneIcon from '@mui/icons-material/Done';
 import ClearIcon from '@mui/icons-material/Clear';
 import Tabbed from '../../../components/Tabs';
-import { Box, Paper, Typography } from '@mui/material';
+import { Box, CircularProgress, Paper, Typography } from '@mui/material';
+import useSWR from 'swr';
+import api from '../../../frontendApis';
+import { Nullable } from '../../../types/utils';
+import { theme } from '../../../utils/theme';
+import InterestsAPI from '../../../frontendApis/interests';
 
 export default function Interests() {
-  const data: InterestData[] = [
-    {
-      id: 1,
-      donorName: 'Donor 1',
-      donorEmail: 'donor1@gmail.com',
-      campaignName: 'Campaign 1',
-      campaignDescription: 'Campaign 1 description',
-      promisedAmount: 1000,
-      start: new Date(2022, 11, 1),
-      end: new Date(2022, 12, 0),
-      status: InterestStatus.PENDING,
-      couponDenomination: 10,
-      charities: [],
-    },
-    {
-      id: 2,
-      donorName: 'Donor 2',
-      donorEmail: 'donor2@gmail.com',
-      campaignName: 'Campaign 2',
-      campaignDescription: 'Campaign 2 description',
-      promisedAmount: 2000,
-      start: new Date(2022, 11, 1),
-      end: new Date(2022, 12, 0),
-      status: InterestStatus.APPROVED,
-      couponDenomination: 20,
-      charities: [],
-    },
-    {
-      id: 3,
-      donorName: 'Donor 3',
-      donorEmail: 'donor3@gmail.com',
-      campaignName: 'Campaign 3',
-      campaignDescription: 'Campaign 3 description',
-      promisedAmount: 3000,
-      start: new Date(2022, 11, 1),
-      end: new Date(2022, 12, 0),
-      status: InterestStatus.REJECTED,
-      couponDenomination: 30,
-      charities: [],
-    },
-  ];
+  const { data: pendingInterests } = useSWR<Nullable<InterestData[]>>(InterestsAPI.INTERESTS_URL, () =>
+    api.interests.getPendingInterests().then((r) => r.payload),
+  );
 
-  const pendingInterests = data.filter((interest) => interest.status === InterestStatus.PENDING);
-  const approvedInterests = data.filter((interest) => interest.status === InterestStatus.APPROVED);
-  const rejectedInterests = data.filter((interest) => interest.status === InterestStatus.REJECTED);
+  // const { data: approvedInterests } = useSWR<Nullable<InterestData[]>>('/api/interests/approved', () =>
+  //   api.interests.getAcceptedInterests().then((r) => r.payload),
+  // );
 
-  const makeInterestsTable = (interests: InterestData[]) => (
+  // const { data: rejectedInterests } = useSWR<Nullable<InterestData[]>>('/api/interests/rejected', () =>
+  //   api.interests.getAcceptedInterests().then((r) => r.payload),
+  // );
+
+  const makeInterestsTable = (interests: Nullable<InterestData[]> | undefined) => (
     <SimpleTable
       columns={[
         { title: 'ID', key: 'id' },
@@ -64,12 +35,13 @@ export default function Interests() {
         { title: 'Campaign Name', key: 'campaignName' },
         { title: 'Campaign Description', key: 'campaignDescription' },
         { title: 'Promised Amount', key: 'promisedAmount' },
-        { title: 'Start', key: 'start', transformValue: (value: Date) => value.toLocaleDateString() },
-        { title: 'End', key: 'end', transformValue: (value: Date) => value.toLocaleDateString() },
+        { title: 'Start', key: 'start', transformValue: (value) => new Date(value).toLocaleDateString() },
+        { title: 'End', key: 'end', transformValue: (value) => new Date(value).toLocaleDateString() },
         { title: 'Status', key: 'status' },
         { title: 'Coupon Denomination', key: 'couponDenomination' },
       ]}
-      rows={interests}
+      rows={interests ?? []}
+      isLoading={interests === undefined}
       actions={[
         <IconButtonWithTooltip key="approve" icon={<DoneIcon />} tooltip="Approve" />,
         <IconButtonWithTooltip key="reject" icon={<ClearIcon />} tooltip="Reject" />,
@@ -84,7 +56,7 @@ export default function Interests() {
   );
 
   return (
-    <Box sx={{ padding: '20px' }}>
+    <Box sx={{ padding: theme.spacing(2) }}>
       <Typography variant="h1" gutterBottom>
         Interests
       </Typography>
@@ -97,11 +69,11 @@ export default function Interests() {
             },
             {
               label: 'Approved',
-              content: makeInterestsTable(approvedInterests),
+              content: makeInterestsTable(pendingInterests),
             },
             {
               label: 'Rejected',
-              content: makeInterestsTable(rejectedInterests),
+              content: makeInterestsTable(pendingInterests),
             },
           ]}
         />

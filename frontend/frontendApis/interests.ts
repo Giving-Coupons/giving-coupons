@@ -5,7 +5,7 @@ import BaseAPI from './base';
 import { mapOnApiResponse } from './helpers/typeConverter';
 
 class InterestsAPI extends BaseAPI {
-  protected static INTERESTS_URL = 'interests';
+  static INTERESTS_URL = 'interests';
 
   public list(): ApiPromise<Interest[]> {
     const promise: ApiPromise<InterestData[]> = this.get(InterestsAPI.INTERESTS_URL);
