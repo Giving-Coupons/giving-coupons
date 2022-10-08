@@ -24,11 +24,16 @@ interface FormState {
   password?: string;
 }
 
+interface SubmitState {
+  canSubmit: boolean;
+  messages: string[];
+}
+
 const SignIn: NextPage = () => {
-  const { enqueueSnackbar } = useSnackbar();
-  const router = useRouter();
   useAdminLoginCheck();
-  const [submitState, setSubmitState] = useState({ canSubmit: false, messages: [] as string[] });
+  const router = useRouter();
+  const { enqueueSnackbar } = useSnackbar();
+  const [submitState, setSubmitState] = useState<SubmitState>({ canSubmit: false, messages: [] });
   const [formState, setFormState] = useState<FormState>({
     username: '',
     password: '',
