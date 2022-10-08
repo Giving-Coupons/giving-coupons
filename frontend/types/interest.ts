@@ -1,3 +1,5 @@
+import { Charity } from './charity';
+
 export enum InterestStatus {
   PENDING = 'pending',
   APPROVED = 'approved',
@@ -14,5 +16,17 @@ export type Interest = {
   start: Date;
   end: Date;
   status: InterestStatus;
+  charities: Charity[];
   couponDenomination: number;
+};
+
+export type InterestPostData = Omit<Interest, 'id' | 'start' | 'end' | 'charities'> & {
+  start: string;
+  end: string;
+  charityIds: number[];
+};
+export type InterestPutData = InterestPostData;
+export type InterestData = Omit<Interest, 'start' | 'end'> & {
+  start: string;
+  end: string;
 };

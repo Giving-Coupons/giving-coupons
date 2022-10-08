@@ -16,7 +16,7 @@ import { useSnackbar } from 'notistack';
 import { useRouter } from 'next/router';
 import useAdminLoginCheck from '../../hooks/useAdminLogInCheck';
 
-const adminApi = api.admin;
+const adminApi = api.admins;
 
 interface FormState {
   username?: string;
