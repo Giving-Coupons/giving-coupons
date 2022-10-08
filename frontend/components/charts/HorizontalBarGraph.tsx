@@ -1,6 +1,6 @@
 import { Box, SxProps } from '@mui/system';
-import { graphSx, lastBarSx, nonLastBarSx } from '../styles/components/HorizontalBarGraphStyles';
-import { combineSxProps } from '../utils/types';
+import { graphSx, lastBarSx, nonLastBarSx } from '../../styles/components/charts/HorizontalBarGraphStyles';
+import { combineSxProps } from '../../utils/types';
 
 interface Props {
   barFractions: number[];

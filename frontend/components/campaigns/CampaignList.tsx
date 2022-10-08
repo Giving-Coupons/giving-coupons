@@ -1,8 +1,8 @@
 import { Grid, useMediaQuery } from '@mui/material';
 import CampaignListCard from './CampaignListCard';
-import { CampaignListData } from '../types/campaigns';
+import { CampaignListData } from '../../types/campaigns';
 import { Container, useTheme } from '@mui/system';
-import { desktopContainerSx, itemSx, mobileContainerSx } from '../styles/components/CampaignListStyles';
+import { desktopContainerSx, itemSx, mobileContainerSx } from '../../styles/components/campaigns/CampaignListStyles';
 
 interface Props {
   campaigns: CampaignListData[];

@@ -4,7 +4,7 @@ import {
   imageContainerSx,
   imageOverlaySx,
   imageSx,
-} from '../styles/components/ImageWithOverlayStyles';
+} from '../../styles/components/generic/ImageWithOverlayStyles';
 import React from 'react';
 
 interface Props {

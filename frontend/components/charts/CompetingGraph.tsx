@@ -1,7 +1,11 @@
 import { Box, Stack, SxProps } from '@mui/system';
 import { Typography } from '@mui/material';
 import HorizontalBarGraph from './HorizontalBarGraph';
-import { topGraphLegendSx, bottomGraphLegendSx, graphLabelSx } from '../styles/components/CompetingGraphStyles';
+import {
+  topGraphLegendSx,
+  bottomGraphLegendSx,
+  graphLabelSx,
+} from '../../styles/components/charts/CompetingGraphStyles';
 
 interface Props {
   topLabelTitle?: string;
@@ -14,8 +18,8 @@ interface Props {
 
 const CompetingGraph = ({
   topLabelTitle,
-  bottomLabelTitle,
   topLabels,
+  bottomLabelTitle,
   bottomLabels,
   barFractions,
   overrideGraphSx = [],

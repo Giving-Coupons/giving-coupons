@@ -1,7 +1,7 @@
 import { Box } from '@mui/system';
 import { CampaignCharityData, CampaignListData } from '../../types/campaigns';
 import Head from 'next/head';
-import CampaignList from '../../components/CampaignList';
+import CampaignList from '../../components/campaigns/CampaignList';
 
 const sampleCharity: CampaignCharityData = {
   id: 1,

@@ -1,5 +1,9 @@
 import { Box, Stack } from '@mui/system';
-import { descriptionContainerSx, containerSx, imageContainerSx } from '../styles/components/CardWithImageStyles';
+import {
+  descriptionContainerSx,
+  containerSx,
+  imageContainerSx,
+} from '../../styles/components/generic/CardWithImageStyles';
 import ImageWithOverlay from './ImageWithOverlay';
 import React from 'react';
 
