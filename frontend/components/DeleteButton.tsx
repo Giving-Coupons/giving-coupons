@@ -1,11 +1,9 @@
 import React from 'react';
-import IconButtonWithTooltip from './IconButtonWithTooltip';
+import IconButtonWithTooltip, { IconButtonWithTooltipProps } from './IconButtonWithTooltip';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-type DeleteButtonProps = {
-  onDelete: () => void;
-};
+type DeleteButtonProps = Omit<IconButtonWithTooltipProps, 'icon' | 'tooltip'>;
 
-export default function DeleteButton({ onDelete }: DeleteButtonProps) {
-  return <IconButtonWithTooltip icon={<DeleteIcon />} tooltip="Delete" onClick={onDelete} />;
+export default function DeleteButton(props: DeleteButtonProps) {
+  return <IconButtonWithTooltip icon={<DeleteIcon />} tooltip="Delete" {...props} />;
 }

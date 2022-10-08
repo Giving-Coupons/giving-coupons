@@ -38,14 +38,24 @@ export default function Interests() {
       rows={interests ?? []}
       isLoading={interests === undefined}
       actions={[
-        <IconButtonWithTooltip key="approve" icon={<DoneIcon />} tooltip="Approve" />,
-        <IconButtonWithTooltip key="reject" icon={<ClearIcon />} tooltip="Reject" />,
-        <DeleteButton
-          key="delete"
-          onDelete={() => {
-            alert('deleted');
-          }}
-        />,
+        {
+          component: <IconButtonWithTooltip icon={<DoneIcon />} tooltip="Approve" />,
+          onClick: (interest) => {
+            api.interests.approveInterest(interest.id);
+          },
+        },
+        {
+          component: <IconButtonWithTooltip icon={<ClearIcon />} tooltip="Reject" />,
+          onClick: (interest) => {
+            api.interests.rejectInterest(interest.id);
+          },
+        },
+        {
+          component: <DeleteButton />,
+          onClick: (interest) => {
+            api.interests.deleteInterest(interest.id);
+          },
+        },
       ]}
     />
   );

@@ -15,10 +15,15 @@ type TableColumn<D> = {
   transformValue?: (value: any) => React.ReactNode;
 };
 
+type Action<D> = {
+  component: JSX.Element;
+  onClick: (row: D) => void;
+};
+
 type Props<D> = {
   columns: TableColumn<D>[];
   rows: D[];
-  actions?: React.ReactNode[];
+  actions?: Action<D>[];
   isLoading?: boolean;
 };
 
@@ -51,7 +56,7 @@ export default function SimpleTable<D>({ columns, rows, actions, isLoading }: Pr
                 <Grid container>
                   {actions?.map((action, index) => (
                     <Grid item key={index} xs={12} lg={3}>
-                      {action}
+                      {React.cloneElement(action.component, { onClick: () => action.onClick(row) })}
                     </Grid>
                   ))}
                 </Grid>

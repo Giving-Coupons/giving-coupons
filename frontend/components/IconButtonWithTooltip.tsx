@@ -1,7 +1,7 @@
 import React from 'react';
 import { IconButton, IconButtonProps, Tooltip } from '@mui/material';
 
-interface IconButtonWithTooltipProps extends IconButtonProps {
+export interface IconButtonWithTooltipProps extends IconButtonProps {
   icon: JSX.Element;
   tooltip: string;
 }
