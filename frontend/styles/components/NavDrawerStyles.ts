@@ -12,9 +12,9 @@ export const headerListItemSx: SxProps = {
 
 export const closeButtonSx: SxProps = {
   borderRadius: '100%',
-  padding: 0,
-  minHeight: 0,
-  minWidth: 0,
+  padding: '0px',
+  minHeight: '0px',
+  minWidth: '0px',
 }
 
 export const closeIconSx: SxProps = {
