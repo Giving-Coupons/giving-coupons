@@ -14,8 +14,8 @@ export type Interest = {
   campaignName: string;
   campaignDescription: string;
   promisedAmount: number;
-  start: Date;
-  end: Date;
+  start: moment.Moment;
+  end: moment.Moment;
   status: InterestStatus;
   charities: Charity[];
   couponDenomination: number;
