@@ -1,6 +1,6 @@
 import React from 'react';
 import SimpleTable from '../../../components/SimpleTable';
-import { Interest, InterestData, InterestStatus } from '../../../types/interest';
+import { Interest, InterestStatus } from '../../../types/interest';
 import IconButtonWithTooltip from '../../../components/IconButtonWithTooltip';
 import DeleteButton from '../../../components/DeleteButton';
 import DoneIcon from '@mui/icons-material/Done';
