@@ -27,12 +27,7 @@ class InterestsController < ApplicationController
   end
 
   def approve
-    can_update_status = @interest.pending?
-    unless can_update_status
-      add_error_message "This interest has already been #{@interest.status}!"
-      render :show, status: :bad_request, location: @interest
-      return
-    end
+    return unless can_update_status?
 
     @interest.approve
 
@@ -41,12 +36,7 @@ class InterestsController < ApplicationController
   end
 
   def reject
-    can_update_status = @interest.pending?
-    unless can_update_status
-      add_error_message "This interest has already been #{@interest.status}!"
-      render :show, status: :bad_request, location: @interest
-      return
-    end
+    return unless can_update_status?
 
     @interest.reject
 
@@ -72,5 +62,16 @@ class InterestsController < ApplicationController
                         :start, :end, :status, :coupon_denomination, { charity_ids: [] }]
 
     params.require(:interest).permit(permitted_params)
+  end
+
+  def can_update_status?
+    can_update = @interest.pending?
+
+    unless can_update
+      add_error_message "This interest has already been #{@interest.status}!"
+      render :show, status: :bad_request, location: @interest
+    end
+
+    can_update
   end
 end
