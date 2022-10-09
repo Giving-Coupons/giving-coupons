@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       }
 
       resources :campaigns
+      resources :coupons
       resources :interests do
         member do
           post 'approve'
