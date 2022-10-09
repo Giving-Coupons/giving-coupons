@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class InterestsController < ApplicationController
+  before_action :authenticate_admin!, only: %i[index show update approve reject destroy]
   before_action :set_interest, only: %i[show update approve reject destroy]
 
   wrap_parameters format: :json, include: %w[donorName donorEmail campaignName campaignDescription promisedAmount start
