@@ -3,8 +3,7 @@ import { ReactNode, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import { useSnackbar } from 'notistack';
-import { Alert, AlertTitle, Button, CssBaseline, InputAdornment, List, ListItemText } from '@mui/material';
+import { Alert, AlertTitle, Button, InputAdornment, List, ListItemText } from '@mui/material';
 import { LocalizationProvider, MobileDatePicker } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { ApiPromise } from '../types/api';
@@ -33,19 +32,20 @@ export type FormRenderFunctionProps<T> = {
   createErrorMessages: () => ReactNode;
 
   // If custom components are required, you may use these
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   handleChange: (field: FormDataKeys<T>, value: any) => void;
   canSubmit: boolean;
   errorMessages: string[];
   currentValue: Partial<T>;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function useCustomForm<T extends Record<string, any>>({
   initialData,
   schema,
   submitFn,
   renderFn,
 }: CustomFormProps<T>): JSX.Element {
-  const { enqueueSnackbar } = useSnackbar();
   const [submitState, setSubmitState] = useState<SubmitState>({ canSubmit: false, messages: [] });
   const [formData, setFormData] = useState<Partial<T>>(initialData ?? {});
 
@@ -122,6 +122,7 @@ export default function useCustomForm<T extends Record<string, any>>({
     handleChange(prop, event.target.value);
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleChange = (prop: FormDataKeys<T>, value: any) => {
     const newState = { ...formData, [prop]: value ?? undefined } as Partial<T>;
     setFormData(newState);
