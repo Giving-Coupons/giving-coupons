@@ -1,5 +1,5 @@
-import {SxProps} from "@mui/system";
-import {theme} from "../../../utils/theme";
+import { SxProps } from '@mui/system';
+import { theme } from '../../../utils/theme';
 
 export const imageContainerSx: SxProps = {
   position: 'relative',
@@ -16,7 +16,7 @@ export const aboveImageOverlayContainerSx: SxProps = {
   width: '100%',
   height: '100%',
   zIndex: 20,
-}
+};
 
 export const imageOverlaySx: SxProps = {
   position: 'absolute',

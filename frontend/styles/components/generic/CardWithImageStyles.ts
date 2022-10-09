@@ -1,5 +1,5 @@
-import {SxProps} from "@mui/system";
-import {theme} from "../../../utils/theme";
+import { SxProps } from '@mui/system';
+import { theme } from '../../../utils/theme';
 
 const borderRadius = '20px';
 

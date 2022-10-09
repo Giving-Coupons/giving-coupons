@@ -16,7 +16,7 @@ const CampaignList = ({ campaigns }: Props) => {
     <Container sx={isMobile ? mobileContainerSx : desktopContainerSx} component="div">
       <Grid container spacing={2}>
         {campaigns.map((campaign, index) => (
-          <Grid item sx={itemSx} xs={12} md={4} key={index}>
+          <Grid item sx={itemSx} xs={12} sm={6} md={4} key={index}>
             <CampaignListCard campaign={campaign} />
           </Grid>
         ))}
