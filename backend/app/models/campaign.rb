@@ -12,7 +12,7 @@ class Campaign < ApplicationRecord
 
   after_create :generate_coupons
 
-  validates :name, presence: true
+  validates :name, presence: true, allow_blank: false
   validates :description, presence: true, allow_blank: false
   validates :start, presence: true
   validates :end, comparison: { greater_than: :start }

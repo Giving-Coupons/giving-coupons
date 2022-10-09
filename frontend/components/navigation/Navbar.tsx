@@ -4,16 +4,17 @@ import Link from 'next/link';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useState } from 'react';
 import NavDrawer from './NavDrawer';
-import { isTabForCurrentPage, navigationTextPathMap } from '../utils/routes';
+import { isTabForCurrentPage, navigationTextPathMap } from '../../utils/routes';
 import { useRouter } from 'next/router';
 import {
   activeTabSx,
   inactiveTabSx,
-  toolbarHamburgerSx,
+  toolbarLogoIconSx,
   toolbarLeftContainerSx,
   toolbarLogoSx,
   toolbarSx,
-} from '../styles/components/NavbarStyles';
+  toolbarHamburgerSx,
+} from '../../styles/components/navigation/NavbarStyles';
 
 const NavBar = () => {
   const theme = useTheme();
@@ -25,28 +26,24 @@ const NavBar = () => {
     <AppBar position="sticky" elevation={0}>
       <Toolbar sx={toolbarSx}>
         <Stack sx={toolbarLeftContainerSx} component="div" direction="row" spacing={1}>
-          {isMobile && <MenuIcon color="primary" onClick={() => setDrawerIsOpen(true)} />}
+          {isMobile && <MenuIcon sx={toolbarHamburgerSx} color="primary" onClick={() => setDrawerIsOpen(true)} />}
 
           <Link href="/">
-            <a>
-              <Stack sx={toolbarLogoSx} component="div" direction="row" spacing={1}>
-                {!isMobile && <Box sx={toolbarHamburgerSx} component="img" src="/logo.png" />}
+            <Stack sx={toolbarLogoSx} component="div" direction="row" spacing={1}>
+              {!isMobile && <Box sx={toolbarLogoIconSx} component="img" src="/logo.png" />}
 
-                <Typography variant={isMobile ? 'h4' : 'h3'}>Giving Coupons</Typography>
-              </Stack>
-            </a>
+              <Typography variant={isMobile ? 'h4' : 'h3'}>Giving Coupons</Typography>
+            </Stack>
           </Link>
         </Stack>
 
         {!isMobile && (
           <Stack component="div" direction="row">
-            {navigationTextPathMap.entrySeq().map((pair) => (
-              <Link key={pair[0]} href={pair[1]}>
-                <a>
-                  <Box sx={isTabForCurrentPage(pair[1], router.pathname) ? activeTabSx : inactiveTabSx}>
-                    <Typography variant="h4">{pair[0]}</Typography>
-                  </Box>
-                </a>
+            {navigationTextPathMap.entrySeq().map(([label, path]) => (
+              <Link key={label} href={path}>
+                <Box sx={isTabForCurrentPage(path, router.pathname) ? activeTabSx : inactiveTabSx}>
+                  <Typography variant="h4">{label}</Typography>
+                </Box>
               </Link>
             ))}
           </Stack>

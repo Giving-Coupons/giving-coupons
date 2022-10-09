@@ -15,37 +15,67 @@ import { useSnackbar } from 'notistack';
 import { useRouter } from 'next/router';
 import useAdminLoginCheck from '../../hooks/useAdminLogInCheck';
 import { LockOpenOutlined } from '@mui/icons-material';
+import { Alert, AlertTitle, List, ListItemText } from '@mui/material';
 
-const adminApi = api.admin;
+const adminApi = api.admins;
 
 interface FormState {
   username?: string;
   password?: string;
 }
 
+interface SubmitState {
+  canSubmit: boolean;
+  messages: string[];
+}
+
 const SignIn: NextPage = () => {
-  const { enqueueSnackbar } = useSnackbar();
-  const router = useRouter();
   useAdminLoginCheck();
+  const router = useRouter();
+  const { enqueueSnackbar } = useSnackbar();
+  const [submitState, setSubmitState] = useState<SubmitState>({ canSubmit: false, messages: [] });
   const [formState, setFormState] = useState<FormState>({
     username: '',
     password: '',
   });
 
   const createTextField = (field: keyof FormState, label: string) => (
-    <TextField
-      required
-      fullWidth
-      name={field}
-      label={label}
-      type={field == 'password' ? 'password' : 'text'}
-      id={field}
-      onChange={handleChange(field)}
-    />
+    <Grid item xs={12}>
+      <TextField
+        required
+        fullWidth
+        name={field}
+        label={label}
+        type={field == 'password' ? 'password' : 'text'}
+        id={field}
+        onChange={handleChange(field)}
+      />
+    </Grid>
   );
 
-  const handleChange = (prop: keyof FormState) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFormState({ ...formState, [prop]: event.target.value });
+  const createErrorMessages = (messages: string[]) => {
+    return (
+      messages &&
+      messages.length > 0 && (
+        <Alert severity="error">
+          <AlertTitle>Error</AlertTitle>
+          <List>
+            {messages.map((message, index) => (
+              <ListItemText key={index}>{message}</ListItemText>
+            ))}
+          </List>
+        </Alert>
+      )
+    );
+  };
+
+  const handleChange = (prop: keyof FormState) => async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newState = { ...formState, [prop]: event.target.value };
+    setFormState(newState);
+    await adminLoginDataSchema
+      .validate(newState, { abortEarly: false })
+      .then(() => setSubmitState({ canSubmit: true, messages: [] }))
+      .catch((err) => setSubmitState({ canSubmit: false, messages: err.errors }));
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -80,20 +110,10 @@ const SignIn: NextPage = () => {
         </Typography>
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
-            <Grid item xs={12}>
-              {createTextField('username', 'Username')}
-            </Grid>
-            <Grid item xs={12}>
-              {createTextField('password', 'Password')}
-            </Grid>
+            {createTextField('username', 'Username')}
+            {createTextField('password', 'Password')}
           </Grid>
-          <Button
-            type="submit"
-            disabled={!adminLoginDataSchema.isValidSync(formState)}
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
+          <Button type="submit" disabled={!submitState.canSubmit} fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
             Sign In
           </Button>
           <Grid container justifyContent="flex-end">
@@ -101,6 +121,7 @@ const SignIn: NextPage = () => {
               <Link href="/admin/sign-up">{`Don't have an account? Sign up`}</Link>
             </Grid>
           </Grid>
+          {!submitState.canSubmit && createErrorMessages(submitState.messages)}
         </Box>
       </Box>
     </Container>

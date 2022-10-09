@@ -1,5 +1,5 @@
 import { Drawer, List, ListItem, ListItemButton, ListItemText, Typography } from '@mui/material';
-import { isTabForCurrentPage, navigationTextPathMap } from '../utils/routes';
+import { isTabForCurrentPage, navigationTextPathMap } from '../../utils/routes';
 import { Dispatch, SetStateAction } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import Button from '@mui/material/Button';
@@ -12,7 +12,7 @@ import {
   headerListItemSx,
   inactiveTabSx,
   tabListItemSx,
-} from '../styles/components/NavDrawerStyles';
+} from '../../styles/components/navigation/NavDrawerStyles';
 
 interface Props {
   isOpen: boolean;
@@ -31,15 +31,15 @@ const NavDrawer = ({ isOpen, setIsOpen }: Props) => {
           </Button>
         </ListItem>
 
-        {navigationTextPathMap.entrySeq().map((pair) => (
-          <ListItem key={pair[0]} sx={tabListItemSx}>
+        {navigationTextPathMap.entrySeq().map(([label, path]) => (
+          <ListItem key={label} sx={tabListItemSx}>
             <ListItemButton
-              sx={isTabForCurrentPage(pair[1], router.pathname) ? activeTabSx : inactiveTabSx}
+              sx={isTabForCurrentPage(path, router.pathname) ? activeTabSx : inactiveTabSx}
               component="a"
-              href={pair[1]}
+              href={path}
             >
               <ListItemText>
-                <Typography variant="h4">{pair[0]}</Typography>
+                <Typography variant="h4">{label}</Typography>
               </ListItemText>
             </ListItemButton>
           </ListItem>

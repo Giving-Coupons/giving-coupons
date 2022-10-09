@@ -1,49 +1,50 @@
 import React from 'react';
 import SimpleTable from '../../../components/generic/SimpleTable';
 import { Interest, InterestStatus } from '../../../types/interest';
+import IconButtonWithTooltip from '../../../components/IconButtonWithTooltip';
+import DeleteButton from '../../../components/DeleteButton';
+import DoneIcon from '@mui/icons-material/Done';
+import ClearIcon from '@mui/icons-material/Clear';
+import Tabbed from '../../../components/Tabs';
+import { Box, Paper, Typography } from '@mui/material';
+import useSWR from 'swr';
+import api from '../../../frontendApis';
+import { Nullable } from '../../../types/utils';
+import { theme } from '../../../utils/theme';
+import InterestsAPI from '../../../frontendApis/interests';
 
 export default function Interests() {
-  const data: Interest[] = [
-    {
-      id: 1,
-      donorName: 'Donor 1',
-      donorEmail: 'donor1@gmail.com',
-      campaignName: 'Campaign 1',
-      campaignDescription: 'Campaign 1 description',
-      promisedAmount: 1000,
-      start: new Date(2022, 11, 1),
-      end: new Date(2022, 12, 0),
-      status: InterestStatus.PENDING,
-      couponDenomination: 10,
-    },
-    {
-      id: 2,
-      donorName: 'Donor 2',
-      donorEmail: 'donor2@gmail.com',
-      campaignName: 'Campaign 2',
-      campaignDescription: 'Campaign 2 description',
-      promisedAmount: 2000,
-      start: new Date(2022, 11, 1),
-      end: new Date(2022, 12, 0),
-      status: InterestStatus.PENDING,
-      couponDenomination: 20,
-    },
-    {
-      id: 3,
-      donorName: 'Donor 3',
-      donorEmail: 'donor3@gmail.com',
-      campaignName: 'Campaign 3',
-      campaignDescription: 'Campaign 3 description',
-      promisedAmount: 3000,
-      start: new Date(2022, 11, 1),
-      end: new Date(2022, 12, 0),
-      status: InterestStatus.PENDING,
-      couponDenomination: 30,
-    },
-  ];
+  const { data: interests, mutate } = useSWR<Nullable<Interest[]>>(InterestsAPI.INTERESTS_URL, () =>
+    api.interests.list().then((r) => r.payload),
+  );
 
-  return (
-    <div>
+  const pendingInterests = interests?.filter((interest) => interest.status === InterestStatus.PENDING);
+  const approvedInterests = interests?.filter((interest) => interest.status === InterestStatus.APPROVED);
+  const rejectedInterests = interests?.filter((interest) => interest.status === InterestStatus.REJECTED);
+
+  const makeInterestsTable = (interests: Nullable<Interest[]> | undefined, status: InterestStatus) => {
+    const approveAction = {
+      component: <IconButtonWithTooltip icon={<DoneIcon />} tooltip="Approve" />,
+      onClick: (interest: Interest) => {
+        api.interests.approveInterest(interest.id).then(() => mutate());
+      },
+    };
+
+    const rejectAction = {
+      component: <IconButtonWithTooltip icon={<ClearIcon />} tooltip="Reject" />,
+      onClick: (interest: Interest) => {
+        api.interests.rejectInterest(interest.id).then(() => mutate());
+      },
+    };
+
+    const deleteAction = {
+      component: <DeleteButton />,
+      onClick: (interest: Interest) => {
+        api.interests.deleteInterest(interest.id).then(() => mutate());
+      },
+    };
+
+    return (
       <SimpleTable
         columns={[
           { title: 'ID', key: 'id' },
@@ -52,13 +53,43 @@ export default function Interests() {
           { title: 'Campaign Name', key: 'campaignName' },
           { title: 'Campaign Description', key: 'campaignDescription' },
           { title: 'Promised Amount', key: 'promisedAmount' },
-          { title: 'Start', key: 'start', transformValue: (value: Date) => value.toLocaleDateString() },
-          { title: 'End', key: 'end', transformValue: (value: Date) => value.toLocaleDateString() },
-          { title: 'Status', key: 'status' },
+          { title: 'Start', key: 'start', transformValue: (date) => date.toLocaleDateString() },
+          { title: 'End', key: 'end', transformValue: (date) => date.toLocaleDateString() },
           { title: 'Coupon Denomination', key: 'couponDenomination' },
         ]}
-        rows={data}
+        rows={interests ?? []}
+        isLoading={interests === undefined}
+        actions={[
+          ...(status === InterestStatus.PENDING ? [approveAction, rejectAction] : []), // Only pending interests can be approved/rejected
+          ...(status !== InterestStatus.APPROVED ? [deleteAction] : []), // Approved interests cannot be deleted
+        ]}
       />
-    </div>
+    );
+  };
+
+  return (
+    <Box sx={{ padding: theme.spacing(2) }}>
+      <Typography variant="h1" gutterBottom>
+        Interests
+      </Typography>
+      <Paper>
+        <Tabbed
+          tabs={[
+            {
+              label: 'Pending',
+              content: makeInterestsTable(pendingInterests, InterestStatus.PENDING),
+            },
+            {
+              label: 'Approved',
+              content: makeInterestsTable(approvedInterests, InterestStatus.APPROVED),
+            },
+            {
+              label: 'Rejected',
+              content: makeInterestsTable(rejectedInterests, InterestStatus.REJECTED),
+            },
+          ]}
+        />
+      </Paper>
+    </Box>
   );
 }
