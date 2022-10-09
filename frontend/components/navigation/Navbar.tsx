@@ -4,7 +4,12 @@ import Link from 'next/link';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useState } from 'react';
 import NavDrawer from './NavDrawer';
-import { isTabForCurrentPage, defaultNavigationTextPathMap, adminNavigationTextPathMap } from '../../utils/routes';
+import {
+  isTabForCurrentPage,
+  defaultNavigationTextPathMap,
+  adminNavigationTextPathMap,
+  adminPathPrefix,
+} from '../../utils/routes';
 import { useRouter } from 'next/router';
 import {
   activeTabSx,
@@ -26,9 +31,8 @@ const NavBar = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [drawerIsOpen, setDrawerIsOpen] = useState<boolean>(false);
 
-  const adminPathPrefix = '/admin';
   const isAuthPage =
-    router.pathname === `${adminPathPrefix}/sign-up` || router.pathname === '${adminPathPrefix}/sign-in';
+    router.pathname === `${adminPathPrefix}/sign-up` || router.pathname === `${adminPathPrefix}/sign-in`;
   const isAdminSignedInPage = router.pathname.startsWith(adminPathPrefix) && !isAuthPage;
   const navigationTextPathMap = isAdminSignedInPage ? adminNavigationTextPathMap : defaultNavigationTextPathMap;
 

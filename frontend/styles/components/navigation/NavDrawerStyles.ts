@@ -37,3 +37,10 @@ export const activeTabSx: SxProps = {
   color: theme.palette.primary.main,
   backgroundColor: theme.palette.primary.light,
 };
+
+export const logoutButtonSx: SxProps = {
+  display: 'flex',
+  alignItems: 'center',
+  margin: '0px',
+  color: theme.palette.neutral.light,
+};

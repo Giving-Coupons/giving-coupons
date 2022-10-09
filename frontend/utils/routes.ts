@@ -1,5 +1,7 @@
 import { OrderedMap } from 'immutable';
 
+export const adminPathPrefix = '/admin';
+
 export const defaultNavigationTextPathMap = OrderedMap({
   'How it works': '/',
   'Find a campaign': '/campaigns',
