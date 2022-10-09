@@ -5,6 +5,8 @@ import {
   topGraphLegendSx,
   bottomGraphLegendSx,
   graphLabelSx,
+  leftBarSx,
+  rightBarSx,
 } from '../../styles/components/charts/CompetingGraphStyles';
 
 interface Props {
@@ -40,7 +42,12 @@ const CompetingGraph = ({
         ))}
       </Box>
 
-      <HorizontalBarGraph barFractions={barFractions} overrideGraphSx={overrideGraphSx} />
+      <HorizontalBarGraph
+        barFractions={barFractions}
+        overrideFirstBarSx={leftBarSx}
+        overrideLastBarSx={rightBarSx}
+        overrideGraphSx={overrideGraphSx}
+      />
 
       <Box sx={bottomGraphLegendSx}>
         {bottomLabelTitle && (
