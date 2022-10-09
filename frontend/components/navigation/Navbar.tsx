@@ -26,13 +26,15 @@ const NavBar = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [drawerIsOpen, setDrawerIsOpen] = useState<boolean>(false);
 
-  const isAuthPage = router.pathname === '/admin/sign-up' || router.pathname === '/admin/sign-in';
-  const isAdminSignedInPage = router.pathname.startsWith('/admin') && !isAuthPage;
+  const adminPathPrefix = '/admin';
+  const isAuthPage =
+    router.pathname === `${adminPathPrefix}/sign-up` || router.pathname === '${adminPathPrefix}/sign-in';
+  const isAdminSignedInPage = router.pathname.startsWith(adminPathPrefix) && !isAuthPage;
   const navigationTextPathMap = isAdminSignedInPage ? adminNavigationTextPathMap : defaultNavigationTextPathMap;
 
   const handleLogOut = () => {
     unsetAuthHeaders();
-    router.push('/admin/sign-in');
+    router.push(`${adminPathPrefix}/sign-in`);
   };
 
   return (
@@ -42,7 +44,7 @@ const NavBar = () => {
           <Stack sx={toolbarLeftContainerSx} component="div" direction="row" spacing={1}>
             {isMobile && <MenuIcon sx={toolbarHamburgerSx} color="primary" onClick={() => setDrawerIsOpen(true)} />}
 
-            <Link href="/">
+            <Link href={isAdminSignedInPage ? adminPathPrefix : '/'}>
               <Stack sx={toolbarLogoSx} component="div" direction="row" spacing={1}>
                 {!isMobile && <Box sx={toolbarLogoIconSx} component="img" src="/logo.png" />}
 
