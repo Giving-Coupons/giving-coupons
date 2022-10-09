@@ -42,6 +42,13 @@ class ApplicationController < ActionController::API
     params.deep_transform_keys!(&:underscore)
   end
 
+  def authenticate_admin!
+    return if current_admin
+
+    add_error_message 'This action can only be performed by an authenticated admin!'
+    render 'layouts/empty', status: :unauthorized
+  end
+
   rescue_from ActiveRecord::StatementInvalid, ActionController::ParameterMissing do |e|
     add_error_message "Request contains invalid or malformed parameters: #{e}"
     render 'layouts/empty', status: :bad_request
