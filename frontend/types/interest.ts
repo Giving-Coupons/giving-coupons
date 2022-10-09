@@ -42,12 +42,13 @@ export const interestSchema = Yup.object({
     .typeError('Promised amount could not be parsed.')
     .integer('Promised amount must be an integer.')
     .positive('Promised amount must be a positive.')
+    .min(100, 'Promised amount must be at least $100')
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     .when('couponDenomination', (couponDenomination: number, schema: any) => {
       return couponDenomination
         ? (schema as Yup.AnySchema).test({
             test: (promisedAmount) => promisedAmount % couponDenomination === 0,
-            message: `Promised amount must be a multiple of $ ${couponDenomination}.`,
+            message: `Promised amount must be a multiple of $${couponDenomination}.`,
           })
         : schema;
     }),

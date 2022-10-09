@@ -55,9 +55,9 @@ export default function useCustomForm<T extends Record<string, any>>({
         inputFormat="ddd, D MMM yyyy"
         value={formData ? formData[field] ?? null : null}
         toolbarTitle={label}
-        onChange={handleDateChange(field)}
-        renderInput={(props) => <TextField {...{ ...props, label }} />}
-      ></MobileDatePicker>
+        onChange={(value) => handleChange(field, value)}
+        renderInput={(props) => <TextField {...{ ...props, label, fullWidth: true, required: true }} />}
+      />
     </Grid>
   );
 
@@ -70,7 +70,7 @@ export default function useCustomForm<T extends Record<string, any>>({
         label={label}
         type="text"
         id={field}
-        onChange={handleTextChange(field)}
+        onChange={(event) => handleChange(field, event.target.value)}
       />
     </Grid>
   );
@@ -84,7 +84,7 @@ export default function useCustomForm<T extends Record<string, any>>({
         label={label}
         type="text"
         id={field}
-        onChange={handleTextChange(field)}
+        onChange={(event) => handleChange(field, event.target.value)}
         InputProps={{
           startAdornment: <InputAdornment position="start">$</InputAdornment>,
         }}
@@ -112,14 +112,6 @@ export default function useCustomForm<T extends Record<string, any>>({
         </Alert>
       )
     );
-  };
-
-  const handleDateChange = (prop: FormDataKeys<T>) => (value: moment.Moment | null) => {
-    handleChange(prop, value);
-  };
-
-  const handleTextChange = (prop: FormDataKeys<T>) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    handleChange(prop, event.target.value);
   };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
