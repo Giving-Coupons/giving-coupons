@@ -16,7 +16,7 @@ class InterestsController < ApplicationController
   def create
     @interest = Interest.create!(interest_params)
 
-    add_success_message "Interest for \"#{@interest.donor_name}\" successfully created!"
+    add_success_message "Interest form for \"#{@interest.donor_name}\" successfully submitted!"
     render :show, status: :created, location: @interest
   end
 

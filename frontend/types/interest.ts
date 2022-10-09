@@ -39,22 +39,28 @@ export const interestSchema = Yup.object({
   campaignDescription: Yup.string().required('Campaign description is required.'),
   promisedAmount: Yup.number()
     .required('Promised amount is required.')
+    .typeError('Promised amount could not be parsed.')
     .integer('Promised amount must be an integer.')
     .positive('Promised amount must be a positive.')
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     .when('couponDenomination', (couponDenomination: number, schema: any) => {
       return couponDenomination
         ? (schema as Yup.AnySchema).test({
             test: (promisedAmount) => promisedAmount % couponDenomination === 0,
-            message: 'Promised amount must be a multiple of the coupon denomination.',
+            message: `Promised amount must be a multiple of $ ${couponDenomination}.`,
           })
         : schema;
     }),
-  start: Yup.date().required('Start date is required.'),
-  end: Yup.date().required('End date is required.').min(Yup.ref('start'), 'End date must be after start date.'),
-  status: Yup.mixed().required().oneOf(Object.values(InterestStatus)),
+  start: Yup.date().required('Start date is required.').typeError('Start date could not be parsed.'),
+  end: Yup.date()
+    .required('End date is required.')
+    .typeError('End date could not be parsed.')
+    .min(Yup.ref('start'), 'End date must be after start date.'),
+  status: Yup.mixed().required().oneOf(Object.values(InterestStatus), 'Status could not be parsed.'),
   charities: Yup.array(charitySchema).required(),
   couponDenomination: Yup.number()
     .required('Coupon denomination is required.')
+    .typeError('Coupon denomination must be a number.')
     .integer('Coupon denomination must be an integer.')
-    .positive('Coupon integer must be positive.'),
+    .positive('Coupon denomination must be positive.'),
 });
