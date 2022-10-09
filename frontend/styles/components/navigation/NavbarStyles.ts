@@ -13,16 +13,28 @@ export const toolbarLeftContainerSx: SxProps = {
 };
 
 export const toolbarHamburgerSx: SxProps = {
-  height: '1.5em',
-};
+  "&:hover": {
+    cursor: 'pointer',
+  }
+}
 
 export const toolbarLogoSx: SxProps = {
   display: 'flex',
   alignItems: 'center',
+  "&:hover": {
+    cursor: 'pointer',
+  }
+};
+
+export const toolbarLogoIconSx: SxProps = {
+  height: '1.5em',
 };
 
 export const inactiveTabSx: SxProps = {
   padding: '4px 16px',
+  "&:hover": {
+    cursor: 'pointer',
+  }
 };
 
 export const activeTabSx: SxProps = {

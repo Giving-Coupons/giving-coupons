@@ -9,10 +9,11 @@ import { useRouter } from 'next/router';
 import {
   activeTabSx,
   inactiveTabSx,
-  toolbarHamburgerSx,
+  toolbarLogoIconSx,
   toolbarLeftContainerSx,
   toolbarLogoSx,
   toolbarSx,
+  toolbarHamburgerSx,
 } from '../../styles/components/navigation/NavbarStyles';
 
 const NavBar = () => {
@@ -25,16 +26,14 @@ const NavBar = () => {
     <AppBar position="sticky" elevation={0}>
       <Toolbar sx={toolbarSx}>
         <Stack sx={toolbarLeftContainerSx} component="div" direction="row" spacing={1}>
-          {isMobile && <MenuIcon color="primary" onClick={() => setDrawerIsOpen(true)} />}
+          {isMobile && <MenuIcon sx={toolbarHamburgerSx} color="primary" onClick={() => setDrawerIsOpen(true)} />}
 
           <Link href="/">
-            <a>
-              <Stack sx={toolbarLogoSx} component="div" direction="row" spacing={1}>
-                {!isMobile && <Box sx={toolbarHamburgerSx} component="img" src="/logo.png" />}
+            <Stack sx={toolbarLogoSx} component="div" direction="row" spacing={1}>
+              {!isMobile && <Box sx={toolbarLogoIconSx} component="img" src="/logo.png" />}
 
-                <Typography variant={isMobile ? 'h4' : 'h3'}>Giving Coupons</Typography>
-              </Stack>
-            </a>
+              <Typography variant={isMobile ? 'h4' : 'h3'}>Giving Coupons</Typography>
+            </Stack>
           </Link>
         </Stack>
 
@@ -42,11 +41,9 @@ const NavBar = () => {
           <Stack component="div" direction="row">
             {navigationTextPathMap.entrySeq().map(([label, path]) => (
               <Link key={label} href={path}>
-                <a>
-                  <Box sx={isTabForCurrentPage(path, router.pathname) ? activeTabSx : inactiveTabSx}>
-                    <Typography variant="h4">{label}</Typography>
-                  </Box>
-                </a>
+                <Box sx={isTabForCurrentPage(path, router.pathname) ? activeTabSx : inactiveTabSx}>
+                  <Typography variant="h4">{label}</Typography>
+                </Box>
               </Link>
             ))}
           </Stack>
