@@ -12,6 +12,11 @@ export const toolbarLeftContainerSx: SxProps = {
   alignItems: 'center',
 };
 
+export const adminCaptionSx: SxProps = {
+  paddingBottom: '1em',
+  fontWeight: '600',
+};
+
 export const toolbarHamburgerSx: SxProps = {
   '&:hover': {
     cursor: 'pointer',

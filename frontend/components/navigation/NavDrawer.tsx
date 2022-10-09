@@ -1,5 +1,5 @@
 import { Drawer, List, ListItem, ListItemButton, ListItemText, Typography } from '@mui/material';
-import { isTabForCurrentPage, navigationTextPathMap } from '../../utils/routes';
+import { isTabForCurrentPage } from '../../utils/routes';
 import { Dispatch, SetStateAction } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import Button from '@mui/material/Button';
@@ -13,13 +13,15 @@ import {
   inactiveTabSx,
   tabListItemSx,
 } from '../../styles/components/navigation/NavDrawerStyles';
+import { OrderedMap } from 'immutable';
 
 interface Props {
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
+  navigationTextPathMap: OrderedMap<string, string>;
 }
 
-const NavDrawer = ({ isOpen, setIsOpen }: Props) => {
+const NavDrawer = ({ isOpen, setIsOpen, navigationTextPathMap }: Props) => {
   const router = useRouter();
 
   return (

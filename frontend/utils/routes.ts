@@ -1,13 +1,16 @@
 import { OrderedMap } from 'immutable';
 
-export const navigationTextPathMap = OrderedMap({
+export const defaultNavigationTextPathMap = OrderedMap({
   'How it works': '/',
   'Find a campaign': '/campaigns',
   'Start a campaign': '/interest',
 });
 
+export const adminNavigationTextPathMap = OrderedMap({
+  'Manage interests': '/admin/interests',
+  'Manage campaigns': '/admin/campaigns',
+});
+
 export const isTabForCurrentPage = (tabPath: string, currentPath: string) => {
-  const pathParts = currentPath.split('/');
-  const pathSubdirectory = pathParts.length > 1 ? '/' + pathParts[1] : '/';
-  return tabPath === pathSubdirectory;
+  return tabPath === '/' ? currentPath === tabPath : currentPath.startsWith(tabPath);
 };
