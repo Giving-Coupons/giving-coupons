@@ -13,6 +13,29 @@ import { formStackSx, mailIconSx } from '../styles/interestForm';
 
 const interestsApi = api.interests;
 const InterestFormPage: NextPage = () => {
+  const renderForm = ({
+    createDatePicker,
+    createErrorMessages,
+    createMoneyField,
+    createSubmitButton,
+    createTextField,
+  }: FormRenderFunctionProps<WithoutId<Interest>>) => (
+    <>
+      <Grid container spacing={2}>
+        {createTextField('donorName', 'Name')}
+        {createTextField('donorEmail', 'Email')}
+        {createTextField('campaignName', 'Campaign name')}
+        {createTextField('campaignDescription', 'Campaign description')}
+        {/* TODO: Charity selection is omitted as the model is TBD. */}
+        {createMoneyField('promisedAmount', 'Promised Amount')}
+        {createDatePicker('start', 'Start Date')}
+        {createDatePicker('end', 'End Date')}
+      </Grid>
+      {createSubmitButton('Submit')}
+      {createErrorMessages()}
+    </>
+  );
+
   const interestForm = useCustomForm<WithoutId<Interest>>({
     // Set charities to [{ id: 1 }] because its not worth building charity selection component rn.
     // Set status to PENDING as this value cannot be changed by the form.
@@ -46,30 +69,5 @@ const InterestFormPage: NextPage = () => {
     </Container>
   );
 };
-
-function renderForm({
-  createDatePicker,
-  createErrorMessages,
-  createMoneyField,
-  createSubmitButton,
-  createTextField,
-}: FormRenderFunctionProps<WithoutId<Interest>>) {
-  return (
-    <>
-      <Grid container spacing={2}>
-        {createTextField('donorName', 'Name')}
-        {createTextField('donorEmail', 'Email')}
-        {createTextField('campaignName', 'Campaign name')}
-        {createTextField('campaignDescription', 'Campaign description')}
-        {/* Charity selection is omitted as the model is TBD and its hard to visualize what it will look like. */}
-        {createMoneyField('promisedAmount', 'Promised Amount')}
-        {createDatePicker('start', 'Start Date')}
-        {createDatePicker('end', 'End Date')}
-      </Grid>
-      {createSubmitButton('Submit')}
-      {createErrorMessages()}
-    </>
-  );
-}
 
 export default InterestFormPage;
