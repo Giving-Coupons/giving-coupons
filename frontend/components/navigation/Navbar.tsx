@@ -16,6 +16,9 @@ import {
   toolbarHamburgerSx,
   adminCaptionSx,
 } from '../../styles/components/navigation/NavbarStyles';
+import Button from '../generic/Button';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { unsetAuthHeaders } from '../../frontendApis/helpers/authHeaders';
 
 const NavBar = () => {
   const theme = useTheme();
@@ -26,6 +29,11 @@ const NavBar = () => {
   const isAuthPage = router.pathname === '/admin/sign-up' || router.pathname === '/admin/sign-in';
   const isAdminSignedInPage = router.pathname.startsWith('/admin') && !isAuthPage;
   const navigationTextPathMap = isAdminSignedInPage ? adminNavigationTextPathMap : defaultNavigationTextPathMap;
+
+  const handleLogOut = () => {
+    unsetAuthHeaders();
+    router.push('/admin/sign-in');
+  };
 
   return (
     !isAuthPage && (
@@ -58,6 +66,12 @@ const NavBar = () => {
                   </Box>
                 </Link>
               ))}
+
+              {isAdminSignedInPage && (
+                <Button actionType="secondary" onClick={handleLogOut} endIcon={<LogoutIcon />}>
+                  Log Out
+                </Button>
+              )}
             </Stack>
           )}
         </Toolbar>
