@@ -1,13 +1,13 @@
 import { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { useSnackbar } from 'notistack';
-import { ReactElement, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ApiResponse } from '../types/api';
 import AxiosClient from './axiosClient';
 
 import { saveAuthHeaders, setAuthHeaders } from './helpers/authHeaders';
 
 interface Props {
-  children: ReactElement;
+  children: React.ReactNode;
 }
 
 const AxiosInterceptor = ({ children }: Props) => {
@@ -50,7 +50,7 @@ const AxiosInterceptor = ({ children }: Props) => {
 
   if (!isIntercepted) return null;
 
-  return children;
+  return <>{children}</>;
 };
 
 export { AxiosInterceptor };

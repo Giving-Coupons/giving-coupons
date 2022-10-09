@@ -1,5 +1,5 @@
 *.md
 *.lock
 *.log
-styles/**
+*.scss
 public/**

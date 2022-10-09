@@ -16,6 +16,10 @@ export const imageContainerSx: SxProps = {
   position: 'relative',
 };
 
+export const imageSx: SxProps = {
+  maxWidth: '100%',
+};
+
 export const imageOverlaySx: SxProps = {
   width: '100%',
   height: '100%',
