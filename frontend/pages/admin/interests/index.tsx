@@ -1,5 +1,5 @@
 import React from 'react';
-import SimpleTable from '../../../components/SimpleTable';
+import SimpleTable from '../../../components/generic/SimpleTable';
 import { Interest, InterestStatus } from '../../../types/interest';
 import IconButtonWithTooltip from '../../../components/IconButtonWithTooltip';
 import DeleteButton from '../../../components/DeleteButton';

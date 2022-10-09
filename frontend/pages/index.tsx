@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import Button from '../components/Button';
+import Button from '../components/generic/Button';
 import { Box, Stack } from '@mui/system';
 import { Grid, Typography } from '@mui/material';
 import {
