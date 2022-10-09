@@ -13,9 +13,9 @@ export const containerSx: SxProps = {
 export const imageContainerSx: SxProps = {
   minWidth: '100%',
   maxWidth: '100%',
-  minHeight: '40%',
-  height: '40%',
-  maxHeight: '40%',
+  minHeight: '45%',
+  height: '45%',
+  maxHeight: '45%',
   borderTopLeftRadius: borderRadius,
   borderTopRightRadius: borderRadius,
 };
