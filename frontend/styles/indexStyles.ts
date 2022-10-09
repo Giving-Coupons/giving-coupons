@@ -1,5 +1,5 @@
-import {SxProps} from "@mui/system";
-import {theme} from "../utils/theme";
+import { SxProps } from '@mui/system';
+import { theme } from '../utils/theme';
 
 export const examplesContainerSx: SxProps = {
   display: 'flex',
@@ -18,7 +18,7 @@ export const imageContainerSx: SxProps = {
 
 export const imageSx: SxProps = {
   maxWidth: '100%',
-}
+};
 
 export const imageOverlaySx: SxProps = {
   width: '100%',
@@ -52,4 +52,4 @@ export const secondaryTranslucentOverlaySx: SxProps = {
 
 export const contrastText: SxProps = {
   color: theme.palette.contrast.dark,
-}
+};
