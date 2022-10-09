@@ -1,7 +1,6 @@
-import { PrimaryDonor } from '../types/primaryDonor';
 import { ApiPromise } from '../types/api';
+import { PrimaryDonor, PrimaryDonorPostData, PrimaryDonorPutData } from '../types/primaryDonor';
 import BaseAPI from './base';
-import { WithoutId } from '../types/utils';
 
 class PrimaryDonorsAPI extends BaseAPI {
   protected static PRIMARY_DONORS_URL = 'primary_donors';
@@ -10,13 +9,12 @@ class PrimaryDonorsAPI extends BaseAPI {
     return this.get(PrimaryDonorsAPI.PRIMARY_DONORS_URL);
   }
 
-  public addDonor(primaryDonor: WithoutId<PrimaryDonor>): ApiPromise<PrimaryDonor> {
-    return this.post(PrimaryDonorsAPI.PRIMARY_DONORS_URL, primaryDonor);
+  public addDonor(primaryDonorPostData: PrimaryDonorPostData): ApiPromise<PrimaryDonor> {
+    return this.post(PrimaryDonorsAPI.PRIMARY_DONORS_URL, primaryDonorPostData);
   }
 
-  public putDonor(primaryDonor: PrimaryDonor): ApiPromise<PrimaryDonor> {
-    const { id: donorId, ...data } = primaryDonor;
-    return this.put(`${PrimaryDonorsAPI.PRIMARY_DONORS_URL}/${donorId}`, data);
+  public putDonor(donorId: number, primaryDonorPutdata: PrimaryDonorPutData): ApiPromise<PrimaryDonor> {
+    return this.put(`${PrimaryDonorsAPI.PRIMARY_DONORS_URL}/${donorId}`, primaryDonorPutdata);
   }
 
   public deleteDonor(donorId: number): ApiPromise<null> {
