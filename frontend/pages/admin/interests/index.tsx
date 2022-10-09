@@ -1,6 +1,6 @@
 import React from 'react';
 import SimpleTable from '../../../components/SimpleTable';
-import { InterestData, InterestStatus } from '../../../types/interest';
+import { Interest, InterestData, InterestStatus } from '../../../types/interest';
 import IconButtonWithTooltip from '../../../components/IconButtonWithTooltip';
 import DeleteButton from '../../../components/DeleteButton';
 import DoneIcon from '@mui/icons-material/Done';
@@ -14,32 +14,32 @@ import { theme } from '../../../utils/theme';
 import InterestsAPI from '../../../frontendApis/interests';
 
 export default function Interests() {
-  const { data: interests, mutate } = useSWR<Nullable<InterestData[]>>(InterestsAPI.INTERESTS_URL, () =>
-    api.interests.getInterests().then((r) => r.payload),
+  const { data: interests, mutate } = useSWR<Nullable<Interest[]>>(InterestsAPI.INTERESTS_URL, () =>
+    api.interests.list().then((r) => r.payload),
   );
 
   const pendingInterests = interests?.filter((interest) => interest.status === InterestStatus.PENDING);
   const approvedInterests = interests?.filter((interest) => interest.status === InterestStatus.APPROVED);
   const rejectedInterests = interests?.filter((interest) => interest.status === InterestStatus.REJECTED);
 
-  const makeInterestsTable = (interests: Nullable<InterestData[]> | undefined, status: InterestStatus) => {
+  const makeInterestsTable = (interests: Nullable<Interest[]> | undefined, status: InterestStatus) => {
     const approveAction = {
       component: <IconButtonWithTooltip icon={<DoneIcon />} tooltip="Approve" />,
-      onClick: (interest: InterestData) => {
+      onClick: (interest: Interest) => {
         api.interests.approveInterest(interest.id).then(() => mutate());
       },
     };
 
     const rejectAction = {
       component: <IconButtonWithTooltip icon={<ClearIcon />} tooltip="Reject" />,
-      onClick: (interest: InterestData) => {
+      onClick: (interest: Interest) => {
         api.interests.rejectInterest(interest.id).then(() => mutate());
       },
     };
 
     const deleteAction = {
       component: <DeleteButton />,
-      onClick: (interest: InterestData) => {
+      onClick: (interest: Interest) => {
         api.interests.deleteInterest(interest.id).then(() => mutate());
       },
     };
@@ -53,8 +53,8 @@ export default function Interests() {
           { title: 'Campaign Name', key: 'campaignName' },
           { title: 'Campaign Description', key: 'campaignDescription' },
           { title: 'Promised Amount', key: 'promisedAmount' },
-          { title: 'Start', key: 'start', transformValue: (value) => new Date(value).toLocaleDateString() },
-          { title: 'End', key: 'end', transformValue: (value) => new Date(value).toLocaleDateString() },
+          { title: 'Start', key: 'start', transformValue: (date) => date.toLocaleDateString() },
+          { title: 'End', key: 'end', transformValue: (date) => date.toLocaleDateString() },
           { title: 'Coupon Denomination', key: 'couponDenomination' },
         ]}
         rows={interests ?? []}

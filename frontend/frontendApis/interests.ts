@@ -39,10 +39,6 @@ class InterestsAPI extends BaseAPI {
   public rejectInterest(interestId: number): ApiPromise<InterestData> {
     return this.post(`${InterestsAPI.INTERESTS_URL}/${interestId}/reject`);
   }
-
-  public deleteInterest(interestId: number): ApiPromise<null> {
-    return this.delete(`${InterestsAPI.INTERESTS_URL}/${interestId}`);
-  }
 }
 
 function convertInterestToDataWithoutId({ charities, ...interestData }: WithoutId<Interest>) {
