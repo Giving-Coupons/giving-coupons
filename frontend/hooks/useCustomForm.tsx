@@ -93,7 +93,7 @@ export default function useCustomForm<T extends Record<string, any>>({
   );
 
   const createSubmitButton = (label: string) => (
-    <Button type="submit" disabled={!submitState.canSubmit} fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+    <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
       {label}
     </Button>
   );
@@ -125,22 +125,20 @@ export default function useCustomForm<T extends Record<string, any>>({
   const handleChange = (prop: FormDataKeys<T>, value: any) => {
     const newState = { ...formData, [prop]: value ?? undefined } as Partial<T>;
     setFormData(newState);
-    schema
-      .validate(newState, { abortEarly: false })
-      .then(() => setSubmitState({ canSubmit: true, messages: [] }))
-      .catch((err) => setSubmitState({ canSubmit: false, messages: err.errors }));
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    schema
-      .validate(formData)
-      .catch((error) => {
-        error.errors.map((m: string) => enqueueSnackbar(m, { variant: 'error' }));
-        throw error;
-      })
-      .then((x) => submitFn(x as T) /* Interceptor will enqueue snackbar on success / error. */)
-      .catch(/* errors from validate and api have already been handled and can be ignored. */);
+    let validatedData: T;
+    try {
+      validatedData = await schema.validate(formData, { abortEarly: false });
+    } catch (error) {
+      setSubmitState({ canSubmit: false, messages: (error as { errors: string[] }).errors }); // Set error messages.
+      return;
+    }
+
+    setSubmitState({ canSubmit: true, messages: [] }); // Clear form error messages.
+    await submitFn(validatedData); // Interceptor will enqueue snackbar on API success / error.
   };
 
   const renderProps: FormRenderFunctionProps<T> = {
