@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { ApiPromise } from '../types/api';
 import { Interest, InterestData, InterestPostData, InterestPutData } from '../types/interest';
 import { WithoutId } from '../types/utils';
@@ -51,7 +52,7 @@ function convertInterestToDataWithoutId({ charities, ...interestData }: WithoutI
 }
 
 function convertDataToInterest(data: InterestData): Interest {
-  return { ...data, start: new Date(data.start), end: new Date(data.end) };
+  return { ...data, start: moment(data.start), end: moment(data.end) };
 }
 
 export default InterestsAPI;
