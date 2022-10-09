@@ -40,11 +40,11 @@ const NavBar = () => {
 
         {!isMobile && (
           <Stack component="div" direction="row">
-            {navigationTextPathMap.entrySeq().map((pair) => (
-              <Link key={pair[0]} href={pair[1]}>
+            {navigationTextPathMap.entrySeq().map(([label, path]) => (
+              <Link key={label} href={path}>
                 <a>
-                  <Box sx={isTabForCurrentPage(pair[1], router.pathname) ? activeTabSx : inactiveTabSx}>
-                    <Typography variant="h4">{pair[0]}</Typography>
+                  <Box sx={isTabForCurrentPage(path, router.pathname) ? activeTabSx : inactiveTabSx}>
+                    <Typography variant="h4">{label}</Typography>
                   </Box>
                 </a>
               </Link>

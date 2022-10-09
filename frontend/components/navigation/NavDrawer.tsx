@@ -31,15 +31,15 @@ const NavDrawer = ({ isOpen, setIsOpen }: Props) => {
           </Button>
         </ListItem>
 
-        {navigationTextPathMap.entrySeq().map((pair) => (
-          <ListItem key={pair[0]} sx={tabListItemSx}>
+        {navigationTextPathMap.entrySeq().map(([label, path]) => (
+          <ListItem key={label} sx={tabListItemSx}>
             <ListItemButton
-              sx={isTabForCurrentPage(pair[1], router.pathname) ? activeTabSx : inactiveTabSx}
+              sx={isTabForCurrentPage(path, router.pathname) ? activeTabSx : inactiveTabSx}
               component="a"
-              href={pair[1]}
+              href={path}
             >
               <ListItemText>
-                <Typography variant="h4">{pair[0]}</Typography>
+                <Typography variant="h4">{label}</Typography>
               </ListItemText>
             </ListItemButton>
           </ListItem>
