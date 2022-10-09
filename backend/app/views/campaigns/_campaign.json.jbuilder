@@ -5,6 +5,8 @@ json.description @campaign.description
 json.promised_amount @campaign.promised_amount
 json.start @campaign.start
 json.end @campaign.end
-json.primary_donor_id @campaign.primary_donor_id
-json.interest_id @campaign.interest_id
-json.coupon_denomination @campaign.coupon_denomination
+json.couponDenomination @campaign.coupon_denomination
+
+json.primaryDonor do
+  json.partial! 'primary_donors/primary_donor', primary_donor: @campaign.primary_donor
+end
