@@ -1,5 +1,4 @@
 import { NextPage } from 'next';
-import { useState } from 'react';
 import api from '../../frontendApis';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -10,76 +9,21 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from 'next/link';
-import { adminLoginDataSchema } from '../../types/admin';
+import { AdminLoginData, adminLoginDataSchema } from '../../types/admin';
 import { useSnackbar } from 'notistack';
 import { useRouter } from 'next/router';
 import useAdminLoginCheck from '../../hooks/useAdminLogInCheck';
 import { LockOpenOutlined } from '@mui/icons-material';
-import { Alert, AlertTitle, List, ListItemText } from '@mui/material';
+import { useFormik } from 'formik';
 
 const adminApi = api.admins;
-
-interface FormState {
-  username?: string;
-  password?: string;
-}
-
-interface SubmitState {
-  canSubmit: boolean;
-  messages: string[];
-}
 
 const SignIn: NextPage = () => {
   useAdminLoginCheck();
   const router = useRouter();
   const { enqueueSnackbar } = useSnackbar();
-  const [submitState, setSubmitState] = useState<SubmitState>({ canSubmit: false, messages: [] });
-  const [formState, setFormState] = useState<FormState>({
-    username: '',
-    password: '',
-  });
 
-  const createTextField = (field: keyof FormState, label: string) => (
-    <Grid item xs={12}>
-      <TextField
-        required
-        fullWidth
-        name={field}
-        label={label}
-        type={field == 'password' ? 'password' : 'text'}
-        id={field}
-        onChange={handleChange(field)}
-      />
-    </Grid>
-  );
-
-  const createErrorMessages = (messages: string[]) => {
-    return (
-      messages &&
-      messages.length > 0 && (
-        <Alert severity="error">
-          <AlertTitle>Error</AlertTitle>
-          <List>
-            {messages.map((message, index) => (
-              <ListItemText key={index}>{message}</ListItemText>
-            ))}
-          </List>
-        </Alert>
-      )
-    );
-  };
-
-  const handleChange = (prop: keyof FormState) => async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newState = { ...formState, [prop]: event.target.value };
-    setFormState(newState);
-    await adminLoginDataSchema
-      .validate(newState, { abortEarly: false })
-      .then(() => setSubmitState({ canSubmit: true, messages: [] }))
-      .catch((err) => setSubmitState({ canSubmit: false, messages: err.errors }));
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const onSubmit = (formState: AdminLoginData) =>
     adminLoginDataSchema
       .validate(formState)
       .catch((error) => {
@@ -89,6 +33,26 @@ const SignIn: NextPage = () => {
       .then((x) => adminApi.loginAdmin(x) /* Interceptor will enqueue snackbar on success / error. */)
       .then(() => router.push('/admin'))
       .catch(/* errors from validate and api have already been handled and can be ignored. */);
+
+  const formik = useFormik({
+    initialValues: {
+      username: '',
+      password: '',
+    },
+    validationSchema: adminLoginDataSchema,
+    onSubmit,
+  });
+
+  const propHelper = (name: keyof AdminLoginData) => {
+    return {
+      id: name,
+      name: name,
+      value: formik.values[name],
+      onChange: formik.handleChange,
+      error: formik.touched[name] && Boolean(formik.errors[name]),
+      helperText: formik.touched[name] && formik.errors[name],
+      onBlur: formik.handleBlur,
+    };
   };
 
   return (
@@ -108,12 +72,16 @@ const SignIn: NextPage = () => {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+        <form onSubmit={formik.handleSubmit}>
           <Grid container spacing={2}>
-            {createTextField('username', 'Username')}
-            {createTextField('password', 'Password')}
+            <Grid item xs={12}>
+              <TextField required fullWidth label="Username" type="text" {...propHelper('username')} />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField required fullWidth label="Password" type="password" {...propHelper('password')} />
+            </Grid>
           </Grid>
-          <Button type="submit" disabled={!submitState.canSubmit} fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+          <Button type="submit" disabled={!formik.isValid} fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
             Sign In
           </Button>
           <Grid container justifyContent="flex-end">
@@ -121,8 +89,7 @@ const SignIn: NextPage = () => {
               <Link href="/admin/sign-up">{`Don't have an account? Sign up`}</Link>
             </Grid>
           </Grid>
-          {!submitState.canSubmit && createErrorMessages(submitState.messages)}
-        </Box>
+        </form>
       </Box>
     </Container>
   );
