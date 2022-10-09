@@ -7,7 +7,6 @@ import { Alert, AlertTitle, Button, InputAdornment, List, ListItemText } from '@
 import { LocalizationProvider, MobileDatePicker } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { ApiPromise } from '../types/api';
-import moment from 'moment';
 
 interface SubmitState {
   canSubmit: boolean;

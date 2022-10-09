@@ -1,5 +1,6 @@
 import { Charity, charitySchema } from './charity';
 import * as Yup from 'yup';
+import { Moment } from 'moment';
 
 export enum InterestStatus {
   PENDING = 'pending',
@@ -14,8 +15,8 @@ export type Interest = {
   campaignName: string;
   campaignDescription: string;
   promisedAmount: number;
-  start: moment.Moment;
-  end: moment.Moment;
+  start: Moment;
+  end: Moment;
   status: InterestStatus;
   charities: Charity[];
   couponDenomination: number;
