@@ -16,7 +16,8 @@ const InterestFormPage: NextPage = () => {
   const interestForm = useCustomForm<WithoutId<Interest>>({
     // Set charities to [{ id: 1 }] because its not worth building charity selection component rn.
     // Set status to PENDING as this value cannot be changed by the form.
-    initialData: { charities: [{ id: 1 }], status: InterestStatus.PENDING },
+    // Set coupon denomination to $10 as we currently do not plan on allowing people to submit other variations.
+    initialData: { charities: [{ id: 1 }], status: InterestStatus.PENDING, couponDenomination: 10 },
     schema: interestSchema,
     renderFn: renderForm,
     submitFn: (x) => interestsApi.addInterest(x),
@@ -62,7 +63,6 @@ function renderForm({
         {createTextField('campaignDescription', 'Campaign description')}
         {/* Charity selection is omitted as the model is TBD and its hard to visualize what it will look like. */}
         {createMoneyField('promisedAmount', 'Promised Amount')}
-        {createMoneyField('couponDenomination', 'Coupon Denomination')}
         {createDatePicker('start', 'Start Date')}
         {createDatePicker('end', 'End Date')}
       </Grid>
