@@ -144,38 +144,25 @@ const InterestFormPage: NextPage = () => {
         </Stack>
         <LocalizationProvider dateAdapter={AdapterMoment}>
           <form onSubmit={formik.handleSubmit}>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField {...textInputPropHelper('donorName')} label="Name" />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField {...textInputPropHelper('donorEmail')} label="Email" />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField {...textInputPropHelper('campaignName')} label="Campaign name" />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField {...textInputPropHelper('campaignDescription')} label="Campaign description" />
-              </Grid>
+            <Stack spacing={2}>
+              <TextField {...textInputPropHelper('donorName')} label="Name" />
+              <TextField {...textInputPropHelper('donorEmail')} label="Email" />
+              <TextField {...textInputPropHelper('campaignName')} label="Campaign name" />
+              <TextField {...textInputPropHelper('campaignDescription')} label="Campaign description" />
               {/* TODO: Charity selection is omitted as its model is TBD. */}
-              <Grid item xs={12}>
-                <TextField {...moneyInputPropHelper('promisedAmount')} label="Promised Amount" />
-              </Grid>
-              <Grid item xs={12}>
-                <MobileDatePicker
-                  {...datePickerPropHelper('start', 'Start Date')}
-                  disablePast
-                  onChange={(value: Moment | null) => formik.setFieldValue('start', value?.startOf('day'), true)}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <MobileDatePicker
-                  {...datePickerPropHelper('end', 'End Date')}
-                  minDate={formik.values.start.clone()}
-                  onChange={(value: Moment | null) => formik.setFieldValue('end', value?.endOf('day'), true)}
-                />
-              </Grid>
-            </Grid>
+              <TextField {...moneyInputPropHelper('promisedAmount')} label="Promised Amount" />
+              <MobileDatePicker
+                {...datePickerPropHelper('start', 'Start Date')}
+                disablePast
+                onChange={(value: Moment | null) => formik.setFieldValue('start', value?.startOf('day'), true)}
+              />
+              {/* Use duration picker instead. */}
+              <MobileDatePicker
+                {...datePickerPropHelper('end', 'End Date')}
+                minDate={formik.values.start.clone()}
+                onChange={(value: Moment | null) => formik.setFieldValue('end', value?.endOf('day'), true)}
+              />
+            </Stack>
             <Button type="submit" disabled={!formik.isValid} fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
               Submit
             </Button>
