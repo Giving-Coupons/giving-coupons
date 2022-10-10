@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class SecondaryDonationsController < ApplicationController
-  wrap_parameters format: :json, include: %w[amount couponId campaigncharityId]
+  before_action :authenticate_admin!, except: %i[create]
+  wrap_parameters format: :json, include: %w[amount couponId campaignCharityId]
 
   def index
     @secondary_donations = SecondaryDonation.all
