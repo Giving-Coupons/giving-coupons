@@ -168,7 +168,6 @@ const InterestFormPage: NextPage = () => {
                   minRows={2}
                 />
                 <MobileDatePicker {...startDateInputPropHelper('Start Date')} />
-                {/* TODO: Use duration picker instead. */}
                 <Grid>
                   <TextField
                     {...integerInputPropHelper('lengthOfCampaign', 'Length of Campaign', '')}
@@ -182,7 +181,7 @@ const InterestFormPage: NextPage = () => {
                     Your contribution
                   </Typography>
                   <Typography variant="body1">
-                    How much are you donating? All of your money will be converted to $10 coupons for distribution.
+                    All of your money will be converted to $10 coupons for distribution.
                   </Typography>
                 </Stack>
                 <TextField
@@ -190,7 +189,7 @@ const InterestFormPage: NextPage = () => {
                   InputProps={{ startAdornment: <InputAdornment position="start">$</InputAdornment> }}
                 />
                 <Stack spacing={1}>
-                  <Typography variant="body2">Or choose an amount below</Typography>
+                  <Typography variant="body2">Or choose an amount below:</Typography>
                   <Grid direction="row" spacing={2} wrap="wrap">
                     {[500, 1000, 2500, 5000].map((value) => (
                       <Button
@@ -217,7 +216,6 @@ const InterestFormPage: NextPage = () => {
             <Button type="submit" disabled={!formik.isValid} fullWidth variant="contained" sx={submitButtonSx}>
               Submit
             </Button>
-            <Button onClick={() => console.dir(formik)}>Fo</Button>
           </Container>
         </LocalizationProvider>
       </Stack>
