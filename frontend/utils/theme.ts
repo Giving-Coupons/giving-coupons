@@ -94,6 +94,7 @@ export const theme = createTheme({
         colorPrimary: {
           color: '#000000',
           backgroundColor: alpha('#FFFFFF', 0.9),
+          backdropFilter: 'blur(20px)',
         },
       },
     },
