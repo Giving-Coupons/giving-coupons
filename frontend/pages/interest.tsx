@@ -10,7 +10,7 @@ import { Interest, InterestStatus } from '../types/interest';
 import { WithoutId } from '../types/utils';
 import TextField from '@mui/material/TextField';
 import { Button, InputAdornment, Stack, Typography } from '@mui/material';
-import { formStackSx, mailIconSx } from '../styles/interestForm';
+import { formStackSx, mailIconSx } from '../styles/interest';
 import { useFormik } from 'formik';
 import { useSnackbar } from 'notistack';
 import moment, { Moment } from 'moment';
