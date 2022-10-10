@@ -78,7 +78,7 @@ const SignUp: NextPage = () => {
             Admin
           </Typography>
         </Stack>
-        <Typography component="h1" variant="h5" sx={h1Sx}>
+        <Typography component="h1" variant="h4" sx={h1Sx}>
           Sign up
         </Typography>
         <form onSubmit={formik.handleSubmit}>

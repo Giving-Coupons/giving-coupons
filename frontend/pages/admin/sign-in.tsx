@@ -70,7 +70,7 @@ const SignIn: NextPage = () => {
             Admin
           </Typography>
         </Stack>
-        <Typography component="h1" variant="h5" sx={h1Sx}>
+        <Typography component="h1" variant="h4" sx={h1Sx}>
           Sign in
         </Typography>
         <form onSubmit={formik.handleSubmit}>

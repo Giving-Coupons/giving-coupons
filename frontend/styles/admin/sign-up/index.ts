@@ -18,6 +18,7 @@ export const boxSx: SxProps = {
 
 export const h1Sx: SxProps = {
   mt: 2,
+  mb: 2,
 };
 
 export const submitButtonSx: SxProps = {
