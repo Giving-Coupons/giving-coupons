@@ -1,4 +1,3 @@
-import { Bloodtype } from '@mui/icons-material';
 import { SxProps } from '@mui/system';
 import { theme } from '../utils/theme';
 
@@ -55,7 +54,6 @@ export const contrastText: SxProps = {
   color: theme.palette.contrast.dark,
 };
 
-
 // Landing page css
 export const hero: SxProps = {
   background: 'radial-gradient(closest-side, #FFC428, #F9FF28, #FDFFB6);',
@@ -102,7 +100,7 @@ export const gradientSection: SxProps = {
   height: '80vh',
   width: '100vw',
   paddingTop: '10px',
-}
+};
 
 export const buttonSecondary: SxProps = {
   minWidth: '50%',
