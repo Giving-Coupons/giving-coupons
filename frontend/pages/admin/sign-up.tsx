@@ -14,6 +14,7 @@ import { useSnackbar } from 'notistack';
 import api from '../../frontendApis';
 import useAdminLoginCheck from '../../hooks/useAdminLogInCheck';
 import { AdminPostData } from '../../types/admin';
+import { boxSx, h1Sx, mainSx, submitButtonSx } from '../../styles/admin/sign-up';
 
 const adminApi = api.admins;
 
@@ -68,19 +69,8 @@ const SignUp: NextPage = () => {
   };
 
   return (
-    <Container
-      component="main"
-      maxWidth="xs"
-      sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
-    >
-      <Box
-        sx={{
-          marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
+    <Container component="main" maxWidth="xs" sx={mainSx}>
+      <Box sx={boxSx}>
         <Stack component="div" direction="row" spacing={0.5}>
           <Typography variant={'h3'}>Giving Coupons</Typography>
 
@@ -88,7 +78,7 @@ const SignUp: NextPage = () => {
             Admin
           </Typography>
         </Stack>
-        <Typography component="h1" variant="h5" sx={{ mt: 2 }}>
+        <Typography component="h1" variant="h5" sx={h1Sx}>
           Sign up
         </Typography>
         <form onSubmit={formik.handleSubmit}>
@@ -112,7 +102,7 @@ const SignUp: NextPage = () => {
               <TextField required fullWidth label="Master Password" type="password" {...propHelper('masterPassword')} />
             </Grid>
           </Grid>
-          <Button type="submit" disabled={!formik.isValid} fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+          <Button type="submit" disabled={!formik.isValid} fullWidth variant="contained" sx={submitButtonSx}>
             Sign Up
           </Button>
           <Grid container justifyContent="center">
