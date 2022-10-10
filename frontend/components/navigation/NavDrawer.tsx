@@ -1,5 +1,5 @@
 import { Drawer, List, ListItem, ListItemButton, ListItemText, Typography } from '@mui/material';
-import { isTabForCurrentPage, navigationTextPathMap } from '../../utils/routes';
+import { adminPathPrefix, isTabForCurrentPage } from '../../utils/routes';
 import { Dispatch, SetStateAction } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import Button from '@mui/material/Button';
@@ -11,16 +11,30 @@ import {
   drawerPaperSx,
   headerListItemSx,
   inactiveTabSx,
+  logoutButtonSx,
   tabListItemSx,
 } from '../../styles/components/navigation/NavDrawerStyles';
+import { OrderedMap } from 'immutable';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { unsetAuthHeaders } from '../../frontendApis/helpers/authHeaders';
+import { Stack } from '@mui/system';
 
 interface Props {
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
+  navigationTextPathMap: OrderedMap<string, string>;
 }
 
-const NavDrawer = ({ isOpen, setIsOpen }: Props) => {
+const NavDrawer = ({ isOpen, setIsOpen, navigationTextPathMap }: Props) => {
   const router = useRouter();
+
+  const isAdminPage = router.pathname.startsWith(adminPathPrefix);
+
+  const handleLogOut = () => {
+    unsetAuthHeaders();
+    setIsOpen(false);
+    router.push(`${adminPathPrefix}/sign-in`);
+  };
 
   return (
     <Drawer PaperProps={{ sx: drawerPaperSx }} anchor="left" open={isOpen} onClose={() => setIsOpen(false)}>
@@ -44,6 +58,18 @@ const NavDrawer = ({ isOpen, setIsOpen }: Props) => {
             </ListItemButton>
           </ListItem>
         ))}
+
+        {isAdminPage && (
+          <ListItem sx={tabListItemSx}>
+            <ListItemButton sx={inactiveTabSx} onClick={handleLogOut}>
+              <Stack sx={logoutButtonSx} component="div" direction="row" spacing={1}>
+                <Typography variant="h4">Log Out</Typography>
+
+                <LogoutIcon />
+              </Stack>
+            </ListItemButton>
+          </ListItem>
+        )}
       </List>
     </Drawer>
   );
