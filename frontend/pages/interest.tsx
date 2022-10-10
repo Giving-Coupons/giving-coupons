@@ -19,7 +19,7 @@ import { MuiTextFieldProps } from '@mui/x-date-pickers/internals';
 
 const DEFAULT_COUPON_DENOMINATION = 10;
 const interestsApi = api.interests;
-type InterestFormData = Omit<Interest, 'id' | 'charities' | 'status' | 'couponDenomination'>;
+type InterestFormData = Partial<Omit<Interest, 'id' | 'charities' | 'status' | 'couponDenomination'>>;
 
 export const interestFormSchema = Yup.object({
   donorName: Yup.string().required('Donor name is required.'),
@@ -59,20 +59,12 @@ const InterestFormPage: NextPage = () => {
       .catch(/* errors from validate and api have already been handled and can be ignored. */);
 
   const formik = useFormik({
-    initialValues: {
-      donorName: '',
-      donorEmail: '',
-      campaignName: '',
-      campaignDescription: '',
-      promisedAmount: 0,
-      start: moment(),
-      end: moment(),
-    },
+    initialValues: {},
     validationSchema: interestFormSchema,
     onSubmit,
   });
 
-  const fillDefaultValues: (arg: InterestFormData) => WithoutId<Interest> = (formData) => {
+  const fillDefaultValues: (arg: Required<InterestFormData>) => WithoutId<Interest> = (formData) => {
     return {
       ...formData,
       // TODO: charities are not covered in this PR as its model is TBD.
@@ -132,21 +124,23 @@ const InterestFormPage: NextPage = () => {
         </Avatar>
         <Stack spacing={1} marginBottom={2}>
           <Typography component="h1" align="center" variant="h2">
-            Contact Us
+            Interested in starting a campaign?
           </Typography>
-          <Typography variant="subtitle1" align="left">
-            Interested in being a primary donor? Fill in this form! <br />
+          <Typography variant="subtitle1" align="center">
+            Fill up the form below and we will get back to you!
           </Typography>
-          <Typography variant="body2">
-            If you are unsure of any of the details, please make a reasonable estimation. We will reach out to you as
-            soon as possible.
-          </Typography>
+          <Typography variant="body2"></Typography>
         </Stack>
         <LocalizationProvider dateAdapter={AdapterMoment}>
           <form onSubmit={formik.handleSubmit}>
             <Stack spacing={2}>
-              <TextField {...textInputPropHelper('donorName')} label="Name" />
-              <TextField {...textInputPropHelper('donorEmail')} label="Email" />
+              <Stack spacing={2}>
+                <Typography component="h2" variant="h3">
+                  Your Details
+                </Typography>
+                <TextField {...textInputPropHelper('donorName')} label="Name" />
+                <TextField {...textInputPropHelper('donorEmail')} label="Email" />
+              </Stack>
               <TextField {...textInputPropHelper('campaignName')} label="Campaign name" />
               <TextField {...textInputPropHelper('campaignDescription')} label="Campaign description" />
               {/* TODO: Charity selection is omitted as its model is TBD. */}
@@ -159,7 +153,7 @@ const InterestFormPage: NextPage = () => {
               {/* Use duration picker instead. */}
               <MobileDatePicker
                 {...datePickerPropHelper('end', 'End Date')}
-                minDate={formik.values.start.clone()}
+                minDate={moment(formik.values.start ?? moment().startOf('day')).clone()}
                 onChange={(value: Moment | null) => formik.setFieldValue('end', value?.endOf('day'), true)}
               />
             </Stack>
