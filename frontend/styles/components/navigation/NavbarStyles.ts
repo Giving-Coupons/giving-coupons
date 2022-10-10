@@ -12,6 +12,11 @@ export const toolbarLeftContainerSx: SxProps = {
   alignItems: 'center',
 };
 
+export const adminCaptionSx: SxProps = {
+  paddingBottom: '1em',
+  fontWeight: '600',
+};
+
 export const toolbarHamburgerSx: SxProps = {
   '&:hover': {
     cursor: 'pointer',
@@ -31,6 +36,8 @@ export const toolbarLogoIconSx: SxProps = {
 };
 
 export const inactiveTabSx: SxProps = {
+  display: 'flex',
+  alignItems: 'center',
   padding: '4px 16px',
   '&:hover': {
     cursor: 'pointer',
