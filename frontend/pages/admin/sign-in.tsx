@@ -1,5 +1,6 @@
 import { Stack } from '@mui/material';
 import Box from '@mui/material/Box';
+import * as Yup from 'yup';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
@@ -12,9 +13,15 @@ import { useRouter } from 'next/router';
 import { useSnackbar } from 'notistack';
 import api from '../../frontendApis';
 import useAdminLoginCheck from '../../hooks/useAdminLogInCheck';
-import { AdminLoginData, adminLoginDataSchema } from '../../types/admin';
+import { AdminLoginData } from '../../types/admin';
+import { boxSx, h1Sx, mainSx, submitButtonSx } from '../../styles/admin/sign-in';
 
 const adminApi = api.admins;
+
+const adminLoginDataSchema = Yup.object({
+  username: Yup.string().required('Username is a required field.'),
+  password: Yup.string().required('Password is a required field.'),
+});
 
 const SignIn: NextPage = () => {
   useAdminLoginCheck();
@@ -54,19 +61,8 @@ const SignIn: NextPage = () => {
   };
 
   return (
-    <Container
-      component="main"
-      maxWidth="xs"
-      sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
-    >
-      <Box
-        sx={{
-          marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
+    <Container component="main" maxWidth="xs" sx={mainSx}>
+      <Box sx={boxSx}>
         <Stack component="div" direction="row" spacing={0.5}>
           <Typography variant={'h3'}>Giving Coupons</Typography>
 
@@ -74,7 +70,7 @@ const SignIn: NextPage = () => {
             Admin
           </Typography>
         </Stack>
-        <Typography component="h1" variant="h5" sx={{ mt: 2 }}>
+        <Typography component="h1" variant="h4" sx={h1Sx}>
           Sign in
         </Typography>
         <form onSubmit={formik.handleSubmit}>
@@ -86,7 +82,7 @@ const SignIn: NextPage = () => {
               <TextField required fullWidth label="Password" type="password" {...propHelper('password')} />
             </Grid>
           </Grid>
-          <Button type="submit" disabled={!formik.isValid} fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+          <Button type="submit" disabled={!formik.isValid} fullWidth variant="contained" sx={submitButtonSx}>
             Sign In
           </Button>
           <Grid container justifyContent="center">
