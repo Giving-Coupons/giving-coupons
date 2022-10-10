@@ -121,5 +121,12 @@ export const theme = createTheme({
         },
       ],
     },
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: {
+          color: '#FF4343',
+        },
+      },
+    },
   },
 });
