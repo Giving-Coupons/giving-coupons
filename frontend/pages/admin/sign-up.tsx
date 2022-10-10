@@ -1,20 +1,18 @@
-import { NextPage } from 'next';
-import api from '../../frontendApis';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
+import { Stack } from '@mui/material';
 import Box from '@mui/material/Box';
-import PersonAddOutlinedIcon from '@mui/icons-material/PersonAdd';
-import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
-import Link from 'next/link';
-import { AdminPostData, adminPostDataSchema } from '../../types/admin';
-import { useSnackbar } from 'notistack';
-import { useRouter } from 'next/router';
-import useAdminLoginCheck from '../../hooks/useAdminLogInCheck';
+import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 import { useFormik } from 'formik';
+import { NextPage } from 'next';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useSnackbar } from 'notistack';
+import api from '../../frontendApis';
+import useAdminLoginCheck from '../../hooks/useAdminLogInCheck';
+import { AdminPostData, adminPostDataSchema } from '../../types/admin';
 
 const adminApi = api.admins;
 
@@ -58,8 +56,11 @@ const SignUp: NextPage = () => {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
+    <Container
+      component="main"
+      maxWidth="xs"
+      sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
+    >
       <Box
         sx={{
           marginTop: 8,
@@ -68,10 +69,14 @@ const SignUp: NextPage = () => {
           alignItems: 'center',
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-          <PersonAddOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
+        <Stack component="div" direction="row" spacing={0.5}>
+          <Typography variant={'h3'}>Giving Coupons</Typography>
+
+          <Typography variant="caption" color="primary">
+            Admin
+          </Typography>
+        </Stack>
+        <Typography component="h1" variant="h5" sx={{ mt: 2 }}>
           Sign up
         </Typography>
         <form onSubmit={formik.handleSubmit}>
@@ -98,7 +103,7 @@ const SignUp: NextPage = () => {
           <Button type="submit" disabled={!formik.isValid} fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
             Sign Up
           </Button>
-          <Grid container justifyContent="flex-end">
+          <Grid container justifyContent="center">
             <Grid item>
               <Link href="/admin/sign-in">Already have an account? Sign in</Link>
             </Grid>
