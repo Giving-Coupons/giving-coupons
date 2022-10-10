@@ -1,5 +1,6 @@
 import { Stack } from '@mui/material';
 import Box from '@mui/material/Box';
+import * as Yup from 'yup';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
@@ -12,9 +13,20 @@ import { useRouter } from 'next/router';
 import { useSnackbar } from 'notistack';
 import api from '../../frontendApis';
 import useAdminLoginCheck from '../../hooks/useAdminLogInCheck';
-import { AdminPostData, adminPostDataSchema } from '../../types/admin';
+import { AdminPostData } from '../../types/admin';
 
 const adminApi = api.admins;
+
+const adminPostDataSchema = Yup.object({
+  username: Yup.string().required('Username is a required field.'),
+  password: Yup.string()
+    .required('Password is a required field.')
+    .min(6, `The new user's password must be at least 6 characters long.`),
+  passwordConfirmation: Yup.string()
+    .required('Password confirmation is a required field.')
+    .oneOf([Yup.ref('password'), null], 'Passwords must match'),
+  masterPassword: Yup.string().required('Master password is a required field.'),
+});
 
 const SignUp: NextPage = () => {
   useAdminLoginCheck();

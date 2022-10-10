@@ -1,5 +1,6 @@
 import { Stack } from '@mui/material';
 import Box from '@mui/material/Box';
+import * as Yup from 'yup';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
@@ -12,9 +13,14 @@ import { useRouter } from 'next/router';
 import { useSnackbar } from 'notistack';
 import api from '../../frontendApis';
 import useAdminLoginCheck from '../../hooks/useAdminLogInCheck';
-import { AdminLoginData, adminLoginDataSchema } from '../../types/admin';
+import { AdminLoginData } from '../../types/admin';
 
 const adminApi = api.admins;
+
+const adminLoginDataSchema = Yup.object({
+  username: Yup.string().required('Username is a required field.'),
+  password: Yup.string().required('Password is a required field.'),
+});
 
 const SignIn: NextPage = () => {
   useAdminLoginCheck();
