@@ -1,39 +1,19 @@
-import { Stack, SxProps } from '@mui/system';
+import { Stack } from '@mui/system';
 import { TextField, Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
 import SearchIcon from '@mui/icons-material/Search';
-import { CampaignSearchFormData } from '../../types/campaigns';
-import FormikValuesListener from '../forms/FormikValuesListener';
+import { CampaignSearchFormData } from '../../../types/campaigns';
+import FormikValuesListener from '../../forms/FormikValuesListener';
 import CampaignSearchDatePicker from './CampaignSearchDatePicker';
-import CampaignSearchCheckbox from './CampaignSearchCheckbox';
+import CampaignSearchCheckbox from '../CampaignSearchCheckbox';
+import { headerSx } from '../../../styles/components/campaigns/search/CampaignSearchFormStyles';
 
-const headerSx: SxProps = {
-  alignItems: 'center',
-};
+interface Props {
+  initialValues: CampaignSearchFormData;
+  handleChange: (values: CampaignSearchFormData) => void;
+}
 
-const CampaignSearchForm = () => {
-  const initialValues: CampaignSearchFormData = {
-    name: undefined,
-    status: {
-      isActive: true,
-      isUpcoming: false,
-      isCompleted: false,
-    },
-    startDate: {
-      from: null,
-      to: null,
-    },
-    endDate: {
-      from: null,
-      to: null,
-    },
-  };
-
-  // TODO: Replace with API call once set up
-  const handleChange = (values: CampaignSearchFormData) => {
-    console.log(values);
-  };
-
+const CampaignSearchForm = ({ initialValues, handleChange }: Props) => {
   return (
     <Formik initialValues={initialValues} onSubmit={() => undefined}>
       {({ values, setFieldValue }) => (

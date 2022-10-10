@@ -1,8 +1,12 @@
-import { Box, Container, SxProps } from '@mui/system';
+import { Box, Container, SxProps, useTheme } from '@mui/system';
 import { CampaignCharityData, CampaignListData } from '../../types/campaigns';
 import Head from 'next/head';
 import CampaignList from '../../components/campaigns/CampaignList';
-import CampaignSearchForm from '../../components/campaigns/CampaignSearchForm';
+import { Fab, useMediaQuery } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
+import { theme } from '../../utils/theme';
+import { useState } from 'react';
+import CampaignSearch from '../../components/campaigns/search/CampaignSearch';
 
 const sampleCharity: CampaignCharityData = {
   id: 1,
@@ -35,9 +39,23 @@ const containerSx: SxProps = {
   flexDirection: 'row',
 };
 
+const mobileSearchButtonSx: SxProps = {
+  position: 'fixed',
+  right: '1em',
+  bottom: '1em',
+  backgroundColor: theme.palette.secondaryTranslucent.light,
+  '&:hover': {
+    backgroundColor: theme.palette.secondaryTranslucent.main,
+  },
+};
+
 const sampleCampaigns: CampaignListData[] = Array(11).fill(sampleCampaign);
 
 const Campaigns = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const [searchDrawerIsOpen, setSearchDrawerIsOpen] = useState<boolean>(false);
+
   return (
     <Box>
       <Head>
@@ -45,9 +63,15 @@ const Campaigns = () => {
       </Head>
 
       <Container sx={containerSx} component="main">
-        <CampaignSearchForm />
+        <CampaignSearch searchDrawerIsOpen={searchDrawerIsOpen} setSearchDrawerIsOpen={setSearchDrawerIsOpen} />
 
         <CampaignList campaigns={sampleCampaigns} />
+
+        {isMobile && (
+          <Fab sx={mobileSearchButtonSx} onClick={() => setSearchDrawerIsOpen(true)}>
+            <SearchIcon fontSize="large" />
+          </Fab>
+        )}
       </Container>
     </Box>
   );

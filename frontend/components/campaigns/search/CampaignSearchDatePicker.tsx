@@ -1,7 +1,8 @@
-import { TextField } from '@mui/material';
-import { DesktopDatePicker } from '@mui/x-date-pickers';
-import { Nullable } from '../../types/utils';
+import { TextField, useMediaQuery } from '@mui/material';
+import { DesktopDatePicker, MobileDatePicker } from '@mui/x-date-pickers';
+import { Nullable } from '../../../types/utils';
 import { Moment } from 'moment';
+import { useTheme } from '@mui/system';
 
 interface Props {
   name: string;
@@ -12,7 +13,17 @@ interface Props {
 }
 
 const CampaignSearchDatePicker = ({ name, value, label, setFieldValue }: Props) => {
-  return (
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
+  return isMobile ? (
+    <MobileDatePicker
+      onChange={(date) => setFieldValue(name, date)}
+      value={value}
+      label={label}
+      renderInput={(params) => <TextField name={name} variant="standard" {...params} />}
+    />
+  ) : (
     <DesktopDatePicker
       onChange={(date) => setFieldValue(name, date)}
       value={value}
