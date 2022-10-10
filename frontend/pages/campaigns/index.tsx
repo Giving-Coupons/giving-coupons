@@ -1,12 +1,12 @@
-import { Box, Container, SxProps, useTheme } from '@mui/system';
+import { Box, Container, useTheme } from '@mui/system';
 import { CampaignCharityData, CampaignListData } from '../../types/campaigns';
 import Head from 'next/head';
 import CampaignList from '../../components/campaigns/CampaignList';
 import { Fab, useMediaQuery } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import { theme } from '../../utils/theme';
 import { useState } from 'react';
 import CampaignSearch from '../../components/campaigns/search/CampaignSearch';
+import { containerSx, mobileSearchButtonSx } from '../../styles/pages/campaigns/indexStyles';
 
 const sampleCharity: CampaignCharityData = {
   id: 1,
@@ -31,21 +31,6 @@ const sampleCampaign: CampaignListData = {
       amount: 40,
       fraction: 0.4,
     },
-  },
-};
-
-const containerSx: SxProps = {
-  display: 'flex',
-  flexDirection: 'row',
-};
-
-const mobileSearchButtonSx: SxProps = {
-  position: 'fixed',
-  right: '1em',
-  bottom: '1em',
-  backgroundColor: theme.palette.secondaryTranslucent.light,
-  '&:hover': {
-    backgroundColor: theme.palette.secondaryTranslucent.main,
   },
 };
 
