@@ -23,14 +23,18 @@ const CampaignSearchDatePicker = ({ name, value, label, errorMessage, setFieldVa
       onChange={(date) => setFieldValue(name, date)}
       value={value}
       label={label}
-      renderInput={(params) => <TextField name={name} helperText={errorMessage} variant="standard" {...params} />}
+      renderInput={(params) => (
+        <TextField name={name} {...params} error={!!errorMessage} helperText={errorMessage} variant="standard" />
+      )}
     />
   ) : (
     <DesktopDatePicker
       onChange={(date) => setFieldValue(name, date)}
       value={value}
       label={label}
-      renderInput={(params) => <TextField name={name} helperText={errorMessage} variant="standard" {...params} />}
+      renderInput={(params) => (
+        <TextField name={name} {...params} error={!!errorMessage} helperText={errorMessage} variant="standard" />
+      )}
     />
   );
 };
