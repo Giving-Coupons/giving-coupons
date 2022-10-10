@@ -16,7 +16,8 @@ const CampaignSearchDatePicker = ({ name, value, label, setFieldValue }: Props) 
     <DesktopDatePicker
       onChange={(date) => setFieldValue(name, date)}
       value={value}
-      renderInput={(params) => <TextField name={name} label={label} variant="standard" {...params} />}
+      label={label}
+      renderInput={(params) => <TextField name={name} variant="standard" {...params} />}
     />
   );
 };

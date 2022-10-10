@@ -2,16 +2,16 @@ import { Stack, SxProps } from '@mui/system';
 import { TextField, Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
 import SearchIcon from '@mui/icons-material/Search';
-import { CampaignSearchFormData } from '../types/campaigns';
-import FormikValuesListener from './forms/FormikValuesListener';
-import CampaignSearchDatePicker from './campaigns/CampaignSearchDatePicker';
-import CampaignSearchCheckbox from './campaigns/CampaignSearchCheckbox';
+import { CampaignSearchFormData } from '../../types/campaigns';
+import FormikValuesListener from '../forms/FormikValuesListener';
+import CampaignSearchDatePicker from './CampaignSearchDatePicker';
+import CampaignSearchCheckbox from './CampaignSearchCheckbox';
 
 const headerSx: SxProps = {
   alignItems: 'center',
 };
 
-const Search = () => {
+const CampaignSearchForm = () => {
   const initialValues: CampaignSearchFormData = {
     name: undefined,
     status: {
@@ -39,11 +39,12 @@ const Search = () => {
       {({ values, setFieldValue }) => (
         <Form>
           <FormikValuesListener handleChange={handleChange} />
+
           <Stack component="div" spacing={2}>
             <Stack sx={headerSx} component="div" direction="row">
               <SearchIcon />
 
-              <Typography>Search</Typography>
+              <Typography variant="h4">Search</Typography>
             </Stack>
 
             <TextField
@@ -55,7 +56,7 @@ const Search = () => {
             />
 
             <Stack component="div">
-              <Typography>Status</Typography>
+              <Typography variant="h4">Status</Typography>
 
               <CampaignSearchCheckbox
                 name="status.isActive"
@@ -80,7 +81,7 @@ const Search = () => {
             </Stack>
 
             <Stack component="div">
-              <Typography>Campaign Start date</Typography>
+              <Typography variant="h4">Campaign Start date</Typography>
 
               <CampaignSearchDatePicker
                 name="startDate.from"
@@ -98,7 +99,7 @@ const Search = () => {
             </Stack>
 
             <Stack component="div">
-              <Typography>Campaign End date</Typography>
+              <Typography variant="h4">Campaign End date</Typography>
 
               <CampaignSearchDatePicker
                 name="endDate.from"
@@ -121,4 +122,4 @@ const Search = () => {
   );
 };
 
-export default Search;
+export default CampaignSearchForm;
