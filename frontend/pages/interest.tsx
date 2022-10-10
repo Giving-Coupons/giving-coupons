@@ -165,6 +165,7 @@ const InterestFormPage: NextPage = () => {
                     'What inspired you to start this campaign?',
                   )}
                   multiline
+                  minRows={2}
                 />
                 <MobileDatePicker {...startDateInputPropHelper('Start Date')} />
                 {/* TODO: Use duration picker instead. */}
