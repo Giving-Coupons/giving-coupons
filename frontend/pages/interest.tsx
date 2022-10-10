@@ -10,7 +10,7 @@ import { Interest, InterestStatus } from '../types/interest';
 import { WithoutId } from '../types/utils';
 import TextField from '@mui/material/TextField';
 import { Button, InputAdornment, Stack, Typography } from '@mui/material';
-import { formStackSx, mailIconSx } from '../styles/interest';
+import { amountButtonSx, formStackSx, mailIconSx, submitButtonSx } from '../styles/interest';
 import { useFormik } from 'formik';
 import { useSnackbar } from 'notistack';
 import moment, { Moment } from 'moment';
@@ -77,7 +77,7 @@ const InterestFormPage: NextPage = () => {
       ...data,
       status: InterestStatus.PENDING,
       couponDenomination: DEFAULT_COUPON_DENOMINATION,
-      end: moment(data.start).clone().add(lengthOfCampaign, 'days'),
+      end: moment(data.start).clone().add(lengthOfCampaign, 'days').toDate(),
       // TODO: charities are not covered in this PR as its model is TBD.
       charities: [{ id: 1 }],
     };
@@ -197,7 +197,7 @@ const InterestFormPage: NextPage = () => {
                         key={value}
                         variant="outlined"
                         onBlur={formik.handleBlur}
-                        sx={{ margin: 1 }}
+                        sx={amountButtonSx}
                         onClick={() => formik.handleChange({ target: { name: 'promisedAmount', value } })}
                       >
                         ${value}
@@ -214,7 +214,7 @@ const InterestFormPage: NextPage = () => {
                 <TextField {...textInputPropHelper('donorEmail', 'Email', '')} />
               </Stack>
             </Stack>
-            <Button type="submit" disabled={!formik.isValid} fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+            <Button type="submit" disabled={!formik.isValid} fullWidth variant="contained" sx={submitButtonSx}>
               Submit
             </Button>
             <Button onClick={() => console.dir(formik)}>Fo</Button>
