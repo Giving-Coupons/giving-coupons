@@ -9,5 +9,7 @@ class CouponsController < ApplicationController
 
   def unredeemed
     @coupons = Coupon.all.reject(&:redeemed?)
+
+    render :index, status: :ok
   end
 end
