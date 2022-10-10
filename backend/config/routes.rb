@@ -9,6 +9,7 @@ Rails.application.routes.draw do
         sessions: 'auth/sessions'
       }
 
+      resources :campaigns
       resources :interests do
         member do
           post 'approve'
