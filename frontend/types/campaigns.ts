@@ -31,12 +31,8 @@ export type CampaignSearchFormData = {
     isUpcoming: boolean;
     isCompleted: boolean;
   };
-  startDate: {
-    from: Nullable<Moment>;
-    to: Nullable<Moment>;
-  };
-  endDate: {
-    from: Nullable<Moment>;
-    to: Nullable<Moment>;
-  };
+  startDateFrom: Nullable<Moment>;
+  startDateTo: Nullable<Moment>;
+  endDateFrom: Nullable<Moment>;
+  endDateTo: Nullable<Moment>;
 };

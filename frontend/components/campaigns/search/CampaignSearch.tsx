@@ -20,22 +20,18 @@ const CampaignSearch = ({ searchDrawerIsOpen, setSearchDrawerIsOpen }: Props) =>
       isUpcoming: false,
       isCompleted: false,
     },
-    startDate: {
-      from: null,
-      to: null,
-    },
-    endDate: {
-      from: null,
-      to: null,
-    },
+    startDateFrom: null,
+    startDateTo: null,
+    endDateFrom: null,
+    endDateTo: null,
   });
 
-  // TODO: Add API call once set up
-  const handleChange = (values: CampaignSearchFormData) => {
+  // TODO: Add API once available
+  const search = (values: CampaignSearchFormData) => {
     setValues(values);
   };
 
-  const searchForm = <CampaignSearchForm initialValues={values} handleChange={handleChange} />;
+  const searchForm = <CampaignSearchForm initialValues={values} search={search} />;
 
   return isMobile ? (
     <CampaignSearchDrawer isOpen={searchDrawerIsOpen} setIsOpen={setSearchDrawerIsOpen} searchForm={searchForm} />
