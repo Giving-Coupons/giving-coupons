@@ -1,7 +1,8 @@
-import { Box } from '@mui/system';
+import { Box, Stack, SxProps } from '@mui/system';
 import { CampaignCharityData, CampaignListData } from '../../types/campaigns';
 import Head from 'next/head';
 import CampaignList from '../../components/campaigns/CampaignList';
+import Search from '../../components/Search';
 
 const sampleCharity: CampaignCharityData = {
   id: 1,
@@ -29,6 +30,10 @@ const sampleCampaign: CampaignListData = {
   },
 };
 
+const containerSx: SxProps = {
+  padding: '8px',
+};
+
 const sampleCampaigns: CampaignListData[] = Array(11).fill(sampleCampaign);
 
 const Campaigns = () => {
@@ -38,7 +43,11 @@ const Campaigns = () => {
         <title>Campaigns</title>
       </Head>
 
-      <CampaignList campaigns={sampleCampaigns} />
+      <Stack sx={containerSx} component="main" direction="row">
+        <Search />
+
+        <CampaignList campaigns={sampleCampaigns} />
+      </Stack>
     </Box>
   );
 };

@@ -1,3 +1,6 @@
+import { Nullable } from './utils';
+import { Moment } from 'moment';
+
 export type CampaignListData = {
   id: number;
   name: string;
@@ -19,4 +22,21 @@ export type CampaignCharityData = {
 export type CampaignDonationData = {
   amount: number;
   fraction: number;
+};
+
+export type CampaignSearchFormData = {
+  name?: string;
+  status: {
+    isActive: boolean;
+    isUpcoming: boolean;
+    isCompleted: boolean;
+  };
+  startDate: {
+    from: Nullable<Moment>;
+    to: Nullable<Moment>;
+  };
+  endDate: {
+    from: Nullable<Moment>;
+    to: Nullable<Moment>;
+  };
 };
