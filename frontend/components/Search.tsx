@@ -1,27 +1,14 @@
 import { Stack, SxProps } from '@mui/system';
-import { Checkbox, FormControlLabel, TextField, Typography } from '@mui/material';
-import { Form, Formik, FormikValues, useFormikContext } from 'formik';
+import { TextField, Typography } from '@mui/material';
+import { Form, Formik } from 'formik';
 import SearchIcon from '@mui/icons-material/Search';
-import { DesktopDatePicker } from '@mui/x-date-pickers';
 import { CampaignSearchFormData } from '../types/campaigns';
-import { useEffect } from 'react';
+import FormikValuesListener from './forms/FormikValuesListener';
+import CampaignSearchDatePicker from './campaigns/CampaignSearchDatePicker';
+import CampaignSearchCheckbox from './campaigns/CampaignSearchCheckbox';
 
 const headerSx: SxProps = {
   alignItems: 'center',
-};
-
-interface Props<T extends FormikValues> {
-  handleChange: (values: T) => void;
-}
-
-const FormikValuesListener = <T extends FormikValues>({ handleChange }: Props<T>) => {
-  const { values } = useFormikContext<T>() ?? {};
-
-  useEffect(() => {
-    handleChange(values);
-  }, [values]);
-
-  return <></>;
 };
 
 const Search = () => {
@@ -70,59 +57,61 @@ const Search = () => {
             <Stack component="div">
               <Typography>Status</Typography>
 
-              <FormControlLabel
+              <CampaignSearchCheckbox
                 name="status.isActive"
-                control={<Checkbox onChange={(e) => setFieldValue('status.isActive', e.target.checked)} />}
-                label="Active"
                 checked={values.status.isActive}
+                label={'Active'}
+                setFieldValue={setFieldValue}
               />
 
-              <FormControlLabel
+              <CampaignSearchCheckbox
                 name="status.isUpcoming"
-                control={<Checkbox onChange={(e) => setFieldValue('status.isUpcoming', e.target.checked)} />}
-                label="Upcoming"
                 checked={values.status.isUpcoming}
+                label={'Upcoming'}
+                setFieldValue={setFieldValue}
               />
 
-              <FormControlLabel
+              <CampaignSearchCheckbox
                 name="status.isCompleted"
-                control={<Checkbox onChange={(e) => setFieldValue('status.isCompleted', e.target.checked)} />}
-                label="Completed"
                 checked={values.status.isCompleted}
+                label={'Completed'}
+                setFieldValue={setFieldValue}
               />
             </Stack>
 
             <Stack component="div">
               <Typography>Campaign Start date</Typography>
 
-              <DesktopDatePicker
-                onChange={(date) => setFieldValue('startDate.from', date)}
+              <CampaignSearchDatePicker
+                name="startDate.from"
                 value={values.startDate.from}
-                renderInput={(params) => (
-                  <TextField name="startDate.from" label="From" variant="standard" {...params} />
-                )}
+                label="From"
+                setFieldValue={setFieldValue}
               />
 
-              <DesktopDatePicker
-                onChange={(date) => setFieldValue('startDate.to', date)}
+              <CampaignSearchDatePicker
+                name="startDate.to"
                 value={values.startDate.to}
-                renderInput={(params) => <TextField name="startDate.to" label="To" variant="standard" {...params} />}
+                label="To"
+                setFieldValue={setFieldValue}
               />
             </Stack>
 
             <Stack component="div">
               <Typography>Campaign End date</Typography>
 
-              <DesktopDatePicker
-                onChange={(date) => setFieldValue('endDate.from', date)}
+              <CampaignSearchDatePicker
+                name="endDate.from"
                 value={values.endDate.from}
-                renderInput={(params) => <TextField name="endDate.from" label="From" variant="standard" {...params} />}
+                label="From"
+                setFieldValue={setFieldValue}
               />
 
-              <DesktopDatePicker
-                onChange={(date) => setFieldValue('endDate.to', date)}
+              <CampaignSearchDatePicker
+                name="endDate.to"
                 value={values.endDate.to}
-                renderInput={(params) => <TextField name="endDate.to" label="To" variant="standard" {...params} />}
+                label="To"
+                setFieldValue={setFieldValue}
               />
             </Stack>
           </Stack>
