@@ -10,12 +10,20 @@ Rails.application.routes.draw do
       }
 
       resources :campaigns
+
+      resources :coupons, only: %i[index] do
+        collection do
+          get 'unredeemed'
+        end
+      end
+
       resources :interests do
         member do
           post 'approve'
           post 'reject'
         end
       end
+
       resources :primary_donors
     end
   end
