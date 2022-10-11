@@ -9,7 +9,7 @@
 
 server {
   listen 80;
-  server_name localhost;
+  server_name giving-coupons.sivarn.com;
 
   location /.well-known/acme-challenge/ {
     root /var/www/certbot;
@@ -23,26 +23,26 @@ server {
 
 server {
   listen 80;
-  server_name www.localhost;
+  server_name www.giving-coupons.sivarn.com;
 
   location /.well-known/acme-challenge/ {
     root /var/www/certbot;
   }
 
   # Redirect www to non-www
-  return 301 http://localhost$request_uri;
+  return 301 http://giving-coupons.sivarn.com$request_uri;
 }
 
 server {
   listen 443 ssl http2;
-  server_name localhost;
+  server_name giving-coupons.sivarn.com;
   root /frontend;
   index index.html;
 
   add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
 
-  ssl_certificate /etc/letsencrypt/live/localhost/fullchain.pem;
-  ssl_certificate_key /etc/letsencrypt/live/localhost/privkey.pem;
+  ssl_certificate /etc/letsencrypt/live/giving-coupons.sivarn.com/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/giving-coupons.sivarn.com/privkey.pem;
   include /etc/letsencrypt/options-ssl-nginx.conf;
   ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
 
@@ -55,7 +55,7 @@ server {
   }
 
   location /api/v1/ {
-    proxy_pass http://localhost:4000/api/v1/;
+    proxy_pass http://giving-coupons.sivarn.com:4000/api/v1/;
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -75,17 +75,17 @@ server {
 
 server {
   listen 443 ssl http2;
-  server_name www.localhost;
+  server_name www.giving-coupons.sivarn.com;
 
   add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
 
-  ssl_certificate /etc/letsencrypt/live/www.localhost/fullchain.pem;
-  ssl_certificate_key /etc/letsencrypt/live/www.localhost/privkey.pem;
+  ssl_certificate /etc/letsencrypt/live/www.giving-coupons.sivarn.com/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/www.giving-coupons.sivarn.com/privkey.pem;
   include /etc/letsencrypt/options-ssl-nginx.conf;
   ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
 
   # Redirect www to non-www
-  return 301 https://localhost$request_uri;
+  return 301 https://giving-coupons.sivarn.com$request_uri;
 }
 
 # Catch-all for unrecognised requests
