@@ -1,5 +1,6 @@
 import { Stack } from '@mui/material';
 import Box from '@mui/material/Box';
+import * as Yup from 'yup';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
@@ -12,9 +13,21 @@ import { useRouter } from 'next/router';
 import { useSnackbar } from 'notistack';
 import api from '../../frontendApis';
 import useAdminLoginCheck from '../../hooks/useAdminLogInCheck';
-import { AdminPostData, adminPostDataSchema } from '../../types/admin';
+import { AdminPostData } from '../../types/admin';
+import { boxSx, h1Sx, mainSx, submitButtonSx } from '../../styles/admin/sign-up';
 
 const adminApi = api.admins;
+
+const adminPostDataSchema = Yup.object({
+  username: Yup.string().required('Username is a required field.'),
+  password: Yup.string()
+    .required('Password is a required field.')
+    .min(6, `The new user's password must be at least 6 characters long.`),
+  passwordConfirmation: Yup.string()
+    .required('Password confirmation is a required field.')
+    .oneOf([Yup.ref('password'), null], 'Passwords must match'),
+  masterPassword: Yup.string().required('Master password is a required field.'),
+});
 
 const SignUp: NextPage = () => {
   useAdminLoginCheck();
@@ -56,19 +69,8 @@ const SignUp: NextPage = () => {
   };
 
   return (
-    <Container
-      component="main"
-      maxWidth="xs"
-      sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
-    >
-      <Box
-        sx={{
-          marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
+    <Container component="main" maxWidth="xs" sx={mainSx}>
+      <Box sx={boxSx}>
         <Stack component="div" direction="row" spacing={0.5}>
           <Typography variant={'h3'}>Giving Coupons</Typography>
 
@@ -76,7 +78,7 @@ const SignUp: NextPage = () => {
             Admin
           </Typography>
         </Stack>
-        <Typography component="h1" variant="h5" sx={{ mt: 2 }}>
+        <Typography component="h1" variant="h4" sx={h1Sx}>
           Sign up
         </Typography>
         <form onSubmit={formik.handleSubmit}>
@@ -100,7 +102,7 @@ const SignUp: NextPage = () => {
               <TextField required fullWidth label="Master Password" type="password" {...propHelper('masterPassword')} />
             </Grid>
           </Grid>
-          <Button type="submit" disabled={!formik.isValid} fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+          <Button type="submit" disabled={!formik.isValid} fullWidth variant="contained" sx={submitButtonSx}>
             Sign Up
           </Button>
           <Grid container justifyContent="center">
