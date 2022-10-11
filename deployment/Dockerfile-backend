@@ -18,7 +18,7 @@ RUN bundle install
 
 # Add a script to be executed every time the container starts
 COPY deployment/scripts/entrypoint-backend.sh /usr/bin/
-ENTRYPOINT entrypoint-backend.sh
+ENTRYPOINT ["entrypoint-backend.sh"]
 
 # Expose port
 EXPOSE 4000

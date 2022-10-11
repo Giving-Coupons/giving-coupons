@@ -44,4 +44,4 @@ EXPOSE 443
 
 # Add a script containing the main command to be executed
 COPY deployment/scripts/cmd-frontend.sh /usr/bin/
-CMD cmd-frontend.sh
+CMD ["cmd-frontend.sh"]

@@ -18,7 +18,9 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
 
   backend:
-    image: giving-coupons-backend:latest
+    build:
+      context: ..
+      dockerfile: ./deployment/Dockerfile-backend
     container_name: giving-coupons-backend
     restart: always
     volumes:
@@ -40,10 +42,13 @@ services:
       DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
       DB_SSLMODE: disable
+      SECRET_KEY_BASE: ${SECRET_KEY_BASE}
       MASTER_PASSWORD: ${MASTER_PASSWORD}
 
   frontend:
-    image: giving-coupons-frontend:latest
+    build:
+      context: ..
+      dockerfile: ./deployment/Dockerfile-frontend
     container_name: giving-coupons-frontend
     restart: always
     volumes:
