@@ -3,6 +3,8 @@
 class Campaign < ApplicationRecord
   include PromisedAmountValidator
 
+  has_one_attached :image
+
   belongs_to :primary_donor
   belongs_to :interest, optional: true
   has_many :coupons, dependent: :destroy
