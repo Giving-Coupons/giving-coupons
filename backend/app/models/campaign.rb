@@ -17,6 +17,8 @@ class Campaign < ApplicationRecord
   validates :start, presence: true
   validates :end, comparison: { greater_than: :start }
   validates :charities, presence: true
+  validates :promised_amount, final: true
+  validates :coupon_denomination, final: true
 
   private
 
