@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
       resources :coupons, only: %i[index] do
         collection do
-          get 'unredeemed', to: 'coupons#unredeemed'
+          get 'unredeemed'
         end
       end
 

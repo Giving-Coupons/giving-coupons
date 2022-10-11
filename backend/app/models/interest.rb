@@ -16,6 +16,7 @@ class Interest < ApplicationRecord
   validates :start, presence: true
   validates :end, comparison: { greater_than: :start }
   validates :charities, presence: true
+  validate :must_be_pending, on: :create
 
   def approve
     return unless pending?
@@ -46,5 +47,14 @@ class Interest < ApplicationRecord
 
     self.status = :rejected
     save!
+  end
+
+  private
+
+  def must_be_pending
+    return if pending?
+    return if status.blank?
+
+    errors.add :status, "New interest must have empty or 'pending' status."
   end
 end
