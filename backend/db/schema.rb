@@ -75,7 +75,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_11_184151) do
     t.bigint "charity_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "giving_sg_url", default: "", null: false
+    t.string "giving_sg_url", null: false
     t.index ["campaign_id"], name: "index_campaign_charities_on_campaign_id"
     t.index ["charity_id"], name: "index_campaign_charities_on_charity_id"
   end
@@ -98,9 +98,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_11_184151) do
   create_table "charities", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "name", default: "", null: false
-    t.text "description", default: "", null: false
-    t.string "website_url", default: "", null: false
+    t.string "name", null: false
+    t.text "description", null: false
+    t.string "website_url", null: false
   end
 
   create_table "coupons", force: :cascade do |t|
