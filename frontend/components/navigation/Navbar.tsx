@@ -41,54 +41,54 @@ const NavBar = () => {
     router.push(`${adminPathPrefix}/sign-in`);
   };
 
-  return (
-    !isAuthPage && (
-      <AppBar position="sticky" elevation={0}>
-        <Toolbar sx={toolbarSx}>
-          <Stack sx={toolbarLeftContainerSx} component="div" direction="row" spacing={1}>
-            {isMobile && <MenuIcon sx={toolbarHamburgerSx} color="primary" onClick={() => setDrawerIsOpen(true)} />}
+  return isAuthPage ? (
+    <></>
+  ) : (
+    <AppBar position="sticky" elevation={0}>
+      <Toolbar sx={toolbarSx}>
+        <Stack sx={toolbarLeftContainerSx} component="div" direction="row" spacing={1}>
+          {isMobile && <MenuIcon sx={toolbarHamburgerSx} color="primary" onClick={() => setDrawerIsOpen(true)} />}
 
-            <Link href={isAdminSignedInPage ? adminPathPrefix : '/'}>
-              <Stack sx={toolbarLogoSx} component="div" direction="row" spacing={1}>
-                {!isMobile && <Box sx={toolbarLogoIconSx} component="img" src="/logo.png" />}
+          <Link href={isAdminSignedInPage ? adminPathPrefix : '/'}>
+            <Stack sx={toolbarLogoSx} component="div" direction="row" spacing={1}>
+              {!isMobile && <Box sx={toolbarLogoIconSx} component="img" src="/logo.png" />}
 
-                <Typography variant={isMobile ? 'h4' : 'h3'}>Giving Coupons</Typography>
-
-                {isAdminSignedInPage && (
-                  <Typography sx={adminCaptionSx} variant="caption" color="primary">
-                    Admin
-                  </Typography>
-                )}
-              </Stack>
-            </Link>
-          </Stack>
-
-          {!isMobile && (
-            <Stack component="div" direction="row">
-              {navigationTextPathMap.entrySeq().map(([label, path]) => (
-                <Link key={label} href={path}>
-                  <Box sx={isTabForCurrentPage(path, router.pathname) ? activeTabSx : inactiveTabSx}>
-                    <Typography variant="h4">{label}</Typography>
-                  </Box>
-                </Link>
-              ))}
+              <Typography variant={isMobile ? 'h4' : 'h3'}>Giving Coupons</Typography>
 
               {isAdminSignedInPage && (
-                <Button actionType="secondary" onClick={handleLogOut} endIcon={<LogoutIcon />}>
-                  Log Out
-                </Button>
+                <Typography sx={adminCaptionSx} variant="caption" color="primary">
+                  Admin
+                </Typography>
               )}
             </Stack>
-          )}
-        </Toolbar>
+          </Link>
+        </Stack>
 
-        <NavDrawer
-          isOpen={isMobile && drawerIsOpen}
-          setIsOpen={setDrawerIsOpen}
-          navigationTextPathMap={navigationTextPathMap}
-        />
-      </AppBar>
-    )
+        {!isMobile && (
+          <Stack component="div" direction="row">
+            {navigationTextPathMap.entrySeq().map(([label, path]) => (
+              <Link key={label} href={path}>
+                <Box sx={isTabForCurrentPage(path, router.pathname) ? activeTabSx : inactiveTabSx}>
+                  <Typography variant="h4">{label}</Typography>
+                </Box>
+              </Link>
+            ))}
+
+            {isAdminSignedInPage && (
+              <Button actionType="secondary" onClick={handleLogOut} endIcon={<LogoutIcon />}>
+                Log Out
+              </Button>
+            )}
+          </Stack>
+        )}
+      </Toolbar>
+
+      <NavDrawer
+        isOpen={isMobile && drawerIsOpen}
+        setIsOpen={setDrawerIsOpen}
+        navigationTextPathMap={navigationTextPathMap}
+      />
+    </AppBar>
   );
 };
 
