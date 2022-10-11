@@ -8,7 +8,7 @@ if secondary_donation.coupon
     json.partial! 'coupons/coupon', coupon: secondary_donation.coupon
   end
 else
-  json.coupon.nil
+  json.coupon nil
 end
 
 json.charity do
