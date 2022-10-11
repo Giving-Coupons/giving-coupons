@@ -12,8 +12,10 @@ import api from '../../../frontendApis';
 import { Nullable } from '../../../types/utils';
 import { theme } from '../../../utils/theme';
 import InterestsAPI from '../../../frontendApis/interests';
+import useAdminLoginCheck from '../../../hooks/useAdminLogInCheck';
 
 export default function Interests() {
+  useAdminLoginCheck();
   const { data: interests, mutate } = useSWR<Nullable<Interest[]>>(InterestsAPI.INTERESTS_URL, () =>
     api.interests.list().then((r) => r.payload),
   );
