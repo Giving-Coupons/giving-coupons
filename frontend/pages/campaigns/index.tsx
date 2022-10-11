@@ -1,7 +1,12 @@
-import { Box } from '@mui/system';
+import { Box, Container, useTheme } from '@mui/system';
 import { CampaignCharityData, CampaignListData } from '../../types/campaigns';
 import Head from 'next/head';
 import CampaignList from '../../components/campaigns/CampaignList';
+import { Fab, useMediaQuery } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
+import { useState } from 'react';
+import CampaignSearch from '../../components/campaigns/search/CampaignSearch';
+import { containerSx, mobileSearchButtonSx } from '../../styles/pages/campaigns/indexStyles';
 
 const sampleCharity: CampaignCharityData = {
   id: 1,
@@ -32,13 +37,27 @@ const sampleCampaign: CampaignListData = {
 const sampleCampaigns: CampaignListData[] = Array(11).fill(sampleCampaign);
 
 const Campaigns = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const [searchDrawerIsOpen, setSearchDrawerIsOpen] = useState<boolean>(false);
+
   return (
     <Box>
       <Head>
         <title>Campaigns</title>
       </Head>
 
-      <CampaignList campaigns={sampleCampaigns} />
+      <Container sx={containerSx} component="main">
+        <CampaignSearch searchDrawerIsOpen={searchDrawerIsOpen} setSearchDrawerIsOpen={setSearchDrawerIsOpen} />
+
+        <CampaignList campaigns={sampleCampaigns} />
+
+        {isMobile && (
+          <Fab sx={mobileSearchButtonSx} onClick={() => setSearchDrawerIsOpen(true)}>
+            <SearchIcon fontSize="large" />
+          </Fab>
+        )}
+      </Container>
     </Box>
   );
 };
