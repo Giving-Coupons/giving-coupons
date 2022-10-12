@@ -6,39 +6,38 @@ import { useTheme } from '@mui/system';
 import React from 'react';
 import { MuiTextFieldProps } from '@mui/x-date-pickers/internals';
 import { InterestFormData } from './InterestForm';
+import { useField, useFormikContext } from 'formik';
 
 interface Props {
   name: keyof InterestFormData;
-  value: Nullable<Moment>;
   label: string;
-  touched?: boolean | undefined;
-  errorMessage?: string;
-  setTouched: (field: string, touched?: boolean | undefined, shouldValidate?: boolean | undefined) => void;
-  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-  setFieldValue: (field: string, value: any, shouldValidate?: boolean | undefined) => void;
 }
 
-const InterestFormDatePicker = ({ name, value, label, touched, errorMessage, setFieldValue, setTouched }: Props) => {
+const InterestFormDatePicker = ({ name, label }: Props) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const { values, setFieldValue } = useFormikContext<InterestFormData>();
+  const [_field, { error, touched }, { setTouched }] = useField(name);
 
   const innerProps = {
-    value,
     label,
+    value: values[name],
     inputFormat: 'DD/MM/yyyy',
     minDate: moment().add(1, 'day').startOf('day'),
-    onClose: () => setTouched(name, true),
-    onChange: (value: Moment | null) => {
+    onChange: (value: Nullable<Moment>) => {
       const corrected = value === null ? value : value.startOf('day');
-      setTouched(name, true, false);
-      setFieldValue(name, corrected, true);
+      // It is not explicitly stated in the docs / types, but it appears setFieldValue is an
+      // async function. Resolving with promise and then setting touched ensures set touched
+      // occurs after field value is set.
+      Promise.resolve(setFieldValue(name, corrected, true)).then(() => setTouched(true));
     },
     renderInput: (params: MuiTextFieldProps) => (
       <TextField
         {...params}
-        error={touched && Boolean(errorMessage)}
-        helperText={touched && (errorMessage as string)}
+        error={touched && Boolean(error)}
+        helperText={touched && (error as string)}
         label={label}
+        onBlur={() => setTouched(true)}
         fullWidth
         required
       />

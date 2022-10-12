@@ -10,7 +10,6 @@ import { DEFAULT_COUPON_DENOMINATION } from '../../../utils/constants';
 import InterestFormDatePicker from './InterestFormDatePicker';
 import { Nullable } from '../../../types/utils';
 import InterestFormTextInput from './InterestFormTextInput';
-import InterestFormNumericTextInput from './InterestFormNumericTextInput';
 import InterestFormAmountButton from './InterestFormAmountButton';
 
 export type InterestFormData = Partial<
@@ -64,7 +63,7 @@ export default function InterestForm({ onSubmit }: InterestFormProps) {
         validationSchema={interestFormSchema}
         onSubmit={async (values: InterestFormData) => interestFormSchema.validate(values).then(onSubmit)}
       >
-        {({ values, setFieldValue, errors, touched, setFieldTouched, isValid }) => (
+        {({ isValid }) => (
           <Form>
             <Stack spacing={2}>
               {/* TODO: Charity selection is omitted as its model is TBD. */}
@@ -72,46 +71,20 @@ export default function InterestForm({ onSubmit }: InterestFormProps) {
                 <Typography component="h2" variant="h3">
                   Your Campaign
                 </Typography>
-                <InterestFormTextInput
-                  name="campaignName"
-                  label="Name"
-                  placeholder="Give your campaign a name."
-                  value={values.campaignName}
-                  touched={touched.campaignName}
-                  setTouched={setFieldTouched}
-                  setFieldValue={setFieldValue}
-                  errorMessage={errors.campaignName}
-                />
+                <InterestFormTextInput name="campaignName" label="Name" placeholder="Give your campaign a name." />
                 <InterestFormTextInput
                   name="campaignDescription"
                   label="Description"
                   placeholder="What inspired you to start this campaign?"
-                  value={values.campaignDescription}
-                  touched={touched.campaignDescription}
-                  setTouched={setFieldTouched}
-                  setFieldValue={setFieldValue}
-                  errorMessage={errors.campaignDescription}
                   multiline
                   minRows={2}
                 />
-                <InterestFormDatePicker
-                  name="start"
-                  value={values.start}
-                  label={'Start Date'}
-                  touched={touched.start}
-                  errorMessage={errors.start}
-                  setFieldValue={setFieldValue}
-                  setTouched={setFieldTouched}
-                />
-                <InterestFormNumericTextInput
+                <InterestFormDatePicker name="start" label={'Start Date'} />
+                <InterestFormTextInput
+                  numeric
                   name="lengthOfCampaign"
                   label="Length of Campaign"
                   placeholder=""
-                  value={values.lengthOfCampaign}
-                  touched={touched.lengthOfCampaign}
-                  setTouched={setFieldTouched}
-                  setFieldValue={setFieldValue}
-                  errorMessage={errors.lengthOfCampaign}
                   InputProps={{ endAdornment: <InputAdornment position="end">day(s)</InputAdornment> }}
                 />
               </Stack>
@@ -124,27 +97,18 @@ export default function InterestForm({ onSubmit }: InterestFormProps) {
                     All of your money will be converted to $10 coupons for distribution.
                   </Typography>
                 </Stack>
-                <InterestFormNumericTextInput
+                <InterestFormTextInput
+                  numeric
                   name="promisedAmount"
                   label="Promised Amount"
                   placeholder=""
-                  value={values.promisedAmount}
-                  touched={touched.promisedAmount}
-                  setTouched={setFieldTouched}
-                  setFieldValue={setFieldValue}
-                  errorMessage={errors.promisedAmount}
                   InputProps={{ startAdornment: <InputAdornment position="start">$</InputAdornment> }}
                 />
                 <Stack spacing={1}>
                   <Typography variant="body2">Or choose an amount below:</Typography>
                   <Grid direction="row" spacing={2} wrap="wrap">
                     {[500, 1000, 2500, 5000].map((value) => (
-                      <InterestFormAmountButton
-                        key={value}
-                        name="promisedAmount"
-                        value={value}
-                        setFieldValue={setFieldValue}
-                      />
+                      <InterestFormAmountButton name="promisedAmount" value={value} key={value} />
                     ))}
                   </Grid>
                 </Stack>
@@ -153,26 +117,8 @@ export default function InterestForm({ onSubmit }: InterestFormProps) {
                 <Typography component="h2" variant="h3">
                   Your Details
                 </Typography>
-                <InterestFormTextInput
-                  name="donorName"
-                  label="Name"
-                  placeholder=""
-                  value={values.donorName}
-                  touched={touched.donorName}
-                  setTouched={setFieldTouched}
-                  setFieldValue={setFieldValue}
-                  errorMessage={errors.donorName}
-                />
-                <InterestFormTextInput
-                  name="donorEmail"
-                  label="Email"
-                  placeholder=""
-                  value={values.donorEmail}
-                  touched={touched.donorEmail}
-                  setTouched={setFieldTouched}
-                  setFieldValue={setFieldValue}
-                  errorMessage={errors.donorEmail}
-                />
+                <InterestFormTextInput name="donorName" label="Name" placeholder="" />
+                <InterestFormTextInput name="donorEmail" label="Email" placeholder="" />
               </Stack>
             </Stack>
             <Button type="submit" disabled={!isValid} fullWidth variant="contained" sx={submitButtonSx}>
