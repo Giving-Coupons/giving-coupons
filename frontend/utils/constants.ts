@@ -1,0 +1,1 @@
+export const DEFAULT_COUPON_DENOMINATION = 10;
