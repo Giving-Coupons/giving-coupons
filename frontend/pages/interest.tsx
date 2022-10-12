@@ -1,7 +1,6 @@
 import { NextPage } from 'next';
 import api from '../frontendApis';
 import Avatar from '@mui/material/Avatar';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import Container from '@mui/material/Container';
 import { MailOutline } from '@mui/icons-material';
 import { Interest, InterestStatus } from '../types/interest';

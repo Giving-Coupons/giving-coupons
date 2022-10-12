@@ -2,7 +2,7 @@ import { TextField } from '@mui/material';
 import React from 'react';
 import { MuiTextFieldProps } from '@mui/x-date-pickers/internals';
 import { InterestFormData } from './InterestForm';
-import { useField, useFormikContext } from 'formik';
+import { useField } from 'formik';
 
 interface TextInputProps {
   name: keyof InterestFormData;
@@ -25,7 +25,7 @@ const InterestFormTextInput = ({
   InputProps,
   minRows,
 }: TextInputProps) => {
-  const [_field, { value, error, touched }, { setTouched, setValue }] = useField(name);
+  const [, { value, error, touched }, { setTouched, setValue }] = useField(name);
 
   const innerProps: MuiTextFieldProps = {
     id: name,

@@ -6,7 +6,7 @@ import { useTheme } from '@mui/system';
 import React from 'react';
 import { MuiTextFieldProps } from '@mui/x-date-pickers/internals';
 import { InterestFormData } from './InterestForm';
-import { useField, useFormikContext } from 'formik';
+import { useField } from 'formik';
 
 interface Props {
   name: keyof InterestFormData;

@@ -1,5 +1,5 @@
 import { Button } from '@mui/material';
-import { useField, useFormikContext } from 'formik';
+import { useField } from 'formik';
 import { amountButtonSx } from '../../../styles/interest';
 import { InterestFormData } from './InterestForm';
 
