@@ -4,8 +4,6 @@
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
 
 c1 = Charity.create!(name: 'Ark', website_url: 'https://www.ark.org', description: 'Placeholder Ark')
-c1.logo.attach(io: Rails.root.join('storage', 'charities', 'logos', 'default.png').open, filename: 'default.png',
-               content_type: 'image/png')
 c2 = Charity.create!(name: 'Bork', website_url: 'https://www.bork.org', description: 'Placeholder Bork')
 c3 = Charity.create!(name: 'Creek', website_url: 'https://www.creek.org', description: 'Placeholder Creek')
 c4 = Charity.create!(name: 'Dirk', website_url: 'https://www.dirk.org', description: 'Placeholder Dirk')
