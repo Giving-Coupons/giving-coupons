@@ -18,9 +18,7 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
 
   backend:
-    build:
-      context: ..
-      dockerfile: ./deployment/Dockerfile-backend
+    image: ghcr.io/giving-coupons/giving-coupons-backend:latest
     container_name: giving-coupons-backend
     restart: always
     volumes:
@@ -46,9 +44,7 @@ services:
       MASTER_PASSWORD: ${MASTER_PASSWORD}
 
   frontend:
-    build:
-      context: ..
-      dockerfile: ./deployment/Dockerfile-frontend
+    image: ghcr.io/giving-coupons/giving-coupons-frontend:latest
     container_name: giving-coupons-frontend
     restart: always
     volumes:
