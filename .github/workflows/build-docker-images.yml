@@ -1,0 +1,63 @@
+name: Build Docker Images
+
+on:
+  push:
+    branches:
+      - master
+
+env:
+  REGISTRY: ghcr.io
+  BACKEND_IMAGE_NAME: giving-coupons-backend
+  FRONTEND_IMAGE_NAME: giving-coupons-frontend
+
+jobs:
+  build-backend-image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Check out Source
+        uses: actions/checkout@v2
+      - name: Log in to the Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: giving-coupons
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: deployment/Dockerfile-backend
+          push: true
+          tags: ghcr.io/giving-coupons/${{ env.BACKEND_IMAGE_NAME }}:latest
+
+  build-frontend-image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Check out Source
+        uses: actions/checkout@v2
+      - name: Make Environment File
+        uses: SpicyPizza/create-envfile@v1.3
+        with:
+          envkey_NEXT_PUBLIC_BASE_SERVER_URL: 'https://giving-coupons.sivarn.com/api/v1'
+          directory: frontend
+          file_name: .env
+          fail_on_empty: true
+      - name: Log in to the Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: giving-coupons
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: deployment/Dockerfile-frontend
+          push: true
+          tags: ghcr.io/giving-coupons/${{ env.FRONTEND_IMAGE_NAME }}:latest
