@@ -11,8 +11,8 @@ import { formStackSx, mailIconSx } from '../styles/interest';
 import moment from 'moment';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import InterestForm, { InterestFormSubmitHandler } from '../components/interests/InterestForm';
+import { DEFAULT_COUPON_DENOMINATION } from '../utils/constants';
 
-const DEFAULT_COUPON_DENOMINATION = 10;
 const interestsApi = api.interests;
 
 const InterestFormPage: NextPage = () => {

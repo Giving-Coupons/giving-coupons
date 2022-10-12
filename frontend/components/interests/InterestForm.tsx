@@ -1,13 +1,7 @@
-import { NextPage } from 'next';
 import * as Yup from 'yup';
-import api from '../../frontendApis';
-import Avatar from '@mui/material/Avatar';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
-import { MailOutline } from '@mui/icons-material';
-import { Interest, InterestStatus } from '../../types/interest';
-import { WithoutId } from '../../types/utils';
+import { Interest } from '../../types/interest';
 import TextField from '@mui/material/TextField';
 import { Button, InputAdornment, Stack, Typography } from '@mui/material';
 import { amountButtonSx, submitButtonSx } from '../../styles/interest';
@@ -15,11 +9,13 @@ import { useFormik } from 'formik';
 import moment, { Moment } from 'moment';
 import { MobileDatePicker } from '@mui/x-date-pickers';
 import { MuiTextFieldProps } from '@mui/x-date-pickers/internals';
+import { DEFAULT_COUPON_DENOMINATION } from '../../utils/constants';
 
-const DEFAULT_COUPON_DENOMINATION = 10;
-const interestsApi = api.interests;
-export type InterestFormData = Partial<Omit<Interest, 'id' | 'charities' | 'status' | 'couponDenomination' | 'end'>> & {
-  lengthOfCampaign: number;
+export type InterestFormData = Partial<
+  Omit<Interest, 'id' | 'charities' | 'status' | 'couponDenomination' | 'start' | 'end'>
+> & {
+  start: Moment | null;
+  lengthOfCampaign?: number;
 };
 
 export const interestFormSchema = Yup.object({
@@ -57,8 +53,9 @@ export interface InterestFormProps {
 }
 
 export default function InterestForm({ onSubmit }: InterestFormProps) {
+  const initialValues: InterestFormData = { start: null };
   const formik = useFormik({
-    initialValues: { start: null as unknown } as InterestFormData, // To ensure date picker is unset.
+    initialValues,
     validationSchema: interestFormSchema,
     onSubmit: (x) => interestFormSchema.validate(x).then(onSubmit),
   });
