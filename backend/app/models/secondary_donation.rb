@@ -23,7 +23,7 @@ class SecondaryDonation < ApplicationRecord
   end
 
   def coupon_unredeemed
-    return unless coupon.redeemed?
+    return unless coupon.present? && coupon.redeemed?
 
     errors.add(:coupon, 'has already been redeemed')
   end
