@@ -22,7 +22,7 @@ const InterestFormPage: NextPage = () => {
       couponDenomination: DEFAULT_COUPON_DENOMINATION,
       end: moment(data.start).clone().add(lengthOfCampaign, 'days').toDate(),
       // TODO: charities are not covered in this PR as its model is TBD.
-      charities: [{ id: 1 }],
+      charities: [{ id: 1, name: 'Ark' }],
     };
 
     return interestsApi.addInterest(interestPostData);
