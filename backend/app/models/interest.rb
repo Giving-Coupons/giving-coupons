@@ -27,7 +27,7 @@ class Interest < ApplicationRecord
       new_donor.name = donor_name
     end
 
-    Campaign.new(
+    self.campaign = Campaign.new(
       name: campaign_name,
       description: campaign_description,
       promised_amount: promised_amount,
@@ -35,7 +35,6 @@ class Interest < ApplicationRecord
       start: start,
       end: self.end,
       primary_donor: primary_donor,
-      interest: self,
       charities: charities
     )
 
