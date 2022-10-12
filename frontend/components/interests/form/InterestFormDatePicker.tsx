@@ -17,7 +17,7 @@ const InterestFormDatePicker = ({ name, label }: Props) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const { values, setFieldValue } = useFormikContext<InterestFormData>();
-  const [_field, { error, touched }, { setTouched }] = useField(name);
+  const [, { error, touched }, { setTouched }] = useField(name);
 
   const innerProps = {
     label,
