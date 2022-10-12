@@ -16,7 +16,6 @@
     "@mui/material": "^5.10.9",
     "@mui/x-date-pickers": "^5.0.4",
     "@types/js-cookie": "^3.0.2",
-    "@types/yup": "^0.32.0",
     "axios": "^1.1.2",
     "formik": "^2.2.9",
     "immutable": "^4.1.0",

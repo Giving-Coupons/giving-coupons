@@ -10,6 +10,8 @@ import { formStackSx, mailIconSx } from '../styles/interest';
 import moment from 'moment';
 import InterestForm, { InterestFormSubmitHandler } from '../components/interests/form/InterestForm';
 import { DEFAULT_COUPON_DENOMINATION } from '../utils/constants';
+import { Box } from '@mui/system';
+import Head from 'next/head';
 
 const interestsApi = api.interests;
 
@@ -20,7 +22,8 @@ const InterestFormPage: NextPage = () => {
       ...data,
       status: InterestStatus.PENDING,
       couponDenomination: DEFAULT_COUPON_DENOMINATION,
-      end: moment(data.start).clone().add(lengthOfCampaign, 'days').toDate(),
+      start: moment(data.start),
+      end: moment(data.start).clone().add(lengthOfCampaign, 'days'),
       // TODO: charities are not covered in this PR as its model is TBD.
       charities: [{ id: 1, name: 'Ark' }],
     };
@@ -29,14 +32,20 @@ const InterestFormPage: NextPage = () => {
   };
 
   return (
-    <Container component="main" maxWidth="sm">
-      <Stack sx={formStackSx}>
-        <Avatar sx={mailIconSx}>
-          <MailOutline />
-        </Avatar>
-        <InterestForm onSubmit={onSubmit} />
-      </Stack>
-    </Container>
+    <Box>
+      <Head>
+        <title>Interest</title>
+      </Head>
+
+      <Container component="main" maxWidth="sm">
+        <Stack sx={formStackSx}>
+          <Avatar sx={mailIconSx}>
+            <MailOutline />
+          </Avatar>
+          <InterestForm onSubmit={onSubmit} />
+        </Stack>
+      </Container>
+    </Box>
   );
 };
 

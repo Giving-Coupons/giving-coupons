@@ -5,7 +5,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { CampaignSearchFormData } from '../../../types/campaigns';
 import FormikValuesListener from '../../forms/FormikValuesListener';
 import CampaignSearchDatePicker from './CampaignSearchDatePicker';
-import CampaignSearchCheckbox from '../CampaignSearchCheckbox';
+import CampaignSearchCheckbox from './CampaignSearchCheckbox';
 import { headerSx } from '../../../styles/components/campaigns/search/CampaignSearchFormStyles';
 import * as Yup from 'yup';
 

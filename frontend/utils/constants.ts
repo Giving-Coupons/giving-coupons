@@ -1,1 +1,3 @@
 export const DEFAULT_COUPON_DENOMINATION = 10;
+
+export const DATE_FORMAT = 'DD-MM-YYYY';

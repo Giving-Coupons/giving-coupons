@@ -13,8 +13,9 @@ import { Nullable } from '../../../types/utils';
 import { theme } from '../../../utils/theme';
 import InterestsAPI from '../../../frontendApis/interests';
 import useAdminLoginCheck from '../../../hooks/useAdminLogInCheck';
+import { DATE_FORMAT } from '../../../utils/constants';
 
-export default function Interests() {
+const Interests = () => {
   useAdminLoginCheck();
   const { data: interests, mutate } = useSWR<Nullable<Interest[]>>(InterestsAPI.INTERESTS_URL, () =>
     api.interests.list().then((r) => r.payload),
@@ -55,8 +56,8 @@ export default function Interests() {
           { title: 'Campaign Name', key: 'campaignName' },
           { title: 'Campaign Description', key: 'campaignDescription' },
           { title: 'Promised Amount', key: 'promisedAmount' },
-          { title: 'Start', key: 'start', transformValue: (date) => date.toLocaleDateString() },
-          { title: 'End', key: 'end', transformValue: (date) => date.toLocaleDateString() },
+          { title: 'Start', key: 'start', transformValue: (date) => date.format(DATE_FORMAT) },
+          { title: 'End', key: 'end', transformValue: (date) => date.format(DATE_FORMAT) },
           { title: 'Coupon Denomination', key: 'couponDenomination' },
         ]}
         rows={interests ?? []}
@@ -94,4 +95,6 @@ export default function Interests() {
       </Paper>
     </Box>
   );
-}
+};
+
+export default Interests;
