@@ -3,20 +3,20 @@ import { Moment } from 'moment';
 import { PrimaryDonorData, PrimaryDonorPostData } from './primaryDonor';
 import {
   CampaignCharityBaseData,
-  CampaignCharityDonationPublicData,
   CampaignCharityDonationData,
-  CampaignCharityListData,
+  CampaignCharityDonationPublicData,
   CampaignCharityPostData,
 } from './campaignCharities';
 import { DonationBreakdownData } from './donations';
 import { CouponListData } from './coupons';
+import { CharityListData } from './charity';
 
 export type CampaignListData = {
   id: number;
   name: string;
   description: string;
   imageBase64: string;
-  charities: CampaignCharityListData[];
+  charities: CharityListData[];
   donations: DonationBreakdownData;
   couponsRedeemedCount: number;
 };
@@ -42,12 +42,12 @@ export type CampaignListQueryData = {
     isCompleted: boolean;
   };
   start: {
-    from: string;
-    to: string;
+    from?: string;
+    to?: string;
   };
   end: {
-    from: string;
-    to: string;
+    from?: string;
+    to?: string;
   };
 };
 

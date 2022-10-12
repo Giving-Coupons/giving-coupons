@@ -14,9 +14,7 @@ type CampaignCharityData = CampaignCharityBaseData & {
   charity: CharityListData;
 };
 
-export type CampaignCharityListData = Omit<CampaignCharityData, 'givingSgUrl'>;
-
-export type CampaignCharityDonationPublicData = CampaignCharityListData & DonationBreakdownData;
+export type CampaignCharityDonationPublicData = Omit<CampaignCharityData, 'givingSgUrl'> & DonationBreakdownData;
 
 export type CampaignCharityDonationData = CampaignCharityData & DonationBreakdownData;
 
