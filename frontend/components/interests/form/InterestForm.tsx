@@ -1,15 +1,15 @@
 import * as Yup from 'yup';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
-import { Interest } from '../../types/interest';
+import { Interest } from '../../../types/interest';
 import TextField from '@mui/material/TextField';
 import { Button, InputAdornment, Stack, Typography } from '@mui/material';
-import { amountButtonSx, submitButtonSx } from '../../styles/interest';
-import { useFormik } from 'formik';
+import { amountButtonSx, submitButtonSx } from '../../../styles/interest';
+import { Form, Formik, useFormik } from 'formik';
 import moment, { Moment } from 'moment';
 import { MobileDatePicker } from '@mui/x-date-pickers';
 import { MuiTextFieldProps } from '@mui/x-date-pickers/internals';
-import { DEFAULT_COUPON_DENOMINATION } from '../../utils/constants';
+import { DEFAULT_COUPON_DENOMINATION } from '../../../utils/constants';
 
 export type InterestFormData = Partial<
   Omit<Interest, 'id' | 'charities' | 'status' | 'couponDenomination' | 'start' | 'end'>
@@ -112,68 +112,80 @@ export default function InterestForm({ onSubmit }: InterestFormProps) {
   };
 
   return (
-    <Container component="form" onSubmit={formik.handleSubmit} maxWidth="lg">
-      <Stack spacing={2}>
-        {/* TODO: Charity selection is omitted as its model is TBD. */}
-        <Stack spacing={2}>
-          <Typography component="h2" variant="h3">
-            Your Campaign
-          </Typography>
-          <TextField {...textInputPropHelper('campaignName', 'Name', 'Give your campaign a name.')} />
-          <TextField
-            {...textInputPropHelper('campaignDescription', 'Description', 'What inspired you to start this campaign?')}
-            multiline
-            minRows={2}
-          />
-          <MobileDatePicker {...startDateInputPropHelper('Start Date')} />
-          <Grid>
-            <TextField
-              {...integerInputPropHelper('lengthOfCampaign', 'Length of Campaign', '')}
-              InputProps={{ endAdornment: <InputAdornment position="end">day(s)</InputAdornment> }}
-            />
-          </Grid>
-        </Stack>
-        <Stack spacing={2}>
-          <Stack spacing={0}>
-            <Typography component="h2" variant="h3">
-              Your contribution
-            </Typography>
-            <Typography variant="body1">
-              All of your money will be converted to $10 coupons for distribution.
-            </Typography>
+    <Container maxWidth="lg">
+      <Formik
+        initialValues={initialValues}
+        validationSchema={interestFormSchema}
+        onSubmit={async (values: InterestFormData) => interestFormSchema.validate(values).then(onSubmit)}
+      >
+        <Form>
+          <Stack spacing={2}>
+            {/* TODO: Charity selection is omitted as its model is TBD. */}
+            <Stack spacing={2}>
+              <Typography component="h2" variant="h3">
+                Your Campaign
+              </Typography>
+              <TextField {...textInputPropHelper('campaignName', 'Name', 'Give your campaign a name.')} />
+              <TextField
+                {...textInputPropHelper(
+                  'campaignDescription',
+                  'Description',
+                  'What inspired you to start this campaign?',
+                )}
+                multiline
+                minRows={2}
+              />
+              <MobileDatePicker {...startDateInputPropHelper('Start Date')} />
+              <Grid>
+                <TextField
+                  {...integerInputPropHelper('lengthOfCampaign', 'Length of Campaign', '')}
+                  InputProps={{ endAdornment: <InputAdornment position="end">day(s)</InputAdornment> }}
+                />
+              </Grid>
+            </Stack>
+            <Stack spacing={2}>
+              <Stack spacing={0}>
+                <Typography component="h2" variant="h3">
+                  Your contribution
+                </Typography>
+                <Typography variant="body1">
+                  All of your money will be converted to $10 coupons for distribution.
+                </Typography>
+              </Stack>
+              <TextField
+                {...integerInputPropHelper('promisedAmount', 'Promised Amount', '')}
+                InputProps={{ startAdornment: <InputAdornment position="start">$</InputAdornment> }}
+              />
+              <Stack spacing={1}>
+                <Typography variant="body2">Or choose an amount below:</Typography>
+                <Grid direction="row" spacing={2} wrap="wrap">
+                  {[500, 1000, 2500, 5000].map((value) => (
+                    <Button
+                      key={value}
+                      variant="outlined"
+                      onBlur={formik.handleBlur}
+                      sx={amountButtonSx}
+                      onClick={() => formik.handleChange({ target: { name: 'promisedAmount', value } })}
+                    >
+                      ${value}
+                    </Button>
+                  ))}
+                </Grid>
+              </Stack>
+            </Stack>
+            <Stack spacing={2}>
+              <Typography component="h2" variant="h3">
+                Your Details
+              </Typography>
+              <TextField {...textInputPropHelper('donorName', 'Name', '')} />
+              <TextField {...textInputPropHelper('donorEmail', 'Email', '')} />
+            </Stack>
           </Stack>
-          <TextField
-            {...integerInputPropHelper('promisedAmount', 'Promised Amount', '')}
-            InputProps={{ startAdornment: <InputAdornment position="start">$</InputAdornment> }}
-          />
-          <Stack spacing={1}>
-            <Typography variant="body2">Or choose an amount below:</Typography>
-            <Grid direction="row" spacing={2} wrap="wrap">
-              {[500, 1000, 2500, 5000].map((value) => (
-                <Button
-                  key={value}
-                  variant="outlined"
-                  onBlur={formik.handleBlur}
-                  sx={amountButtonSx}
-                  onClick={() => formik.handleChange({ target: { name: 'promisedAmount', value } })}
-                >
-                  ${value}
-                </Button>
-              ))}
-            </Grid>
-          </Stack>
-        </Stack>
-        <Stack spacing={2}>
-          <Typography component="h2" variant="h3">
-            Your Details
-          </Typography>
-          <TextField {...textInputPropHelper('donorName', 'Name', '')} />
-          <TextField {...textInputPropHelper('donorEmail', 'Email', '')} />
-        </Stack>
-      </Stack>
-      <Button type="submit" disabled={!formik.isValid} fullWidth variant="contained" sx={submitButtonSx}>
-        Submit
-      </Button>
+          <Button type="submit" disabled={!formik.isValid} fullWidth variant="contained" sx={submitButtonSx}>
+            Submit
+          </Button>
+        </Form>
+      </Formik>
     </Container>
   );
 }
