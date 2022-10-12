@@ -84,7 +84,6 @@ export default function InterestForm({ onSubmit }: InterestFormProps) {
                   numeric
                   name="lengthOfCampaign"
                   label="Length of Campaign"
-                  placeholder=""
                   InputProps={{ endAdornment: <InputAdornment position="end">day(s)</InputAdornment> }}
                 />
               </Stack>
@@ -101,7 +100,6 @@ export default function InterestForm({ onSubmit }: InterestFormProps) {
                   numeric
                   name="promisedAmount"
                   label="Promised Amount"
-                  placeholder=""
                   InputProps={{ startAdornment: <InputAdornment position="start">$</InputAdornment> }}
                 />
                 <Stack spacing={1}>
@@ -117,8 +115,8 @@ export default function InterestForm({ onSubmit }: InterestFormProps) {
                 <Typography component="h2" variant="h3">
                   Your Details
                 </Typography>
-                <InterestFormTextInput name="donorName" label="Name" placeholder="" />
-                <InterestFormTextInput name="donorEmail" label="Email" placeholder="" />
+                <InterestFormTextInput name="donorName" label="Name" />
+                <InterestFormTextInput name="donorEmail" label="Email" />
               </Stack>
             </Stack>
             <Button type="submit" disabled={!isValid} fullWidth variant="contained" sx={submitButtonSx}>

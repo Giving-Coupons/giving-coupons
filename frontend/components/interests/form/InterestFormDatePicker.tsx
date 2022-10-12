@@ -16,12 +16,11 @@ interface Props {
 const InterestFormDatePicker = ({ name, label }: Props) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const { values, setFieldValue } = useFormikContext<InterestFormData>();
-  const [, { error, touched }, { setTouched }] = useField(name);
+  const [, { error, touched, value }, { setTouched, setValue }] = useField(name);
 
   const innerProps = {
     label,
-    value: values[name],
+    value,
     inputFormat: 'DD/MM/yyyy',
     minDate: moment().add(1, 'day').startOf('day'),
     onChange: (value: Nullable<Moment>) => {
@@ -29,7 +28,7 @@ const InterestFormDatePicker = ({ name, label }: Props) => {
       // It is not explicitly stated in the docs / types, but it appears setFieldValue is an
       // async function. Resolving with promise and then setting touched ensures set touched
       // occurs after field value is set.
-      Promise.resolve(setFieldValue(name, corrected, true)).then(() => setTouched(true));
+      Promise.resolve(setValue(corrected, true)).then(() => setTouched(true));
     },
     renderInput: (params: MuiTextFieldProps) => (
       <TextField

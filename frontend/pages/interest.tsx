@@ -9,7 +9,6 @@ import { WithoutId } from '../types/utils';
 import { Stack, Typography } from '@mui/material';
 import { formStackSx, mailIconSx } from '../styles/interest';
 import moment from 'moment';
-import { LocalizationProvider } from '@mui/x-date-pickers';
 import InterestForm, { InterestFormSubmitHandler } from '../components/interests/form/InterestForm';
 import { DEFAULT_COUPON_DENOMINATION } from '../utils/constants';
 
@@ -45,10 +44,7 @@ const InterestFormPage: NextPage = () => {
           </Typography>
           <Typography variant="body2"></Typography>
         </Stack>
-        {/* TODO: Remove localization provider once @zognin merges her _app.tsx change. */}
-        <LocalizationProvider dateAdapter={AdapterMoment}>
-          <InterestForm onSubmit={onSubmit} />
-        </LocalizationProvider>
+        <InterestForm onSubmit={onSubmit} />
       </Stack>
     </Container>
   );

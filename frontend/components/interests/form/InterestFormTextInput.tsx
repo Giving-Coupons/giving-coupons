@@ -7,7 +7,7 @@ import { useField, useFormikContext } from 'formik';
 interface TextInputProps {
   name: keyof InterestFormData;
   label: string;
-  placeholder: string;
+  placeholder?: string;
   numeric?: boolean | undefined;
 
   // include these props from MUI TextField.
@@ -25,27 +25,24 @@ const InterestFormTextInput = ({
   InputProps,
   minRows,
 }: TextInputProps) => {
-  const { values, setFieldValue } = useFormikContext<InterestFormData>();
-  const [_field, { error, touched }, { setTouched }] = useField(name);
-
-  const value = !numeric || isNaN(values[name] as number) ? values[name] : Number(values[name]).toString();
+  const [_field, { value, error, touched }, { setTouched, setValue }] = useField(name);
 
   const innerProps: MuiTextFieldProps = {
-    value,
     id: name,
     name: name,
     type: 'text',
     required: true,
     fullWidth: true,
+    value: !numeric || isNaN(value as number) ? value : Number(value).toString(),
     onChange: (event) => {
       setTouched(true);
-      setFieldValue(name, event.target.value, true);
+      setValue(event.target.value, true);
     },
     error: touched && Boolean(error),
     helperText: touched && (error as string),
     // Ensures placeholder is always visible.
     InputLabelProps: { shrink: true },
-    placeholder,
+    placeholder: placeholder ?? '',
     label,
 
     multiline,

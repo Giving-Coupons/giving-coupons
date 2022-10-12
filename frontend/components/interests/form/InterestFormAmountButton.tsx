@@ -1,5 +1,5 @@
 import { Button } from '@mui/material';
-import { useFormikContext } from 'formik';
+import { useField, useFormikContext } from 'formik';
 import { amountButtonSx } from '../../../styles/interest';
 import { InterestFormData } from './InterestForm';
 
@@ -9,10 +9,10 @@ interface Props {
 }
 
 const InterestFormAmountButton = ({ name, value }: Props) => {
-  const { setFieldValue } = useFormikContext<InterestFormData>();
+  const [, , { setValue }] = useField(name);
 
   return (
-    <Button key={value} variant="outlined" sx={amountButtonSx} onClick={() => setFieldValue(name, value, true)}>
+    <Button key={value} variant="outlined" sx={amountButtonSx} onClick={() => setValue(value, true)}>
       ${value}
     </Button>
   );
