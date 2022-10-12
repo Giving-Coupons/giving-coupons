@@ -6,7 +6,7 @@ services:
     container_name: giving-coupons-database
     restart: always
     volumes:
-      - ./db_data:/var/lib/postgresql/data
+      - ~/db_data:/var/lib/postgresql/data
     networks:
       - giving-coupons-network
     logging:
@@ -24,7 +24,7 @@ services:
     container_name: giving-coupons-backend
     restart: always
     volumes:
-      - ./file_storage:/backend/storage
+      - ~/file_storage:/backend/storage
     depends_on:
       - database
     networks:
