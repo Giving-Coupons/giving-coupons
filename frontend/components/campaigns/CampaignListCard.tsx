@@ -65,7 +65,7 @@ const CampaignListCard = ({ campaign }: Props) => {
 
   return (
     <CardWithImage
-      imageUrl={campaign.imageUrl}
+      imageUrl={campaign.imageBase64}
       imageOverlayContent={imageOverlayContent}
       descriptionContent={[description, actionButtons]}
     />

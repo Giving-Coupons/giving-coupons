@@ -1,4 +1,4 @@
-import { Charity } from './charity';
+import { CharityMinimalData } from './charity';
 
 export enum InterestStatus {
   PENDING = 'pending',
@@ -16,7 +16,7 @@ export type Interest = {
   start: Date;
   end: Date;
   status: InterestStatus;
-  charities: Charity[];
+  charities: CharityMinimalData[];
   couponDenomination: number;
 };
 

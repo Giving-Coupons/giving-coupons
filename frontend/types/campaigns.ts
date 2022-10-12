@@ -1,27 +1,24 @@
-import { Nullable } from './utils';
+import { Nullable, WithoutId } from './utils';
 import { Moment } from 'moment';
+import { PrimaryDonorData, PrimaryDonorPostData } from './primaryDonor';
+import {
+  CampaignCharityBaseData,
+  CampaignCharityDonationPublicData,
+  CampaignCharityDonationData,
+  CampaignCharityListData,
+  CampaignCharityPostData,
+} from './campaignCharities';
+import { DonationBreakdownData } from './donations';
+import { CouponListData } from './coupons';
 
 export type CampaignListData = {
   id: number;
   name: string;
   description: string;
-  imageUrl: string;
-  charities: CampaignCharityData[];
-  donations: {
-    primaryDonor: CampaignDonationData;
-    secondaryDonors: CampaignDonationData;
-  };
-};
-
-export type CampaignCharityData = {
-  id: number;
-  name: string;
-  logoUrl: string;
-};
-
-export type CampaignDonationData = {
-  amount: number;
-  fraction: number;
+  imageBase64: string;
+  charities: CampaignCharityListData[];
+  donations: DonationBreakdownData;
+  couponsRedeemedCount: number;
 };
 
 export type CampaignSearchFormData = {
@@ -35,4 +32,64 @@ export type CampaignSearchFormData = {
   startDateTo: Nullable<Moment>;
   endDateFrom: Nullable<Moment>;
   endDateTo: Nullable<Moment>;
+};
+
+export type CampaignListQueryData = {
+  name?: string;
+  status: {
+    isActive: boolean;
+    isUpcoming: boolean;
+    isCompleted: boolean;
+  };
+  start: {
+    from: string;
+    to: string;
+  };
+  end: {
+    from: string;
+    to: string;
+  };
+};
+
+export type CampaignAdminListData = {
+  id: number;
+  name: string;
+  promisedAmount: number;
+  start: string;
+  end: string;
+  primaryDonor: {
+    id: number;
+    name: string;
+  };
+};
+
+export type CampaignBaseData = {
+  id: number;
+  name: string;
+  description: string;
+  promisedAmount: number;
+  start: string;
+  end: string;
+  imageBase64: string;
+  charities: CampaignCharityBaseData[];
+  primaryDonor: PrimaryDonorData;
+  interestId: Nullable<number>;
+};
+
+export type CampaignPostData = WithoutId<CampaignBaseData> & {
+  charities: CampaignCharityPostData[];
+  primaryDonor: PrimaryDonorPostData;
+};
+
+export type CampaignPutData = CampaignPostData;
+
+export type CampaignPublicData = CampaignBaseData & {
+  donations: DonationBreakdownData;
+  charities: CampaignCharityDonationPublicData[];
+};
+
+export type CampaignAdminData = CampaignBaseData & {
+  donations: DonationBreakdownData;
+  charities: CampaignCharityDonationData[];
+  coupons: CouponListData[];
 };
