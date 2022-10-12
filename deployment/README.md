@@ -2,6 +2,8 @@
 
 ## Certificate Generation
 
+The following steps should only be done once per server deployment.
+
 1. Install CertBot:
    ```sh
    sudo apt-get install certbot
@@ -25,7 +27,19 @@ Certificate renewal will be automatically handled by the CertBot container.
 1. Clone this repository.
 1. In the deployment folder, create the `.env` with the production values. See the [example](.env.example).
 1. In the frontend folder, create the `.env` with the production values. See the [example](../frontend/.env.example).
-1. Run:
+1. Run from project root:
+   ```sh
+   docker compose -f deployment/docker-compose.yml up -d
+   ```
+
+## Updating the Application
+
+1. Pull the latest changes from the repository.
+1. Rebuild the frontend and backend images:
+   ```sh
+   docker image rm -f giving-coupons-frontend:latest giving-coupons-backend:latest
+   ```
+1. Run from project root:
    ```sh
    docker compose -f deployment/docker-compose.yml up -d
    ```
