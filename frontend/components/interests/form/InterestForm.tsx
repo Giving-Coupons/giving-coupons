@@ -139,7 +139,12 @@ export default function InterestForm({ onSubmit }: InterestFormProps) {
                   <Typography variant="body2">Or choose an amount below:</Typography>
                   <Grid direction="row" spacing={2} wrap="wrap">
                     {[500, 1000, 2500, 5000].map((value) => (
-                      <InterestFormAmountButton name="promisedAmount" value={value} setFieldValue={setFieldValue} />
+                      <InterestFormAmountButton
+                        key={value}
+                        name="promisedAmount"
+                        value={value}
+                        setFieldValue={setFieldValue}
+                      />
                     ))}
                   </Grid>
                 </Stack>
