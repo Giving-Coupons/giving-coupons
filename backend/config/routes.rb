@@ -25,6 +25,8 @@ Rails.application.routes.draw do
       end
 
       resources :primary_donors
+
+      resources :secondary_donations, only: %i[index create]
     end
   end
 end

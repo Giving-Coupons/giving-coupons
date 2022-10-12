@@ -6,21 +6,25 @@ import { ThemeProvider } from '@mui/material/styles';
 import { theme } from '../utils/theme';
 import NavBar from '../components/navigation/Navbar';
 import Head from 'next/head';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={theme}>
-      <SnackbarProvider maxSnack={3}>
-        <AxiosInterceptor>
-          <Head>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-          </Head>
+      <LocalizationProvider dateAdapter={AdapterMoment}>
+        <SnackbarProvider maxSnack={3}>
+          <AxiosInterceptor>
+            <Head>
+              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            </Head>
 
-          <NavBar />
+            <NavBar />
 
-          <Component {...pageProps} />
-        </AxiosInterceptor>
-      </SnackbarProvider>
+            <Component {...pageProps} />
+          </AxiosInterceptor>
+        </SnackbarProvider>
+      </LocalizationProvider>
     </ThemeProvider>
   );
 }
