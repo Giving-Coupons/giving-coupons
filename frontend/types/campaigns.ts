@@ -36,16 +36,16 @@ export type CampaignSearchFormData = {
 
 export type CampaignListQueryParams = {
   name?: string;
-  status: {
-    isActive: boolean;
-    isUpcoming: boolean;
-    isCompleted: boolean;
+  status?: {
+    isActive?: boolean;
+    isUpcoming?: boolean;
+    isCompleted?: boolean;
   };
-  start: {
+  start?: {
     from?: string;
     to?: string;
   };
-  end: {
+  end?: {
     from?: string;
     to?: string;
   };
