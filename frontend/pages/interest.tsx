@@ -5,7 +5,7 @@ import Container from '@mui/material/Container';
 import { MailOutline } from '@mui/icons-material';
 import { Interest, InterestStatus } from '../types/interest';
 import { WithoutId } from '../types/utils';
-import { Stack, Typography } from '@mui/material';
+import { Stack } from '@mui/material';
 import { formStackSx, mailIconSx } from '../styles/interest';
 import moment from 'moment';
 import InterestForm, { InterestFormSubmitHandler } from '../components/interests/form/InterestForm';
