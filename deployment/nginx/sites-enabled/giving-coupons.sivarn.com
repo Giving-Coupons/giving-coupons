@@ -48,7 +48,8 @@ server {
 
   location / {
     # Pass on URL handling to react-router
-    try_files $uri $uri/ /index.html;
+    try_files $uri $uri.html $uri/ /index.html;
+    
     # Disable caching of index.html so that any changes to the React application invalidates the cache
     # Note that the React application itself is still cached
     add_header Cache-Control "no-store, no-cache, must-revalidate";
