@@ -1,4 +1,4 @@
-import { Charity } from './charity';
+import { CharityMinimalData } from './charity';
 import { Moment } from 'moment';
 
 export enum InterestStatus {
@@ -17,7 +17,7 @@ export type Interest = {
   start: Moment | Date;
   end: Moment | Date;
   status: InterestStatus;
-  charities: Charity[];
+  charities: CharityMinimalData[];
   couponDenomination: number;
 };
 

@@ -1,11 +1,11 @@
 import { WithoutId } from './utils';
 
-export type PrimaryDonor = {
+export type PrimaryDonorData = {
   id: number;
   name: string;
   email: string;
 };
 
-export type PrimaryDonorPostData = WithoutId<PrimaryDonor>;
+export type PrimaryDonorPostData = WithoutId<PrimaryDonorData>;
 
-export type PrimaryDonorPutData = WithoutId<PrimaryDonor>;
+export type PrimaryDonorPutData = WithoutId<PrimaryDonorData>;

@@ -11,10 +11,6 @@ export const mailIconSx: SxProps = {
   bgcolor: 'secondary.main',
 };
 
-export const amountButtonSx: SxProps = {
-  margin: 1,
-};
-
 export const submitButtonSx: SxProps = {
   marginTop: 3,
   marginBottom: 2,

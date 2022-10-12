@@ -34,7 +34,7 @@ const CampaignListCard = ({ campaign }: Props) => {
   );
 
   const description = (
-    <Stack sx={descriptionContainerSx} spacing={0.5} component="div">
+    <Stack key="description" sx={descriptionContainerSx} spacing={0.5} component="div">
       <Typography variant="h3">Campaign Name</Typography>
 
       <Typography variant="caption">For the following beneficiaries</Typography>
@@ -42,7 +42,7 @@ const CampaignListCard = ({ campaign }: Props) => {
       <Grid container>
         {campaign.charities.map((charity, index) => (
           <Grid item xs={3} key={index}>
-            <Box sx={charityLogoSx} component="img" src={charity.logoUrl} />
+            <Box sx={charityLogoSx} component="img" src={charity.logoBase64} />
           </Grid>
         ))}
       </Grid>
@@ -52,7 +52,7 @@ const CampaignListCard = ({ campaign }: Props) => {
   );
 
   const actionButtons = (
-    <Box>
+    <Box key="actionButtons">
       <Button sx={buttonSx} actionType="primary">
         Contribute
       </Button>
@@ -65,7 +65,7 @@ const CampaignListCard = ({ campaign }: Props) => {
 
   return (
     <CardWithImage
-      imageUrl={campaign.imageUrl}
+      imageUrl={campaign.imageBase64}
       imageOverlayContent={imageOverlayContent}
       descriptionContent={[description, actionButtons]}
     />

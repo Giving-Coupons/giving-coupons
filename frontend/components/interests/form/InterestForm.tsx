@@ -1,5 +1,4 @@
 import * as Yup from 'yup';
-import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import { Interest } from '../../../types/interest';
 import { Button, InputAdornment, Stack, Typography } from '@mui/material';
@@ -120,11 +119,11 @@ export default function InterestForm({ onSubmit }: InterestFormProps) {
                 <Stack spacing={1}>
                   <Typography variant="body2">Or choose an amount below:</Typography>
 
-                  <Grid direction="row" spacing={2} wrap="wrap">
+                  <Stack direction="row" spacing={2}>
                     {[500, 1000, 2500, 5000].map((value) => (
                       <InterestFormAmountButton name="promisedAmount" value={value} key={value} />
                     ))}
-                  </Grid>
+                  </Stack>
                 </Stack>
               </Stack>
 
