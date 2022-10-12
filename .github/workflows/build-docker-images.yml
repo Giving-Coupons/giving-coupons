@@ -43,9 +43,9 @@ jobs:
         uses: SpicyPizza/create-envfile@v1.3
         with:
           envkey_NEXT_PUBLIC_BASE_SERVER_URL: 'https://giving-coupons.sivarn.com/api/v1'
-        directory: frontend
-        file_name: .env
-        fail_on_empty: true
+          directory: frontend
+          file_name: .env
+          fail_on_empty: true
       - name: Log in to the Container Registry
         uses: docker/login-action@v1
         with:
