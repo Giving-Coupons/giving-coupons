@@ -34,15 +34,6 @@ const InterestFormPage: NextPage = () => {
         <Avatar sx={mailIconSx}>
           <MailOutline />
         </Avatar>
-        <Stack spacing={1} marginBottom={2}>
-          <Typography component="h1" align="center" variant="h2">
-            Interested in starting a campaign?
-          </Typography>
-          <Typography variant="subtitle1" align="center">
-            Fill up the form below and we will get back to you!
-          </Typography>
-          <Typography variant="body2"></Typography>
-        </Stack>
         <InterestForm onSubmit={onSubmit} />
       </Stack>
     </Container>

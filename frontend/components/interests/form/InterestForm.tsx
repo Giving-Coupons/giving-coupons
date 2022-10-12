@@ -58,12 +58,20 @@ export default function InterestForm({ onSubmit }: InterestFormProps) {
 
   return (
     <Container maxWidth="lg">
+      <Stack spacing={1} marginBottom={2}>
+        <Typography component="h1" align="center" variant="h2">
+          Interested in starting a campaign?
+        </Typography>
+        <Typography variant="subtitle1" align="center">
+          Fill up the form below and we will get back to you!
+        </Typography>
+      </Stack>
       <Formik
         initialValues={initialValues}
         validationSchema={interestFormSchema}
         onSubmit={async (values: InterestFormData) => interestFormSchema.validate(values).then(onSubmit)}
       >
-        {({ isValid }) => (
+        {({ isValid, dirty }) => (
           <Form>
             <Stack spacing={2}>
               {/* TODO: Charity selection is omitted as its model is TBD. */}
@@ -71,7 +79,9 @@ export default function InterestForm({ onSubmit }: InterestFormProps) {
                 <Typography component="h2" variant="h3">
                   Your Campaign
                 </Typography>
+
                 <InterestFormTextInput name="campaignName" label="Name" placeholder="Give your campaign a name." />
+
                 <InterestFormTextInput
                   name="campaignDescription"
                   label="Description"
@@ -79,7 +89,9 @@ export default function InterestForm({ onSubmit }: InterestFormProps) {
                   multiline
                   minRows={2}
                 />
+
                 <InterestFormDatePicker name="start" label={'Start Date'} />
+
                 <InterestFormTextInput
                   numeric
                   name="lengthOfCampaign"
@@ -92,18 +104,22 @@ export default function InterestForm({ onSubmit }: InterestFormProps) {
                   <Typography component="h2" variant="h3">
                     Your contribution
                   </Typography>
+
                   <Typography variant="body1">
                     All of your money will be converted to $10 coupons for distribution.
                   </Typography>
                 </Stack>
+
                 <InterestFormTextInput
                   numeric
                   name="promisedAmount"
                   label="Promised Amount"
                   InputProps={{ startAdornment: <InputAdornment position="start">$</InputAdornment> }}
                 />
+
                 <Stack spacing={1}>
                   <Typography variant="body2">Or choose an amount below:</Typography>
+
                   <Grid direction="row" spacing={2} wrap="wrap">
                     {[500, 1000, 2500, 5000].map((value) => (
                       <InterestFormAmountButton name="promisedAmount" value={value} key={value} />
@@ -111,15 +127,19 @@ export default function InterestForm({ onSubmit }: InterestFormProps) {
                   </Grid>
                 </Stack>
               </Stack>
+
               <Stack spacing={2}>
                 <Typography component="h2" variant="h3">
                   Your Details
                 </Typography>
+
                 <InterestFormTextInput name="donorName" label="Name" />
+
                 <InterestFormTextInput name="donorEmail" label="Email" />
               </Stack>
             </Stack>
-            <Button type="submit" disabled={!isValid} fullWidth variant="contained" sx={submitButtonSx}>
+
+            <Button type="submit" disabled={!isValid || !dirty} fullWidth variant="contained" sx={submitButtonSx}>
               Submit
             </Button>
           </Form>

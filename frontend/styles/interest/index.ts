@@ -7,7 +7,7 @@ export const formStackSx: SxProps = {
 };
 
 export const mailIconSx: SxProps = {
-  m: 1,
+  margin: 1,
   bgcolor: 'secondary.main',
 };
 
@@ -16,6 +16,6 @@ export const amountButtonSx: SxProps = {
 };
 
 export const submitButtonSx: SxProps = {
-  mt: 3,
-  mb: 2,
+  marginTop: 3,
+  marginBottom: 2,
 };

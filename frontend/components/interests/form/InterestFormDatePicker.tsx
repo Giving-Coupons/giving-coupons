@@ -34,7 +34,7 @@ const InterestFormDatePicker = ({ name, label }: Props) => {
       <TextField
         {...params}
         error={touched && Boolean(error)}
-        helperText={touched && (error as string)}
+        helperText={touched && error}
         label={label}
         onBlur={() => setTouched(true)}
         fullWidth

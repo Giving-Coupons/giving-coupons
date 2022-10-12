@@ -17,11 +17,11 @@ export const boxSx: SxProps = {
 };
 
 export const h1Sx: SxProps = {
-  mt: 2,
-  mb: 2,
+  marginTop: 2,
+  marginBottom: 2,
 };
 
 export const submitButtonSx: SxProps = {
-  mt: 3,
-  mb: 2,
+  marginTop: 3,
+  marginBottom: 2,
 };

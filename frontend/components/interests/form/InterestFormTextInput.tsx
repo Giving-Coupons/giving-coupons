@@ -39,7 +39,7 @@ const InterestFormTextInput = ({
       setValue(event.target.value, true);
     },
     error: touched && Boolean(error),
-    helperText: touched && (error as string),
+    helperText: touched && error,
     // Ensures placeholder is always visible.
     InputLabelProps: { shrink: true },
     placeholder: placeholder ?? '',
