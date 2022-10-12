@@ -47,11 +47,11 @@ server {
   ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
 
   location / {
-    # Pass on URL handling to react-router
+    # Pass on URL handling to Next Router
     try_files $uri $uri.html $uri/ /index.html;
     
-    # Disable caching of index.html so that any changes to the React application invalidates the cache
-    # Note that the React application itself is still cached
+    # Disable caching of index.html so that any changes to the Next application invalidates the cache
+    # Note that the Next application itself is still cached
     add_header Cache-Control "no-store, no-cache, must-revalidate";
   }
 

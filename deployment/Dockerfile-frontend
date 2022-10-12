@@ -1,7 +1,7 @@
 # To build a Docker image from this file, run from the root directory:
 # docker build -f deployment/Dockerfile-frontend -t giving-coupons-frontend .
 
-# Intermediate image for building the React app
+# Intermediate image for building the Next app
 FROM node:16.13.0 AS builder
 
 # Environment variables
@@ -28,7 +28,7 @@ ENV APP_ROOT /frontend
 RUN mkdir --parents $APP_ROOT
 WORKDIR $APP_ROOT
 
-# Copy React build
+# Copy Next build
 COPY --from=builder $APP_ROOT/out .
 
 # Delete NGINX defaults
