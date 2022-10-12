@@ -10,7 +10,7 @@ class Coupon < ApplicationRecord
   validates :denomination, presence: true, numericality: { only_integer: true, greater_than: 0 }
 
   def redeemed?
-    secondary_donation.present?
+    SecondaryDonation.exists?(coupon: self)
   end
 
   def self.generate_unique_url_token
