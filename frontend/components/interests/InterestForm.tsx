@@ -10,11 +10,10 @@ import { Interest, InterestStatus } from '../../types/interest';
 import { WithoutId } from '../../types/utils';
 import TextField from '@mui/material/TextField';
 import { Button, InputAdornment, Stack, Typography } from '@mui/material';
-import { amountButtonSx, formStackSx, mailIconSx, submitButtonSx } from '../../styles/interest';
+import { amountButtonSx, submitButtonSx } from '../../styles/interest';
 import { useFormik } from 'formik';
-import { useSnackbar } from 'notistack';
 import moment, { Moment } from 'moment';
-import { LocalizationProvider, MobileDatePicker } from '@mui/x-date-pickers';
+import { MobileDatePicker } from '@mui/x-date-pickers';
 import { MuiTextFieldProps } from '@mui/x-date-pickers/internals';
 
 const DEFAULT_COUPON_DENOMINATION = 10;
