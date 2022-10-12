@@ -34,7 +34,7 @@ export type CampaignSearchFormData = {
   endDateTo: Nullable<Moment>;
 };
 
-export type CampaignListQueryData = {
+export type CampaignListQueryParams = {
   name?: string;
   status: {
     isActive: boolean;
