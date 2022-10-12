@@ -63,8 +63,6 @@ services:
     ports:
       - '80:80'
       - '443:443'
-    environment:
-      NEXT_PUBLIC_BASE_SERVER_URL: ${NEXT_PUBLIC_BASE_SERVER_URL}
 
   certbot:
     image: certbot/certbot
