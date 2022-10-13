@@ -6,9 +6,9 @@ import { submitButtonSx } from '../../../styles/interest';
 import { Form, Formik } from 'formik';
 import moment, { Moment } from 'moment';
 import { DEFAULT_COUPON_DENOMINATION } from '../../../utils/constants';
-import InterestFormDatePicker from './InterestFormDatePicker';
+import FormDatePicker from '../../forms/FormDatePicker';
 import { Nullable } from '../../../types/utils';
-import InterestFormTextInput from './InterestFormTextInput';
+import FormTextInput from '../../forms/FormTextInput';
 import InterestFormAmountButton from './InterestFormAmountButton';
 
 export type InterestFormData = Partial<
@@ -79,9 +79,9 @@ export default function InterestForm({ onSubmit }: InterestFormProps) {
                   Your Campaign
                 </Typography>
 
-                <InterestFormTextInput name="campaignName" label="Name" placeholder="Give your campaign a name." />
+                <FormTextInput name="campaignName" label="Name" placeholder="Give your campaign a name." />
 
-                <InterestFormTextInput
+                <FormTextInput
                   name="campaignDescription"
                   label="Description"
                   placeholder="What inspired you to start this campaign?"
@@ -89,9 +89,9 @@ export default function InterestForm({ onSubmit }: InterestFormProps) {
                   minRows={2}
                 />
 
-                <InterestFormDatePicker name="start" label={'Start Date'} />
+                <FormDatePicker name="start" label={'Start Date'} />
 
-                <InterestFormTextInput
+                <FormTextInput
                   name="lengthOfCampaign"
                   label="Length of Campaign"
                   InputProps={{ endAdornment: <InputAdornment position="end">day(s)</InputAdornment> }}
@@ -108,7 +108,7 @@ export default function InterestForm({ onSubmit }: InterestFormProps) {
                   </Typography>
                 </Stack>
 
-                <InterestFormTextInput
+                <FormTextInput
                   name="promisedAmount"
                   label="Promised Amount"
                   InputProps={{ startAdornment: <InputAdornment position="start">$</InputAdornment> }}
@@ -130,9 +130,9 @@ export default function InterestForm({ onSubmit }: InterestFormProps) {
                   Your Details
                 </Typography>
 
-                <InterestFormTextInput name="donorName" label="Name" />
+                <FormTextInput name="donorName" label="Name" />
 
-                <InterestFormTextInput name="donorEmail" label="Email" />
+                <FormTextInput name="donorEmail" label="Email" />
               </Stack>
             </Stack>
 

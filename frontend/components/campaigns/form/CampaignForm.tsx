@@ -6,8 +6,8 @@ import { containerSx, sectionSx } from '../../../styles/components/campaigns/for
 import Button from '../../generic/Button';
 import FormikValuesListener from '../../forms/FormikValuesListener';
 import CampaignFormCharitiesSection from './CampaignFormCharitiesSection';
-import InterestFormDatePicker from '../../interests/form/InterestFormDatePicker';
-import InterestFormTextInput from '../../interests/form/InterestFormTextInput';
+import FormDatePicker from '../../forms/FormDatePicker';
+import FormTextInput from '../../forms/FormTextInput';
 import * as Yup from 'yup';
 import { DEFAULT_COUPON_DENOMINATION, MAX_NUM_OF_CAMPAIGN_CHARITIES } from '../../../utils/constants';
 import moment from 'moment';
@@ -91,9 +91,9 @@ const CampaignForm = () => {
             <Stack sx={sectionSx} component="div" spacing={2}>
               <Typography variant="h3">Campaign Info</Typography>
 
-              <InterestFormTextInput name="name" label="Name" placeholder="Enter the campaign name" />
+              <FormTextInput name="name" label="Name" placeholder="Enter the campaign name" />
 
-              <InterestFormTextInput
+              <FormTextInput
                 name="description"
                 label="Description"
                 placeholder="Enter the campaign description"
@@ -101,15 +101,15 @@ const CampaignForm = () => {
                 minRows={2}
               />
 
-              <InterestFormTextInput
+              <FormTextInput
                 name="promisedAmount"
                 label="Promised Amount"
                 InputProps={{ startAdornment: <InputAdornment position="start">$</InputAdornment> }}
               />
 
-              <InterestFormDatePicker name="start" label="Start Date" />
+              <FormDatePicker name="start" label="Start Date" />
 
-              <InterestFormDatePicker name="end" label="End Date" />
+              <FormDatePicker name="end" label="End Date" />
             </Stack>
 
             <CampaignFormCharitiesSection values={values.charities} />
@@ -117,13 +117,9 @@ const CampaignForm = () => {
             <Stack sx={sectionSx} component="div" spacing={2}>
               <Typography variant="h3">Primary Donor Info</Typography>
 
-              <InterestFormTextInput name="primaryDonor.name" label="Name" placeholder="Enter the primary donor name" />
+              <FormTextInput name="primaryDonor.name" label="Name" placeholder="Enter the primary donor name" />
 
-              <InterestFormTextInput
-                name="primaryDonor.email"
-                label="Email"
-                placeholder="Enter the primary donor email"
-              />
+              <FormTextInput name="primaryDonor.email" label="Email" placeholder="Enter the primary donor email" />
             </Stack>
 
             <Button actionType="primary" fullWidth>

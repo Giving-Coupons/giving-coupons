@@ -14,7 +14,7 @@ interface TextInputProps {
   minRows?: MuiTextFieldProps['minRows'];
 }
 
-const InterestFormTextInput = ({ name, label, placeholder, multiline, InputProps, minRows }: TextInputProps) => {
+const FormTextInput = ({ name, label, placeholder, multiline, InputProps, minRows }: TextInputProps) => {
   const [, { value, error, touched }, { setTouched, setValue }] = useField(name);
 
   const innerProps: MuiTextFieldProps = {
@@ -42,4 +42,4 @@ const InterestFormTextInput = ({ name, label, placeholder, multiline, InputProps
   return <TextField {...innerProps} />;
 };
 
-export default InterestFormTextInput;
+export default FormTextInput;
