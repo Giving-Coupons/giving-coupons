@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 class CampaignsController < ApplicationController
-  # before_action :authenticate_admin!
+  before_action :authenticate_admin!
   before_action :set_campaign, only: %i[show update destroy]
 
   wrap_parameters format: :json,
                   include: %w[name description promisedAmount start end primaryDonorId
-                              couponDenomination campaignCharityIds]
+                              couponDenomination charityIds]
 
   def index
     @campaigns = Campaign.all
@@ -15,9 +15,7 @@ class CampaignsController < ApplicationController
   def show; end
 
   def create
-    @campaign = Campaign.create(campaign_params)
-    @campaign.image = { data: params[:image] }
-    @campaign.save!
+    @campaign = Campaign.create!(campaign_params)
 
     add_success_message "Campaign \"#{@campaign.name}\" successfully created!"
     render :show, status: :created, location: @campaign
@@ -45,7 +43,7 @@ class CampaignsController < ApplicationController
 
   def campaign_params
     permitted_params = [:name, :description, :promised_amount, :start, :end, :primary_donor_id,
-                        :coupon_denomination, { campaign_charity_ids: [] }]
+                        :coupon_denomination, { charity_ids: [] }]
 
     params.require(:campaign).permit(permitted_params)
   end
