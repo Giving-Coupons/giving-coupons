@@ -42,6 +42,14 @@ const SignUp: NextPage = () => {
         throw error;
       })
       .then((x) => adminApi.registerNewAdmin(x) /* Interceptor will enqueue snackbar on success / error. */)
+      .then((x) => {
+        console.dir({ x, onSubmit: 'isResponse' });
+        return x;
+      })
+      .catch((x) => {
+        console.dir({ x, onSubmit: 'isError' });
+        throw x;
+      })
       .then(() => router.push('/admin/sign-in'))
       .catch(() => undefined);
 

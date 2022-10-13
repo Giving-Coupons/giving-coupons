@@ -65,6 +65,7 @@ function processRequest<D>(endpoint: string, promise: AxiosPromise<ApiResponse<D
         );
       }
 
+      console.dir({ response, inBase: 'isResponse' });
       return apiResponse;
     })
     .catch((error: AxiosError<ApiResponse<D>>) => {
@@ -76,6 +77,7 @@ function processRequest<D>(endpoint: string, promise: AxiosPromise<ApiResponse<D
         );
       }
 
+      console.dir({ error, inBase: 'isError' });
       throw apiResponse;
     });
 }

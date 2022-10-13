@@ -28,6 +28,7 @@ const AxiosInterceptor = ({ children }: Props) => {
         }
 
         saveAuthHeaders(response);
+        console.dir({ response, interceptor: 'isResponse' });
         return response;
       },
       (error: AxiosError<ApiResponse<null>>) => {
@@ -36,6 +37,7 @@ const AxiosInterceptor = ({ children }: Props) => {
           enqueueSnackbar(statusMessage, { variant: 'error' });
         }
 
+        console.dir({ error, interceptor: 'isError' });
         return Promise.reject(error);
       },
     );
