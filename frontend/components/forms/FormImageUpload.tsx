@@ -5,13 +5,14 @@ import { useField } from 'formik';
 import { ChangeEvent } from 'react';
 import { Stack } from '@mui/system';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { Typography } from '@mui/material';
 
 interface Props {
   name: string;
 }
 
 const FormImageUpload = ({ name }: Props) => {
-  const [, { value }, { setTouched, setValue }] = useField(name);
+  const [, { value, error, touched }, { setTouched, setValue }] = useField(name);
 
   const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
     const imageFile = event.target.files ? event.target.files[0] : null;
@@ -31,10 +32,18 @@ const FormImageUpload = ({ name }: Props) => {
       {value && <ImageWithOverlay imageSrc={value} shouldApplyOverlay={false} />}
 
       <Stack component="div" direction="row" spacing={2}>
-        <Button actionType="secondary" isLabel startIcon={<AddPhotoAlternateIcon />}>
-          Upload Image
-          <input accept="image/*" id={name} type="file" onChange={handleImageUpload} hidden />
-        </Button>
+        <Stack component="div">
+          <Button actionType="secondary" isLabel startIcon={<AddPhotoAlternateIcon />}>
+            Upload Image
+            <input accept="image/*" id={name} type="file" onChange={handleImageUpload} hidden />
+          </Button>
+
+          {touched && error && (
+            <Typography variant="caption" color="error">
+              {error}
+            </Typography>
+          )}
+        </Stack>
 
         {value && (
           <Button actionType="danger" startIcon={<DeleteIcon />} onClick={() => setValue(undefined)}>

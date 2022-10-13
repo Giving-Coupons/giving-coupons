@@ -25,7 +25,7 @@ const CampaignForm = ({ title, submitButtonTitle, initialValues, validationSchem
 
   return (
     <Formik enableReinitialize initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
-      {({ values, isValid, dirty, setFieldValue }) => (
+      {({ values, isValid, dirty }) => (
         <Form>
           <Stack sx={containerSx} component="div" spacing={2}>
             <Typography variant="h1">{title}</Typography>

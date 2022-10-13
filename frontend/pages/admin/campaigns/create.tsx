@@ -66,6 +66,8 @@ export const createCampaignSchema = Yup.object().shape(
         isValidDate(startDate) ? schema.min(startDate, 'End date cannot be before Start date') : schema,
       )
       .min(moment().endOf('day'), 'End date cannot be today or in the past.'),
+    imageBase64: Yup.string().required('Campaign image is required.'),
+    interestId: Yup.number().nullable().required(),
     charities: Yup.array()
       .of(
         Yup.object().shape({
@@ -148,8 +150,6 @@ const CampaignCreate = () => {
           start: moment(values.start).toISOString(),
           end: moment(values.end).toISOString(),
           primaryDonor: primaryDonorPostData,
-          imageBase64: '',
-          interestId: null,
         };
 
         // TODO: Replace with API
