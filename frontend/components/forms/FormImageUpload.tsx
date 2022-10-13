@@ -2,34 +2,44 @@ import ImageWithOverlay from '../generic/ImageWithOverlay';
 import Button from '../generic/Button';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import { useField } from 'formik';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { Box, Stack } from '@mui/system';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Typography } from '@mui/material';
 import { compressImageThenConvertToBase64String } from '../../utils/image';
 import { imageContainerSx } from '../../styles/components/forms/FormImageUploadStyles';
+import { Nullable } from '../../types/utils';
+import { MAX_IMAGE_SIZE_MB } from '../../utils/constants';
 
 interface Props {
   name: string;
 }
 
 const FormImageUpload = ({ name }: Props) => {
-  const [, { value, error, touched }, { setTouched, setValue, setError }] = useField(name);
+  const [, { value, error, touched }, { setTouched, setValue }] = useField(name);
+  const [uploadError, setUploadError] = useState<Nullable<string>>(null);
 
   const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
     const imageFile = event.target.files ? event.target.files[0] : null;
     if (!imageFile) {
       return;
     }
+    if (imageFile.size > MAX_IMAGE_SIZE_MB * 1024 * 1024) {
+      setTouched(true);
+      setValue(undefined);
+      setUploadError(`The maximum file size is ${MAX_IMAGE_SIZE_MB}MB`);
+      return;
+    }
 
     compressImageThenConvertToBase64String(imageFile)
       .then((value) => {
+        setUploadError(null);
         setTouched(true);
         setValue(value);
       })
       .catch((error) => {
         setTouched(true);
-        setError(error.message);
+        setUploadError(error.message);
       });
   };
 
@@ -37,8 +47,8 @@ const FormImageUpload = ({ name }: Props) => {
     <>
       <Box sx={imageContainerSx}>{value && <ImageWithOverlay imageSrc={value} shouldApplyOverlay={false} />}</Box>
 
-      <Stack component="div" direction="row" spacing={2}>
-        <Stack component="div">
+      <Stack component="div">
+        <Stack component="div" direction="row" spacing={2}>
           <Button actionType="secondary" isLabel startIcon={<AddPhotoAlternateIcon />}>
             Upload Image
             <input
@@ -51,17 +61,17 @@ const FormImageUpload = ({ name }: Props) => {
             />
           </Button>
 
-          {touched && error && (
-            <Typography variant="caption" color="error">
-              {error}
-            </Typography>
+          {value && (
+            <Button actionType="danger" startIcon={<DeleteIcon />} onClick={() => setValue(undefined)}>
+              Remove Image
+            </Button>
           )}
         </Stack>
 
-        {value && (
-          <Button actionType="danger" startIcon={<DeleteIcon />} onClick={() => setValue(undefined)}>
-            Remove Image
-          </Button>
+        {(uploadError || (touched && error)) && (
+          <Typography variant="caption" color="error">
+            {uploadError || error}
+          </Typography>
         )}
       </Stack>
     </>
