@@ -20,7 +20,8 @@ const CampaignFormCharitySection = ({ index, charities, handleRemove }: Props) =
   const idName = `${arrayFieldName}.charity.id`;
   const givingSgUrlName = `${arrayFieldName}.givingSgUrl`;
 
-  const [, { value: idValue }, { setValue: setIdValue }] = useField(idName);
+  const [, { value: idValue, error: idError, touched: idTouched }, { setValue: setIdValue, setTouched: setIdTouched }] =
+    useField(idName);
 
   const charityOptions = charities.map((charity) => ({ ...charity, label: charity.name }));
 
@@ -31,13 +32,18 @@ const CampaignFormCharitySection = ({ index, charities, handleRemove }: Props) =
           fullWidth
           options={charityOptions}
           value={charityOptions.find((charity) => charity.id === idValue) ?? null}
-          onChange={(e, newValue) => setIdValue(newValue?.id)}
+          onChange={(e, newValue) => {
+            setIdTouched(true);
+            setIdValue(newValue?.id);
+          }}
           renderInput={(params) => (
             <TextField
               {...params}
               name={idName}
               label="Find Charity"
               placeholder="Enter the name of a charity"
+              error={idTouched && Boolean(idError)}
+              helperText={idTouched && idError}
               // Ensures placeholder is always visible.
               InputLabelProps={{ shrink: true }}
             />

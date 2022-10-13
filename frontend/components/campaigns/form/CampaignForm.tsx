@@ -8,6 +8,10 @@ import FormikValuesListener from '../../forms/FormikValuesListener';
 import CampaignFormCharitiesSection from './CampaignFormCharitiesSection';
 import InterestFormDatePicker from '../../interests/form/InterestFormDatePicker';
 import InterestFormTextInput from '../../interests/form/InterestFormTextInput';
+import * as Yup from 'yup';
+import { DEFAULT_COUPON_DENOMINATION, MAX_NUM_OF_CAMPAIGN_CHARITIES } from '../../../utils/constants';
+import moment from 'moment';
+import { isValidDate } from '../../../utils/dates';
 
 const CampaignForm = () => {
   const initialValues: CampaignFormData = {
@@ -21,8 +25,62 @@ const CampaignForm = () => {
     console.log(values);
   };
 
+  const validationSchema = Yup.object().shape(
+    {
+      name: Yup.string().required('Campaign name is required.'),
+      description: Yup.string().required('Campaign description is required.'),
+      promisedAmount: Yup.number()
+        .required('Promised amount is required.')
+        .typeError('Promised amount must be a number.')
+        .integer('Promised amount must be an integer.')
+        .positive('Promised amount must be a positive.')
+        .min(100, 'Promised amount must be at least $100')
+        .test({
+          test: (promisedAmount) => (promisedAmount ?? 0) % DEFAULT_COUPON_DENOMINATION === 0,
+          message: `Promised amount must be a multiple of $${DEFAULT_COUPON_DENOMINATION}.`,
+        }),
+      start: Yup.date()
+        .required('Start date is required.')
+        .typeError('Start date must be a date.')
+        .when('end', (endDate, schema) =>
+          isValidDate(endDate) ? schema.max(endDate, 'Start date cannot be after End date') : schema,
+        )
+        .min(moment().endOf('day'), 'Start date cannot be today or in the past.'),
+      end: Yup.date()
+        .required('End date is required.')
+        .typeError('End date must be a date.')
+        .when('startDate', (startDate, schema) =>
+          isValidDate(startDate) ? schema.min(startDate, 'End date cannot be before Start date') : schema,
+        )
+        .min(moment().endOf('day'), 'End date cannot be today or in the past.'),
+      charities: Yup.array()
+        .of(
+          Yup.object().shape({
+            charity: Yup.object().shape({
+              id: Yup.number().required('Charity is required'),
+            }),
+            givingSgUrl: Yup.string()
+              .required('Giving.sg campaign url is required')
+              .url('A valid url including http:// or https:// is required'),
+          }),
+        )
+        .min(1, 'At least one charity is required.')
+        .max(
+          MAX_NUM_OF_CAMPAIGN_CHARITIES,
+          `There can only be a maximum of ${MAX_NUM_OF_CAMPAIGN_CHARITIES} charities.`,
+        ),
+      primaryDonor: Yup.object({
+        name: Yup.string().required('Primary donor name is required.'),
+        email: Yup.string()
+          .required('Primary donor email is required.')
+          .email('Donor email is not in the correct form.'),
+      }),
+    },
+    [['start', 'end']],
+  );
+
   return (
-    <Formik initialValues={initialValues} onSubmit={() => undefined}>
+    <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={() => undefined}>
       {({ values }) => (
         <Form>
           <FormikValuesListener handleChange={handleChange} />
@@ -39,6 +97,8 @@ const CampaignForm = () => {
                 name="description"
                 label="Description"
                 placeholder="Enter the campaign description"
+                multiline
+                minRows={2}
               />
 
               <InterestFormTextInput
@@ -57,16 +117,12 @@ const CampaignForm = () => {
             <Stack sx={sectionSx} component="div" spacing={2}>
               <Typography variant="h3">Primary Donor Info</Typography>
 
-              <InterestFormTextInput
-                name="primaryDonor.name"
-                label="Name"
-                placeholder="Enter the primary donor's name"
-              />
+              <InterestFormTextInput name="primaryDonor.name" label="Name" placeholder="Enter the primary donor name" />
 
               <InterestFormTextInput
                 name="primaryDonor.email"
                 label="Email"
-                placeholder="Enter the primary donor's email"
+                placeholder="Enter the primary donor email"
               />
             </Stack>
 

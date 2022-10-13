@@ -6,14 +6,13 @@ import CampaignFormCharitySection from './CampaignFormCharitySection';
 import Button from '../../generic/Button';
 import { CampaignCharityBaseData } from '../../../types/campaignCharities';
 import { CharityMinimalData } from '../../../types/charity';
+import { MAX_NUM_OF_CAMPAIGN_CHARITIES } from '../../../utils/constants';
 
 interface Props {
   values: Partial<CampaignCharityBaseData>[];
 }
 
 const CampaignFormCharitiesSection = ({ values }: Props) => {
-  const MAX_NUM_OF_CHARITIES = 5;
-
   const charities: CharityMinimalData[] = [
     { id: 1, name: 'A Heart of Gold' },
     { id: 2, name: 'Bob the Builder' },
@@ -37,7 +36,7 @@ const CampaignFormCharitiesSection = ({ values }: Props) => {
             />
           ))}
 
-          {values.length < MAX_NUM_OF_CHARITIES ? (
+          {values.length < MAX_NUM_OF_CAMPAIGN_CHARITIES ? (
             <Button actionType="tertiary" onClick={() => insert(values.length, {})}>
               Add Charity
             </Button>

@@ -8,6 +8,7 @@ import CampaignSearchDatePicker from './CampaignSearchDatePicker';
 import CampaignSearchCheckbox from './CampaignSearchCheckbox';
 import { headerSx } from '../../../styles/components/campaigns/search/CampaignSearchFormStyles';
 import * as Yup from 'yup';
+import { isValidDate } from '../../../utils/dates';
 
 interface Props {
   initialValues: CampaignSearchFormData;
@@ -20,28 +21,28 @@ const CampaignSearchForm = ({ initialValues, search }: Props) => {
       startDateFrom: Yup.date()
         .nullable()
         .when('startDateTo', (dateTo, schema) =>
-          dateTo ? schema.max(dateTo, 'From date cannot be after To date') : schema,
+          isValidDate(dateTo) ? schema.max(dateTo, 'From date cannot be after To date') : schema,
         ),
       startDateTo: Yup.date()
         .nullable()
         .when('startDateFrom', (dateFrom, schema) =>
-          dateFrom ? schema.min(dateFrom, 'To date cannot be before From date') : schema,
+          isValidDate(dateFrom) ? schema.min(dateFrom, 'To date cannot be before From date') : schema,
         )
         .when('endDateFrom', (endDate, schema) =>
-          endDate ? schema.max(endDate, 'Start date cannot be after End date') : schema,
+          isValidDate(endDate) ? schema.max(endDate, 'Start date cannot be after End date') : schema,
         ),
       endDateFrom: Yup.date()
         .nullable()
         .when('endDateTo', (dateTo, schema) =>
-          dateTo ? schema.max(dateTo, 'From date cannot be after To date') : schema,
+          isValidDate(dateTo) ? schema.max(dateTo, 'From date cannot be after To date') : schema,
         )
         .when('startDateTo', (startDate, schema) =>
-          startDate ? schema.min(startDate, 'End date cannot be before Start date') : schema,
+          isValidDate(startDate) ? schema.min(startDate, 'End date cannot be before Start date') : schema,
         ),
       endDateTo: Yup.date()
         .nullable()
         .when('endDateFrom', (dateFrom, schema) =>
-          dateFrom ? schema.min(dateFrom, 'To date cannot be before From date') : schema,
+          isValidDate(dateFrom) ? schema.min(dateFrom, 'To date cannot be before From date') : schema,
         ),
     },
     [
