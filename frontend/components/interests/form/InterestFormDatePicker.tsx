@@ -5,11 +5,11 @@ import moment, { Moment } from 'moment';
 import { useTheme } from '@mui/system';
 import React from 'react';
 import { MuiTextFieldProps } from '@mui/x-date-pickers/internals';
-import { InterestFormData } from './InterestForm';
 import { useField } from 'formik';
+import { DATE_FORMAT } from '../../../utils/constants';
 
 interface Props {
-  name: keyof InterestFormData;
+  name: string;
   label: string;
 }
 
@@ -21,7 +21,7 @@ const InterestFormDatePicker = ({ name, label }: Props) => {
   const innerProps = {
     label,
     value,
-    inputFormat: 'DD/MM/yyyy',
+    inputFormat: DATE_FORMAT,
     minDate: moment().add(1, 'day').startOf('day'),
     onChange: (value: Nullable<Moment>) => {
       const corrected = value === null ? value : value.startOf('day');

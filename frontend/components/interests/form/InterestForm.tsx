@@ -92,7 +92,6 @@ export default function InterestForm({ onSubmit }: InterestFormProps) {
                 <InterestFormDatePicker name="start" label={'Start Date'} />
 
                 <InterestFormTextInput
-                  numeric
                   name="lengthOfCampaign"
                   label="Length of Campaign"
                   InputProps={{ endAdornment: <InputAdornment position="end">day(s)</InputAdornment> }}
@@ -110,7 +109,6 @@ export default function InterestForm({ onSubmit }: InterestFormProps) {
                 </Stack>
 
                 <InterestFormTextInput
-                  numeric
                   name="promisedAmount"
                   label="Promised Amount"
                   InputProps={{ startAdornment: <InputAdornment position="start">$</InputAdornment> }}

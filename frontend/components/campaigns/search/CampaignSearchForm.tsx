@@ -62,94 +62,92 @@ const CampaignSearchForm = ({ initialValues, search }: Props) => {
 
   return (
     <Formik initialValues={initialValues} validationSchema={campaignSearchFormSchema} onSubmit={() => undefined}>
-      {({ values, setFieldValue, errors }) => {
-        return (
-          <Form>
-            <FormikValuesListener handleChange={handleChange} />
+      {({ values, setFieldValue, errors }) => (
+        <Form>
+          <FormikValuesListener handleChange={handleChange} />
 
-            <Stack component="div" spacing={2}>
-              <Stack sx={headerSx} component="div" direction="row">
-                <SearchIcon />
+          <Stack component="div" spacing={2}>
+            <Stack sx={headerSx} component="div" direction="row">
+              <SearchIcon />
 
-                <Typography variant="h4">Search</Typography>
-              </Stack>
+              <Typography variant="h4">Search</Typography>
+            </Stack>
 
-              <TextField
-                name="name"
-                label="Campaign name"
-                variant="standard"
-                value={values.name}
-                onChange={(e) => setFieldValue('name', e.target.value)}
+            <TextField
+              name="name"
+              label="Campaign name"
+              variant="standard"
+              value={values.name}
+              onChange={(e) => setFieldValue('name', e.target.value)}
+            />
+
+            <Stack component="div">
+              <Typography variant="h4">Status</Typography>
+
+              <CampaignSearchCheckbox
+                name="status.isActive"
+                checked={values.status.isActive}
+                label={'Active'}
+                setFieldValue={setFieldValue}
               />
 
-              <Stack component="div">
-                <Typography variant="h4">Status</Typography>
+              <CampaignSearchCheckbox
+                name="status.isUpcoming"
+                checked={values.status.isUpcoming}
+                label={'Upcoming'}
+                setFieldValue={setFieldValue}
+              />
 
-                <CampaignSearchCheckbox
-                  name="status.isActive"
-                  checked={values.status.isActive}
-                  label={'Active'}
-                  setFieldValue={setFieldValue}
-                />
-
-                <CampaignSearchCheckbox
-                  name="status.isUpcoming"
-                  checked={values.status.isUpcoming}
-                  label={'Upcoming'}
-                  setFieldValue={setFieldValue}
-                />
-
-                <CampaignSearchCheckbox
-                  name="status.isCompleted"
-                  checked={values.status.isCompleted}
-                  label={'Completed'}
-                  setFieldValue={setFieldValue}
-                />
-              </Stack>
-
-              <Stack component="div">
-                <Typography variant="h4">Campaign Start date</Typography>
-
-                <CampaignSearchDatePicker
-                  name="startDateFrom"
-                  value={values.startDateFrom}
-                  label="From"
-                  errorMessage={errors?.startDateFrom}
-                  setFieldValue={setFieldValue}
-                />
-
-                <CampaignSearchDatePicker
-                  name="startDateTo"
-                  value={values.startDateTo}
-                  label="To"
-                  errorMessage={errors?.startDateTo}
-                  setFieldValue={setFieldValue}
-                />
-              </Stack>
-
-              <Stack component="div">
-                <Typography variant="h4">Campaign End date</Typography>
-
-                <CampaignSearchDatePicker
-                  name="endDateFrom"
-                  value={values.endDateFrom}
-                  label="From"
-                  errorMessage={errors?.endDateFrom}
-                  setFieldValue={setFieldValue}
-                />
-
-                <CampaignSearchDatePicker
-                  name="endDateTo"
-                  value={values.endDateTo}
-                  label="To"
-                  errorMessage={errors?.endDateTo}
-                  setFieldValue={setFieldValue}
-                />
-              </Stack>
+              <CampaignSearchCheckbox
+                name="status.isCompleted"
+                checked={values.status.isCompleted}
+                label={'Completed'}
+                setFieldValue={setFieldValue}
+              />
             </Stack>
-          </Form>
-        );
-      }}
+
+            <Stack component="div">
+              <Typography variant="h4">Campaign Start date</Typography>
+
+              <CampaignSearchDatePicker
+                name="startDateFrom"
+                value={values.startDateFrom}
+                label="From"
+                errorMessage={errors?.startDateFrom}
+                setFieldValue={setFieldValue}
+              />
+
+              <CampaignSearchDatePicker
+                name="startDateTo"
+                value={values.startDateTo}
+                label="To"
+                errorMessage={errors?.startDateTo}
+                setFieldValue={setFieldValue}
+              />
+            </Stack>
+
+            <Stack component="div">
+              <Typography variant="h4">Campaign End date</Typography>
+
+              <CampaignSearchDatePicker
+                name="endDateFrom"
+                value={values.endDateFrom}
+                label="From"
+                errorMessage={errors?.endDateFrom}
+                setFieldValue={setFieldValue}
+              />
+
+              <CampaignSearchDatePicker
+                name="endDateTo"
+                value={values.endDateTo}
+                label="To"
+                errorMessage={errors?.endDateTo}
+                setFieldValue={setFieldValue}
+              />
+            </Stack>
+          </Stack>
+        </Form>
+      )}
     </Formik>
   );
 };

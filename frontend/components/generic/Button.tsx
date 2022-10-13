@@ -1,7 +1,7 @@
 import { Button as MuiButton, ButtonProps as MuiButtonProps } from '@mui/material';
 
 interface Props extends MuiButtonProps {
-  actionType: 'primary' | 'secondary' | 'tertiary';
+  actionType: 'primary' | 'secondary' | 'tertiary' | 'muted';
 }
 
 const Button = ({ actionType, children, ...rest }: Props) => {
@@ -21,6 +21,12 @@ const Button = ({ actionType, children, ...rest }: Props) => {
     case 'tertiary':
       return (
         <MuiButton color="primary" variant="text" {...rest}>
+          {children}
+        </MuiButton>
+      );
+    case 'muted':
+      return (
+        <MuiButton color="neutral" variant="outlined" {...rest}>
           {children}
         </MuiButton>
       );

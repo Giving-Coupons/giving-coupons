@@ -1,14 +1,12 @@
 import { TextField } from '@mui/material';
 import React from 'react';
 import { MuiTextFieldProps } from '@mui/x-date-pickers/internals';
-import { InterestFormData } from './InterestForm';
 import { useField } from 'formik';
 
 interface TextInputProps {
-  name: keyof InterestFormData;
+  name: string;
   label: string;
   placeholder?: string;
-  numeric?: boolean | undefined;
 
   // include these props from MUI TextField.
   multiline?: MuiTextFieldProps['multiline'];
@@ -16,15 +14,7 @@ interface TextInputProps {
   minRows?: MuiTextFieldProps['minRows'];
 }
 
-const InterestFormTextInput = ({
-  name,
-  label,
-  placeholder,
-  numeric,
-  multiline,
-  InputProps,
-  minRows,
-}: TextInputProps) => {
+const InterestFormTextInput = ({ name, label, placeholder, multiline, InputProps, minRows }: TextInputProps) => {
   const [, { value, error, touched }, { setTouched, setValue }] = useField(name);
 
   const innerProps: MuiTextFieldProps = {
@@ -33,7 +23,7 @@ const InterestFormTextInput = ({
     type: 'text',
     required: true,
     fullWidth: true,
-    value: !numeric || isNaN(value as number) ? value : Number(value).toString(),
+    value: value ?? '',
     onChange: (event) => {
       setTouched(true);
       setValue(event.target.value, true);
@@ -51,4 +41,5 @@ const InterestFormTextInput = ({
   };
   return <TextField {...innerProps} />;
 };
+
 export default InterestFormTextInput;
