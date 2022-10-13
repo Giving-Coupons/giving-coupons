@@ -1,5 +1,4 @@
 import { WithoutId } from './utils';
-import { CampaignPostData } from './campaigns';
 
 export type CharityMinimalData = {
   id: number;
@@ -18,4 +17,4 @@ export type CharityData = CharityListData & {
 
 export type CharityPostData = WithoutId<CharityData>;
 
-export type CharityPutData = CampaignPostData;
+export type CharityPutData = CharityPostData;
