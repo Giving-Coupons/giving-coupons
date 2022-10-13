@@ -80,6 +80,7 @@ export type CampaignBaseData = {
   name: string;
   description: string;
   promisedAmount: number;
+  couponDenomination: number;
   start: string;
   end: string;
   imageBase64: string;
@@ -88,7 +89,7 @@ export type CampaignBaseData = {
   interestId: Nullable<number>;
 };
 
-export type CampaignPostData = WithoutId<CampaignBaseData> & {
+export type CampaignPostData = Omit<WithoutId<CampaignBaseData>, 'charities' | 'primaryDonor'> & {
   charities: CampaignCharityPostData[];
   primaryDonor: PrimaryDonorPostData;
 };
