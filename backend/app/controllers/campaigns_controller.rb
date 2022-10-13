@@ -12,6 +12,10 @@ class CampaignsController < ApplicationController
     @campaigns = Campaign.all
   end
 
+  def admin_index
+    @campaigns = Campaign.all
+  end
+
   def show; end
 
   def admin_show; end

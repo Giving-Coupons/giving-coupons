@@ -10,6 +10,10 @@ Rails.application.routes.draw do
       }
 
       resources :campaigns do
+        collection do
+          get :admin_index
+        end
+
         member do
           get 'admin_show'
         end

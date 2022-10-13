@@ -39,14 +39,14 @@ class Campaign < ApplicationRecord
       secondary_donors_fraction: secondary_donors_fraction }
   end
 
+  def num_redeemed_coupons
+    coupons.count(&:redeemed?)
+  end
+
   private
 
   def num_coupons
     promised_amount / coupon_denomination
-  end
-
-  def num_redeemed_coupons
-    coupons.count(&:redeemed?)
   end
 
   def generate_coupons
