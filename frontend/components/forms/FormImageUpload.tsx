@@ -3,10 +3,11 @@ import Button from '../generic/Button';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import { useField } from 'formik';
 import { ChangeEvent } from 'react';
-import { Stack } from '@mui/system';
+import { Box, Stack } from '@mui/system';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Typography } from '@mui/material';
 import { compressImageThenConvertToBase64String } from '../../utils/image';
+import { imageContainerSx } from '../../styles/components/forms/FormImageUploadStyles';
 
 interface Props {
   name: string;
@@ -34,7 +35,7 @@ const FormImageUpload = ({ name }: Props) => {
 
   return (
     <>
-      {value && <ImageWithOverlay imageSrc={value} shouldApplyOverlay={false} />}
+      <Box sx={imageContainerSx}>{value && <ImageWithOverlay imageSrc={value} shouldApplyOverlay={false} />}</Box>
 
       <Stack component="div" direction="row" spacing={2}>
         <Stack component="div">
