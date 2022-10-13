@@ -10,7 +10,6 @@ import InterestFormDatePicker from './InterestFormDatePicker';
 import { Nullable } from '../../../types/utils';
 import InterestFormTextInput from './InterestFormTextInput';
 import InterestFormAmountButton from './InterestFormAmountButton';
-import { CharityListData } from '../../../types/charity';
 import InterestFormCharitySelector from './InterestFormCharitySelector';
 
 export type InterestFormData = Partial<Omit<Interest, 'id' | 'status' | 'couponDenomination' | 'start' | 'end'>> & {
