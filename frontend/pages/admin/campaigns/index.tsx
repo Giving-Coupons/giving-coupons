@@ -6,6 +6,7 @@ import React from 'react';
 import { headerSx, rootSx } from '../../../styles/admin/campaigns/indexStyles';
 import Button from '../../../components/generic/Button';
 import { useRouter } from 'next/router';
+import AddIcon from '@mui/icons-material/Add';
 
 const AdminCampaigns = () => {
   useAdminLoginCheck();
@@ -23,7 +24,7 @@ const AdminCampaigns = () => {
             Campaigns
           </Typography>
 
-          <Button actionType="primary" onClick={() => router.push('/admin/campaigns/create')}>
+          <Button actionType="primary" startIcon={<AddIcon />} onClick={() => router.push('/admin/campaigns/create')}>
             Create
           </Button>
         </Stack>

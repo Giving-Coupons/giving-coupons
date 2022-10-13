@@ -18,7 +18,7 @@ import InterestsAPI from '../../../frontendApis/interests';
 import api from '../../../frontendApis';
 import { isInteger } from 'formik';
 
-export const createCampaignSchema = Yup.object().shape(
+const createCampaignSchema = Yup.object().shape(
   {
     name: Yup.string().required('Campaign name is required.'),
     description: Yup.string().required('Campaign description is required.'),

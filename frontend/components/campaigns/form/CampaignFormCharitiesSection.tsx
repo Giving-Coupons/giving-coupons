@@ -7,6 +7,8 @@ import Button from '../../generic/Button';
 import { CampaignCharityBaseData } from '../../../types/campaignCharities';
 import { CharityMinimalData } from '../../../types/charity';
 import { MAX_NUM_OF_CAMPAIGN_CHARITIES } from '../../../utils/constants';
+import AddIcon from '@mui/icons-material/Add';
+import React from 'react';
 
 interface Props {
   values: Partial<CampaignCharityBaseData>[];
@@ -39,7 +41,7 @@ const CampaignFormCharitiesSection = ({ values }: Props) => {
           ))}
 
           {values.length < MAX_NUM_OF_CAMPAIGN_CHARITIES ? (
-            <Button actionType="tertiary" onClick={() => insert(values.length, {})}>
+            <Button actionType="tertiary" startIcon={<AddIcon />} onClick={() => insert(values.length, {})}>
               Add Charity
             </Button>
           ) : (
