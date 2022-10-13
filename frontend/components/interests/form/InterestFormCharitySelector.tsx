@@ -4,7 +4,8 @@ import { useField } from 'formik';
 import { CharityListData, CharityMinimalData } from '../../../types/charity';
 import { InterestFormData } from './InterestForm';
 import { Stack } from '@mui/material';
-import { campaignImageBase64 } from '../../../utils/examples';
+import api from '../../../frontendApis';
+import { useEffect, useState } from 'react';
 
 interface Props {
   name: keyof InterestFormData;
@@ -14,20 +15,14 @@ interface Props {
 
 const InterestFormCharitySelector = ({ name, label, placeholder }: Props) => {
   const [, { error, touched }, { setValue, setTouched }] = useField<CharityMinimalData[]>(name);
-  // TODO: These are placeholders and will be removed once the charity API is up.
-  // Tracked in https://github.com/Giving-Coupons/giving-coupons/issues/132
-  const charities: CharityListData[] = [1, 2, 3, 4, 5].flatMap((v) => [
-    {
-      id: 1 * v,
-      name: 'Ark ' + v,
-      logoBase64: campaignImageBase64,
-    },
-    {
-      id: 2 * v,
-      name: 'Bork ' + v,
-      logoBase64: campaignImageBase64,
-    },
-  ]);
+  const [charities, setCharities] = useState<CharityListData[]>([]);
+  useEffect(() => {
+    api.charities
+      .list()
+      .then((res) => res.payload ?? [])
+      .then(setCharities)
+      .catch(() => undefined /* If there are any API errors, the interceptor will show it in the snackbar. */);
+  }, []);
 
   return (
     <Autocomplete
