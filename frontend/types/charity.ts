@@ -17,6 +17,8 @@ export type CharityData = CharityListData & {
 
 export type CharityAutocompleteData = CharityMinimalData & AutocompleteData;
 
+export type CharityFormData = Partial<CharityData>;
+
 export type CharityPostData = WithoutId<CharityData>;
 
 export type CharityPutData = CharityPostData;

@@ -59,7 +59,7 @@ const CampaignForm = ({ title, submitButtonTitle, initialValues, validationSchem
 
               <FormDatePicker name="end" label="End Date" />
 
-              <FormImageUpload name="imageBase64" />
+              <FormImageUpload name="imageBase64" label="Upload Image" />
             </Stack>
 
             <CampaignFormCharitiesSection values={values.charities} />

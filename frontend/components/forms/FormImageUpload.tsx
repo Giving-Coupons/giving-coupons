@@ -9,9 +9,10 @@ import { Typography } from '@mui/material';
 
 interface Props {
   name: string;
+  label: string;
 }
 
-const FormImageUpload = ({ name }: Props) => {
+const FormImageUpload = ({ name, label }: Props) => {
   const [, { value, error, touched }, { setTouched, setValue }] = useField(name);
 
   const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
@@ -34,7 +35,7 @@ const FormImageUpload = ({ name }: Props) => {
       <Stack component="div" direction="row" spacing={2}>
         <Stack component="div">
           <Button actionType="secondary" isLabel startIcon={<AddPhotoAlternateIcon />}>
-            Upload Image
+            {label}
             <input
               accept="image/*"
               id={name}
