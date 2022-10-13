@@ -2,7 +2,7 @@
 
 class CampaignsController < ApplicationController
   before_action :authenticate_admin!
-  before_action :set_campaign, only: %i[show update destroy]
+  before_action :set_campaign, only: %i[show admin_show update destroy]
 
   wrap_parameters format: :json,
                   include: %w[name description promisedAmount start end primaryDonorId
@@ -13,6 +13,8 @@ class CampaignsController < ApplicationController
   end
 
   def show; end
+
+  def admin_show; end
 
   def create
     @campaign = Campaign.create!(campaign_params)

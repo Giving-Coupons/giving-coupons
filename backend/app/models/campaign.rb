@@ -26,10 +26,27 @@ class Campaign < ApplicationRecord
                             message: 'is mot of a supported file type. Please upload a PNG, JPG or JPEG file.' },
             size: { less_than: 1.megabytes, message: 'must be less than 1MB.' }
 
+  def donation_breakdown
+    primary_donor_amount = num_redeemed_coupons * coupon_denomination
+    secondary_donors_amount = secondary_donations.sum(&:amount)
+    total_amount = (primary_donor_amount + secondary_donors_amount).to_f
+    primary_donor_fraction = primary_donor_amount / total_amount
+    secondary_donors_fraction = secondary_donors_amount / total_amount
+
+    { primary_donor_amount: primary_donor_amount,
+      primary_donor_fraction: primary_donor_fraction,
+      secondary_donors_amount: secondary_donors_amount,
+      secondary_donors_fraction: secondary_donors_fraction }
+  end
+
   private
 
   def num_coupons
     promised_amount / coupon_denomination
+  end
+
+  def num_redeemed_coupons
+    coupons.count(&:redeemed?)
   end
 
   def generate_coupons
