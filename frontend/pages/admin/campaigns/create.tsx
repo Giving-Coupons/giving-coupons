@@ -86,7 +86,9 @@ const createCampaignSchema = Yup.object().shape(
       .max(MAX_NUM_OF_CAMPAIGN_CHARITIES, `There can only be a maximum of ${MAX_NUM_OF_CAMPAIGN_CHARITIES} charities.`),
     primaryDonor: Yup.object({
       name: Yup.string().required('Primary donor name is required.'),
-      email: Yup.string().required('Primary donor email is required.').email('Donor email is not in the correct form.'),
+      email: Yup.string()
+        .required('Primary donor email is required.')
+        .email('Primary donor email is not in the correct form.'),
     }).required('Primary donor is required'),
   },
   [
@@ -101,12 +103,13 @@ const CampaignCreate = () => {
   const { data: interest } = useSWR<Nullable<Interest>>(`${InterestsAPI.INTERESTS_URL}/getInterest`, () =>
     isInteger(interestId) ? api.interests.getInterest(Number(interestId)).then((r) => r.payload) : null,
   );
-  const [initialValues, setInitialValues] = useState<CampaignFormData>({
+  const defaultInitialValues = {
     start: null,
     end: null,
     interestId: null,
     charities: [{}],
-  });
+  };
+  const [initialValues, setInitialValues] = useState<CampaignFormData>(defaultInitialValues);
 
   useEffect(() => {
     if (interest) {
@@ -125,6 +128,9 @@ const CampaignCreate = () => {
           email: interest.donorEmail,
         },
       });
+    } else {
+      // Note: This has to be here otherwise the previous interest values may be shown
+      setInitialValues(defaultInitialValues);
     }
   }, [interest]);
 
