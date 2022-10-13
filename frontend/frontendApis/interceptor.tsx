@@ -36,7 +36,7 @@ const AxiosInterceptor = ({ children }: Props) => {
           enqueueSnackbar(statusMessage, { variant: 'error' });
         }
 
-        return error;
+        return Promise.reject(error);
       },
     );
 
