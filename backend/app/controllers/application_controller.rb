@@ -5,6 +5,9 @@ class ApplicationController < ActionController::API
   include ::ActionView::Layouts
   include StatusMessages
 
+  # helper to have access to methods in jbuilder templates
+  helper Base64Helper
+
   layout 'application'
 
   before_action :underscore_params!
