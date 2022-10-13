@@ -1,4 +1,4 @@
-import { Avatar, SxProps, Theme } from '@mui/material';
+import { Box, SxProps, Theme } from '@mui/material';
 
 interface Props {
   // Base64 encoding of an image (prefix should not be included).
@@ -6,21 +6,15 @@ interface Props {
 
   // From Avatar props:
   alt?: string;
-  imgProps?: React.ImgHTMLAttributes<HTMLImageElement> & {
-    sx?: SxProps<Theme>;
-  };
+  imgProps?: React.ImgHTMLAttributes<HTMLImageElement>;
   sx?: SxProps<Theme>;
-  variant?: 'circular' | 'rounded' | 'square';
-  sizes?: string;
 }
 
-export default function LogoBase64({ base64Src, variant, ...props }: Props) {
+export default function LogoBase64({ base64Src, alt, imgProps, sx }: Props) {
+  imgProps = { ...imgProps, alt: imgProps?.alt ?? alt };
   return (
-    <Avatar
-      style={{ objectFit: 'contain', marginLeft: 12 }}
-      variant={variant ?? 'square'}
-      {...props}
-      src={`data:image/png;base64,${base64Src}`}
-    />
+    <Box sx={sx}>
+      <img {...imgProps} src={`data:image/png;base64,${base64Src}`}></img>
+    </Box>
   );
 }

@@ -1,10 +1,10 @@
-import Chip from '@mui/material/Chip';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import { useField } from 'formik';
 import { CharityListData, CharityMinimalData } from '../../../types/charity';
 import { InterestFormData } from './InterestForm';
 import LogoBase64 from '../../generic/LogoBase64';
+import { Stack } from '@mui/material';
 
 interface Props {
   name: keyof InterestFormData;
@@ -38,7 +38,10 @@ const InterestFormCharitySelector = ({ name, label, placeholder }: Props) => {
       options={charities}
       renderOption={(props, { name, logoBase64 }) => (
         <li {...props}>
-          <Chip avatar={<LogoBase64 base64Src={logoBase64} />} label={name} variant="outlined" />
+          <Stack direction="row" spacing={2}>
+            <LogoBase64 base64Src={logoBase64} />
+            <p>{name}</p>
+          </Stack>
         </li>
       )}
       getOptionLabel={(option) => option.name}
