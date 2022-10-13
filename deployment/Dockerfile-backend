@@ -1,0 +1,27 @@
+# To build a Docker image from this file, run from the root directory:
+# docker build -f deployment/Dockerfile-backend -t giving-coupons-backend .
+
+# Base image
+FROM ruby:3.0.3
+
+# Environment variables
+ENV APP_ROOT /backend
+
+# Copy source code into container
+RUN mkdir --parents $APP_ROOT
+WORKDIR $APP_ROOT
+COPY backend .
+
+# Install gems
+RUN gem install bundler
+RUN bundle install
+
+# Add a script to be executed every time the container starts
+COPY deployment/scripts/entrypoint-backend.sh /usr/bin/
+ENTRYPOINT ["entrypoint-backend.sh"]
+
+# Expose port
+EXPOSE 4000
+
+# Default command
+CMD ["sh", "-c", "bundle exec rails server -b 0.0.0.0 -p 4000"]

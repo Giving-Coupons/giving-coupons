@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && next export",
     "start": "next start",
     "lint": "eslint --no-error-on-unmatched-pattern --ext .js, .ts, .jsx, .tsx './**'",
     "lint:fix": "eslint --no-error-on-unmatched-pattern --ext .js, .ts, .jsx, .tsx --fix './**'"
@@ -17,6 +17,7 @@
     "@mui/x-date-pickers": "^5.0.4",
     "@types/js-cookie": "^3.0.2",
     "axios": "^1.1.2",
+    "browser-image-compression": "^2.0.0",
     "formik": "^2.2.9",
     "immutable": "^4.1.0",
     "js-cookie": "^3.0.1",
@@ -30,7 +31,7 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "@types/node": "18.8.4",
+    "@types/node": "18.8.5",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
     "@typescript-eslint/eslint-plugin": "^5.40.0",

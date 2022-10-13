@@ -3,7 +3,7 @@
 class Campaign < ApplicationRecord
   include PromisedAmountValidator
 
-  has_one_attached :image
+  has_one_base64_attached :image
 
   belongs_to :primary_donor
   belongs_to :interest, optional: true
@@ -18,9 +18,13 @@ class Campaign < ApplicationRecord
   validates :description, presence: true, allow_blank: false
   validates :start, presence: true
   validates :end, comparison: { greater_than: :start }
-  validates :charities, presence: true
+  validates :campaign_charities, presence: true
   validates :promised_amount, final: true
   validates :coupon_denomination, final: true
+  validates :image,
+            content_type: { in: ['image/png', 'image/jpg', 'image/jpeg'],
+                            message: 'is mot of a supported file type. Please upload a PNG, JPG or JPEG file.' },
+            size: { less_than: 1.megabytes, message: 'must be less than 1MB.' }
 
   private
 

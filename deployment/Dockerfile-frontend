@@ -1,0 +1,47 @@
+# To build a Docker image from this file, run from the root directory:
+# docker build -f deployment/Dockerfile-frontend -t giving-coupons-frontend .
+
+# Intermediate image for building the Next app
+FROM node:16.13.0 AS builder
+
+# Environment variables
+ENV APP_ROOT /frontend
+
+# Copy source code into container
+RUN mkdir --parents $APP_ROOT
+WORKDIR $APP_ROOT
+COPY frontend .
+
+# Install dependencies
+RUN yarn install --frozen-lockfile
+
+# Build app
+RUN yarn build
+
+# Use nginx to serve the app
+FROM nginx:stable
+
+# Environment variables
+ENV APP_ROOT /frontend
+
+# Make app directory
+RUN mkdir --parents $APP_ROOT
+WORKDIR $APP_ROOT
+
+# Copy Next build
+COPY --from=builder $APP_ROOT/out .
+
+# Delete NGINX defaults
+RUN rm -f /etc/nginx/conf.d/* /etc/nginx/sites-enabled/*
+
+# Copy NGINX config
+COPY deployment/nginx/nginx.conf /etc/nginx
+COPY deployment/nginx/sites-enabled/* /etc/nginx/sites-enabled/
+
+# Expose ports
+EXPOSE 80
+EXPOSE 443
+
+# Add a script containing the main command to be executed
+COPY deployment/scripts/cmd-frontend.sh /usr/bin/
+CMD ["cmd-frontend.sh"]
