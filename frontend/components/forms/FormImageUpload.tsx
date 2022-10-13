@@ -35,7 +35,14 @@ const FormImageUpload = ({ name }: Props) => {
         <Stack component="div">
           <Button actionType="secondary" isLabel startIcon={<AddPhotoAlternateIcon />}>
             Upload Image
-            <input accept="image/*" id={name} type="file" onChange={handleImageUpload} hidden />
+            <input
+              accept="image/*"
+              id={name}
+              type="file"
+              onChange={handleImageUpload}
+              onClick={(e) => (e.currentTarget.value = '')}
+              hidden
+            />
           </Button>
 
           {touched && error && (
