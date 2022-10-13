@@ -56,8 +56,7 @@ const CampaignSearchForm = ({ initialValues, search }: Props) => {
       .validate(values)
       .then(() => search(values))
       // Note: error must be caught, but no action is needed afterwards
-      // eslint-disable-next-line  @typescript-eslint/no-empty-function
-      .catch(() => {});
+      .catch(() => undefined);
   };
 
   return (
