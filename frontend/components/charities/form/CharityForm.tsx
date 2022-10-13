@@ -15,7 +15,7 @@ interface Props {
   onSubmit: (values: CharityFormData) => void;
 }
 
-const validationSchema = Yup.object().shape({
+export const charitySchema = Yup.object().shape({
   name: Yup.string().required('Charity name is required.'),
   description: Yup.string().required('Charity description is required.'),
   websiteUrl: Yup.string()
@@ -29,7 +29,7 @@ const CharityForm = ({ title, submitButtonTitle, initialValues, onSubmit }: Prop
   const router = useRouter();
 
   return (
-    <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
+    <Formik initialValues={initialValues} validationSchema={charitySchema} onSubmit={onSubmit}>
       {({ isValid, dirty }) => (
         <Form>
           <Stack component="div" spacing={2}>
