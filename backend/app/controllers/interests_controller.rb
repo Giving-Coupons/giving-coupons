@@ -11,7 +11,9 @@ class InterestsController < ApplicationController
     @interests = Interest.all
   end
 
-  def show; end
+  def show
+    @interest = Interest.find(params[:id])
+  end
 
   def create
     @interest = Interest.create!(interest_params)
