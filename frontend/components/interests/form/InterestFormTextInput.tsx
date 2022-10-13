@@ -9,6 +9,7 @@ interface TextInputProps {
   label: string;
   placeholder?: string;
   numeric?: boolean | undefined;
+  disableAutocomplete?: boolean | undefined;
 
   // include these props from MUI TextField.
   multiline?: MuiTextFieldProps['multiline'];
@@ -24,6 +25,7 @@ const InterestFormTextInput = ({
   multiline,
   InputProps,
   minRows,
+  disableAutocomplete,
 }: TextInputProps) => {
   const [, { value, error, touched }, { setTouched, setValue }] = useField(name);
 
@@ -49,6 +51,11 @@ const InterestFormTextInput = ({
     InputProps,
     minRows,
   };
+
+  if (disableAutocomplete) {
+    innerProps.autoComplete = 'off';
+  }
+
   return <TextField {...innerProps} />;
 };
 export default InterestFormTextInput;
