@@ -11,6 +11,8 @@ Rails.application.routes.draw do
 
       resources :campaigns
 
+      resources :charities
+
       resources :coupons, only: %i[index] do
         collection do
           get 'unredeemed'
