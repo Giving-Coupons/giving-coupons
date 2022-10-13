@@ -6,7 +6,7 @@ class CharitiesAPI extends BaseAPI {
   protected static CHARITIES_URL = 'charities';
 
   public list(): ApiPromise<CharityListData[]> {
-    return this.get(`${CharitiesAPI.CHARITIES_URL}`);
+    return this.get(CharitiesAPI.CHARITIES_URL);
   }
 
   public addCharity(charityPostData: CharityPostData): ApiPromise<CharityData> {
@@ -21,7 +21,7 @@ class CharitiesAPI extends BaseAPI {
     return this.put(`${CharitiesAPI.CHARITIES_URL}/${id}`, charityPutData);
   }
 
-  public deleteCharity(id: number): ApiPromise<void> {
+  public deleteCharity(id: number): ApiPromise<CharityData> {
     return this.delete(`${CharitiesAPI.CHARITIES_URL}/${id}`);
   }
 }

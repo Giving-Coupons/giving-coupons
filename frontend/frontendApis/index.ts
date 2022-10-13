@@ -5,9 +5,9 @@ import CharitiesAPI from './charities';
 
 const api = Object.freeze({
   admins: new AdminsAPI(),
+  charities: new CharitiesAPI(),
   interests: new InterestsAPI(),
   primaryDonors: new PrimaryDonorsAPI(),
-  charities: new CharitiesAPI(),
 });
 
 export default api;
