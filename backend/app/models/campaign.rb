@@ -22,8 +22,9 @@ class Campaign < ApplicationRecord
   validates :promised_amount, final: true
   validates :coupon_denomination, final: true
   validates :image,
-            content_type: { in: ['image/png', 'image/jpg', 'image/jpeg'], message: 'is not a supported file type' },
-            size: { less_than: 1.megabytes, message: 'must be less than 1MB' }
+            content_type: { in: ['image/png', 'image/jpg', 'image/jpeg'],
+                            message: 'is mot of a supported file type. Please upload a PNG, JPG or JPEG file.' },
+            size: { less_than: 1.megabytes, message: 'must be less than 1MB.' }
 
   private
 
