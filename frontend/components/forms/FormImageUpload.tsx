@@ -6,25 +6,30 @@ import { ChangeEvent } from 'react';
 import { Stack } from '@mui/system';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Typography } from '@mui/material';
+import { compressImageThenConvertToBase64String } from '../../utils/image';
 
 interface Props {
   name: string;
 }
 
 const FormImageUpload = ({ name }: Props) => {
-  const [, { value, error, touched }, { setTouched, setValue }] = useField(name);
+  const [, { value, error, touched }, { setTouched, setValue, setError }] = useField(name);
 
   const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
     const imageFile = event.target.files ? event.target.files[0] : null;
     if (!imageFile) {
       return;
     }
-    const reader = new FileReader();
-    reader.readAsDataURL(imageFile);
-    reader.onload = () => {
-      setTouched(true);
-      setValue(reader.result);
-    };
+
+    compressImageThenConvertToBase64String(imageFile)
+      .then((value) => {
+        setTouched(true);
+        setValue(value);
+      })
+      .catch((error) => {
+        setTouched(true);
+        setError(error.message);
+      });
   };
 
   return (
@@ -36,7 +41,7 @@ const FormImageUpload = ({ name }: Props) => {
           <Button actionType="secondary" isLabel startIcon={<AddPhotoAlternateIcon />}>
             Upload Image
             <input
-              accept="image/*"
+              accept="image/png, image/jpg, image/jpeg"
               id={name}
               type="file"
               onChange={handleImageUpload}
