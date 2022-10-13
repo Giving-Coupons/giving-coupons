@@ -15,7 +15,7 @@ class Interest < ApplicationRecord
   validates :campaign_description, presence: true, allow_blank: false
   validates :start, presence: true
   validates :end, comparison: { greater_than: :start }
-  validates :charities, presence: true
+  validates :interest_charities, presence: true
   validate :must_be_pending, on: :create
 
   def approve
@@ -27,7 +27,7 @@ class Interest < ApplicationRecord
       new_donor.name = donor_name
     end
 
-    Campaign.new(
+    self.campaign = Campaign.new(
       name: campaign_name,
       description: campaign_description,
       promised_amount: promised_amount,
@@ -35,7 +35,6 @@ class Interest < ApplicationRecord
       start: start,
       end: self.end,
       primary_donor: primary_donor,
-      interest: self,
       charities: charities
     )
 
