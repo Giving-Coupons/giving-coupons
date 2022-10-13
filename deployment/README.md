@@ -25,8 +25,7 @@ Certificate renewal will be automatically handled by the CertBot container.
 
 1. Install Docker and Docker Compose.
 1. Clone this repository.
-1. In the deployment folder, create the `.env` with the production values. See the [example](.env.example).
-1. In the frontend folder, create the `.env` with the production values. See the [example](../frontend/.env.example).
+1. In the deployment folder, create the `.env` with the production values. See the [example](.env.template).
 1. Run from project root:
    ```sh
    docker compose -f deployment/docker-compose.yml up -d
@@ -34,12 +33,16 @@ Certificate renewal will be automatically handled by the CertBot container.
 
 ## Updating the Application
 
-1. Pull the latest changes from the repository.
-1. Rebuild the frontend and backend images:
+1. Login to the Github container registry (set the $CR_PAT environment variable to your [personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)):
    ```sh
-   docker image rm -f giving-coupons-frontend:latest giving-coupons-backend:latest
+   export CR_PAT=YOUR_TOKEN
+   ```
+   ```sh
+   echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
    ```
 1. Run from project root:
    ```sh
    docker compose -f deployment/docker-compose.yml up -d
    ```
+
+Note that images are built in the CI pipeline and pushed to Github container registry. The `docker-compose.yml` file pulls the latest images from Github container registry.
