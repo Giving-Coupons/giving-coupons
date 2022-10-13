@@ -3,7 +3,7 @@
 class Campaign < ApplicationRecord
   include PromisedAmountValidator
 
-  has_one_attached :image
+  has_one_base64_attached :image
 
   belongs_to :primary_donor
   belongs_to :interest, optional: true

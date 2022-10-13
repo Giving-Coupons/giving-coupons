@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Charity < ApplicationRecord
-  has_one_attached :logo
-  has_one_attached :image
+  has_one_base64_attached :logo
+  has_one_base64_attached :image
 
   has_many :campaign_charities, dependent: :destroy
   has_many :campaigns, through: :campaign_charities
