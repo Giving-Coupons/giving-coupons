@@ -43,6 +43,7 @@ const SignUp: NextPage = () => {
       })
       .then((x) => adminApi.registerNewAdmin(x) /* Interceptor will enqueue snackbar on success / error. */)
       .then(() => router.push('/admin/sign-in'))
+      // Errors from API and schema have already been handled (user was notified). No further action needed.
       .catch(() => undefined);
 
   const formik = useFormik({
