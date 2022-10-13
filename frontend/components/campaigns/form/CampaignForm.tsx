@@ -9,6 +9,7 @@ import FormDatePicker from '../../forms/FormDatePicker';
 import FormTextInput from '../../forms/FormTextInput';
 import * as Yup from 'yup';
 import { useRouter } from 'next/router';
+import FormImageUpload from '../../forms/FormImageUpload';
 
 interface Props {
   title: string;
@@ -24,7 +25,7 @@ const CampaignForm = ({ title, submitButtonTitle, initialValues, validationSchem
 
   return (
     <Formik enableReinitialize initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
-      {({ values, isValid, dirty }) => (
+      {({ values, isValid, dirty, setFieldValue }) => (
         <Form>
           <Stack sx={containerSx} component="div" spacing={2}>
             <Typography variant="h1">{title}</Typography>
@@ -57,6 +58,8 @@ const CampaignForm = ({ title, submitButtonTitle, initialValues, validationSchem
               <FormDatePicker name="start" label="Start Date" />
 
               <FormDatePicker name="end" label="End Date" />
+
+              <FormImageUpload name="imageBase64" />
             </Stack>
 
             <CampaignFormCharitiesSection values={values.charities} />

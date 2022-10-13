@@ -139,6 +139,12 @@ export const theme = createTheme({
             borderColor: '#717171',
           },
         },
+        {
+          props: { variant: 'outlined', color: 'error' },
+          style: {
+            borderRadius: 30,
+          },
+        },
       ],
     },
   },
