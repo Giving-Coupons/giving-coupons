@@ -4,7 +4,9 @@
 # A Base64 string will be in the form of data:[<mediatype>][;base64],<data>
 
 module Base64Helper
-  def encoded_file_data_url(attachment)
+  def encoded_file_data_url(image)
+    attachment = image.attachment
+
     return nil if attachment.nil?
 
     mime_type = attachment.content_type
