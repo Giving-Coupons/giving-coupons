@@ -24,21 +24,21 @@ class CampaignsController < ApplicationController
     @campaign = Campaign.create!(campaign_params)
 
     add_success_message "Campaign \"#{@campaign.name}\" successfully created!"
-    render :show, status: :created, location: @campaign
+    render :response, status: :created, location: @campaign
   end
 
   def update
     @campaign.update!(campaign_params)
 
     add_success_message "Campaign \"#{@campaign.name}\" successfully updated!"
-    render :show, status: :ok, location: @campaign
+    render :response, status: :ok, location: @campaign
   end
 
   def destroy
     @campaign.destroy!
 
     add_success_message "Campaign \"#{@campaign.name}\" successfully deleted!"
-    render :show, status: :ok, location: @campaign
+    render :response, status: :ok, location: @campaign
   end
 
   private
