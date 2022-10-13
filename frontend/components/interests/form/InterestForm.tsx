@@ -10,10 +10,10 @@ import InterestFormDatePicker from './InterestFormDatePicker';
 import { Nullable } from '../../../types/utils';
 import InterestFormTextInput from './InterestFormTextInput';
 import InterestFormAmountButton from './InterestFormAmountButton';
+import { CharityListData } from '../../../types/charity';
+import InterestFormCharitySelector from './InterestFormCharitySelector';
 
-export type InterestFormData = Partial<
-  Omit<Interest, 'id' | 'charities' | 'status' | 'couponDenomination' | 'start' | 'end'>
-> & {
+export type InterestFormData = Partial<Omit<Interest, 'id' | 'status' | 'couponDenomination' | 'start' | 'end'>> & {
   start: Nullable<Moment>;
   lengthOfCampaign?: number;
 };
@@ -43,8 +43,9 @@ export const interestFormSchema = Yup.object({
     .integer('Length of campaign must be an integer.')
     .positive('Length of campaign must be positive')
     .max(31, 'Length of campaign cannot be longer than a month'),
-  // TODO: charities are not covered in this PR as the model is TBD.
-  // charities: Yup.array(charitySchema).required(),
+  charities: Yup.array(Yup.object({ id: Yup.number().required(), name: Yup.string().required() }))
+    .min(1, 'At least 1 charity must be selected.')
+    .required('Charity selection is required.'),
 });
 
 export type InterestFormSubmitHandler = (formState: Yup.InferType<typeof interestFormSchema>) => Promise<unknown>;
@@ -78,6 +79,12 @@ export default function InterestForm({ onSubmit }: InterestFormProps) {
                 <Typography component="h2" variant="h3">
                   Your Campaign
                 </Typography>
+
+                <InterestFormCharitySelector
+                  name="charities"
+                  label="Charities supported"
+                  placeholder="Choose your campaign beneficiaries."
+                />
 
                 <InterestFormTextInput name="campaignName" label="Name" placeholder="Give your campaign a name." />
 
