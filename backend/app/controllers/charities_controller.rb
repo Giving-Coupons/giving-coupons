@@ -14,8 +14,8 @@ class CharitiesController < ApplicationController
 
   def create
     @charity = Charity.new(charity_params.except(:logo_base64, :image_base64))
-    @charity.logo.attach(data: params[:logo_base64]) unless params[:logo_base64].nil?
-    @charity.image.attach(data: params[:image_base64]) unless params[:image_base64].nil?
+    @charity.logo.attach(data: charity_params[:logo_base64]) unless charity_params[:logo_base64].nil?
+    @charity.image.attach(data: charity_params[:image_base64]) unless charity_params[:image_base64].nil?
     @charity.save!
 
     add_success_message "Charity, \"#{@charity.name}\", successfully created!"
@@ -25,16 +25,16 @@ class CharitiesController < ApplicationController
   def update
     @charity.update(charity_params.except(:logo_base64, :image_base64))
 
-    if params[:logo_base64].nil?
+    if charity_params[:logo_base64].nil?
       @charity.logo.purge
     else
-      @charity.logo.attach(data: params[:logo_base64])
+      @charity.logo.attach(data: charity_params[:logo_base64])
     end
 
-    if params[:image_base64].nil?
+    if charity_params[:image_base64].nil?
       @charity.image.purge
     else
-      @charity.image.attach(data: params[:image_base64])
+      @charity.image.attach(data: charity_params[:image_base64])
     end
 
     add_success_message "Charity, \"#{@charity.name}\", successfully updated!"
