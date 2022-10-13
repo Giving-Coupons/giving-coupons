@@ -8,6 +8,7 @@ import CampaignFormCharitiesSection from './CampaignFormCharitiesSection';
 import FormDatePicker from '../../forms/FormDatePicker';
 import FormTextInput from '../../forms/FormTextInput';
 import * as Yup from 'yup';
+import { useRouter } from 'next/router';
 
 interface Props {
   title: string;
@@ -15,12 +16,13 @@ interface Props {
   // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   validationSchema: Yup.ObjectSchema<any>;
   onSubmit: (values: CampaignFormData) => void;
-  onCancel: () => void;
 }
 
-const CampaignForm = ({ title, initialValues, validationSchema, onSubmit, onCancel }: Props) => {
+const CampaignForm = ({ title, initialValues, validationSchema, onSubmit }: Props) => {
+  const router = useRouter();
+
   return (
-    <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
+    <Formik enableReinitialize initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
       {({ values, isValid, dirty }) => (
         <Form>
           <Stack sx={containerSx} component="div" spacing={2}>
@@ -70,7 +72,7 @@ const CampaignForm = ({ title, initialValues, validationSchema, onSubmit, onCanc
               Create
             </Button>
 
-            <Button actionType="muted" fullWidth onClick={onCancel}>
+            <Button actionType="muted" fullWidth onClick={() => router.back()}>
               Cancel
             </Button>
           </Stack>

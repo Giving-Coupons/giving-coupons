@@ -3,7 +3,6 @@ import SimpleTable from '../../../components/generic/SimpleTable';
 import { Interest, InterestStatus } from '../../../types/interest';
 import IconButtonWithTooltip from '../../../components/IconButtonWithTooltip';
 import DeleteButton from '../../../components/DeleteButton';
-import DoneIcon from '@mui/icons-material/Done';
 import ClearIcon from '@mui/icons-material/Clear';
 import Tabbed from '../../../components/Tabs';
 import { Box, Paper, Typography } from '@mui/material';
@@ -14,12 +13,15 @@ import { theme } from '../../../utils/theme';
 import InterestsAPI from '../../../frontendApis/interests';
 import useAdminLoginCheck from '../../../hooks/useAdminLogInCheck';
 import { DATE_FORMAT } from '../../../utils/constants';
+import AddIcon from '@mui/icons-material/Add';
+import { useRouter } from 'next/router';
 
 const Interests = () => {
   useAdminLoginCheck();
   const { data: interests, mutate } = useSWR<Nullable<Interest[]>>(InterestsAPI.INTERESTS_URL, () =>
     api.interests.list().then((r) => r.payload),
   );
+  const router = useRouter();
 
   const pendingInterests = interests?.filter((interest) => interest.status === InterestStatus.PENDING);
   const approvedInterests = interests?.filter((interest) => interest.status === InterestStatus.APPROVED);
@@ -27,9 +29,12 @@ const Interests = () => {
 
   const makeInterestsTable = (interests: Nullable<Interest[]> | undefined, status: InterestStatus) => {
     const approveAction = {
-      component: <IconButtonWithTooltip icon={<DoneIcon />} tooltip="Approve" />,
+      component: <IconButtonWithTooltip icon={<AddIcon />} tooltip="Create campaign" />,
       onClick: (interest: Interest) => {
-        api.interests.approveInterest(interest.id).then(() => mutate());
+        router.push({
+          pathname: '/admin/campaigns/create',
+          query: { interestId: interest.id },
+        });
       },
     };
 

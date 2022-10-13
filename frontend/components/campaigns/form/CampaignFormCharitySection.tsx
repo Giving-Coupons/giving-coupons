@@ -1,5 +1,4 @@
 import { Stack } from '@mui/system';
-import { IconButton } from '@mui/material';
 import {
   containerSx,
   fieldsContainerSx,
@@ -8,6 +7,7 @@ import { CharityMinimalData } from '../../../types/charity';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import FormTextInput from '../../forms/FormTextInput';
 import FormAutocomplete from '../../forms/FormAutocomplete';
+import IconButtonWithTooltip from '../../IconButtonWithTooltip';
 
 interface Props {
   index: number;
@@ -38,9 +38,12 @@ const CampaignFormCharitySection = ({ index, charities, handleRemove }: Props) =
         />
       </Stack>
 
-      <IconButton color="error" onClick={() => handleRemove(index)}>
-        <RemoveCircleOutlineIcon />
-      </IconButton>
+      <IconButtonWithTooltip
+        icon={<RemoveCircleOutlineIcon />}
+        tooltip="Remove Charity"
+        color="error"
+        onClick={() => handleRemove(index)}
+      />
     </Stack>
   );
 };

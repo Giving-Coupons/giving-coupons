@@ -1,7 +1,7 @@
 import { Box, Container } from '@mui/system';
 import CampaignForm from '../../../components/campaigns/form/CampaignForm';
 import Head from 'next/head';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import * as Yup from 'yup';
 import { MAX_NUM_OF_CAMPAIGN_CHARITIES } from '../../../utils/constants';
 import { isValidDate } from '../../../utils/dates';
@@ -11,6 +11,12 @@ import { CampaignCharityPostData } from '../../../types/campaignCharities';
 import { PrimaryDonorPostData } from '../../../types/primaryDonor';
 import { canBecomeInteger } from '../../../utils/numbers';
 import { useRouter } from 'next/router';
+import useSWR from 'swr';
+import { Nullable } from '../../../types/utils';
+import { Interest } from '../../../types/interest';
+import InterestsAPI from '../../../frontendApis/interests';
+import api from '../../../frontendApis';
+import { isInteger } from 'formik';
 
 export const createCampaignSchema = Yup.object().shape(
   {
@@ -89,13 +95,36 @@ export const createCampaignSchema = Yup.object().shape(
 
 const CampaignCreate = () => {
   const router = useRouter();
-
-  const initialValues: CampaignFormData = {
+  const { interestId } = router.query;
+  const { data: interest } = useSWR<Nullable<Interest>>(`${InterestsAPI.INTERESTS_URL}/getInterest`, () =>
+    isInteger(interestId) ? api.interests.getInterest(Number(interestId)).then((r) => r.payload) : null,
+  );
+  const [initialValues, setInitialValues] = useState<CampaignFormData>({
     start: null,
     end: null,
     interestId: null,
     charities: [{}],
-  };
+  });
+
+  useEffect(() => {
+    if (interest) {
+      setInitialValues({
+        name: interest.campaignName,
+        description: interest.campaignDescription,
+        promisedAmount: interest.promisedAmount,
+        start: interest.start,
+        end: interest.end,
+        interestId: interest.id,
+        charities: interest.charities.map((interestCharity) => ({
+          charity: { id: interestCharity.id },
+        })),
+        primaryDonor: {
+          name: interest.donorName,
+          email: interest.donorEmail,
+        },
+      });
+    }
+  }, [interest]);
 
   const handleSubmit = (values: CampaignFormData) => {
     createCampaignSchema
@@ -132,10 +161,6 @@ const CampaignCreate = () => {
       });
   };
 
-  const handleCancel = () => {
-    router.push('/admin/campaigns');
-  };
-
   return (
     <Box>
       <Head>
@@ -148,7 +173,6 @@ const CampaignCreate = () => {
           initialValues={initialValues}
           validationSchema={createCampaignSchema}
           onSubmit={handleSubmit}
-          onCancel={handleCancel}
         />
       </Container>
     </Box>

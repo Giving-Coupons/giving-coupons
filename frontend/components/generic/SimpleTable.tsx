@@ -30,7 +30,6 @@ type Props<D> = {
 export default function SimpleTable<D>({ columns, rows, actions = [], isLoading }: Props<D>) {
   const hasActions = actions.length > 0;
   const numColumns = columns.length + (hasActions ? 1 : 0);
-  console.log(rows);
 
   return (
     <TableContainer component={Paper}>
