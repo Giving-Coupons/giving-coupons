@@ -10,15 +10,7 @@ class AdminsAPI extends BaseAPI {
   }
 
   public loginAdmin(adminLoginData: AdminLoginData): ApiPromise<AdminData> {
-    return this.post(`${AdminsAPI.AUTH_URL}/sign_in`, adminLoginData)
-      .then((x) => {
-        console.dir({ x, inAdminApi: 'isResponse' });
-        return x;
-      })
-      .catch((x) => {
-        console.dir({ x, inAdminApi: 'isError' });
-        throw x;
-      }) as ApiPromise<AdminData>;
+    return this.post(`${AdminsAPI.AUTH_URL}/sign_in`, adminLoginData);
   }
 
   public logoutAdmin(): ApiPromise<void> {
