@@ -130,7 +130,6 @@ const CampaignCreate = () => {
     createCampaignSchema
       .validate(values)
       .then((values: Yup.InferType<typeof createCampaignSchema>) => {
-        const { ...data } = values;
         const charitiesPostData: CampaignCharityPostData[] = values.charities.map((charityValue) => {
           return {
             charity: {
@@ -144,7 +143,7 @@ const CampaignCreate = () => {
           email: values.primaryDonor.email,
         };
         const campaignPostData: CampaignPostData = {
-          ...data,
+          ...values,
           charities: charitiesPostData,
           start: moment(values.start).toISOString(),
           end: moment(values.end).toISOString(),
@@ -170,6 +169,7 @@ const CampaignCreate = () => {
       <Container component="main" maxWidth="sm">
         <CampaignForm
           title="Create Campaign"
+          submitButtonTitle="Create"
           initialValues={initialValues}
           validationSchema={createCampaignSchema}
           onSubmit={handleSubmit}

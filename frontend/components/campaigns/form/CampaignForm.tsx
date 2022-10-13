@@ -12,13 +12,14 @@ import { useRouter } from 'next/router';
 
 interface Props {
   title: string;
+  submitButtonTitle: string;
   initialValues: CampaignFormData;
   // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   validationSchema: Yup.ObjectSchema<any>;
   onSubmit: (values: CampaignFormData) => void;
 }
 
-const CampaignForm = ({ title, initialValues, validationSchema, onSubmit }: Props) => {
+const CampaignForm = ({ title, submitButtonTitle, initialValues, validationSchema, onSubmit }: Props) => {
   const router = useRouter();
 
   return (
@@ -69,7 +70,7 @@ const CampaignForm = ({ title, initialValues, validationSchema, onSubmit }: Prop
             </Stack>
 
             <Button type="submit" disabled={!isValid || !dirty} actionType="primary" fullWidth>
-              Create
+              {submitButtonTitle}
             </Button>
 
             <Button actionType="muted" fullWidth onClick={() => router.back()}>

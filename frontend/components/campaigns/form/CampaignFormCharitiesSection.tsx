@@ -13,6 +13,7 @@ interface Props {
 }
 
 const CampaignFormCharitiesSection = ({ values }: Props) => {
+  // TODO: API call to fetch charities
   const charities: CharityMinimalData[] = [
     { id: 1, name: 'A Heart of Gold' },
     { id: 2, name: 'Bob the Builder' },
@@ -20,6 +21,7 @@ const CampaignFormCharitiesSection = ({ values }: Props) => {
     { id: 4, name: 'Donald Duck' },
     { id: 5, name: 'Elephant in the Room' },
   ];
+  const charityOptions = charities.map((charity) => ({ ...charity, label: charity.name }));
 
   return (
     <FieldArray name="charities">
@@ -31,7 +33,7 @@ const CampaignFormCharitiesSection = ({ values }: Props) => {
             <CampaignFormCharitySection
               key={index}
               index={index}
-              charities={charities}
+              charityOptions={charityOptions}
               handleRemove={() => remove(index)}
             />
           ))}

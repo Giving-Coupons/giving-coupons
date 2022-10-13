@@ -1,4 +1,4 @@
-import { WithoutId } from './utils';
+import { AutocompleteData, WithoutId } from './utils';
 import { CampaignPostData } from './campaigns';
 
 export type CharityMinimalData = {
@@ -15,6 +15,8 @@ export type CharityData = CharityListData & {
   websiteUrl: string;
   imageBase64: string;
 };
+
+export type CharityAutocompleteData = CharityMinimalData & AutocompleteData;
 
 export type CharityPostData = WithoutId<CharityData>;
 
