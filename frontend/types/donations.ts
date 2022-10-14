@@ -14,7 +14,7 @@ export type SecondaryDonationData = {
   id: number;
   couponId: Nullable<number>;
   amount: number;
-  campaignsCharityId: number;
+  campaignCharityId: number;
 };
 
 export type SecondaryDonationPostData = WithoutId<SecondaryDonationData>;
