@@ -11,11 +11,17 @@ function isIsoDateString(value: any): boolean {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function handleDates(body: any) {
-  if (body === null || body === undefined || typeof body !== 'object') return body;
+  if (body === null || body === undefined || typeof body !== 'object') {
+    return body;
+  }
 
   for (const key of Object.keys(body)) {
     const value = body[key];
-    if (isIsoDateString(value)) body[key] = moment(value);
-    else if (typeof value === 'object') handleDates(value);
+
+    if (isIsoDateString(value)) {
+      body[key] = moment(value);
+    } else if (typeof value === 'object') {
+      handleDates(value);
+    }
   }
 }
