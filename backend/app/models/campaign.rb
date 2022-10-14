@@ -27,6 +27,23 @@ class Campaign < ApplicationRecord
                             message: 'is mot of a supported file type. Please upload a PNG, JPG or JPEG file.' },
             size: { less_than: 1.megabytes, message: 'must be less than 1MB.' }
 
+  scope :starts_after, ->(datetime) { where('start >= ?', datetime) if datetime.present? }
+
+  scope :starts_before, ->(datetime) { where('start <= ?', datetime) if datetime.present? }
+
+  scope :ends_after, ->(datetime) { where('campaigns.end >= ?', datetime) if datetime.present? }
+
+  scope :ends_before, ->(datetime) { where('campaigns.end <= ?', datetime) if datetime.present? }
+
+  scope :active, lambda {
+    now = DateTime.now
+    starts_before(now).ends_after(now)
+  }
+
+  scope :upcoming, -> { starts_after(DateTime.now) }
+
+  scope :completed, -> { ends_before(DateTime.now) }
+
   def donation_breakdown
     primary_donor_amount = num_redeemed_coupons * coupon_denomination
     secondary_donors_amount = secondary_donations.sum(&:amount)
