@@ -1,12 +1,12 @@
 import { NextPage } from 'next';
-import api from '../frontendApis';
+import api from '../../frontendApis';
 import { MailOutline } from '@mui/icons-material';
-import { InterestPostData, InterestStatus } from '../types/interest';
+import { InterestPostData, InterestStatus } from '../../types/interest';
 import { Avatar, Container, Stack } from '@mui/material';
-import { formStackSx, mailIconSx } from '../styles/interest';
+import { formStackSx, mailIconSx } from '../../styles/interest';
 import moment from 'moment';
-import InterestForm, { InterestFormSubmitHandler } from '../components/interests/form/InterestForm';
-import { DEFAULT_COUPON_DENOMINATION } from '../utils/constants';
+import InterestForm, { InterestFormSubmitHandler } from '../../components/interests/form/InterestForm';
+import { DEFAULT_COUPON_DENOMINATION } from '../../utils/constants';
 import { Box } from '@mui/system';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
