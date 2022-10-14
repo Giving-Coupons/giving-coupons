@@ -18,7 +18,7 @@ class Campaign < ApplicationRecord
   validates :description, presence: true, allow_blank: false
   validates :start, presence: true
   validates :end, comparison: { greater_than: :start }
-  validates :campaign_charities, presence: true
+  validates :campaign_charities, length: { minimum: 1, maximum: 5 }
   validates :promised_amount, final: true
   validates :coupon_denomination, final: true
   validates :image,
