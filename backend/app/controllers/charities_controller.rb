@@ -4,8 +4,6 @@ class CharitiesController < ApplicationController
   before_action :authenticate_admin!, only: %i[create update destroy]
   before_action :set_charity, only: %i[show update destroy]
 
-  # wrap_parameters format: :json, include: %w[name description websiteUrl logoBase64 imageBase64]
-
   def index
     @charities = Charity.all
   end
@@ -14,8 +12,8 @@ class CharitiesController < ApplicationController
 
   def create
     @charity = Charity.new(charity_params)
-    @charity.logo.attach(data: params[:logo_base64]) unless params[:logo_base64].nil?
-    @charity.image.attach(data: params[:image_base64]) unless params[:image_base64].nil?
+    @charity.logo.attach(data: params[:logo_base64]) unless image_params[:logo_base64].nil?
+    @charity.image.attach(data: params[:image_base64]) unless image_params[:image_base64].nil?
     @charity.save!
 
     add_success_message "Charity, \"#{@charity.name}\", successfully created!"
@@ -56,5 +54,9 @@ class CharitiesController < ApplicationController
 
   def charity_params
     params.require(:charity).permit(:name, :description, :website_url)
+  end
+
+  def image_params
+    params.permit(:logo_base64, :image_base64)
   end
 end
