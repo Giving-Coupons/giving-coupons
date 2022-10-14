@@ -62,7 +62,7 @@ const createCampaignSchema = Yup.object().shape(
     end: Yup.date()
       .required('End date is required.')
       .typeError('End date must be a date.')
-      .when('startDate', (startDate, schema) =>
+      .when('start', (startDate, schema) =>
         isValidDate(startDate) ? schema.min(startDate, 'End date cannot be before Start date') : schema,
       )
       .min(moment().endOf('day'), 'End date cannot be today or in the past.'),

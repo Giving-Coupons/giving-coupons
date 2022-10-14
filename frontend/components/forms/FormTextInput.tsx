@@ -7,6 +7,7 @@ interface TextInputProps {
   name: string;
   label: string;
   placeholder?: string;
+  disableAutocomplete?: boolean;
 
   // include these props from MUI TextField.
   multiline?: MuiTextFieldProps['multiline'];
@@ -14,7 +15,15 @@ interface TextInputProps {
   minRows?: MuiTextFieldProps['minRows'];
 }
 
-const FormTextInput = ({ name, label, placeholder, multiline, InputProps, minRows }: TextInputProps) => {
+const FormTextInput = ({
+  name,
+  label,
+  placeholder,
+  multiline,
+  InputProps,
+  minRows,
+  disableAutocomplete,
+}: TextInputProps) => {
   const [, { value, error, touched }, { setTouched, setValue }] = useField(name);
 
   const innerProps: MuiTextFieldProps = {
@@ -39,6 +48,11 @@ const FormTextInput = ({ name, label, placeholder, multiline, InputProps, minRow
     InputProps,
     minRows,
   };
+
+  if (disableAutocomplete) {
+    innerProps.autoComplete = 'off';
+  }
+
   return <TextField {...innerProps} />;
 };
 

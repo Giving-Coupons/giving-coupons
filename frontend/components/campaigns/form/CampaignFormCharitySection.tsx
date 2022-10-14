@@ -3,7 +3,7 @@ import {
   containerSx,
   fieldsContainerSx,
 } from '../../../styles/components/campaigns/form/CampaignFormCharitySectionStyles';
-import { CharityAutocompleteData } from '../../../types/charity';
+import { CharityListData } from '../../../types/charity';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import FormTextInput from '../../forms/FormTextInput';
 import FormAutocomplete from '../../forms/FormAutocomplete';
@@ -11,7 +11,7 @@ import IconButtonWithTooltip from '../../IconButtonWithTooltip';
 
 interface Props {
   index: number;
-  charityOptions: CharityAutocompleteData[];
+  charityOptions: CharityListData[];
   handleRemove: () => void;
 }
 

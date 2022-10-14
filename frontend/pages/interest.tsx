@@ -3,8 +3,7 @@ import api from '../frontendApis';
 import Avatar from '@mui/material/Avatar';
 import Container from '@mui/material/Container';
 import { MailOutline } from '@mui/icons-material';
-import { Interest, InterestStatus } from '../types/interest';
-import { WithoutId } from '../types/utils';
+import { InterestPostData, InterestStatus } from '../types/interest';
 import { Stack } from '@mui/material';
 import { formStackSx, mailIconSx } from '../styles/interest';
 import moment from 'moment';
@@ -18,14 +17,12 @@ const interestsApi = api.interests;
 const InterestFormPage: NextPage = () => {
   const onSubmit: InterestFormSubmitHandler = (formData) => {
     const { lengthOfCampaign, ...data } = formData;
-    const interestPostData: WithoutId<Interest> = {
+    const interestPostData: InterestPostData = {
       ...data,
       status: InterestStatus.PENDING,
       couponDenomination: DEFAULT_COUPON_DENOMINATION,
-      start: moment(data.start),
-      end: moment(data.start).clone().add(lengthOfCampaign, 'days'),
-      // TODO: charities are not covered in this PR as its model is TBD.
-      charities: [{ id: 1, name: 'Ark' }],
+      start: moment(data.start).toISOString(),
+      end: moment(data.start).clone().add(lengthOfCampaign, 'days').toISOString(),
     };
 
     return interestsApi.addInterest(interestPostData);

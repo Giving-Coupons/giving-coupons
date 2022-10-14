@@ -1,4 +1,4 @@
-import { AutocompleteData, WithoutId } from './utils';
+import { WithoutId } from './utils';
 
 export type CharityMinimalData = {
   id: number;
@@ -14,8 +14,6 @@ export type CharityData = CharityListData & {
   websiteUrl: string;
   imageBase64: string;
 };
-
-export type CharityAutocompleteData = CharityMinimalData & AutocompleteData;
 
 export type CharityFormData = Partial<CharityData>;
 

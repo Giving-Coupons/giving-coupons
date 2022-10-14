@@ -9,3 +9,9 @@ export type IdData = {
 export type AutocompleteData = {
   label: string;
 };
+
+export type SelectOptionData = {
+  id: number;
+  name: string;
+  logoBase64?: string;
+};
