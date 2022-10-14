@@ -54,12 +54,12 @@ export type CampaignListQueryParams = {
     isCompleted?: boolean;
   };
   start?: {
-    from?: string;
-    to?: string;
+    from?: Moment;
+    to?: Moment;
   };
   end?: {
-    from?: string;
-    to?: string;
+    from?: Moment;
+    to?: Moment;
   };
 };
 
@@ -81,8 +81,8 @@ export type CampaignBaseData = {
   description: string;
   promisedAmount: number;
   couponDenomination: number;
-  start: string;
-  end: string;
+  start: Moment;
+  end: Moment;
   imageBase64: string;
   charities: CampaignCharityBaseData[];
   primaryDonor: PrimaryDonorData;
