@@ -10,8 +10,6 @@ class CouponsController < ApplicationController
 
   def unredeemed
     @coupons = Coupon.all.includes(:secondary_donation).where(secondary_donations: { id: nil })
-
-    render :unredeemed, status: :ok
   end
 
   def show; end
