@@ -14,7 +14,7 @@ const ThankYou: NextPage = () => {
         Thank you for getting in touch!
       </Typography>
       <Typography variant="body1" textAlign="center">
-        We are excited to find new partners and bring the gift of giving to more people.
+        We are excited to work with you to bring the gift of giving to more people.
         <br />
         Give us some time to go over your submission, and we will reach out by email to contact you.
       </Typography>
