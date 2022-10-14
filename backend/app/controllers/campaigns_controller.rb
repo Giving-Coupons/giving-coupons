@@ -5,11 +5,30 @@ class CampaignsController < ApplicationController
   before_action :set_campaign, only: %i[show admin_show update destroy]
 
   def index
-    @campaigns = Campaign.all
+    scope = Campaign.all
+
+    scope = scope.contains(params[:name]) if params[:name].present?
+
+    starts_before = params[:starts_before]
+    starts_after = params[:starts_after]
+    ends_before = params[:ends_before]
+    ends_after = params[:ends_after]
+
+    scope = scope.starts_before(starts_before).starts_after(starts_after)
+                 .ends_before(ends_before).ends_after(ends_after)
+
+    return scope if starts_before.present? || starts_after.present? || ends_before.present? || ends_after.present?
+
+    is_active = params[:is_active]
+    is_upcoming = params[:is_upcoming]
+    is_completed = params[:is_completed]
+    status_scoped = Campaign.active(is_active).or(Campaign.upcoming(is_upcoming)).or(Campaign.completed(is_completed))
+
+    @campaigns = scope.merge(status_scoped)
   end
 
   def admin_index
-    @campaigns = Campaign.all
+    @campaigns = filter
   end
 
   def show; end
@@ -100,5 +119,28 @@ class CampaignsController < ApplicationController
     end
 
     @campaign.campaign_charities = campaign_charities
+  end
+
+  def filter
+    scope = Campaign.all
+
+    scope = scope.contains(params[:name]) if params[:name].present?
+
+    starts_before = params[:starts_before]
+    starts_after = params[:starts_after]
+    ends_before = params[:ends_before]
+    ends_after = params[:ends_after]
+
+    scope = scope.starts_before(starts_before).starts_after(starts_after)
+                 .ends_before(ends_before).ends_after(ends_after)
+
+    return scope if starts_before.present? || starts_after.present? || ends_before.present? || ends_after.present?
+
+    is_active = params[:is_active]
+    is_upcoming = params[:is_upcoming]
+    is_completed = params[:is_completed]
+    status_scoped = Campaign.active(is_active).or(Campaign.upcoming(is_upcoming)).or(Campaign.completed(is_completed))
+
+    scope.merge(status_scoped)
   end
 end
