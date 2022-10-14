@@ -35,7 +35,7 @@ const CharityForm = ({ title, submitButtonTitle, initialValues, onSubmit }: Prop
           <Stack component="div" spacing={2}>
             <Typography variant="h1">{title}</Typography>
 
-            <FormTextInput name="name" label="Name" placeholder="Enter the charity name" />
+            <FormTextInput name="name" label="Name" placeholder="Enter the charity name" disableAutocomplete />
 
             <FormTextInput
               name="description"
