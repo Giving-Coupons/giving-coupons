@@ -28,7 +28,7 @@ class CampaignsController < ApplicationController
   end
 
   def admin_index
-    @campaigns = filter
+    @campaigns = Campaign.all
   end
 
   def show; end
