@@ -24,8 +24,6 @@ const InterestFormPage: NextPage = () => {
       couponDenomination: DEFAULT_COUPON_DENOMINATION,
       start: moment(data.start),
       end: moment(data.start).clone().add(lengthOfCampaign, 'days'),
-      // TODO: charities are not covered in this PR as its model is TBD.
-      charities: [{ id: 1, name: 'Ark' }],
     };
 
     return interestsApi.addInterest(interestPostData);

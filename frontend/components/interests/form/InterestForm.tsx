@@ -2,7 +2,7 @@ import * as Yup from 'yup';
 import Container from '@mui/material/Container';
 import { Interest } from '../../../types/interest';
 import { Button, InputAdornment, Stack, Typography } from '@mui/material';
-import { submitButtonSx } from '../../../styles/interest';
+import { submitButtonSx } from '../../../styles/components/interests/InterestFormStyles';
 import { Form, Formik } from 'formik';
 import moment, { Moment } from 'moment';
 import { DEFAULT_COUPON_DENOMINATION } from '../../../utils/constants';
@@ -10,10 +10,9 @@ import FormDatePicker from '../../forms/FormDatePicker';
 import { Nullable } from '../../../types/utils';
 import FormTextInput from '../../forms/FormTextInput';
 import InterestFormAmountButton from './InterestFormAmountButton';
+import InterestFormCharitySelector from './InterestFormCharitySelector';
 
-export type InterestFormData = Partial<
-  Omit<Interest, 'id' | 'charities' | 'status' | 'couponDenomination' | 'start' | 'end'>
-> & {
+export type InterestFormData = Partial<Omit<Interest, 'id' | 'status' | 'couponDenomination' | 'start' | 'end'>> & {
   start: Nullable<Moment>;
   lengthOfCampaign?: number;
 };
@@ -43,8 +42,10 @@ export const interestFormSchema = Yup.object({
     .integer('Length of campaign must be an integer.')
     .positive('Length of campaign must be positive')
     .max(31, 'Length of campaign cannot be longer than a month'),
-  // TODO: charities are not covered in this PR as the model is TBD.
-  // charities: Yup.array(charitySchema).required(),
+  charities: Yup.array(Yup.object({ id: Yup.number().required(), name: Yup.string().required() }))
+    .min(1, 'At least 1 charity must be selected.')
+    .max(5, 'At most 5 charities can be selected.')
+    .required('Charity selection is required.'),
 });
 
 export type InterestFormSubmitHandler = (formState: Yup.InferType<typeof interestFormSchema>) => Promise<unknown>;
@@ -79,7 +80,18 @@ export default function InterestForm({ onSubmit }: InterestFormProps) {
                   Your Campaign
                 </Typography>
 
-                <FormTextInput name="campaignName" label="Name" placeholder="Give your campaign a name." />
+                <InterestFormCharitySelector
+                  name="charities"
+                  label="Charities supported"
+                  placeholder="Choose your campaign beneficiaries."
+                />
+
+                <FormTextInput
+                  name="campaignName"
+                  label="Campaign Name"
+                  placeholder="Give your campaign a name."
+                  disableAutocomplete
+                />
 
                 <FormTextInput
                   name="campaignDescription"
