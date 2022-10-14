@@ -9,7 +9,15 @@ Rails.application.routes.draw do
         sessions: 'auth/sessions'
       }
 
-      resources :campaigns
+      resources :campaigns do
+        collection do
+          get :admin_index
+        end
+
+        member do
+          get 'admin_show'
+        end
+      end
 
       resources :charities
 
