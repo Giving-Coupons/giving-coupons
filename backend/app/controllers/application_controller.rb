@@ -40,7 +40,7 @@ class ApplicationController < ActionController::API
   end
 
   def authenticate_admin!
-    return
+    return if current_admin
 
     add_error_message 'This action can only be performed by an authenticated admin!'
     render 'layouts/empty', status: :unauthorized
