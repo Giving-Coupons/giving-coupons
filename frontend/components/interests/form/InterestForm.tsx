@@ -86,7 +86,12 @@ export default function InterestForm({ onSubmit }: InterestFormProps) {
                   placeholder="Choose your campaign beneficiaries."
                 />
 
-                <InterestFormTextInput name="campaignName" label="Name" placeholder="Give your campaign a name." />
+                <InterestFormTextInput
+                  name="campaignName"
+                  label="Campaign Name"
+                  placeholder="Give your campaign a name."
+                  disableAutocomplete
+                />
 
                 <InterestFormTextInput
                   name="campaignDescription"
