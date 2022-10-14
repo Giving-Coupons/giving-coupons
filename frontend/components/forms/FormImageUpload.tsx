@@ -13,9 +13,10 @@ import { MAX_IMAGE_SIZE_MB } from '../../utils/constants';
 
 interface Props {
   name: string;
+  label: string;
 }
 
-const FormImageUpload = ({ name }: Props) => {
+const FormImageUpload = ({ name, label }: Props) => {
   const [, { value, error, touched }, { setTouched, setValue }] = useField(name);
   const [uploadError, setUploadError] = useState<Nullable<string>>(null);
 
@@ -50,7 +51,7 @@ const FormImageUpload = ({ name }: Props) => {
       <Stack component="div">
         <Stack component="div" direction="row" spacing={2}>
           <Button actionType="secondary" isLabel startIcon={<AddPhotoAlternateIcon />}>
-            Upload Image
+            {label}
             <input
               accept="image/png, image/jpg, image/jpeg"
               id={name}
