@@ -2,19 +2,21 @@ import * as Yup from 'yup';
 import Container from '@mui/material/Container';
 import { Interest } from '../../../types/interest';
 import { Button, InputAdornment, Stack, Typography } from '@mui/material';
-import { submitButtonSx } from '../../../styles/interest';
+import { submitButtonSx } from '../../../styles/components/interests/InterestFormStyles';
 import { Form, Formik } from 'formik';
 import moment, { Moment } from 'moment';
-import { DEFAULT_COUPON_DENOMINATION } from '../../../utils/constants';
-import InterestFormDatePicker from './InterestFormDatePicker';
+import { DEFAULT_COUPON_DENOMINATION, MAX_NUM_OF_CAMPAIGN_CHARITIES } from '../../../utils/constants';
+import FormDatePicker from '../../forms/FormDatePicker';
 import { Nullable } from '../../../types/utils';
-import InterestFormTextInput from './InterestFormTextInput';
+import FormTextInput from '../../forms/FormTextInput';
 import InterestFormAmountButton from './InterestFormAmountButton';
+import InterestFormCharitySelector from './InterestFormCharitySelector';
 
 export type InterestFormData = Partial<
-  Omit<Interest, 'id' | 'charities' | 'status' | 'couponDenomination' | 'start' | 'end'>
+  Omit<Interest, 'id' | 'status' | 'couponDenomination' | 'start' | 'end' | 'charities'>
 > & {
   start: Nullable<Moment>;
+  charityIds: number[];
   lengthOfCampaign?: number;
 };
 
@@ -43,8 +45,10 @@ export const interestFormSchema = Yup.object({
     .integer('Length of campaign must be an integer.')
     .positive('Length of campaign must be positive')
     .max(31, 'Length of campaign cannot be longer than a month'),
-  // TODO: charities are not covered in this PR as the model is TBD.
-  // charities: Yup.array(charitySchema).required(),
+  charityIds: Yup.array(Yup.number().required())
+    .min(1, 'At least 1 charity must be selected.')
+    .max(MAX_NUM_OF_CAMPAIGN_CHARITIES, `At most ${MAX_NUM_OF_CAMPAIGN_CHARITIES} charities can be selected.`)
+    .required('Charity selection is required.'),
 });
 
 export type InterestFormSubmitHandler = (formState: Yup.InferType<typeof interestFormSchema>) => Promise<unknown>;
@@ -53,7 +57,7 @@ export interface InterestFormProps {
 }
 
 export default function InterestForm({ onSubmit }: InterestFormProps) {
-  const initialValues: InterestFormData = { start: null };
+  const initialValues: InterestFormData = { start: null, charityIds: [] };
 
   return (
     <Container maxWidth="lg">
@@ -79,9 +83,20 @@ export default function InterestForm({ onSubmit }: InterestFormProps) {
                   Your Campaign
                 </Typography>
 
-                <InterestFormTextInput name="campaignName" label="Name" placeholder="Give your campaign a name." />
+                <InterestFormCharitySelector
+                  name="charityIds"
+                  label="Charities supported"
+                  placeholder="Choose your campaign beneficiaries."
+                />
 
-                <InterestFormTextInput
+                <FormTextInput
+                  name="campaignName"
+                  label="Campaign Name"
+                  placeholder="Give your campaign a name."
+                  disableAutocomplete
+                />
+
+                <FormTextInput
                   name="campaignDescription"
                   label="Description"
                   placeholder="What inspired you to start this campaign?"
@@ -89,10 +104,9 @@ export default function InterestForm({ onSubmit }: InterestFormProps) {
                   minRows={2}
                 />
 
-                <InterestFormDatePicker name="start" label={'Start Date'} />
+                <FormDatePicker name="start" label={'Start Date'} />
 
-                <InterestFormTextInput
-                  numeric
+                <FormTextInput
                   name="lengthOfCampaign"
                   label="Length of Campaign"
                   InputProps={{ endAdornment: <InputAdornment position="end">day(s)</InputAdornment> }}
@@ -109,8 +123,7 @@ export default function InterestForm({ onSubmit }: InterestFormProps) {
                   </Typography>
                 </Stack>
 
-                <InterestFormTextInput
-                  numeric
+                <FormTextInput
                   name="promisedAmount"
                   label="Promised Amount"
                   InputProps={{ startAdornment: <InputAdornment position="start">$</InputAdornment> }}
@@ -132,9 +145,9 @@ export default function InterestForm({ onSubmit }: InterestFormProps) {
                   Your Details
                 </Typography>
 
-                <InterestFormTextInput name="donorName" label="Name" />
+                <FormTextInput name="donorName" label="Name" />
 
-                <InterestFormTextInput name="donorEmail" label="Email" />
+                <FormTextInput name="donorEmail" label="Email" />
               </Stack>
             </Stack>
 

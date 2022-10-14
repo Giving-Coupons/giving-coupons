@@ -34,6 +34,18 @@ export type CampaignSearchFormData = {
   endDateTo: Nullable<Moment>;
 };
 
+export type CampaignFormData = {
+  name?: string;
+  description?: string;
+  promisedAmount?: number;
+  start: Nullable<Moment>;
+  end: Nullable<Moment>;
+  imageBase64?: string;
+  charities: Partial<CampaignCharityBaseData>[];
+  primaryDonor?: Partial<PrimaryDonorData>;
+  interestId: Nullable<number>;
+};
+
 export type CampaignListQueryParams = {
   name?: string;
   status?: {
@@ -68,6 +80,7 @@ export type CampaignBaseData = {
   name: string;
   description: string;
   promisedAmount: number;
+  couponDenomination: number;
   start: string;
   end: string;
   imageBase64: string;
@@ -76,7 +89,7 @@ export type CampaignBaseData = {
   interestId: Nullable<number>;
 };
 
-export type CampaignPostData = WithoutId<CampaignBaseData> & {
+export type CampaignPostData = Omit<WithoutId<CampaignBaseData>, 'charities' | 'primaryDonor'> & {
   charities: CampaignCharityPostData[];
   primaryDonor: PrimaryDonorPostData;
 };

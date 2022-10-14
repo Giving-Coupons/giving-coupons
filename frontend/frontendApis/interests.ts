@@ -13,11 +13,13 @@ class InterestsAPI extends BaseAPI {
     return promise.then(mapOnApiResponse((arr) => arr.map(convertDataToInterest)));
   }
 
-  public addInterest(data: WithoutId<Interest>): ApiPromise<Interest> {
-    const promise: ApiPromise<InterestData> = this.post(
-      `${InterestsAPI.INTERESTS_URL}`,
-      convertInterestToDataWithoutId(data) as InterestPostData,
-    );
+  public getInterest(interestId: number): ApiPromise<Interest> {
+    const promise: ApiPromise<InterestData> = this.get(`${InterestsAPI.INTERESTS_URL}/${interestId}`);
+    return promise.then(mapOnApiResponse(convertDataToInterest));
+  }
+
+  public addInterest(data: InterestPostData): ApiPromise<Interest> {
+    const promise: ApiPromise<InterestData> = this.post(`${InterestsAPI.INTERESTS_URL}`, data);
     return promise.then(mapOnApiResponse(convertDataToInterest));
   }
 

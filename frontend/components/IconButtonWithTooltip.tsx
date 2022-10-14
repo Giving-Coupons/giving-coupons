@@ -6,10 +6,15 @@ export interface IconButtonWithTooltipProps extends IconButtonProps {
   tooltip: string;
 }
 
-export default function IconButtonWithTooltip({ icon, tooltip, ...rest }: IconButtonWithTooltipProps) {
+export default function IconButtonWithTooltip({
+  icon,
+  tooltip,
+  color = 'primary',
+  ...rest
+}: IconButtonWithTooltipProps) {
   return (
     <Tooltip title={tooltip}>
-      <IconButton color="primary" {...rest}>
+      <IconButton color={color} {...rest}>
         {icon}
       </IconButton>
     </Tooltip>

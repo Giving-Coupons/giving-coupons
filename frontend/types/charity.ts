@@ -15,6 +15,8 @@ export type CharityData = CharityListData & {
   imageBase64: string;
 };
 
+export type CharityFormData = Partial<CharityData>;
+
 export type CharityPostData = WithoutId<CharityData>;
 
 export type CharityPutData = CharityPostData;
