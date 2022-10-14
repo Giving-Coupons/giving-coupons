@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CampaignsController < ApplicationController
-  before_action :authenticate_admin!
+  before_action :authenticate_admin!, except: %i[index show]
   before_action :set_campaign, only: %i[show admin_show update destroy]
 
   wrap_parameters format: :json,
