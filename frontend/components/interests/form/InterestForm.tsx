@@ -77,7 +77,6 @@ export default function InterestForm({ onSubmit }: InterestFormProps) {
         {({ isValid, dirty }) => (
           <Form>
             <Stack spacing={2}>
-              {/* TODO: Charity selection is omitted as its model is TBD. */}
               <Stack spacing={2}>
                 <Typography component="h2" variant="h3">
                   Your Campaign
