@@ -7,7 +7,7 @@ export enum InterestStatus {
   REJECTED = 'rejected',
 }
 
-export type Interest = {
+export type InterestData = {
   id: number;
   donorName: string;
   donorEmail: string;
@@ -21,13 +21,8 @@ export type Interest = {
   couponDenomination: number;
 };
 
-export type InterestPostData = Omit<Interest, 'id' | 'start' | 'end' | 'charities'> & {
-  start: Moment;
-  end: Moment;
+export type InterestPostData = Omit<InterestData, 'id' | 'charities'> & {
   charityIds: number[];
 };
+
 export type InterestPutData = InterestPostData;
-export type InterestData = Omit<Interest, 'start' | 'end'> & {
-  start: Moment;
-  end: Moment;
-};
