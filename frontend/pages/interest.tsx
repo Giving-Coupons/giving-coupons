@@ -1,20 +1,20 @@
 import { NextPage } from 'next';
 import api from '../frontendApis';
-import Avatar from '@mui/material/Avatar';
-import Container from '@mui/material/Container';
 import { MailOutline } from '@mui/icons-material';
 import { InterestPostData, InterestStatus } from '../types/interest';
-import { Stack } from '@mui/material';
+import { Avatar, Container, Stack } from '@mui/material';
 import { formStackSx, mailIconSx } from '../styles/interest';
 import moment from 'moment';
 import InterestForm, { InterestFormSubmitHandler } from '../components/interests/form/InterestForm';
 import { DEFAULT_COUPON_DENOMINATION } from '../utils/constants';
 import { Box } from '@mui/system';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 
 const interestsApi = api.interests;
 
 const InterestFormPage: NextPage = () => {
+  const router = useRouter();
   const onSubmit: InterestFormSubmitHandler = (formData) => {
     const { lengthOfCampaign, ...data } = formData;
     const interestPostData: InterestPostData = {
@@ -25,7 +25,7 @@ const InterestFormPage: NextPage = () => {
       end: moment(data.start).clone().add(lengthOfCampaign, 'days').toISOString(),
     };
 
-    return interestsApi.addInterest(interestPostData);
+    return interestsApi.addInterest(interestPostData).then(() => router.push('/interest/thank-you'));
   };
 
   return (
