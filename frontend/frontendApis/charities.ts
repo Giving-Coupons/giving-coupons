@@ -3,7 +3,7 @@ import { ApiPromise } from '../types/api';
 import BaseAPI from './base';
 
 class CharitiesAPI extends BaseAPI {
-  protected static CHARITIES_URL = 'charities';
+  static CHARITIES_URL = 'charities';
 
   public list(): ApiPromise<CharityListData[]> {
     return this.get(CharitiesAPI.CHARITIES_URL);

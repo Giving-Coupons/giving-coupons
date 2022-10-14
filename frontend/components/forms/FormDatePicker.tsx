@@ -1,19 +1,19 @@
 import { TextField, useMediaQuery } from '@mui/material';
 import { DesktopDatePicker, MobileDatePicker } from '@mui/x-date-pickers';
-import { Nullable } from '../../../types/utils';
+import { Nullable } from '../../types/utils';
 import moment, { Moment } from 'moment';
 import { useTheme } from '@mui/system';
 import React from 'react';
 import { MuiTextFieldProps } from '@mui/x-date-pickers/internals';
-import { InterestFormData } from './InterestForm';
 import { useField } from 'formik';
+import { DATE_FORMAT } from '../../utils/constants';
 
 interface Props {
-  name: keyof InterestFormData;
+  name: string;
   label: string;
 }
 
-const InterestFormDatePicker = ({ name, label }: Props) => {
+const FormDatePicker = ({ name, label }: Props) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [, { error, touched, value }, { setTouched, setValue }] = useField(name);
@@ -21,7 +21,7 @@ const InterestFormDatePicker = ({ name, label }: Props) => {
   const innerProps = {
     label,
     value,
-    inputFormat: 'DD/MM/yyyy',
+    inputFormat: DATE_FORMAT,
     minDate: moment().add(1, 'day').startOf('day'),
     onChange: (value: Nullable<Moment>) => {
       const corrected = value === null ? value : value.startOf('day');
@@ -46,4 +46,4 @@ const InterestFormDatePicker = ({ name, label }: Props) => {
   return isMobile ? <MobileDatePicker {...innerProps} /> : <DesktopDatePicker {...innerProps} />;
 };
 
-export default InterestFormDatePicker;
+export default FormDatePicker;

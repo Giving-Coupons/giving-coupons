@@ -8,6 +8,7 @@ declare module '@mui/material/styles' {
     primaryTranslucent: Palette['primary'];
     secondaryTranslucent: Palette['primary'];
     overlayTranslucent: Palette['primary'];
+    danger: Palette['primary'];
   }
   interface PaletteOptions {
     contrast: PaletteOptions['primary'];
@@ -15,6 +16,13 @@ declare module '@mui/material/styles' {
     primaryTranslucent: PaletteOptions['primary'];
     secondaryTranslucent: PaletteOptions['primary'];
     overlayTranslucent: PaletteOptions['primary'];
+    danger: PaletteOptions['primary'];
+  }
+}
+
+declare module '@mui/material/Button' {
+  interface ButtonPropsColorOverrides {
+    neutral: true;
   }
 }
 
@@ -75,6 +83,9 @@ export const theme = createTheme({
     overlayTranslucent: {
       main: alpha('#0B0B0C', 0.5),
     },
+    danger: {
+      main: '#FF4343',
+    },
     error: {
       main: '#FF4343',
     },
@@ -116,6 +127,20 @@ export const theme = createTheme({
         },
         {
           props: { variant: 'text', color: 'primary' },
+          style: {
+            borderRadius: 30,
+          },
+        },
+        {
+          props: { variant: 'outlined', color: 'neutral' },
+          style: {
+            borderRadius: 30,
+            color: '#717171',
+            borderColor: '#717171',
+          },
+        },
+        {
+          props: { variant: 'outlined', color: 'error' },
           style: {
             borderRadius: 30,
           },

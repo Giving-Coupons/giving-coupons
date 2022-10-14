@@ -8,16 +8,21 @@ import {
 import React from 'react';
 
 interface Props {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   imageSrc: string;
+  shouldApplyOverlay?: boolean;
 }
 
-const ImageWithOverlay = ({ children, imageSrc }: Props) => {
+const ImageWithOverlay = ({ children, imageSrc, shouldApplyOverlay = true }: Props) => {
   return (
     <Box sx={imageContainerSx} component="div">
-      <Box sx={aboveImageOverlayContainerSx}>{children}</Box>
+      {shouldApplyOverlay && (
+        <>
+          <Box sx={aboveImageOverlayContainerSx}>{children}</Box>
 
-      <Box sx={imageOverlaySx} />
+          <Box sx={imageOverlaySx} />
+        </>
+      )}
 
       <Box sx={imageSx} component="img" src={imageSrc} />
     </Box>
