@@ -69,14 +69,6 @@ class CampaignsController < ApplicationController
     params.require(:campaign).permit(campaign_params)
   end
 
-  # def charity_params
-  #   params.permit({ charities: [:id, :giving_sg_url, { charity: [:id] }] }).require(:charities)
-  # end
-
-  # def primary_donor_params
-  #   params.require(:primary_donor).permit(%i[name email])
-  # end
-
   def set_donor
     primary_donor_params = params[:primary_donor]
 
@@ -87,35 +79,25 @@ class CampaignsController < ApplicationController
 
   def create_campaign_charities
     charity_params = params[:charities]
+
     @campaign.campaign_charities = charity_params.map do |campaign_charity_param|
       CampaignCharity.new(charity_id: campaign_charity_param[:charity][:id],
-                                             giving_sg_url: campaign_charity_param[:giving_sg_url])
+                          giving_sg_url: campaign_charity_param[:giving_sg_url])
     end
   end
 
   def create_or_update_campaign_charities
-    # @campaign.campaign_charities = charity_params.map do |campaign_charity|
-    #   campaign_charity_id = campaign_charity[:id]
-    #   if campaign_charity_id.present?
-    #     CampaignCharity.find(campaign_charity_id)
-    #   else
-    #     CampaignCharity.new(charity: Charity.find(charity[:charity][:id]),
-    #                         giving_sg_url: charity[:giving_sg_url])
-    #   end
-    #   campaign_charity = CampaignCharity.new(charity_id: charity[:charity][:id])
-    #   campaign_charity.giving_sg_url = charity[:giving_sg_url]
-    #   campaign_charity
-    # end
-  # end
     charity_params = params[:charities]
-    existing_ids = charity_params.map { |param| param[:id] }.compact
+
+    existing_ids = charity_params.pluck(:id).compact
     campaign_charities = CampaignCharity.find(existing_ids)
 
-    new_campaign_charities = charity_params.select { |campaign_charity| campaign_charity[:id].nil? }.map do |campaign_charity|
-      CampaignCharity.new(charity_id: campaign_charity[:charity][:id], giving_sg_url: campaign_charity[:giving_sg_url])
-    end
+    campaign_charities_to_add = charity_params.select { |campaign_charity| campaign_charity[:id].nil? }
 
-    campaign_charities.push(*new_campaign_charities)
+    campaign_charities_to_add.each do |campaign_charity|
+      campaign_charities << CampaignCharity.new(charity_id: campaign_charity[:charity][:id],
+                                                giving_sg_url: campaign_charity[:giving_sg_url])
+    end
 
     @campaign.campaign_charities = campaign_charities
   end

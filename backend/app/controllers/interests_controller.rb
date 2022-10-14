@@ -51,8 +51,8 @@ class InterestsController < ApplicationController
   end
 
   def interest_params
-    permitted_params = [:donor_name, :donor_email, :campaign_name, :campaign_description, :promised_amount,
-                        :start, :end, :status, :coupon_denomination]
+    permitted_params = %i[donor_name donor_email campaign_name campaign_description promised_amount
+                          start end status coupon_denomination]
 
     params.require(:interest).permit(permitted_params)
   end

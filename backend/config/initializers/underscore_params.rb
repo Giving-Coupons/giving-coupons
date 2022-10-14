@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Enable converting of parameters to snake case.
 ActionDispatch::Request.parameter_parsers[:json] = lambda do |raw_post|
   # From action_dispatch/http/parameters.rb.
