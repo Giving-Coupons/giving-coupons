@@ -5,15 +5,18 @@ import { Button, InputAdornment, Stack, Typography } from '@mui/material';
 import { submitButtonSx } from '../../../styles/components/interests/InterestFormStyles';
 import { Form, Formik } from 'formik';
 import moment, { Moment } from 'moment';
-import { DEFAULT_COUPON_DENOMINATION } from '../../../utils/constants';
+import { DEFAULT_COUPON_DENOMINATION, MAX_NUM_OF_CAMPAIGN_CHARITIES } from '../../../utils/constants';
 import FormDatePicker from '../../forms/FormDatePicker';
 import { Nullable } from '../../../types/utils';
 import FormTextInput from '../../forms/FormTextInput';
 import InterestFormAmountButton from './InterestFormAmountButton';
 import InterestFormCharitySelector from './InterestFormCharitySelector';
 
-export type InterestFormData = Partial<Omit<Interest, 'id' | 'status' | 'couponDenomination' | 'start' | 'end'>> & {
+export type InterestFormData = Partial<
+  Omit<Interest, 'id' | 'status' | 'couponDenomination' | 'start' | 'end' | 'charities'>
+> & {
   start: Nullable<Moment>;
+  charityIds: number[];
   lengthOfCampaign?: number;
 };
 
@@ -42,9 +45,9 @@ export const interestFormSchema = Yup.object({
     .integer('Length of campaign must be an integer.')
     .positive('Length of campaign must be positive')
     .max(31, 'Length of campaign cannot be longer than a month'),
-  charities: Yup.array(Yup.object({ id: Yup.number().required(), name: Yup.string().required() }))
+  charityIds: Yup.array(Yup.number().required())
     .min(1, 'At least 1 charity must be selected.')
-    .max(5, 'At most 5 charities can be selected.')
+    .max(MAX_NUM_OF_CAMPAIGN_CHARITIES, `At most ${MAX_NUM_OF_CAMPAIGN_CHARITIES} charities can be selected.`)
     .required('Charity selection is required.'),
 });
 
@@ -54,7 +57,7 @@ export interface InterestFormProps {
 }
 
 export default function InterestForm({ onSubmit }: InterestFormProps) {
-  const initialValues: InterestFormData = { start: null };
+  const initialValues: InterestFormData = { start: null, charityIds: [] };
 
   return (
     <Container maxWidth="lg">
@@ -81,7 +84,7 @@ export default function InterestForm({ onSubmit }: InterestFormProps) {
                 </Typography>
 
                 <InterestFormCharitySelector
-                  name="charities"
+                  name="charityIds"
                   label="Charities supported"
                   placeholder="Choose your campaign beneficiaries."
                 />

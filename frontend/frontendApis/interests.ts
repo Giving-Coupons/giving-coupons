@@ -18,11 +18,8 @@ class InterestsAPI extends BaseAPI {
     return promise.then(mapOnApiResponse(convertDataToInterest));
   }
 
-  public addInterest(data: WithoutId<Interest>): ApiPromise<Interest> {
-    const promise: ApiPromise<InterestData> = this.post(
-      `${InterestsAPI.INTERESTS_URL}`,
-      convertInterestToDataWithoutId(data) as InterestPostData,
-    );
+  public addInterest(data: InterestPostData): ApiPromise<Interest> {
+    const promise: ApiPromise<InterestData> = this.post(`${InterestsAPI.INTERESTS_URL}`, data);
     return promise.then(mapOnApiResponse(convertDataToInterest));
   }
 

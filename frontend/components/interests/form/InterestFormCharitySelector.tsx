@@ -1,12 +1,9 @@
-import Autocomplete from '@mui/material/Autocomplete';
-import TextField from '@mui/material/TextField';
-import { useField } from 'formik';
-import { CharityListData, CharityMinimalData } from '../../../types/charity';
+import { CharityListData } from '../../../types/charity';
 import { InterestFormData } from './InterestForm';
-import { Box, Stack, Typography } from '@mui/material';
 import api from '../../../frontendApis';
-import { useEffect, useState } from 'react';
-import { logoSx } from '../../../styles/components/interests/InterestFormStyles';
+import FormAutocomplete from '../../forms/FormAutocomplete';
+import useSWR from 'swr';
+import CharitiesAPI from '../../../frontendApis/charities';
 
 interface Props {
   name: keyof InterestFormData;
@@ -15,46 +12,13 @@ interface Props {
 }
 
 const InterestFormCharitySelector = ({ name, label, placeholder }: Props) => {
-  const [, { error, touched }, { setValue, setTouched }] = useField<CharityMinimalData[]>(name);
-  const [charities, setCharities] = useState<CharityListData[]>([]);
-  useEffect(() => {
-    api.charities
-      .list()
-      .then((res) => res.payload ?? [])
-      .then(setCharities)
-      .catch(() => undefined /* If there are any API errors, the interceptor will show it in the snackbar. */);
-  }, []);
+  const { data: charityOptions } = useSWR<CharityListData[]>(
+    `${CharitiesAPI.CHARITIES_URL}/listCharityMinimalData`,
+    () => api.charities.list().then((r) => r.payload ?? []),
+  );
 
   return (
-    <Autocomplete
-      multiple
-      id="tags-outlined"
-      options={charities}
-      renderOption={(props, { name, logoBase64 }) => (
-        <li {...props}>
-          <Stack direction="row" spacing={2} alignItems="center">
-            <Box component="img" src={logoBase64} sx={logoSx} />
-            <Typography>{name}</Typography>
-          </Stack>
-        </li>
-      )}
-      getOptionLabel={(option) => option.name}
-      defaultValue={[]}
-      filterSelectedOptions
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          label={label}
-          placeholder={placeholder}
-          error={touched && Boolean(error)}
-          helperText={touched && error}
-          // Ensures placeholder is always visible.
-          InputLabelProps={{ shrink: true }}
-        />
-      )}
-      isOptionEqualToValue={(option: CharityListData, value: CharityListData) => option.id === value.id}
-      onChange={(_event, value) => Promise.resolve(setValue(value, true)).then(() => setTouched(true))}
-    />
+    <FormAutocomplete multiple name={name} label={label} placeholder={placeholder} options={charityOptions ?? []} />
   );
 };
 
