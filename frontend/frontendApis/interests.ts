@@ -14,7 +14,7 @@ class InterestsAPI extends BaseAPI {
   }
 
   public addInterest(data: InterestPostData): ApiPromise<InterestData> {
-    return this.post(`${InterestsAPI.INTERESTS_URL}`, data);
+    return this.post(InterestsAPI.INTERESTS_URL, data);
   }
 
   public putInterest(interestId: number, data: InterestPutData): ApiPromise<InterestData> {
