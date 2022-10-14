@@ -2,7 +2,7 @@ import * as Yup from 'yup';
 import Container from '@mui/material/Container';
 import { Interest } from '../../../types/interest';
 import { Button, InputAdornment, Stack, Typography } from '@mui/material';
-import { submitButtonSx } from '../../../styles/interest';
+import { submitButtonSx } from '../../../styles/components/interests/InterestFormStyles';
 import { Form, Formik } from 'formik';
 import moment, { Moment } from 'moment';
 import { DEFAULT_COUPON_DENOMINATION } from '../../../utils/constants';
@@ -44,6 +44,7 @@ export const interestFormSchema = Yup.object({
     .max(31, 'Length of campaign cannot be longer than a month'),
   charities: Yup.array(Yup.object({ id: Yup.number().required(), name: Yup.string().required() }))
     .min(1, 'At least 1 charity must be selected.')
+    .max(5, 'At most 5 charities can be selected.')
     .required('Charity selection is required.'),
 });
 

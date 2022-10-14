@@ -3,9 +3,10 @@ import TextField from '@mui/material/TextField';
 import { useField } from 'formik';
 import { CharityListData, CharityMinimalData } from '../../../types/charity';
 import { InterestFormData } from './InterestForm';
-import { Stack } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import api from '../../../frontendApis';
 import { useEffect, useState } from 'react';
+import { logoSx } from '../../../styles/components/interests/InterestFormStyles';
 
 interface Props {
   name: keyof InterestFormData;
@@ -32,8 +33,8 @@ const InterestFormCharitySelector = ({ name, label, placeholder }: Props) => {
       renderOption={(props, { name, logoBase64 }) => (
         <li {...props}>
           <Stack direction="row" spacing={2} alignItems="center">
-            <img style={{ objectFit: 'contain' }} width={30} height={30} src={logoBase64} />
-            <p>{name}</p>
+            <Box component="img" src={logoBase64} sx={logoSx} />
+            <Typography>{name}</Typography>
           </Stack>
         </li>
       )}
