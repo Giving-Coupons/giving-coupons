@@ -4,9 +4,6 @@ class InterestsController < ApplicationController
   before_action :authenticate_admin!, only: %i[index show update reject destroy]
   before_action :set_interest, only: %i[show update reject destroy]
 
-  wrap_parameters format: :json, include: %w[donorName donorEmail campaignName campaignDescription promisedAmount start
-                                             end status couponDenomination charityIds]
-
   def index
     @interests = Interest.all
   end
@@ -14,14 +11,18 @@ class InterestsController < ApplicationController
   def show; end
 
   def create
-    @interest = Interest.create!(interest_params)
+    @interest = Interest.new(interest_params)
+    @interest.charity_ids = params[:charity_ids]
+    @interest.save!
 
     add_success_message "Interest form for \"#{@interest.donor_name}\" successfully submitted!"
     render :show, status: :created, location: @interest
   end
 
   def update
-    @interest.update!(interest_params)
+    @interest.assign_attributes(interest_params)
+    @interest.charity_ids = params[:charity_ids]
+    @interest.save!
 
     add_success_message "Interest for \"#{@interest.donor_name}\" successfully updated!"
     render :show, status: :ok, location: @interest
@@ -51,7 +52,7 @@ class InterestsController < ApplicationController
 
   def interest_params
     permitted_params = [:donor_name, :donor_email, :campaign_name, :campaign_description, :promised_amount,
-                        :start, :end, :status, :coupon_denomination, { charity_ids: [] }]
+                        :start, :end, :status, :coupon_denomination]
 
     params.require(:interest).permit(permitted_params)
   end
