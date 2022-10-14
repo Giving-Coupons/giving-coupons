@@ -1,24 +1,23 @@
-import React from 'react';
-import SimpleTable from '../../../components/generic/SimpleTable';
-import { Interest, InterestStatus } from '../../../types/interest';
-import IconButtonWithTooltip from '../../../components/IconButtonWithTooltip';
-import DeleteButton from '../../../components/DeleteButton';
+import AddIcon from '@mui/icons-material/Add';
 import ClearIcon from '@mui/icons-material/Clear';
-import Tabbed from '../../../components/Tabs';
 import { Box, Paper, Typography } from '@mui/material';
+import { useRouter } from 'next/router';
 import useSWR from 'swr';
+import DeleteButton from '../../../components/DeleteButton';
+import SimpleTable from '../../../components/generic/SimpleTable';
+import IconButtonWithTooltip from '../../../components/IconButtonWithTooltip';
+import Tabbed from '../../../components/Tabs';
 import api from '../../../frontendApis';
-import { Nullable } from '../../../types/utils';
-import { theme } from '../../../utils/theme';
 import InterestsAPI from '../../../frontendApis/interests';
 import useAdminLoginCheck from '../../../hooks/useAdminLogInCheck';
+import { InterestData, InterestStatus } from '../../../types/interest';
+import { Nullable } from '../../../types/utils';
 import { DATE_FORMAT } from '../../../utils/constants';
-import AddIcon from '@mui/icons-material/Add';
-import { useRouter } from 'next/router';
+import { theme } from '../../../utils/theme';
 
 const Interests = () => {
   useAdminLoginCheck();
-  const { data: interests, mutate } = useSWR<Nullable<Interest[]>>(InterestsAPI.INTERESTS_URL, () =>
+  const { data: interests, mutate } = useSWR<Nullable<InterestData[]>>(InterestsAPI.INTERESTS_URL, () =>
     api.interests.list().then((r) => r.payload),
   );
   const router = useRouter();
@@ -27,10 +26,10 @@ const Interests = () => {
   const approvedInterests = interests?.filter((interest) => interest.status === InterestStatus.APPROVED);
   const rejectedInterests = interests?.filter((interest) => interest.status === InterestStatus.REJECTED);
 
-  const makeInterestsTable = (interests: Nullable<Interest[]> | undefined, status: InterestStatus) => {
+  const makeInterestsTable = (interests: Nullable<InterestData[]> | undefined, status: InterestStatus) => {
     const approveAction = {
       component: <IconButtonWithTooltip icon={<AddIcon />} tooltip="Create campaign" />,
-      onClick: (interest: Interest) => {
+      onClick: (interest: InterestData) => {
         router.push({
           pathname: '/admin/campaigns/create',
           query: { interestId: interest.id },
@@ -40,14 +39,14 @@ const Interests = () => {
 
     const rejectAction = {
       component: <IconButtonWithTooltip icon={<ClearIcon />} tooltip="Reject" />,
-      onClick: (interest: Interest) => {
+      onClick: (interest: InterestData) => {
         api.interests.rejectInterest(interest.id).then(() => mutate());
       },
     };
 
     const deleteAction = {
       component: <DeleteButton />,
-      onClick: (interest: Interest) => {
+      onClick: (interest: InterestData) => {
         api.interests.deleteInterest(interest.id).then(() => mutate());
       },
     };
