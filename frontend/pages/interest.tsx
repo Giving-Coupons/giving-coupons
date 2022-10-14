@@ -1,16 +1,16 @@
-import { NextPage } from 'next';
-import api from '../frontendApis';
+import { MailOutline } from '@mui/icons-material';
+import { Stack } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Container from '@mui/material/Container';
-import { MailOutline } from '@mui/icons-material';
-import { InterestPostData, InterestStatus } from '../types/interest';
-import { Stack } from '@mui/material';
-import { formStackSx, mailIconSx } from '../styles/interest';
-import moment from 'moment';
-import InterestForm, { InterestFormSubmitHandler } from '../components/interests/form/InterestForm';
-import { DEFAULT_COUPON_DENOMINATION } from '../utils/constants';
 import { Box } from '@mui/system';
+import moment from 'moment';
+import { NextPage } from 'next';
 import Head from 'next/head';
+import InterestForm, { InterestFormSubmitHandler } from '../components/interests/form/InterestForm';
+import api from '../frontendApis';
+import { formStackSx, mailIconSx } from '../styles/interest';
+import { InterestPostData, InterestStatus } from '../types/interest';
+import { DEFAULT_COUPON_DENOMINATION } from '../utils/constants';
 
 const interestsApi = api.interests;
 
@@ -21,8 +21,8 @@ const InterestFormPage: NextPage = () => {
       ...data,
       status: InterestStatus.PENDING,
       couponDenomination: DEFAULT_COUPON_DENOMINATION,
-      start: moment(data.start).toISOString(),
-      end: moment(data.start).clone().add(lengthOfCampaign, 'days').toISOString(),
+      start: moment(data.start),
+      end: moment(data.start).clone().add(lengthOfCampaign, 'days'),
     };
 
     return interestsApi.addInterest(interestPostData);
