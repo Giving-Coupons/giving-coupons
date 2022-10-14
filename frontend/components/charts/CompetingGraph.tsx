@@ -11,18 +11,18 @@ import {
 
 interface Props {
   topLabelTitle?: string;
-  topLabels: string[];
+  topLabels?: string[];
   bottomLabelTitle?: string;
-  bottomLabels: string[];
+  bottomLabels?: string[];
   barFractions: number[];
   overrideGraphSx?: SxProps;
 }
 
 const CompetingGraph = ({
   topLabelTitle,
-  topLabels,
+  topLabels = [],
   bottomLabelTitle,
-  bottomLabels,
+  bottomLabels = [],
   barFractions,
   overrideGraphSx = [],
 }: Props) => {

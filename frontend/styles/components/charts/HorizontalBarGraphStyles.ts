@@ -5,6 +5,8 @@ const borderRadius = '200px';
 
 export const graphSx: SxProps = {
   display: 'flex',
+  height: '1em',
+  width: '100%',
 };
 
 export const middleBarSx: SxProps = {

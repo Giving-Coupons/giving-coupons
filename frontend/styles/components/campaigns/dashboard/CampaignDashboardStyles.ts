@@ -9,6 +9,10 @@ export const containerSx: SxProps = {
   paddingBottom: '16px',
 };
 
+export const sectionSx: SxProps = {
+  padding: '10%',
+};
+
 export const cardSx: SxProps = {
   alignItems: 'center',
   height: '100%',
@@ -33,5 +37,15 @@ export const primaryDonorItemSx: SxProps = {
 
 export const logoSx: SxProps = {
   height: '100%',
-  objectFit: 'cover',
+  objectFit: 'contain',
+};
+
+export const donationTableHeaderSx: SxProps = {
+  alignItems: 'space-between',
+  justifyContent: 'space-between',
+};
+
+export const donationTableCharityLabelSx: SxProps = {
+  height: '32px',
+  width: '100%',
 };

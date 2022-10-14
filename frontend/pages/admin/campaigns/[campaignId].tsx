@@ -8,6 +8,7 @@ import { campaignImageBase64, logoBase64 } from '../../../utils/examples';
 import { CampaignCharityData, CampaignCharityDonationData } from '../../../types/campaignCharities';
 import { DonationBreakdownData } from '../../../types/donations';
 import { CouponListData } from '../../../types/coupons';
+import CampaignStatsView from '../../../components/campaigns/dashboard/CampaignStatsView';
 
 const sampleCampaignCharities: CampaignCharityData[] = [
   { id: 1, charity: { id: 1, name: 'Ark', logoBase64: logoBase64 }, givingSgUrl: 'https://giving.sg' },
@@ -111,6 +112,13 @@ const AdminCampaign = () => {
       </Head>
 
       <Grid container>
+        <Grid item sm={12} md={6}>
+          <CampaignStatsView
+            totalDonationBreakdown={sampleCampaign.donations}
+            charitiesDonations={sampleCampaign.charities}
+          />
+        </Grid>
+
         <Grid item sm={12} md={6}>
           <CampaignInfoView campaign={sampleCampaign} />
         </Grid>
