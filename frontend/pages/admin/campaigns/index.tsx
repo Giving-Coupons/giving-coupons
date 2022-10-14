@@ -1,4 +1,5 @@
 import AddIcon from '@mui/icons-material/Add';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import { Paper, Typography } from '@mui/material';
 import { Box, Stack } from '@mui/system';
 import moment from 'moment';
@@ -16,7 +17,6 @@ import { headerSx, rootSx } from '../../../styles/admin/campaigns/indexStyles';
 import { CampaignAdminListData } from '../../../types/campaigns';
 import { Nullable } from '../../../types/utils';
 import { DATE_FORMAT } from '../../../utils/constants';
-import EditIcon from '@mui/icons-material/Edit';
 
 const AdminCampaigns = () => {
   useAdminLoginCheck();
@@ -31,7 +31,7 @@ const AdminCampaigns = () => {
 
   const makeCampaignsTable = (campaigns: Nullable<CampaignAdminListData[]> | undefined) => {
     const goToManageCampaignAction = {
-      component: <IconButtonWithTooltip icon={<EditIcon />} tooltip="Manage Campaign" />,
+      component: <IconButtonWithTooltip icon={<ManageAccountsIcon />} tooltip="Manage Campaign" />,
       onClick: (campaign: CampaignAdminListData) => router.push(`/admin/campaigns/${campaign.id}`),
     };
 
@@ -47,7 +47,7 @@ const AdminCampaigns = () => {
             transformValue: (start) => start.format(DATE_FORMAT),
           },
           {
-            title: 'Start End',
+            title: 'End Date',
             key: 'end',
             transformValue: (end) => end.format(DATE_FORMAT),
           },
