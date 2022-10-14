@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class CampaignsController < ApplicationController
-  before_action :authenticate_admin!
-  before_action :set_campaign, only: %i[show update destroy]
+  before_action :authenticate_admin!, except: %i[index show]
+  before_action :set_campaign, only: %i[show admin_show update destroy]
 
   wrap_parameters format: :json,
                   include: %w[name description promisedAmount start end primaryDonorId
@@ -12,27 +12,33 @@ class CampaignsController < ApplicationController
     @campaigns = Campaign.all
   end
 
+  def admin_index
+    @campaigns = Campaign.all
+  end
+
   def show; end
+
+  def admin_show; end
 
   def create
     @campaign = Campaign.create!(campaign_params)
 
     add_success_message "Campaign \"#{@campaign.name}\" successfully created!"
-    render :show, status: :created, location: @campaign
+    render :response, status: :created, location: @campaign
   end
 
   def update
     @campaign.update!(campaign_params)
 
     add_success_message "Campaign \"#{@campaign.name}\" successfully updated!"
-    render :show, status: :ok, location: @campaign
+    render :response, status: :ok, location: @campaign
   end
 
   def destroy
     @campaign.destroy!
 
     add_success_message "Campaign \"#{@campaign.name}\" successfully deleted!"
-    render :show, status: :ok, location: @campaign
+    render :response, status: :ok, location: @campaign
   end
 
   private
