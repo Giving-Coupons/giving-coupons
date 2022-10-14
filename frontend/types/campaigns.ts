@@ -67,8 +67,8 @@ export type CampaignAdminListData = {
   id: number;
   name: string;
   promisedAmount: number;
-  start: string;
-  end: string;
+  start: Moment;
+  end: Moment;
   primaryDonor: {
     id: number;
     name: string;

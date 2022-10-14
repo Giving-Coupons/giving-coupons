@@ -1,5 +1,5 @@
 import { ApiPromise } from '../types/api';
-import { CampaignListData } from '../types/campaigns';
+import { CampaignAdminListData, CampaignListData } from '../types/campaigns';
 import BaseAPI from './base';
 
 class CampaignsAPI extends BaseAPI {
@@ -7,6 +7,10 @@ class CampaignsAPI extends BaseAPI {
 
   public list(): ApiPromise<CampaignListData[]> {
     return this.get(CampaignsAPI.CAMPAIGNS_URL);
+  }
+
+  public adminList(): ApiPromise<CampaignAdminListData[]> {
+    return this.get(`${CampaignsAPI.CAMPAIGNS_URL}/admin_index`);
   }
 }
 
