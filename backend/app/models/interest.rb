@@ -15,7 +15,7 @@ class Interest < ApplicationRecord
   validates :campaign_description, presence: true, allow_blank: false
   validates :start, presence: true
   validates :end, comparison: { greater_than: :start }
-  validates :interest_charities, presence: true
+  validates :interest_charities, length: { minimum: 1, maximum: 5 }
   validate :must_be_pending, on: :create
 
   def approve
