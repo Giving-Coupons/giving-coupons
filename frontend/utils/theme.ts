@@ -45,9 +45,13 @@ export const theme = createTheme({
       fontSize: '1em',
       fontWeight: 700,
     },
+    // h5 reserved for hero image
     h5: {
-      fontSize: '0.8em',
-      fontWeight: 700,
+      fontSize: '2.5rem',
+      fontWeight: 900,
+      '@media (min-width:600px)': {
+        fontSize: '4rem',
+      },
     },
     h6: {
       fontSize: '0.7em',

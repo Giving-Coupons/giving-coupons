@@ -56,7 +56,6 @@ export const contrastText: SxProps = {
 
 // Landing page css
 export const hero: SxProps = {
-  background: 'radial-gradient(closest-side, #FFC428, #F9FF28, #FDFFB6);',
   height: '80vh',
   width: '100vw',
 };
@@ -70,16 +69,16 @@ export const marTop10: SxProps = {
   marginTop: '10px',
 };
 
-export const spacing2: SxProps = {
+export const marTop2rem: SxProps = {
   marginTop: '2rem',
 };
 
 export const marLeft10: SxProps = {
-  marginLeft: '10px',
+  marginLeft: '2rem',
 };
 
 export const marRight10: SxProps = {
-  marginRight: '10px',
+  marginRight: '2rem',
 };
 
 export const shiftRight: SxProps = {
@@ -95,11 +94,13 @@ export const impactText: SxProps = {
   fontWeight: 'bold',
 };
 
-export const gradientSection: SxProps = {
-  background: 'linear-gradient(#FFC428, #FFEEC2)',
-  height: '80vh',
+export const section: SxProps = {
+  height: '60vh',
   width: '100vw',
   paddingTop: '10px',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'flex-start',
 };
 
 export const buttonSecondary: SxProps = {

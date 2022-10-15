@@ -2,137 +2,193 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import Button from '../components/generic/Button';
 import { Box, Stack } from '@mui/system';
-import { Grid, Typography } from '@mui/material';
+import { Grid } from '@mui/material';
+import { Typography } from '@mui/material';
 import {
   hero,
   buttonSx,
-  spacing2,
+  marTop2rem,
   marTop5,
   marTop10,
   marLeft10,
   marRight10,
   largeFont,
   impactText,
-  gradientSection,
+  section,
   buttonSecondary,
 } from '../styles/indexStyles';
 import Image from 'next/image';
+import ResponsiveImage from '../components/ResponsiveImage';
+import ButtonCard from '../components/ButtonCard';
 
 const Home: NextPage = () => {
   return (
-    <div>
+    <Box>
       <Head>
         <title>Giving Coupons</title>
       </Head>
-      <Box sx={hero}>
-        <Stack direction="column" justifyContent="flex-start" alignItems="center" spacing={2}>
-          <div style={{ display: 'block', height: '400px', width: '400px' }}>
-            <Image src="/nusstudents.png" layout="responsive" width="400px" height="400px"></Image>
-          </div>
-          <Typography variant="h1" align="center">
-            Together, we are more
-          </Typography>
-          <Typography sx={marTop5} variant="h3" align="center">
-            Giving coupons is an initiative to raise money for charities through public gift matching
-          </Typography>
-          <Button sx={buttonSx} actionType="primary">
-            Explore Our Campaigns
-          </Button>
-        </Stack>
-      </Box>
 
-      <Box sx={spacing2}>
+      <Grid container spacing={2} alignItems="center" justifyContent="center">
+        <Grid item xs={12} sm={12} md={6} lg={6}>
+          <Image src="/nusstudents.png" layout="responsive" width="100%" height="100%"></Image>
+        </Grid>
+        <Grid item xs={12} sm={12} md={6} lg={6} display="flex" alignItems="center" justifyContent="center">
+          <Stack justifyContent="center" alignItems="flex-start" height="100%" width="80%">
+            <Typography variant="h5" align="center" textAlign="left" fontWeight="900">
+              Together, we are more
+            </Typography>
+            <Typography sx={marTop5} variant="subtitle" align="center" fontSize="20px" textAlign="left" fontWeight="500">
+              Giving coupons is an initiative to raise money for charities through public gift matching
+            </Typography>
+            <Button sx={buttonSx} actionType="primary">
+              Explore Our Campaigns
+            </Button>
+          </Stack>
+        </Grid>
+      </Grid>
+
+      <Stack sx={marTop2rem} direction="column" justifyContent="center" alignItems="center">
         <Typography sx={marTop10} variant="h1" align="center">
           To Date
         </Typography>
-        <Stack sx={spacing2} direction="column" justifyContent="space-between" alignItems="center" spacing={2}>
-          <Stack direction="column" justifyContent="flex-start" alignItems="center">
-            <div style={{ display: 'block', height: '100px', width: '100px' }}>
-              <Image src="/icon-charity.png" layout="responsive" width="100px" height="100px"></Image>
-            </div>
-            <Typography sx={[impactText, largeFont]}>$4,500</Typography>
-            <Typography variant="subtitle1">Additional funds raised for charity</Typography>
-          </Stack>
+        <Box width="80%">
+          <Grid sx={marTop2rem} container spacing={2} alignItems="center" justifyContent="center">
+            <Grid item xs={12} sm={12} md={4} lg={4} display="flex" alignItems="center" justifyContent="center">
+              <Stack direction="column" justifyContent="flex-start" alignItems="center">
+                <Box sx={{ display: 'block', height: '100px', width: '100px' }}>
+                  <Image src="/icon-charity.png" layout="responsive" width="100px" height="100px"></Image>
+                </Box>
+                <Typography sx={[impactText, largeFont]}>$4,500</Typography>
+                <Typography variant="subtitle1">Additional funds raised for charity</Typography>
+              </Stack>
+            </Grid>
 
-          <Stack sx={spacing2} direction="column" justifyContent="flex-start" alignItems="center">
-            <div style={{ display: 'block', height: '100px', width: '100px' }}>
-              <Image src="/icon-voucher.png" layout="responsive" width="100px" height="100px"></Image>
-            </div>
-            <Typography sx={[impactText, largeFont]}>632</Typography>
-            <Typography variant="subtitle1">Coupons issued</Typography>
-          </Stack>
+            <Grid item xs={12} sm={12} md={4} lg={4} display="flex" alignItems="center" justifyContent="center">
+              <Stack sx={marTop2rem} direction="column" justifyContent="flex-start" alignItems="center">
+                <div style={{ display: 'block', height: '100px', width: '100px' }}>
+                  <Image src="/icon-voucher.png" layout="responsive" width="100px" height="100px"></Image>
+                </div>
+                <Typography sx={[impactText, largeFont]}>632</Typography>
+                <Typography variant="subtitle1">Coupons issued</Typography>
+              </Stack>
+            </Grid>
 
-          <Stack sx={spacing2} direction="column" justifyContent="flex-start" alignItems="center">
-            <div style={{ display: 'block', height: '100px', width: '100px' }}>
-              <Image src="/icon-love.png" layout="responsive" width="100px" height="100px"></Image>
-            </div>
-            <Typography sx={[impactText, largeFont]}>20972</Typography>
-            <Typography variant="subtitle1">Lives impacted</Typography>
-          </Stack>
-        </Stack>
-      </Box>
+            <Grid item xs={12} sm={12} md={4} lg={4} display="flex" alignItems="center" justifyContent="center">
+              <Stack sx={marTop2rem} direction="column" justifyContent="flex-start" alignItems="center">
+                <div style={{ display: 'block', height: '100px', width: '100px' }}>
+                  <Image src="/icon-love.png" layout="responsive" width="100px" height="100px"></Image>
+                </div>
+                <Typography sx={[impactText, largeFont]}>20972</Typography>
+                <Typography variant="subtitle1">Lives impacted</Typography>
+              </Stack>
+            </Grid>
+          </Grid>
+        </Box>
+      </Stack>
 
-      <Box sx={[spacing2, gradientSection]}>
+      <ResponsiveImage />
+
+      <Box sx={[marTop2rem, section]}>
         <Stack
-          sx={{ height: '70vh', padding: '16px' }}
+          sx={{ width: '90%', maxWidth: '600px', height: '100%', padding: '16px' }}
           direction="column"
           justifyContent="space-between"
           alignItems="center"
           spacing={2}
         >
           <Typography sx={marTop10} variant="h1" align="center">
-            3 Simple Steps
+            How it Works
           </Typography>
-          <Stack sx={marTop10} direction="column" justifyContent="space-between" alignItems="center" spacing={2}>
+
+          <Stack
+            sx={marTop10}
+            direction="column"
+            justifyContent="space-between"
+            alignItems="flex-start"
+            spacing={2}
+            width="100%"
+          >
             <Stack direction="row" justifyContent="space-between" alignItems="center">
-              <div style={{ display: 'block', height: '100px', width: '100px' }}>
-                <Image src="/icon-give-money.png" layout="responsive" width="100px" height="100px"></Image>
+              <div style={{ display: 'block', height: '60px', width: '60px' }}>
+                <Image src="/public-relation.png" layout="responsive" width="60px" height="60px"></Image>
               </div>
               <Stack direction="column" justifyContent="space-between" alignItems="flex-start">
                 <Typography sx={marLeft10} variant="h2">
-                  Receive a coupon from one of our distributors
+                  Donors commit a sum to one or more charities
                 </Typography>
-                <Button sx={buttonSecondary} actionType="tertiary">
-                  Request for a coupon
-                </Button>
               </Stack>
             </Stack>
           </Stack>
 
-          <Stack sx={marTop10} direction="column" justifyContent="space-between" alignItems="center" spacing={2}>
+          <Stack
+            sx={marTop10}
+            direction="column"
+            justifyContent="space-between"
+            alignItems="flex-end"
+            spacing={2}
+            width="100%"
+          >
             <Stack direction="row" justifyContent="space-between" alignItems="center">
               <Stack direction="column" justifyContent="space-between" alignItems="flex-end">
                 <Typography sx={marRight10} variant="h2" align="right">
-                  Select a charity that you want to donate to
+                  Giving coupons generate coupons
                 </Typography>
-                <Button sx={buttonSecondary} actionType="tertiary">
-                  Our Partners
-                </Button>
               </Stack>
-              <div style={{ display: 'block', height: '100px', width: '100px' }}>
-                <Image src="/icon-community.png" layout="responsive" width="100px" height="100px"></Image>
+              <div style={{ display: 'block', height: '60px', width: '60px' }}>
+                <Image src="/icon-voucher.png" layout="responsive" width="60px" height="60px"></Image>
               </div>
             </Stack>
           </Stack>
 
-          <Stack sx={marTop10} direction="column" justifyContent="space-between" alignItems="center" spacing={2}>
+          <Stack
+            sx={marTop10}
+            direction="column"
+            justifyContent="space-between"
+            alignItems="flex-start"
+            spacing={2}
+            width="100%"
+          >
             <Stack direction="row" justifyContent="space-between" alignItems="center">
-              <div style={{ display: 'block', height: '100px', width: '100px' }}>
-                <Image src="/icon-give-love.png" layout="responsive" width="100px" height="100px"></Image>
+              <div style={{ display: 'block', height: '80px', width: '80px' }}>
+                <Image src="/icon-charity.png" layout="responsive" width="80px" height="80px"></Image>
               </div>
               <Box>
                 <Typography sx={marLeft10} variant="h2">
-                  Contribute your own money if you can
+                  Coupon recipients choose which charities gets the donation
                 </Typography>
-                <Button sx={buttonSecondary} actionType="tertiary">
-                  Donate directly
-                </Button>
               </Box>
             </Stack>
           </Stack>
         </Stack>
       </Box>
-    </div>
+
+      <Stack 
+        direction="column"
+        justifyContent="space-between"
+        alignItems="center"
+        spacing={2}
+      >
+        <Typography sx={marTop10} variant="h1" align="center">
+          Join Our Mission
+        </Typography>
+        <Grid container spacing={2} alignItems="center" justifyContent="center">
+          <Grid item xs={12} sm={12} md={6} lg={6} display="flex" alignItems="center" justifyContent="center">
+            <ButtonCard 
+              title="Create a Campaign"
+              content="Commit a sum and generate coupons to spread the gift of giving"
+            />
+          </Grid>
+
+          <Grid item xs={12} sm={12} md={6} lg={6} display="flex" alignItems="center" justifyContent="center">
+            <ButtonCard 
+              title="Contribute to a campaign"
+              content="Learn more about existing campaigns and contribute directly"
+            />
+          </Grid>
+        </Grid>
+      </Stack>
+
+    </Box>
   );
 };
 
