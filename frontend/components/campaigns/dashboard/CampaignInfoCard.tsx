@@ -3,7 +3,7 @@ import { CampaignBaseData } from '../../../types/campaigns';
 import { cardSx } from '../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
 import { Grid, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
-import { formatDate } from '../../../utils/dates';
+import { DATE_FORMAT } from '../../../utils/constants';
 
 interface Props {
   campaignBaseInfo: CampaignBaseData;
@@ -39,9 +39,9 @@ const CampaignInfoCard = ({ campaignBaseInfo }: Props) => (
 
       <CampaignInfoItem title="Coupon Denomination">${campaignBaseInfo.couponDenomination}</CampaignInfoItem>
 
-      <CampaignInfoItem title="Start Date">{formatDate(campaignBaseInfo.start)}</CampaignInfoItem>
+      <CampaignInfoItem title="Start Date">{campaignBaseInfo.start.format(DATE_FORMAT)}</CampaignInfoItem>
 
-      <CampaignInfoItem title="End Date">{formatDate(campaignBaseInfo.end)}</CampaignInfoItem>
+      <CampaignInfoItem title="End Date">{campaignBaseInfo.end.format(DATE_FORMAT)}</CampaignInfoItem>
     </Grid>
   </Stack>
 );

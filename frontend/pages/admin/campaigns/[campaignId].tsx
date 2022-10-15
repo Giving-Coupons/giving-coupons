@@ -90,8 +90,8 @@ const sampleCampaign: CampaignAdminData = {
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sodales pretium felis, eget convallis magna consectetur vitae. Vestibulum aliquam at felis sed mattis. Nulla facilisi. Vivamus ultrices sed leo eget tempor. Sed gravida consectetur finibus. Proin accumsan sit amet ipsum ut posuere.',
   promisedAmount: 1000,
   couponDenomination: 10,
-  start: moment().toISOString(),
-  end: moment().toISOString(),
+  start: moment(),
+  end: moment(),
   imageBase64: campaignImageBase64,
   interestId: null,
   primaryDonor: {
