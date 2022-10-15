@@ -9,11 +9,14 @@ import {
   campaignDateIconSx,
   campaignImageSx,
   campaignMoneyIconSx,
+  campaignInfoCardHeaderSx,
 } from '../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
 import LinearScaleIcon from '@mui/icons-material/LinearScale';
 import moment, { Moment } from 'moment';
 import PaidIcon from '@mui/icons-material/Paid';
 import LocalActivityIcon from '@mui/icons-material/LocalActivity';
+import Button from '../../generic/Button';
+import { useRouter } from 'next/router';
 
 interface Props {
   campaign: CampaignAdminData;
@@ -48,6 +51,7 @@ const CampaignDateInfoIcon = ({ date }: CampaignDateInfoProps) => (
 );
 
 const CampaignInfoCard = ({ campaign }: Props) => {
+  const router = useRouter();
   const getStatus = (start: Moment, end: Moment) => {
     if (end.isBefore(moment().startOf('day'))) {
       return 'Completed';
@@ -68,7 +72,17 @@ const CampaignInfoCard = ({ campaign }: Props) => {
 
       <Grid item xs={12} md={6}>
         <Stack component="div" spacing={2}>
-          <Typography variant="h3">{campaign.name}</Typography>
+          <Stack sx={campaignInfoCardHeaderSx} component="div" direction="row">
+            <Typography variant="h3">{campaign.name}</Typography>
+
+            <Stack component="div" direction="row" spacing={1}>
+              <Button actionType="secondary" onClick={() => router.push(`/admin/campaigns/${campaign.id}/edit`)}>
+                Edit
+              </Button>
+
+              <Button actionType="danger">Delete</Button>
+            </Stack>
+          </Stack>
 
           <Typography variant="body2">{campaign.description}</Typography>
 

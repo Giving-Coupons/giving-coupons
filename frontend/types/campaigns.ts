@@ -38,6 +38,7 @@ export type CampaignFormData = {
   name?: string;
   description?: string;
   promisedAmount?: number;
+  couponDenomination?: number;
   start: Nullable<Moment>;
   end: Nullable<Moment>;
   imageBase64?: string;
@@ -94,7 +95,13 @@ export type CampaignPostData = Omit<WithoutId<CampaignBaseData>, 'charities' | '
   primaryDonor: PrimaryDonorPostData;
 };
 
-export type CampaignPutData = CampaignPostData;
+export type CampaignPutData = Omit<
+  WithoutId<CampaignBaseData>,
+  'charities' | 'primaryDonor' | 'promisedAmount' | 'couponDenomination'
+> & {
+  charities: CampaignCharityBaseData[];
+  primaryDonor: PrimaryDonorData;
+};
 
 export type CampaignPublicData = CampaignBaseData & {
   donations: DonationBreakdownData;

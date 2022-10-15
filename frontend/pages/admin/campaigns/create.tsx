@@ -1,12 +1,11 @@
 import { Box, Container } from '@mui/system';
-import { isInteger } from 'formik';
 import moment from 'moment';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 import * as Yup from 'yup';
-import CampaignForm from '../../../components/campaigns/form/CampaignForm';
+import CampaignForm, { campaignDefaultInitialValues } from '../../../components/campaigns/form/CampaignForm';
 import api from '../../../frontendApis';
 import InterestsAPI from '../../../frontendApis/interests';
 import { CampaignCharityPostData } from '../../../types/campaignCharities';
@@ -101,15 +100,9 @@ const CampaignCreate = () => {
   const router = useRouter();
   const { interestId } = router.query;
   const { data: interest } = useSWR<Nullable<InterestData>>(`${InterestsAPI.INTERESTS_URL}/getInterest`, () =>
-    isInteger(interestId) ? api.interests.getInterest(Number(interestId)).then((r) => r.payload) : null,
+    canBecomeInteger(interestId) ? api.interests.getInterest(Number(interestId)).then((r) => r.payload) : null,
   );
-  const defaultInitialValues = {
-    start: null,
-    end: null,
-    interestId: null,
-    charities: [{}],
-  };
-  const [initialValues, setInitialValues] = useState<CampaignFormData>(defaultInitialValues);
+  const [initialValues, setInitialValues] = useState<CampaignFormData>(campaignDefaultInitialValues);
 
   useEffect(() => {
     if (interest) {
@@ -117,6 +110,7 @@ const CampaignCreate = () => {
         name: interest.campaignName,
         description: interest.campaignDescription,
         promisedAmount: interest.promisedAmount,
+        couponDenomination: campaignDefaultInitialValues.couponDenomination,
         start: interest.start,
         end: interest.end,
         interestId: interest.id,
@@ -130,7 +124,7 @@ const CampaignCreate = () => {
       });
     } else {
       // Note: This has to be here otherwise the previous interest values may be shown
-      setInitialValues(defaultInitialValues);
+      setInitialValues(campaignDefaultInitialValues);
     }
   }, [interest]);
 
@@ -176,6 +170,7 @@ const CampaignCreate = () => {
         <CampaignForm
           title="Create Campaign"
           submitButtonTitle="Create"
+          isEdit={false}
           initialValues={initialValues}
           validationSchema={createCampaignSchema}
           onSubmit={handleSubmit}

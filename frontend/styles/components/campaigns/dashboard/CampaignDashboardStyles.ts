@@ -60,6 +60,11 @@ export const campaignImageSx: SxProps = {
   maxHeight: '100%',
 };
 
+export const campaignInfoCardHeaderSx: SxProps = {
+  justifyContent: 'space-between',
+  alignItems: 'start',
+};
+
 export const campaignInfoItemSx: SxProps = {
   width: '100%',
   justifyContent: 'center',
