@@ -25,14 +25,15 @@ type Props<D> = {
   rows: D[];
   actions?: Action<D>[];
   isLoading?: boolean;
+  shouldUsePaper?: boolean;
 };
 
-export default function SimpleTable<D>({ columns, rows, actions = [], isLoading }: Props<D>) {
+export default function SimpleTable<D>({ columns, rows, actions = [], isLoading, shouldUsePaper = true }: Props<D>) {
   const hasActions = actions.length > 0;
   const numColumns = columns.length + (hasActions ? 1 : 0);
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={shouldUsePaper ? Paper : 'div'}>
       <Table>
         <TableHead>
           <TableRow>

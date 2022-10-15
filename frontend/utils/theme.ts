@@ -70,7 +70,7 @@ export const theme = createTheme({
       dark: '#002584',
     },
     neutral: {
-      light: '#717171',
+      light: '#DCDCDC',
       main: '#000000',
     },
     primaryTranslucent: {

@@ -2,7 +2,7 @@ import { Nullable, WithoutId } from './utils';
 
 type DonationData = {
   amount: number;
-  fraction: number;
+  fraction: Nullable<number>;
 };
 
 export type DonationBreakdownData = {
