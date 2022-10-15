@@ -61,7 +61,7 @@ const CharityDonationLabel = (campaignCharity: CampaignCharityData) => (
       <MuiLink component={Link} href={campaignCharity.givingSgUrl}>
         <a>
           <Typography variant="caption" color="info.main">
-            {campaignCharity.givingSgUrl}
+            GivingSg Campaign
           </Typography>
         </a>
       </MuiLink>
@@ -76,8 +76,8 @@ const CampaignDonationBreakdownCard = ({ totalDonationBreakdown, charitiesDonati
     <TableContainer component="div">
       <Table>
         <colgroup>
-          <col width="20%" />
-          <col width="80%" />
+          <col width="30%" />
+          <col width="70%" />
         </colgroup>
 
         <TableHead>
