@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 import Container from '@mui/material/Container';
-import { Interest } from '../../../types/interest';
+import { InterestData } from '../../../types/interest';
 import { Button, InputAdornment, Stack, Typography } from '@mui/material';
 import { submitButtonSx } from '../../../styles/components/interests/InterestFormStyles';
 import { Form, Formik } from 'formik';
@@ -13,7 +13,7 @@ import InterestFormAmountButton from './InterestFormAmountButton';
 import InterestFormCharitySelector from './InterestFormCharitySelector';
 
 export type InterestFormData = Partial<
-  Omit<Interest, 'id' | 'status' | 'couponDenomination' | 'start' | 'end' | 'charities'>
+  Omit<InterestData, 'id' | 'status' | 'couponDenomination' | 'start' | 'end' | 'charities'>
 > & {
   start: Nullable<Moment>;
   charityIds: number[];
@@ -77,7 +77,6 @@ export default function InterestForm({ onSubmit }: InterestFormProps) {
         {({ isValid, dirty }) => (
           <Form>
             <Stack spacing={2}>
-              {/* TODO: Charity selection is omitted as its model is TBD. */}
               <Stack spacing={2}>
                 <Typography component="h2" variant="h3">
                   Your Campaign
