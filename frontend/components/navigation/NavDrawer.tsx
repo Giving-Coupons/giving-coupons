@@ -18,6 +18,7 @@ import { OrderedMap } from 'immutable';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { unsetAuthHeaders } from '../../frontendApis/helpers/authHeaders';
 import { Stack } from '@mui/system';
+import api from '../../frontendApis';
 
 interface Props {
   isOpen: boolean;
@@ -31,9 +32,11 @@ const NavDrawer = ({ isOpen, setIsOpen, navigationTextPathMap }: Props) => {
   const isAdminPage = router.pathname.startsWith(adminPathPrefix);
 
   const handleLogOut = () => {
-    unsetAuthHeaders();
     setIsOpen(false);
-    router.push(`${adminPathPrefix}/sign-in`);
+    api.admins.logoutAdmin().then(() => {
+      unsetAuthHeaders();
+      router.push(`${adminPathPrefix}/sign-in`);
+    });
   };
 
   return (

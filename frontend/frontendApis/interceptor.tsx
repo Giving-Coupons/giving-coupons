@@ -2,6 +2,7 @@ import { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { useSnackbar } from 'notistack';
 import React, { useEffect, useState } from 'react';
 import { ApiResponse } from '../types/api';
+import { handleDates } from '../utils/dates';
 import AxiosClient from './axiosClient';
 
 import { saveAuthHeaders, setAuthHeaders } from './helpers/authHeaders';
@@ -28,6 +29,7 @@ const AxiosInterceptor = ({ children }: Props) => {
         }
 
         saveAuthHeaders(response);
+        handleDates(response.data);
         return response;
       },
       (error: AxiosError<ApiResponse<null>>) => {

@@ -1,5 +1,5 @@
 import imageCompression from 'browser-image-compression';
-import { Base64String } from '../types/Base64';
+import { Base64String } from '../types/base64';
 import { MAX_IMAGE_SIZE_MB } from './constants';
 
 const imageCompressionOptions = Object.freeze({
