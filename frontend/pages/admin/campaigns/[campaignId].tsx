@@ -44,7 +44,7 @@ const AdminCampaign = () => {
           <Grid container>
             <Grid item xs={12} md={8}>
               <Stack sx={sectionSx} component="div" spacing={4}>
-                <CampaignInfoCard campaignBaseInfo={campaign} />
+                <CampaignInfoCard campaign={campaign} />
 
                 <CampaignCouponsCard coupons={campaign.coupons} />
               </Stack>

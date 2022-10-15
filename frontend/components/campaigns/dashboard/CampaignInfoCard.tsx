@@ -1,5 +1,5 @@
 import React from 'react';
-import { CampaignBaseData } from '../../../types/campaigns';
+import { CampaignAdminData } from '../../../types/campaigns';
 import { Grid, Tooltip, Typography } from '@mui/material';
 import { Box, Stack } from '@mui/system';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
@@ -16,7 +16,7 @@ import PaidIcon from '@mui/icons-material/Paid';
 import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 
 interface Props {
-  campaignBaseInfo: CampaignBaseData;
+  campaign: CampaignAdminData;
 }
 
 interface CampaignMoneyInfoProps {
@@ -47,7 +47,7 @@ const CampaignDateInfoIcon = ({ date }: CampaignDateInfoProps) => (
   </Stack>
 );
 
-const CampaignInfoCard = ({ campaignBaseInfo }: Props) => {
+const CampaignInfoCard = ({ campaign }: Props) => {
   const getStatus = (start: Moment, end: Moment) => {
     if (end.isBefore(moment().startOf('day'))) {
       return 'Completed';
@@ -63,41 +63,41 @@ const CampaignInfoCard = ({ campaignBaseInfo }: Props) => {
   return (
     <Grid container columnSpacing={2}>
       <Grid item xs={12} md={6}>
-        <Box sx={campaignImageSx} component="img" src={campaignBaseInfo.imageBase64} />
+        <Box sx={campaignImageSx} component="img" src={campaign.imageBase64} />
       </Grid>
 
       <Grid item xs={12} md={6}>
         <Stack component="div" spacing={2}>
-          <Typography variant="h3">{campaignBaseInfo.name}</Typography>
+          <Typography variant="h3">{campaign.name}</Typography>
 
-          <Typography variant="body2">{campaignBaseInfo.description}</Typography>
+          <Typography variant="body2">{campaign.description}</Typography>
 
           <Stack sx={campaignInfoItemSx} component="div" spacing={1}>
-            <Typography variant="h4">Status: {getStatus(campaignBaseInfo.start, campaignBaseInfo.end)}</Typography>
+            <Typography variant="h4">Status: {getStatus(campaign.start, campaign.end)}</Typography>
 
             <Stack component="div" direction="row" spacing={2}>
-              <CampaignDateInfoIcon date={campaignBaseInfo.start} />
+              <CampaignDateInfoIcon date={campaign.start} />
 
               <LinearScaleIcon fontSize="large" />
 
-              <CampaignDateInfoIcon date={campaignBaseInfo.end} />
+              <CampaignDateInfoIcon date={campaign.end} />
             </Stack>
           </Stack>
 
           <Stack sx={campaignInfoItemSx} component="div" spacing={1}>
-            <Typography variant="h4">Money Info</Typography>
+            <Typography variant="h4">{`${campaign.coupons.length} coupons in total`}</Typography>
 
             <Stack component="div" direction="row" spacing={2}>
               <CampaignMoneyInfoIcon
                 tooltipTitle="Promised Amount"
                 icon={<PaidIcon fontSize="large" />}
-                amount={campaignBaseInfo.promisedAmount}
+                amount={campaign.promisedAmount}
               />
 
               <CampaignMoneyInfoIcon
                 tooltipTitle="Coupon Denomination"
                 icon={<LocalActivityIcon fontSize="large" />}
-                amount={campaignBaseInfo.couponDenomination}
+                amount={campaign.couponDenomination}
               />
             </Stack>
           </Stack>
