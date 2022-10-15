@@ -3,14 +3,13 @@ import Head from 'next/head';
 import useSWR from 'swr';
 import CharityForm, { charitySchema } from '../../../../components/charities/form/CharityForm';
 import { containerSx } from '../../../../styles/admin/charities/createStyles';
-import { CharityFormData, CharityPutData } from '../../../../types/charity';
+import { CharityData, CharityFormData, CharityPutData } from '../../../../types/charity';
 import * as Yup from 'yup';
 import api from '../../../../frontendApis';
 import { useRouter } from 'next/router';
 import { Stack, Typography } from '@mui/material';
 import { errorStackSx } from '../../../../styles/admin/charities/editStyles';
 import useAdminLoginCheck from '../../../../hooks/useAdminLogInCheck';
-import { isInteger } from 'formik';
 import { Nullable } from '../../../../types/utils';
 
 const CharityEdit = () => {
@@ -19,14 +18,14 @@ const CharityEdit = () => {
 
   // Note that the router query parameters will all be undefined on initial render.
   const { query } = router;
-  const charityId = query.charityId ? Number(query.charityId) : undefined;
-  const { data: initialValues, error } = useSWR<Nullable<CharityFormData>>([charityId], (charityId) =>
-    isInteger(charityId) ? api.charities.getCharity(Number(charityId)).then((res) => res.payload) : null,
+  const charityId = query.charityId ? Number(query.charityId) : null;
+  const { data: initialValues, error } = useSWR<Nullable<CharityData>>([charityId], (charityId) =>
+    charityId !== null ? api.charities.getCharity(charityId).then((res) => res.payload) : null,
   );
   const isLoading = !initialValues && !error;
 
-  const handleSubmit = async (values: CharityFormData) => {
-    if (!isInteger(charityId)) {
+  const handleSubmit = (charityId: number | null) => async (values: CharityFormData) => {
+    if (charityId === null) {
       // This should never be available as useSWR will set error / loading and form will not be visible. (Defensive)
       return Promise.reject('Charity ID is not an integer.');
     }
@@ -57,7 +56,7 @@ const CharityEdit = () => {
             title="Edit Charity"
             submitButtonTitle="Save"
             initialValues={initialValues}
-            onSubmit={handleSubmit}
+            onSubmit={handleSubmit(charityId)}
           />
         )}
         {isLoading && (
