@@ -10,13 +10,54 @@ import CloseQuotes from '../../components/icons/CloseQuotes';
 import CircularProgressWithLabel from '../../components/CircularProgressWithLabel';
 import SwiperWrapper from '../../components/swiper/SwiperWrapper';
 import CampaignCharityList from '../../components/charities/CampaignCharityList';
+import CampaignsAPI from '../../frontendApis/campaigns';
+import api from '../../frontendApis';
+import { GetServerSidePropsContext } from 'next';
+import { CampaignPublicData } from '../../types/campaigns';
+import { StatusMessage } from '../../types/api';
+import { Nullable } from '../../types/utils';
+import { useSnackbar } from 'notistack';
+import { enqueueGCSnackbar } from '../../utils/snackbar';
 
-export default function CampaignDetail() {
+export async function getServerSideProps(
+  context: GetServerSidePropsContext,
+): Promise<{ props: { campaign: Nullable<CampaignPublicData>; message?: Nullable<StatusMessage> } }> {
+  const { campaignId: campaignIdParam } = context.query;
+
+  const campaignId = canBecomeInteger(campaignIdParam) ? Number(campaignIdParam) : undefined;
+
+  if (!campaignId) {
+    return {
+      props: {
+        campaign: null,
+      },
+    };
+  }
+
+  const response = await api.campaigns.getCampaign(campaignId);
+
+  return {
+    props: {
+      campaign: response.payload,
+      message: response.message,
+    },
+  };
+}
+
+type Props = {
+  campaign: Nullable<CampaignPublicData>;
+  message: Nullable<StatusMessage>;
+};
+
+export default function CampaignDetail({ campaign, message }: Props) {
   const router = useRouter();
+  const { enqueueSnackbar } = useSnackbar();
 
-  const campaignId = canBecomeInteger(router.query.campaignId) ? Number(router.query.campaignId) : undefined;
+  enqueueGCSnackbar(enqueueSnackbar, message);
 
-  const campaign = makeMockCampaign(); // TODO: Replace with API call
+  if (!campaign) {
+    return null;
+  }
 
   const numTotalCoupons = campaign.promisedAmount / campaign.couponDenomination;
   const numCouponsRedeemed = campaign.donations.primaryDonor.amount / campaign.couponDenomination;

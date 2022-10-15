@@ -1,5 +1,5 @@
 import { ApiPromise } from '../types/api';
-import { CampaignAdminData, CampaignAdminListData, CampaignListData } from '../types/campaigns';
+import { CampaignAdminData, CampaignAdminListData, CampaignListData, CampaignPublicData } from '../types/campaigns';
 import BaseAPI from './base';
 
 class CampaignsAPI extends BaseAPI {
@@ -11,6 +11,10 @@ class CampaignsAPI extends BaseAPI {
 
   public adminList(): ApiPromise<CampaignAdminListData[]> {
     return this.get(`${CampaignsAPI.CAMPAIGNS_URL}/admin_index`);
+  }
+
+  public getCampaign(id: number): ApiPromise<CampaignPublicData> {
+    return this.get(`${CampaignsAPI.CAMPAIGNS_URL}/${id}`);
   }
 
   public adminGet(id: number): ApiPromise<CampaignAdminData> {
