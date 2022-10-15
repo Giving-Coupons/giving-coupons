@@ -1,5 +1,4 @@
 import { Grid, Radio, Stack, Typography } from '@mui/material';
-import { makeMockCampaignCharity } from '../../pages/campaigns/mock';
 import { containerSx } from '../../styles/redeem/indexStyles';
 import { CouponRedeemData } from '../../types/coupons';
 import { Nullable } from '../../types/utils';
@@ -42,7 +41,7 @@ const CampaignCharitySelection = ({ coupon, campaignCharityId, setCampaignCharit
           <Grid item xs={12} sm={6} key={index}>
             <Stack direction="row" alignItems="flex-start" onClick={() => setCampaignCharityId(campaignCharity.id)}>
               <Radio checked={campaignCharityId === campaignCharity.id} value={campaignCharity.id} />
-              <CampaignCharityCard campaignCharity={makeMockCampaignCharity(1)} />
+              <CampaignCharityCard campaignCharity={campaignCharity} />
             </Stack>
           </Grid>
         ))}
