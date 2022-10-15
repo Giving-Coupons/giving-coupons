@@ -1,4 +1,4 @@
-import { Box, Grid, InputAdornment, Radio, Skeleton, Stack, Typography } from '@mui/material';
+import { Box, Grid, InputAdornment, Radio, Stack, Typography } from '@mui/material';
 import { Form, Formik, isString } from 'formik';
 import { NextPage } from 'next';
 import Head from 'next/head';
@@ -13,7 +13,6 @@ import FormTextInput from '../../../components/forms/FormTextInput';
 import Button from '../../../components/generic/Button';
 import RedeemLoading from '../../../components/redeem/RedeemLoading';
 import api from '../../../frontendApis';
-import CouponsAPI from '../../../frontendApis/coupons';
 import { containerSx } from '../../../styles/redeem/indexStyles';
 import { CouponRedeemData } from '../../../types/coupons';
 import { Nullable } from '../../../types/utils';
@@ -34,14 +33,13 @@ export const couponRedeemFormSchema = Yup.object({
 const Redeem: NextPage = () => {
   const router = useRouter();
   const urlToken = router.query.urlToken && isString(router.query.urlToken) ? router.query.urlToken : null;
-
   const { data: coupon, error } = useSWR<Nullable<CouponRedeemData>>([urlToken], (urlToken) =>
     urlToken !== null ? api.coupons.getCoupon(urlToken).then((r) => r.payload) : null,
   );
+
   const isLoading = !coupon && !error;
   const [campaignCharityId, setCampaignCharityId] = useState<Nullable<number>>(null);
   const [amount, setAmount] = useState<number>(0);
-
   const [redeemPageIndex, setRedeemPageIndex] = useState<number>(INITIAL_REDEEM_PAGE);
 
   const goToNextPage = () => {
