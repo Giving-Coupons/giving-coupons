@@ -13,7 +13,7 @@ class SecondaryDonationsController < ApplicationController
     @secondary_donation.coupon = Coupon.find_by(url_token: params[:url_token])
     @secondary_donation.save!
 
-    add_success_message('Donation successfully created!')
+    add_success_message('Thank you for your donation!')
   end
 
   private
