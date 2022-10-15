@@ -35,7 +35,8 @@ export const primaryDonorItemSx: SxProps = {
 };
 
 export const logoSx: SxProps = {
-  height: '100%',
+  height: '32px',
+  width: 'auto',
   objectFit: 'contain',
 };
 

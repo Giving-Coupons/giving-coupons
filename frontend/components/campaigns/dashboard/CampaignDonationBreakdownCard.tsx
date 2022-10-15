@@ -1,11 +1,27 @@
 import { DonationBreakdownData } from '../../../types/donations';
-import { CampaignCharityDonationData } from '../../../types/campaignCharities';
-import { donationTableHeaderSx } from '../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
+import { CampaignCharityData, CampaignCharityDonationData } from '../../../types/campaignCharities';
+import {
+  charityContainerSx,
+  charityItemSx,
+  donationTableHeaderSx,
+  logoSx,
+} from '../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
+import {
+  Avatar,
+  Link as MuiLink,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+} from '@mui/material';
 import { Stack } from '@mui/system';
-import React from 'react';
+import React, { ReactNode } from 'react';
 import CompetingGraph from '../../charts/CompetingGraph';
 import CampaignCard from './CampaignCard';
+import Link from 'next/link';
 
 interface Props {
   totalDonationBreakdown: DonationBreakdownData;
@@ -13,7 +29,7 @@ interface Props {
 }
 
 interface DonationTableRowProps {
-  label: string;
+  label: ReactNode;
   donationBreakdown: DonationBreakdownData;
 }
 
@@ -35,21 +51,44 @@ const DonationTableRow = ({ label, donationBreakdown }: DonationTableRowProps) =
   </TableRow>
 );
 
+const CharityDonationLabel = (campaignCharity: CampaignCharityData) => (
+  <Stack sx={charityContainerSx} component="div" direction="row" spacing={2}>
+    <Avatar sx={logoSx} variant="square" src={campaignCharity.charity.logoBase64} />
+
+    <Stack sx={charityItemSx} component="div">
+      <Typography variant="h4">{campaignCharity.charity.name}</Typography>
+
+      <MuiLink component={Link} href={campaignCharity.givingSgUrl}>
+        <a>
+          <Typography variant="caption" color="info.main">
+            {campaignCharity.givingSgUrl}
+          </Typography>
+        </a>
+      </MuiLink>
+    </Stack>
+  </Stack>
+);
+
 const CampaignDonationBreakdownCard = ({ totalDonationBreakdown, charitiesDonations }: Props) => (
   <CampaignCard>
     <Typography variant="h3">Donation Breakdown</Typography>
 
     <TableContainer component="div">
       <Table>
+        <colgroup>
+          <col width="20%" />
+          <col width="80%" />
+        </colgroup>
+
         <TableHead>
           <TableRow>
             <TableCell>Charity</TableCell>
 
             <TableCell align="center">
               <Stack sx={donationTableHeaderSx} component="div" direction="row">
-                <Typography variant="caption">Primary donor</Typography>
+                <Typography variant="caption">Primary</Typography>
 
-                <Typography variant="caption">Secondary donors</Typography>
+                <Typography variant="caption">Secondary</Typography>
               </Stack>
             </TableCell>
           </TableRow>
@@ -59,7 +98,11 @@ const CampaignDonationBreakdownCard = ({ totalDonationBreakdown, charitiesDonati
           <DonationTableRow label="Total" donationBreakdown={totalDonationBreakdown} />
 
           {charitiesDonations.map((charityDonation, index) => (
-            <DonationTableRow key={index} label={charityDonation.charity.name} donationBreakdown={charityDonation} />
+            <DonationTableRow
+              key={index}
+              label={CharityDonationLabel(charityDonation)}
+              donationBreakdown={charityDonation}
+            />
           ))}
         </TableBody>
       </Table>

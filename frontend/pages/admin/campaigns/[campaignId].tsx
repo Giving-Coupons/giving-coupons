@@ -12,7 +12,6 @@ import CampaignInfoCard from '../../../components/campaigns/dashboard/CampaignIn
 import CampaignDonationBreakdownCard from '../../../components/campaigns/dashboard/CampaignDonationBreakdownCard';
 import CampaignCouponsCard from '../../../components/campaigns/dashboard/CampaignCouponsCard';
 import React from 'react';
-import CampaignCharitiesCard from '../../../components/campaigns/dashboard/CampaignCharitiesCard';
 import CampaignPrimaryDonorCard from '../../../components/campaigns/dashboard/CampaignPrimaryDonorCard';
 
 const sampleCampaignCharities: CampaignCharityData[] = [
@@ -127,8 +126,6 @@ const AdminCampaign = () => {
 
         <Grid item sm={12} md={4}>
           <Stack sx={sectionSx} component="div" spacing={4}>
-            <CampaignCharitiesCard campaignCharities={campaign.charities} />
-
             <CampaignDonationBreakdownCard
               totalDonationBreakdown={campaign.donations}
               charitiesDonations={campaign.charities}
