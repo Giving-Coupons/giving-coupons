@@ -26,6 +26,7 @@ export default function CharityDeletionDialog({
         <Button actionType="muted" onClick={handleClose}>
           Cancel
         </Button>
+
         <Button actionType="danger" onClick={handleDelete}>
           Delete
         </Button>

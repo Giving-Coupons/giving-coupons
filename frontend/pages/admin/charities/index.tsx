@@ -78,8 +78,8 @@ const AdminCharities = () => {
         open={selectedCharity !== null}
         handleDelete={() =>
           api.charities
-            // Non-null assertion is safe as the dialog will be closed if selection is null.
-            .deleteCharity(selectedCharity!.id)
+            // Type assertion is safe as the dialog will be closed if selection is null.
+            .deleteCharity(selectedCharity?.id as number)
             .then(handleCloseDeleteDialog)
             .then(() => refresh())
         }
