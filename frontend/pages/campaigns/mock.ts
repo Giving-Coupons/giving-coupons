@@ -1,6 +1,6 @@
 import { campaignImageBase64, logoBase64 } from '../../utils/examples';
 
-const makeMockCampaignCharity = (id: number) => {
+export const makeMockCampaignCharity = (id: number) => {
   const totalAmount = Math.floor(Math.random() * 1000);
   const amount1 = Math.floor(Math.random() * totalAmount);
   const amount2 = totalAmount - amount1;
