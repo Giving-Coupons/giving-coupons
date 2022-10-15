@@ -11,20 +11,18 @@ type Props = {
 };
 
 export default function CampaignCharityListItem({ campaignCharity }: Props) {
+  const primaryFraction = campaignCharity.primaryDonor.fraction;
+  const secondaryFraction = campaignCharity.secondaryDonors.fraction;
+
+  const bars =
+    primaryFraction !== null && secondaryFraction !== null
+      ? [{ fraction: primaryFraction }, { fraction: secondaryFraction }]
+      : [{ fraction: 1 }];
+
   return (
     <Stack direction="row" sx={donationBreakdownItemContainer} spacing={2}>
       <Box sx={charityLogoSx} component="img" src={campaignCharity.charity.logoBase64} />
-      <HorizontalBarGraph
-        bars={[
-          { fraction: campaignCharity.primaryDonor.fraction, label: `$${campaignCharity.primaryDonor.amount}` },
-          {
-            fraction: campaignCharity.secondaryDonors.fraction,
-            label: `$${campaignCharity.secondaryDonors.amount}`,
-          },
-        ]}
-        overrideLastBarSx={rightBarSx}
-        labelProps={{ variant: 'h4' }}
-      />
+      <HorizontalBarGraph bars={bars} overrideLastBarSx={rightBarSx} labelProps={{ variant: 'h4' }} />
     </Stack>
   );
 }

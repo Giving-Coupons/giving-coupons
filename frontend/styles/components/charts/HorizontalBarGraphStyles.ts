@@ -37,6 +37,12 @@ export const lastBarSx: SxProps = {
   backgroundColor: theme.palette.primaryTranslucent.main,
 };
 
+export const onlyBarSx: SxProps = {
+  border: '2px solid #FFFFFF',
+  backgroundColor: theme.palette.neutral.light,
+  borderRadius: borderRadius,
+};
+
 export const labelSx: SxProps = {
   textAlign: 'center',
   overflow: 'hidden',

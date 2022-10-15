@@ -4,6 +4,7 @@ json.id campaign.id
 json.name campaign.name
 json.description campaign.description
 json.promisedAmount campaign.promised_amount
+json.couponDenomination campaign.coupon_denomination
 json.start campaign.start
 json.end campaign.end
 json.imageBase64 encoded_file_data_url(campaign.image)

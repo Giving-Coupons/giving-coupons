@@ -6,6 +6,7 @@ import {
   labelSx,
   lastBarSx,
   middleBarSx,
+  onlyBarSx,
 } from '../../styles/components/charts/HorizontalBarGraphStyles';
 import { combineSxProps } from '../../utils/types';
 
@@ -35,7 +36,9 @@ const HorizontalBarGraph = ({
           key={index}
           width={`calc(100% * ${fraction})`}
           sx={
-            index === 0
+            barCount === 1
+              ? combineSxProps(onlyBarSx, overrideFirstBarSx)
+              : index === 0
               ? combineSxProps(firstBarSx, overrideFirstBarSx)
               : index === barCount - 1
               ? combineSxProps(lastBarSx, overrideLastBarSx)

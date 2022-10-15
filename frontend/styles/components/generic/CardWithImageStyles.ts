@@ -6,7 +6,7 @@ const borderRadius = '20px';
 export const containerSx: SxProps = {
   alignItems: 'center',
   height: '100%',
-  boxShadow: `0px 0px 8px 0px ${theme.palette.neutral.light}`,
+  boxShadow: `0px 0px 40px 10px ${theme.palette.neutral.light}`,
   borderRadius: borderRadius,
 };
 

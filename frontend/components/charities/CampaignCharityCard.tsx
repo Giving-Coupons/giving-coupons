@@ -42,7 +42,7 @@ const CampaignCharityCard = ({ campaignCharity }: Props) => {
         <Typography variant="h3">{campaignCharity.charity.name}</Typography>
       </Stack>
 
-      <Typography variant="subtitle">{campaignCharity.charity.description}</Typography>
+      <Typography variant="subtitle1">{campaignCharity.charity.description}</Typography>
     </Stack>
   );
 
