@@ -1,11 +1,10 @@
 import { Typography } from '@mui/material';
-import React from 'react';
-import { CampaignPublicData } from '../../types/campaigns';
+import { CampaignBaseData } from '../../types/campaigns';
 import CloseQuotes from '../icons/CloseQuotes';
 import OpenQuotes from '../icons/OpenQuotes';
 
 type Props = {
-  campaign: CampaignPublicData;
+  campaign: CampaignBaseData;
 };
 
 export default function CampaignDescription({ campaign }: Props) {
