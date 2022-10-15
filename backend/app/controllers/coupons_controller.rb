@@ -12,6 +12,7 @@ class CouponsController < ApplicationController
   end
 
   def show
-    @coupon = Coupon.includes({ campaign: [{ campaign_charities: :charity }, :primary_donor] }).find_by_url_token(params[:id])
+    @coupon = Coupon.includes({ campaign: [{ campaign_charities: :charity },
+                                           :primary_donor] }).find_by(url_token: params[:id])
   end
 end

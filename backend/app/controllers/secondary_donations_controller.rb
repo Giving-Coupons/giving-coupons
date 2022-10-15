@@ -10,7 +10,7 @@ class SecondaryDonationsController < ApplicationController
 
   def create
     @secondary_donation = SecondaryDonation.new(secondary_donation_params)
-    @secondary_donation.coupon = Coupon.find_by_url_token(params[:url_token])
+    @secondary_donation.coupon = Coupon.find_by(url_token: params[:url_token])
     @secondary_donation.save!
 
     add_success_message('Donation successfully created!')
