@@ -16,7 +16,10 @@ export default function CampaignCharityListItem({ campaignCharity }: Props) {
 
   const bars =
     primaryFraction !== null && secondaryFraction !== null
-      ? [{ fraction: primaryFraction }, { fraction: secondaryFraction }]
+      ? [
+          { fraction: primaryFraction, label: `$${campaignCharity.primaryDonor.amount}` },
+          { fraction: secondaryFraction, label: `$${campaignCharity.secondaryDonors.amount}` },
+        ]
       : [{ fraction: 1 }];
 
   return (

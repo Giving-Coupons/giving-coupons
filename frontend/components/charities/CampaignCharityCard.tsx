@@ -1,6 +1,5 @@
 import { Box, Container, Stack } from '@mui/system';
 import { Typography } from '@mui/material';
-import Button from '../generic/Button';
 import CompetingGraph from '../charts/CompetingGraph';
 import CardWithImage from '../generic/CardWithImage';
 import { CampaignCharityDonationPublicData } from '../../types/campaignCharities';
@@ -13,12 +12,16 @@ import {
   charityTitleSx,
 } from '../../styles/components/charities/CampaignCharityCardStyles';
 import LinkIcon from '@mui/icons-material/Link';
+import { useRouter } from 'next/router';
+import Button from '../generic/Button';
 
 interface Props {
   campaignCharity: CampaignCharityDonationPublicData;
 }
 
 const CampaignCharityCard = ({ campaignCharity }: Props) => {
+  const router = useRouter();
+
   const primaryDonorDonationData = campaignCharity.primaryDonor;
   const secondaryDonorDonationData = campaignCharity.secondaryDonors;
 
@@ -48,10 +51,10 @@ const CampaignCharityCard = ({ campaignCharity }: Props) => {
 
   const actionButtons = (
     <Box key="actionButtons">
-      <Button sx={buttonSx} actionType="tertiary">
-        <Stack direction="row">
+      <Button sx={buttonSx} actionType="tertiary" onClick={() => router.push(campaignCharity.givingSgUrl)}>
+        <Stack direction="row" spacing={1}>
           <LinkIcon />
-          <Typography variant="button">Visit page</Typography>
+          <Typography>Visit page</Typography>
         </Stack>
       </Button>
     </Box>
