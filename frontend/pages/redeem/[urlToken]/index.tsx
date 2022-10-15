@@ -66,6 +66,7 @@ const Redeem: NextPage = () => {
         return (
           <PersonalContribution
             coupon={coupon}
+            campaignCharityId={campaignCharityId}
             setAmount={setAmount}
             goToPreviousPage={() => setRedeemPageIndex((prev) => Math.max(prev - 1, INITIAL_REDEEM_PAGE))}
             handleSubmit={handleSubmit}

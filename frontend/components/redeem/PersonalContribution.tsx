@@ -1,5 +1,6 @@
 import { Grid, InputAdornment, Stack, Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
+import { Router, useRouter } from 'next/router';
 import * as Yup from 'yup';
 import { makeMockCampaignCharity } from '../../pages/campaigns/mock';
 import { containerSx } from '../../styles/redeem/indexStyles';
@@ -19,19 +20,28 @@ const couponRedeemFormSchema = Yup.object({
 
 type Props = {
   coupon: CouponRedeemData;
+  campaignCharityId: number;
   setAmount: (amount: number) => void;
   goToPreviousPage: () => void;
   handleSubmit: () => void;
 };
 
-const PersonalContribution = ({ coupon, setAmount, goToPreviousPage, handleSubmit }: Props) => {
+const PersonalContribution = ({ coupon, campaignCharityId, setAmount, goToPreviousPage, handleSubmit }: Props) => {
+  const router = useRouter();
+  const campaignCharity = coupon.charities.find((c) => c.id === campaignCharityId);
+
+  if (!campaignCharity) {
+    router.reload();
+    return null;
+  }
+
   return (
     <Grid container sx={containerSx} component="main" justifyContent="center">
-      <Grid item xs={12} sm={7} md={4} padding={4}>
-        <CampaignCharityCard campaignCharity={makeMockCampaignCharity(1)} />
+      <Grid item xs={12} sm={7} md={5} padding={4}>
+        <CampaignCharityCard campaignCharity={campaignCharity} />
       </Grid>
 
-      <Grid item xs={12} sm={5} md={8} padding={4}>
+      <Grid item xs={12} sm={5} md={7} padding={4}>
         <Stack spacing={theme.spacing(2)}>
           <Typography textAlign="center">
             <strong>You have empowered {coupon.campaign.name}</strong> and their beneficiary with{' '}
