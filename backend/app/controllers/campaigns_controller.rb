@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class CampaignsController < ApplicationController
   before_action :authenticate_admin!, except: %i[index show]
   before_action :set_campaign, only: %i[show admin_show update destroy]
@@ -138,7 +139,7 @@ class CampaignsController < ApplicationController
     ends_after = end_params['from'] if end_params.present?
 
     Campaign.starts_before(starts_before).starts_after(starts_after)
-                 .ends_before(ends_before).ends_after(ends_after)
+            .ends_before(ends_before).ends_after(ends_after)
   end
 
   def scoped_with_status
@@ -150,3 +151,4 @@ class CampaignsController < ApplicationController
     Campaign.active(is_active).or(Campaign.upcoming(is_upcoming)).or(Campaign.completed(is_completed))
   end
 end
+# rubocop:enable Metrics/ClassLength
