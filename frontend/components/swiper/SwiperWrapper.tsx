@@ -46,11 +46,6 @@ export default function SwiperWrapper({ children, ...moduleSelection }: Props) {
       {children.map((slide, index) => (
         <SwiperSlide key={index}>{slide}</SwiperSlide>
       ))}
-      {/* {campaign.charities.map((campaignCharity) => (
-        <SwiperSlide>
-          <CampaignCharityCard campaignCharity={campaignCharity} />
-        </SwiperSlide>
-      ))} */}
     </Swiper>
   );
 }
