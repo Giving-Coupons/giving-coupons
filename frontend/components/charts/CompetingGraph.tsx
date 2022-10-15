@@ -43,7 +43,7 @@ const CompetingGraph = ({
       </Box>
 
       <HorizontalBarGraph
-        barFractions={barFractions}
+        bars={barFractions.map((fraction) => ({ fraction }))}
         overrideFirstBarSx={leftBarSx}
         overrideLastBarSx={rightBarSx}
         overrideGraphSx={overrideGraphSx}

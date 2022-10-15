@@ -16,3 +16,12 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.swiper-pagination-bullet-active {
+  background-color: #ffe4ae !important;
+}
+
+.swiper-pagination {
+  bottom: 0px !important;
+  position: relative !important;
+}
