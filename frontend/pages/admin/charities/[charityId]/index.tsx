@@ -14,7 +14,6 @@ import {
 } from '../../../../styles/admin/charities/viewStyles';
 import useAdminLoginCheck from '../../../../hooks/useAdminLogInCheck';
 import { Nullable } from '../../../../types/utils';
-import Button from '../../../../components/generic/Button';
 import { Edit, List } from '@mui/icons-material';
 import ImageWithOverlay from '../../../../components/generic/ImageWithOverlay';
 import IconButtonWithTooltip from '../../../../components/IconButtonWithTooltip';
