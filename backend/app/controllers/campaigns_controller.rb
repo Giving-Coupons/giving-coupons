@@ -90,14 +90,11 @@ class CampaignsController < ApplicationController
   def create_or_update_campaign_charities
     charity_params = params[:charities]
 
-    existing_ids = charity_params.pluck(:id).compact
-    campaign_charities = CampaignCharity.find(existing_ids)
-
-    campaign_charities_to_add = charity_params.select { |campaign_charity| campaign_charity[:id].nil? }
-
-    campaign_charities_to_add.each do |campaign_charity|
-      campaign_charities << CampaignCharity.new(charity_id: campaign_charity[:charity][:id],
-                                                giving_sg_url: campaign_charity[:giving_sg_url])
+    campaign_charities = charity_params.map do |param|
+      campaign_charity = CampaignCharity.find_or_initialize_by(id: param[:id])
+      campaign_charity.giving_sg_url = param[:giving_sg_url]
+      campaign_charity.charity_id = param[:charity][:id]
+      campaign_charity
     end
 
     @campaign.campaign_charities = campaign_charities
@@ -121,12 +118,12 @@ class CampaignsController < ApplicationController
 
   def start_params?
     start_params = params[:start]
-    start_params.present? && start_params['from'].present? && start_params['to'].present?
+    start_params.present? && (start_params['from'].present? || start_params['to'].present?)
   end
 
   def end_params?
     end_params = params[:end]
-    end_params.present? && end_params['from'].present? && end_params['to'].present?
+    end_params.present? && (end_params['from'].present? || end_params['to'].present?)
   end
 
   def scoped_with_dates
@@ -144,9 +141,9 @@ class CampaignsController < ApplicationController
 
   def scoped_with_status
     status_params = params[:status]
-    is_active = status_params[:is_active] && status_params[:is_active] == 'true'
-    is_upcoming = status_params[:is_upcoming] && status_params[:is_upcoming] == 'true'
-    is_completed = status_params[:is_completed] && status_params[:is_completed] == 'true'
+    is_active = status_params[:is_active].present? && status_params[:is_active] == 'true'
+    is_upcoming = status_params[:is_upcoming].present? && status_params[:is_upcoming] == 'true'
+    is_completed = status_params[:is_completed].present? && status_params[:is_completed] == 'true'
 
     Campaign.active(is_active).or(Campaign.upcoming(is_upcoming)).or(Campaign.completed(is_completed))
   end

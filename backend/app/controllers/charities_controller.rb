@@ -12,8 +12,8 @@ class CharitiesController < ApplicationController
 
   def create
     @charity = Charity.new(charity_params)
-    @charity.logo.attach(data: params[:logo_base64]) unless image_params[:logo_base64].nil?
-    @charity.image.attach(data: params[:image_base64]) unless image_params[:image_base64].nil?
+    @charity.logo.attach(data: params[:logo_base64]) if params[:logo_base64].present?
+    @charity.image.attach(data: params[:image_base64]) if params[:image_base64].present?
     @charity.save!
 
     add_success_message "Charity, \"#{@charity.name}\", successfully created!"
@@ -21,7 +21,7 @@ class CharitiesController < ApplicationController
   end
 
   def update
-    @charity.update(charity_params)
+    @charity.assign_attributes(charity_params)
 
     if params[:logo_base64].nil?
       @charity.logo.purge
@@ -34,6 +34,8 @@ class CharitiesController < ApplicationController
     else
       @charity.image.attach(data: params[:image_base64])
     end
+
+    @charity.save!
 
     add_success_message "Charity, \"#{@charity.name}\", successfully updated!"
     render :show, status: :ok
@@ -54,9 +56,5 @@ class CharitiesController < ApplicationController
 
   def charity_params
     params.require(:charity).permit(:name, :description, :website_url)
-  end
-
-  def image_params
-    params.permit(:logo_base64, :image_base64)
   end
 end
