@@ -7,8 +7,8 @@ class CouponsController < ApplicationController
     @coupons = Coupon.all.includes({ secondary_donation: { campaign_charity: :charity } })
   end
 
-  def unredeemed
-    @coupons = Coupon.all.includes(:secondary_donation).where(secondary_donations: { id: nil })
+  def campaign_unredeemed
+    @coupons = Coupon.all.includes(:secondary_donation).where(campaign_id: params[:campaign_id]).where(secondary_donations: { id: nil })
   end
 
   def show

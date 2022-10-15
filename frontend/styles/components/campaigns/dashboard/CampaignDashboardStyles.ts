@@ -47,6 +47,11 @@ export const donationTableHeaderSx: SxProps = {
   justifyContent: 'space-between',
 };
 
+export const couponsTableHeaderSx: SxProps = {
+  width: '100%',
+  justifyContent: 'space-between',
+};
+
 export const couponsTableContainerSx: SxProps = {
   maxHeight: '400px',
   width: '100%',
