@@ -1,6 +1,6 @@
 import { Box, Stack } from '@mui/system';
 import Head from 'next/head';
-import { Dialog, DialogActions, DialogContent, DialogTitle, Paper, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import Button from '../../../components/generic/Button';
 import AddIcon from '@mui/icons-material/Add';
 import { headerSx, logoSx, rootSx } from '../../../styles/admin/charities/indexStyles';
