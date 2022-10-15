@@ -5,26 +5,7 @@ class CampaignsController < ApplicationController
   before_action :set_campaign, only: %i[show admin_show update destroy]
 
   def index
-    scope = Campaign.all
-
-    scope = scope.contains(params[:name]) if params[:name].present?
-
-    starts_before = params[:starts_before]
-    starts_after = params[:starts_after]
-    ends_before = params[:ends_before]
-    ends_after = params[:ends_after]
-
-    scope = scope.starts_before(starts_before).starts_after(starts_after)
-                 .ends_before(ends_before).ends_after(ends_after)
-
-    return scope if starts_before.present? || starts_after.present? || ends_before.present? || ends_after.present?
-
-    is_active = params[:is_active]
-    is_upcoming = params[:is_upcoming]
-    is_completed = params[:is_completed]
-    status_scoped = Campaign.active(is_active).or(Campaign.upcoming(is_upcoming)).or(Campaign.completed(is_completed))
-
-    @campaigns = scope.merge(status_scoped)
+    @campaigns = final_scope
   end
 
   def admin_index
@@ -121,26 +102,51 @@ class CampaignsController < ApplicationController
     @campaign.campaign_charities = campaign_charities
   end
 
-  def filter
-    scope = Campaign.all
+  def final_scope
+    scope = scoped_with_name
 
-    scope = scope.contains(params[:name]) if params[:name].present?
+    scope = scope.merge(scoped_with_dates)
+    return scope if start_params? || end_params?
 
-    starts_before = params[:starts_before]
-    starts_after = params[:starts_after]
-    ends_before = params[:ends_before]
-    ends_after = params[:ends_after]
+    status_params = params[:status]
+    return scope if status_params.nil?
 
-    scope = scope.starts_before(starts_before).starts_after(starts_after)
+    scope.merge(scoped_with_status)
+  end
+
+  def scoped_with_name
+    params[:name].present? ? Campaign.contains(params[:name]) : Campaign.all
+  end
+
+  def start_params?
+    start_params = params[:start]
+    start_params.present? && start_params['from'].present? && start_params['to'].present?
+  end
+
+  def end_params?
+    end_params = params[:end]
+    end_params.present? && end_params['from'].present? && end_params['to'].present?
+  end
+
+  def scoped_with_dates
+    start_params = params[:start]
+    starts_before = start_params['to'] if start_params.present?
+    starts_after = start_params['from'] if start_params.present?
+
+    end_params = params[:end]
+    ends_before = end_params['to'] if end_params.present?
+    ends_after = end_params['from'] if end_params.present?
+
+    Campaign.starts_before(starts_before).starts_after(starts_after)
                  .ends_before(ends_before).ends_after(ends_after)
+  end
 
-    return scope if starts_before.present? || starts_after.present? || ends_before.present? || ends_after.present?
+  def scoped_with_status
+    status_params = params[:status]
+    is_active = status_params[:is_active] && status_params[:is_active] == 'true'
+    is_upcoming = status_params[:is_upcoming] && status_params[:is_upcoming] == 'true'
+    is_completed = status_params[:is_completed] && status_params[:is_completed] == 'true'
 
-    is_active = params[:is_active]
-    is_upcoming = params[:is_upcoming]
-    is_completed = params[:is_completed]
-    status_scoped = Campaign.active(is_active).or(Campaign.upcoming(is_upcoming)).or(Campaign.completed(is_completed))
-
-    scope.merge(status_scoped)
+    Campaign.active(is_active).or(Campaign.upcoming(is_upcoming)).or(Campaign.completed(is_completed))
   end
 end
