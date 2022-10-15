@@ -46,7 +46,10 @@ export default function CampaignDetail() {
 
         <Typography variant="h2">About the campaign</Typography>
 
-        <Typography variant="body1">{`This campaign was started by ${campaign.primaryDonor.name} who has generously committed $${campaign.promisedAmount} to the beneficiaries listed above.`}</Typography>
+        <Typography variant="body1">
+          This campaign was started by <strong>{campaign.primaryDonor.name}</strong> who has generously committed
+          <strong> ${campaign.promisedAmount}</strong> to the beneficiaries listed above.
+        </Typography>
 
         <OpenQuotes />
 
