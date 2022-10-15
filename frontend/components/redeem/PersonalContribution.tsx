@@ -1,8 +1,7 @@
 import { Grid, InputAdornment, Stack, Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
-import { Router, useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import * as Yup from 'yup';
-import { makeMockCampaignCharity } from '../../pages/campaigns/mock';
 import { containerSx } from '../../styles/redeem/indexStyles';
 import { CouponRedeemData } from '../../types/coupons';
 import { theme } from '../../utils/theme';
