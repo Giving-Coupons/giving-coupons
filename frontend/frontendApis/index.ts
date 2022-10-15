@@ -4,6 +4,7 @@ import CharitiesAPI from './charities';
 import CouponsAPI from './coupons';
 import InterestsAPI from './interests';
 import PrimaryDonorsAPI from './primaryDonors';
+import SecondaryDonationsAPI from './secondaryDonations';
 
 const api = Object.freeze({
   admins: new AdminsAPI(),
@@ -12,6 +13,7 @@ const api = Object.freeze({
   coupons: new CouponsAPI(),
   interests: new InterestsAPI(),
   primaryDonors: new PrimaryDonorsAPI(),
+  secondaryDonations: new SecondaryDonationsAPI(),
 });
 
 export default api;
