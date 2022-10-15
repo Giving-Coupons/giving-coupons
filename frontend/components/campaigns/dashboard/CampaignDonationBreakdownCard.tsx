@@ -82,7 +82,9 @@ const CampaignDonationBreakdownCard = ({ totalDonationBreakdown, charitiesDonati
 
         <TableHead>
           <TableRow>
-            <TableCell>Charity</TableCell>
+            <TableCell>
+              <Typography variant="h4">Charity</Typography>
+            </TableCell>
 
             <TableCell align="center">
               <Stack sx={donationTableHeaderSx} component="div" direction="row">
@@ -95,7 +97,10 @@ const CampaignDonationBreakdownCard = ({ totalDonationBreakdown, charitiesDonati
         </TableHead>
 
         <TableBody>
-          <DonationTableRow label="Total" donationBreakdown={totalDonationBreakdown} />
+          <DonationTableRow
+            label={<Typography variant="h4">Total</Typography>}
+            donationBreakdown={totalDonationBreakdown}
+          />
 
           {charitiesDonations.map((charityDonation, index) => (
             <DonationTableRow

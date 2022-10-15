@@ -22,6 +22,7 @@ export const cardSx: SxProps = {
 };
 
 export const charityContainerSx: SxProps = {
+  alignItems: 'center',
   height: '20%',
   width: '100%',
 };
