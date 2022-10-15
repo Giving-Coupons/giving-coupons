@@ -5,9 +5,11 @@ import Button from '../../../components/generic/Button';
 import AddIcon from '@mui/icons-material/Add';
 import { headerSx, rootSx } from '../../../styles/admin/charities/indexStyles';
 import { useRouter } from 'next/router';
+import useAdminLoginCheck from '../../../hooks/useAdminLogInCheck';
 
 const AdminCharities = () => {
   const router = useRouter();
+  useAdminLoginCheck();
 
   return (
     <Box>

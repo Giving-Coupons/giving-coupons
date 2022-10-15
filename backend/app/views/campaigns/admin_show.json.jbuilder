@@ -8,5 +8,9 @@ end
 
 json.charities [] # ignore the charities from the base partial, since Jbuilder merges instead of overwriting
 json.charities do
-  json.array! @campaign.campaign_charities, partial: 'campaign_charities/donation_public', as: :campaign_charity
+  json.array! @campaign.campaign_charities, partial: 'campaign_charities/donation', as: :campaign_charity
+end
+
+json.coupons do
+  json.array! @campaign.coupons, partial: 'coupons/list', as: :coupon
 end
