@@ -1,9 +1,8 @@
 import React from 'react';
 import { CampaignBaseData } from '../../../types/campaigns';
-import { cardSx } from '../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
 import { Grid, Typography } from '@mui/material';
-import { Stack } from '@mui/system';
 import { DATE_FORMAT } from '../../../utils/constants';
+import CampaignCard from './CampaignCard';
 
 interface Props {
   campaignBaseInfo: CampaignBaseData;
@@ -27,7 +26,7 @@ const CampaignInfoItem = ({ title, children }: ItemProps) => (
 );
 
 const CampaignInfoCard = ({ campaignBaseInfo }: Props) => (
-  <Stack sx={cardSx} component="div" spacing={2}>
+  <CampaignCard>
     <Typography variant="h3">Campaign Info</Typography>
 
     <Grid container rowSpacing={2}>
@@ -43,7 +42,7 @@ const CampaignInfoCard = ({ campaignBaseInfo }: Props) => (
 
       <CampaignInfoItem title="End Date">{campaignBaseInfo.end.format(DATE_FORMAT)}</CampaignInfoItem>
     </Grid>
-  </Stack>
+  </CampaignCard>
 );
 
 export default CampaignInfoCard;

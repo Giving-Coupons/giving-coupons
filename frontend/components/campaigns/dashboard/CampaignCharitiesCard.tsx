@@ -1,5 +1,4 @@
 import {
-  cardSx,
   charityContainerSx,
   charityItemSx,
   logoSx,
@@ -9,6 +8,7 @@ import { Stack } from '@mui/system';
 import React from 'react';
 import { CampaignCharityData } from '../../../types/campaignCharities';
 import Link from 'next/link';
+import CampaignCard from './CampaignCard';
 
 interface Props {
   campaignCharities: CampaignCharityData[];
@@ -33,13 +33,13 @@ const CampaignCharityItem = ({ campaignCharity }: ItemProps) => (
 );
 
 const CampaignCharitiesCard = ({ campaignCharities }: Props) => (
-  <Stack sx={cardSx} component="div" spacing={2}>
+  <CampaignCard>
     <Typography variant="h3">Charities Info</Typography>
 
     {campaignCharities.map((campaignCharity, index) => (
       <CampaignCharityItem key={index} campaignCharity={campaignCharity} />
     ))}
-  </Stack>
+  </CampaignCard>
 );
 
 export default CampaignCharitiesCard;

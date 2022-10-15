@@ -1,10 +1,11 @@
 import { DonationBreakdownData } from '../../../types/donations';
 import { CampaignCharityDonationData } from '../../../types/campaignCharities';
-import { cardSx, donationTableHeaderSx } from '../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
+import { donationTableHeaderSx } from '../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
 import React from 'react';
 import CompetingGraph from '../../charts/CompetingGraph';
+import CampaignCard from './CampaignCard';
 
 interface Props {
   totalDonationBreakdown: DonationBreakdownData;
@@ -35,7 +36,7 @@ const DonationTableRow = ({ label, donationBreakdown }: DonationTableRowProps) =
 );
 
 const CampaignDonationBreakdownCard = ({ totalDonationBreakdown, charitiesDonations }: Props) => (
-  <Stack sx={cardSx} component="div" spacing={2}>
+  <CampaignCard>
     <Typography variant="h3">Donation Breakdown</Typography>
 
     <TableContainer component="div">
@@ -63,7 +64,7 @@ const CampaignDonationBreakdownCard = ({ totalDonationBreakdown, charitiesDonati
         </TableBody>
       </Table>
     </TableContainer>
-  </Stack>
+  </CampaignCard>
 );
 
 export default CampaignDonationBreakdownCard;

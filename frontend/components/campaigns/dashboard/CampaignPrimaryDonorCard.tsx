@@ -1,17 +1,18 @@
-import { cardSx, primaryDonorItemSx } from '../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
+import { primaryDonorItemSx } from '../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
 import { Avatar, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import EmailIcon from '@mui/icons-material/Email';
 import React from 'react';
 import { PrimaryDonorData } from '../../../types/primaryDonor';
+import CampaignCard from './CampaignCard';
 
 interface Props {
   primaryDonor: PrimaryDonorData;
 }
 
 const CampaignPrimaryDonorCard = ({ primaryDonor }: Props) => (
-  <Stack sx={cardSx} component="div" spacing={2}>
+  <CampaignCard>
     <Typography variant="h3">Primary Donor Info</Typography>
 
     <Stack sx={primaryDonorItemSx} component="div" direction="row" spacing={2}>
@@ -31,7 +32,7 @@ const CampaignPrimaryDonorCard = ({ primaryDonor }: Props) => (
         {primaryDonor.email}
       </Typography>
     </Stack>
-  </Stack>
+  </CampaignCard>
 );
 
 export default CampaignPrimaryDonorCard;

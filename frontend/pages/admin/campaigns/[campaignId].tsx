@@ -112,14 +112,15 @@ const AdminCampaign = () => {
       </Head>
 
       <Grid container>
-        <Grid item sm={12} md={6}>
+        <Grid item sm={12} md={8}>
           <CampaignStatsView
             totalDonationBreakdown={sampleCampaign.donations}
             charitiesDonations={sampleCampaign.charities}
+            coupons={sampleCampaign.coupons}
           />
         </Grid>
 
-        <Grid item sm={12} md={6}>
+        <Grid item sm={12} md={4}>
           <CampaignInfoView campaign={sampleCampaign} />
         </Grid>
       </Grid>

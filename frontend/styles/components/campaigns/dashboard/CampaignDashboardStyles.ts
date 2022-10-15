@@ -10,7 +10,7 @@ export const containerSx: SxProps = {
 };
 
 export const sectionSx: SxProps = {
-  padding: '10%',
+  padding: '40px',
 };
 
 export const cardSx: SxProps = {
@@ -45,7 +45,8 @@ export const donationTableHeaderSx: SxProps = {
   justifyContent: 'space-between',
 };
 
-export const donationTableCharityLabelSx: SxProps = {
-  height: '32px',
+export const couponsTableContainerSx: SxProps = {
+  maxHeight: '400px',
   width: '100%',
+  overflow: 'auto',
 };
