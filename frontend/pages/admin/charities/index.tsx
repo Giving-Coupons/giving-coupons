@@ -12,8 +12,7 @@ import { CharityListData } from '../../../types/charity';
 import SimpleTable from '../../../components/generic/SimpleTable';
 import CharitiesAPI from '../../../frontendApis/charities';
 import IconButtonWithTooltip from '../../../components/IconButtonWithTooltip';
-import Delete from '@mui/icons-material/Delete';
-import { Edit } from '@mui/icons-material';
+import { Edit, Delete, Info } from '@mui/icons-material';
 import { useState } from 'react';
 import { Nullable } from '../../../types/utils';
 import CharityDeletionDialog from '../../../components/charities/CharityDeletionDialog';
@@ -34,13 +33,18 @@ const AdminCharities = () => {
   };
 
   const createLogos = (logoBase64: Base64String) => logoBase64 && <Box component="img" src={logoBase64} sx={logoSx} />;
-  const deleteCharityAction = {
-    component: <IconButtonWithTooltip icon={<Delete />} tooltip="Delete charity" />,
-    onClick: handleOpenDeleteDialog,
+
+  const viewCharityAction = {
+    component: <IconButtonWithTooltip icon={<Info />} tooltip="View charity" />,
+    onClick: ({ id }: CharityListData) => router.push(`/admin/charities/${id}`),
   };
   const editCharityAction = {
     component: <IconButtonWithTooltip icon={<Edit />} tooltip="Edit charity" />,
     onClick: ({ id }: CharityListData) => router.push(`/admin/charities/${id}/edit`),
+  };
+  const deleteCharityAction = {
+    component: <IconButtonWithTooltip icon={<Delete />} tooltip="Delete charity" />,
+    onClick: handleOpenDeleteDialog,
   };
 
   return (
@@ -68,7 +72,7 @@ const AdminCharities = () => {
             { title: 'Logo', key: 'logoBase64', transformValue: createLogos },
             { title: 'Name', key: 'name' },
           ]}
-          actions={[deleteCharityAction, editCharityAction]}
+          actions={[viewCharityAction, editCharityAction, deleteCharityAction]}
         />
       </Box>
 
