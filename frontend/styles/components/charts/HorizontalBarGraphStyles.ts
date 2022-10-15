@@ -28,3 +28,9 @@ export const lastBarSx: SxProps = {
   borderBottomRightRadius: borderRadius,
   backgroundColor: theme.palette.primaryTranslucent.main,
 };
+
+export const onlyBarSx: SxProps = {
+  border: '2px solid #FFFFFF',
+  backgroundColor: theme.palette.neutral.light,
+  borderRadius: borderRadius,
+};

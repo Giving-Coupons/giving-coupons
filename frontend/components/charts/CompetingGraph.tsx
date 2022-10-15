@@ -8,13 +8,14 @@ import {
   leftBarSx,
   rightBarSx,
 } from '../../styles/components/charts/CompetingGraphStyles';
+import { Nullable } from '../../types/utils';
 
 interface Props {
   topLabelTitle?: string;
   topLabels?: string[];
   bottomLabelTitle?: string;
   bottomLabels?: string[];
-  barFractions: number[];
+  barFractions: [Nullable<number>, Nullable<number>];
   overrideGraphSx?: SxProps;
 }
 
@@ -42,12 +43,16 @@ const CompetingGraph = ({
         ))}
       </Box>
 
-      <HorizontalBarGraph
-        barFractions={barFractions}
-        overrideFirstBarSx={leftBarSx}
-        overrideLastBarSx={rightBarSx}
-        overrideGraphSx={overrideGraphSx}
-      />
+      {barFractions[0] !== null && barFractions[1] !== null ? (
+        <HorizontalBarGraph
+          barFractions={[barFractions[0], barFractions[1]]}
+          overrideFirstBarSx={leftBarSx}
+          overrideLastBarSx={rightBarSx}
+          overrideGraphSx={overrideGraphSx}
+        />
+      ) : (
+        <HorizontalBarGraph barFractions={[1]} overrideGraphSx={overrideGraphSx} />
+      )}
 
       <Box sx={bottomGraphLegendSx}>
         {bottomLabelTitle && (

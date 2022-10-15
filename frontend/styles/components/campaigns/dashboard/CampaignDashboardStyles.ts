@@ -1,4 +1,5 @@
 import { SxProps } from '@mui/system';
+import { theme } from '../../../../utils/theme';
 
 export const containerSx: SxProps = {
   display: 'flex',
@@ -15,7 +16,7 @@ export const sectionSx: SxProps = {
 export const cardSx: SxProps = {
   alignItems: 'center',
   height: '100%',
-  boxShadow: `0px 0px 40px 0px #DCDCDC`,
+  boxShadow: `0px 0px 40px 0px ${theme.palette.neutral.light}`,
   borderRadius: '20px',
   padding: '4%',
 };
