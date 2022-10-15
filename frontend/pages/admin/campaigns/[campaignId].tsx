@@ -1,14 +1,19 @@
 import { Grid } from '@mui/material';
-import { Box } from '@mui/system';
+import { Box, Stack } from '@mui/system';
 import Head from 'next/head';
-import CampaignInfoView from '../../../components/campaigns/dashboard/CampaignInfoView';
 import { CampaignAdminData } from '../../../types/campaigns';
 import moment from 'moment';
 import { campaignImageBase64, logoBase64 } from '../../../utils/examples';
 import { CampaignCharityData, CampaignCharityDonationData } from '../../../types/campaignCharities';
 import { DonationBreakdownData } from '../../../types/donations';
 import { CouponListData } from '../../../types/coupons';
-import CampaignStatsView from '../../../components/campaigns/dashboard/CampaignStatsView';
+import { sectionSx } from '../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
+import CampaignInfoCard from '../../../components/campaigns/dashboard/CampaignInfoCard';
+import CampaignDonationBreakdownCard from '../../../components/campaigns/dashboard/CampaignDonationBreakdownCard';
+import CampaignCouponsCard from '../../../components/campaigns/dashboard/CampaignCouponsCard';
+import React from 'react';
+import CampaignCharitiesCard from '../../../components/campaigns/dashboard/CampaignCharitiesCard';
+import CampaignPrimaryDonorCard from '../../../components/campaigns/dashboard/CampaignPrimaryDonorCard';
 
 const sampleCampaignCharities: CampaignCharityData[] = [
   { id: 1, charity: { id: 1, name: 'Ark', logoBase64: logoBase64 }, givingSgUrl: 'https://giving.sg' },
@@ -83,7 +88,7 @@ const sampleCoupons: CouponListData[] = [
   },
 ];
 
-const sampleCampaign: CampaignAdminData = {
+const campaign: CampaignAdminData = {
   id: 1,
   name: 'Chicken Soup for the Soul',
   description:
@@ -113,15 +118,24 @@ const AdminCampaign = () => {
 
       <Grid container>
         <Grid item sm={12} md={8}>
-          <CampaignStatsView
-            totalDonationBreakdown={sampleCampaign.donations}
-            charitiesDonations={sampleCampaign.charities}
-            coupons={sampleCampaign.coupons}
-          />
+          <Stack sx={sectionSx} component="div" spacing={4}>
+            <CampaignInfoCard campaignBaseInfo={campaign} />
+
+            <CampaignCouponsCard coupons={campaign.coupons} />
+          </Stack>
         </Grid>
 
         <Grid item sm={12} md={4}>
-          <CampaignInfoView campaign={sampleCampaign} />
+          <Stack sx={sectionSx} component="div" spacing={4}>
+            <CampaignCharitiesCard campaignCharities={campaign.charities} />
+
+            <CampaignDonationBreakdownCard
+              totalDonationBreakdown={campaign.donations}
+              charitiesDonations={campaign.charities}
+            />
+
+            <CampaignPrimaryDonorCard primaryDonor={campaign.primaryDonor} />
+          </Stack>
         </Grid>
       </Grid>
     </Box>

@@ -1,5 +1,4 @@
 import { SxProps } from '@mui/system';
-import { theme } from '../../../../utils/theme';
 
 export const containerSx: SxProps = {
   display: 'flex',
@@ -16,7 +15,7 @@ export const sectionSx: SxProps = {
 export const cardSx: SxProps = {
   alignItems: 'center',
   height: '100%',
-  boxShadow: `0px 0px 40px 0px ${theme.palette.neutral.light}`,
+  boxShadow: `0px 0px 40px 0px #DCDCDC`,
   borderRadius: '20px',
   padding: '4%',
 };
@@ -49,4 +48,28 @@ export const couponsTableContainerSx: SxProps = {
   maxHeight: '400px',
   width: '100%',
   overflow: 'auto',
+};
+
+export const campaignImageSx: SxProps = {
+  width: '100%',
+  height: '100%',
+  minHeight: '100%',
+  maxHeight: '100%',
+};
+
+export const campaignInfoItemSx: SxProps = {
+  width: '100%',
+  justifyContent: 'center',
+  alignItems: 'center',
+  borderRadius: '20px',
+  padding: '4%',
+  backgroundColor: '#F4F4F4',
+};
+
+export const campaignMoneyIconSx: SxProps = {
+  alignItems: 'center',
+};
+
+export const campaignDateIconSx: SxProps = {
+  alignItems: 'center',
 };
