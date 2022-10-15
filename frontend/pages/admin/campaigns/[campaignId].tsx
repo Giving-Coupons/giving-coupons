@@ -18,6 +18,7 @@ import { isInteger } from 'formik';
 import api from '../../../frontendApis';
 import useSWR from 'swr';
 import { Nullable } from '../../../types/utils';
+import CampaignLoading from '../../../components/campaigns/dashboard/CampaignLoading';
 
 const sampleCampaignCharities: CampaignCharityData[] = [
   { id: 1, charity: { id: 1, name: 'Ark', logoBase64: logoBase64 }, givingSgUrl: 'https://giving.sg' },
@@ -129,11 +130,7 @@ const AdminCampaign = () => {
       </Head>
 
       <Box component="main">
-        {isLoading && (
-          <Stack>
-            <Typography variant="h1">Loading...</Typography>
-          </Stack>
-        )}
+        {isLoading && <CampaignLoading />}
 
         {error && (
           <Stack spacing={2}>
@@ -142,7 +139,7 @@ const AdminCampaign = () => {
           </Stack>
         )}
 
-        {campaign && (
+        {campaign && !error && (
           <Grid container>
             <Grid item sm={12} md={8}>
               <Stack sx={sectionSx} component="div" spacing={4}>
