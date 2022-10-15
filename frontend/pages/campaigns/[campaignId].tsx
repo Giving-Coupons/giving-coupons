@@ -18,6 +18,7 @@ import { StatusMessage } from '../../types/api';
 import { Nullable } from '../../types/utils';
 import { useSnackbar } from 'notistack';
 import { enqueueGCSnackbar } from '../../utils/snackbar';
+import CampaignDescription from '../../components/campaigns/CampaignDescription';
 
 export async function getServerSideProps(
   context: GetServerSidePropsContext,
@@ -85,20 +86,7 @@ export default function CampaignDetail({ campaign, message }: Props) {
 
         <Divider />
 
-        <Typography variant="h2">About the campaign</Typography>
-
-        <Typography variant="body1">
-          This campaign was started by <strong>{campaign.primaryDonor.name}</strong> who has generously committed
-          <strong> ${campaign.promisedAmount}</strong> to the beneficiaries listed above.
-        </Typography>
-
-        <OpenQuotes />
-
-        <Typography variant="body1" align="center">
-          {campaign.description}
-        </Typography>
-
-        <CloseQuotes style={{ alignSelf: 'flex-end' }} />
+        <CampaignDescription campaign={campaign} />
 
         <CircularProgressWithLabel
           size={300}
