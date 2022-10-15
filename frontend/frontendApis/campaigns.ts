@@ -16,6 +16,10 @@ class CampaignsAPI extends BaseAPI {
   public adminGet(id: number): ApiPromise<CampaignAdminData> {
     return this.get(`${CampaignsAPI.CAMPAIGNS_URL}/${id}/admin_show`);
   }
+
+  public deleteCampaign(id: number): ApiPromise<CampaignAdminData> {
+    return this.delete(`${CampaignsAPI.CAMPAIGNS_URL}/${id}`);
+  }
 }
 
 export default CampaignsAPI;

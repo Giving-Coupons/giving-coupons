@@ -69,8 +69,9 @@ const CampaignEdit = () => {
 
   const { query } = router;
   const campaignId = canBecomeInteger(query.campaignId) ? Number(query.campaignId) : null;
-  const { data: campaign } = useSWR<Nullable<CampaignAdminData>>(`${CampaignsAPI.CAMPAIGNS_URL}/adminGet`, () =>
-    campaignId !== null ? api.campaigns.adminGet(campaignId).then((res) => res.payload) : null,
+  const { data: campaign } = useSWR<Nullable<CampaignAdminData>>(
+    `${CampaignsAPI.CAMPAIGNS_URL}/adminGet/${campaignId}`,
+    () => (campaignId !== null ? api.campaigns.adminGet(campaignId).then((res) => res.payload) : null),
   );
   const [initialValues, setInitialValues] = useState<CampaignFormData>(campaignDefaultInitialValues);
 

@@ -99,8 +99,9 @@ const createCampaignSchema = Yup.object().shape(
 const CampaignCreate = () => {
   const router = useRouter();
   const { interestId } = router.query;
-  const { data: interest } = useSWR<Nullable<InterestData>>(`${InterestsAPI.INTERESTS_URL}/getInterest`, () =>
-    canBecomeInteger(interestId) ? api.interests.getInterest(Number(interestId)).then((r) => r.payload) : null,
+  const { data: interest } = useSWR<Nullable<InterestData>>(
+    `${InterestsAPI.INTERESTS_URL}/getInterest/${interestId}`,
+    () => (canBecomeInteger(interestId) ? api.interests.getInterest(Number(interestId)).then((r) => r.payload) : null),
   );
   const [initialValues, setInitialValues] = useState<CampaignFormData>(campaignDefaultInitialValues);
 

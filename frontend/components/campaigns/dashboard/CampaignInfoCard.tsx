@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { CampaignAdminData } from '../../../types/campaigns';
 import { Grid, Tooltip, Typography } from '@mui/material';
 import { Box, Stack } from '@mui/system';
@@ -17,6 +17,8 @@ import PaidIcon from '@mui/icons-material/Paid';
 import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 import Button from '../../generic/Button';
 import { useRouter } from 'next/router';
+import api from '../../../frontendApis';
+import DeletionDialog from '../../generic/DeletionDialog';
 
 interface Props {
   campaign: CampaignAdminData;
@@ -52,6 +54,7 @@ const CampaignDateInfoIcon = ({ date }: CampaignDateInfoProps) => (
 
 const CampaignInfoCard = ({ campaign }: Props) => {
   const router = useRouter();
+  const [openDeleteDialog, setOpenDeleteDialog] = useState<boolean>(false);
   const getStatus = (start: Moment, end: Moment) => {
     if (end.isBefore(moment().startOf('day'))) {
       return 'Completed';
@@ -62,6 +65,13 @@ const CampaignInfoCard = ({ campaign }: Props) => {
     }
 
     return 'Active';
+  };
+
+  const handleDelete = () => {
+    api.campaigns.deleteCampaign(campaign.id).then(() => {
+      setOpenDeleteDialog(false);
+      router.push('/admin/campaigns');
+    });
   };
 
   return (
@@ -80,7 +90,9 @@ const CampaignInfoCard = ({ campaign }: Props) => {
                 Edit
               </Button>
 
-              <Button actionType="danger">Delete</Button>
+              <Button actionType="danger" onClick={() => setOpenDeleteDialog(true)}>
+                Delete
+              </Button>
             </Stack>
           </Stack>
 
@@ -117,6 +129,14 @@ const CampaignInfoCard = ({ campaign }: Props) => {
           </Stack>
         </Stack>
       </Grid>
+
+      <DeletionDialog
+        open={openDeleteDialog}
+        handleClose={() => setOpenDeleteDialog(false)}
+        handleDelete={handleDelete}
+        titleName={campaign.name}
+        name="campaign"
+      />
     </Grid>
   );
 };
