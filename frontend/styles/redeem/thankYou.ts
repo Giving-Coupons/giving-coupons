@@ -8,7 +8,15 @@ export const stackSx: SxProps = {
   padding: '0 20px',
 };
 
-export const lottieSx: SxProps = {
-  width: '350px',
-  maxWidth: '350px',
+export const lottieContainerSx: SxProps = {
+  width: '250px',
+  maxWidth: '250px',
+};
+
+export const lottieFrameSx: SxProps = {
+  width: '500px',
+  maxWidth: '500px',
+  marginTop: '-125px',
+  marginLeft: '-125px',
+  marginBottom: '-75px',
 };
