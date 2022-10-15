@@ -19,6 +19,8 @@ import Button from '../../generic/Button';
 import { useRouter } from 'next/router';
 import api from '../../../frontendApis';
 import DeletionDialog from '../../generic/DeletionDialog';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
 interface Props {
   campaign: CampaignAdminData;
@@ -86,11 +88,15 @@ const CampaignInfoCard = ({ campaign }: Props) => {
             <Typography variant="h3">{campaign.name}</Typography>
 
             <Stack component="div" direction="row" spacing={1}>
-              <Button actionType="secondary" onClick={() => router.push(`/admin/campaigns/${campaign.id}/edit`)}>
+              <Button
+                actionType="secondary"
+                startIcon={<EditIcon />}
+                onClick={() => router.push(`/admin/campaigns/${campaign.id}/edit`)}
+              >
                 Edit
               </Button>
 
-              <Button actionType="danger" onClick={() => setOpenDeleteDialog(true)}>
+              <Button actionType="danger" startIcon={<DeleteIcon />} onClick={() => setOpenDeleteDialog(true)}>
                 Delete
               </Button>
             </Stack>

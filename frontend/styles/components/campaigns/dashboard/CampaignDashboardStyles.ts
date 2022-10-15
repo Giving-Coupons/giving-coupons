@@ -50,6 +50,7 @@ export const donationTableHeaderSx: SxProps = {
 export const couponsTableHeaderSx: SxProps = {
   width: '100%',
   justifyContent: 'space-between',
+  alignItems: 'center',
 };
 
 export const couponsTableContainerSx: SxProps = {

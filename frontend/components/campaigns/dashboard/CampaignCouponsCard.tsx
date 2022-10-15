@@ -28,7 +28,7 @@ const CampaignCouponsCard = ({ campaignId, coupons }: Props) => {
         <Typography variant="h3">Coupons</Typography>
 
         <Button actionType="primary" onClick={() => router.push(`/admin/campaigns/${campaignId}/coupons`)}>
-          Download unredeemed
+          View unredeemed
         </Button>
       </Stack>
 
