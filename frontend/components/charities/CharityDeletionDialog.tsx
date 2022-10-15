@@ -1,24 +1,23 @@
 import { Dialog, DialogActions, DialogContent, DialogTitle, Typography } from '@mui/material';
 import Button from '../generic/Button';
 import { CharityListData } from '../../types/charity';
+import { Nullable } from '../../types/utils';
 
 export default function CharityDeletionDialog({
   selectedCharity,
-  open,
   handleClose,
-  handleConfirm,
+  handleDelete,
+  open,
 }: {
-  selectedCharity: CharityListData;
+  selectedCharity: Nullable<CharityListData>;
   open: boolean;
   handleClose: () => void;
-  handleConfirm: (selectedCharity: CharityListData) => void;
+  handleDelete: () => void;
 }) {
-  const { name } = selectedCharity;
-
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle>
-        <Typography variant="h1">Delete {name}</Typography>
+        <Typography variant="h1">Delete {selectedCharity?.name}</Typography>
       </DialogTitle>
 
       <DialogContent>Are you sure you want to delete this charity? This cannot be undone.</DialogContent>
@@ -27,7 +26,7 @@ export default function CharityDeletionDialog({
         <Button actionType="muted" onClick={handleClose}>
           Cancel
         </Button>
-        <Button actionType="danger" onClick={() => handleConfirm(selectedCharity)}>
+        <Button actionType="danger" onClick={handleDelete}>
           Delete
         </Button>
       </DialogActions>

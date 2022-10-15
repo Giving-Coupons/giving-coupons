@@ -17,26 +17,20 @@ import { Edit } from '@mui/icons-material';
 import { useState } from 'react';
 import { Nullable } from '../../../types/utils';
 import CharityDeletionDialog from '../../../components/charities/CharityDeletionDialog';
-import { Base64String } from '../../../types/Base64';
+import { Base64String } from '../../../types/base64';
 
 const AdminCharities = () => {
   const router = useRouter();
   useAdminLoginCheck();
-  const [openDeleteDialog, setOpenDeleteDialog] = useState<boolean>(false);
   const [selectedCharity, setSelectedCharity] = useState<Nullable<CharityListData>>(null);
   const { data: charities, mutate: refresh } = useSWR<Nullable<CharityListData[]>>(
     CharitiesAPI.CHARITIES_URL,
     async () => api.charities.list().then((res) => res.payload),
   );
 
+  const handleCloseDeleteDialog = () => setSelectedCharity(null);
   const handleOpenDeleteDialog = (charity: CharityListData) => {
-    setOpenDeleteDialog(true);
     setSelectedCharity(charity);
-  };
-
-  const handleCloseDeleteDialog = () => {
-    setOpenDeleteDialog(false);
-    setSelectedCharity(null);
   };
 
   const createLogos = (logoBase64: Base64String) => logoBase64 && <Box component="img" src={logoBase64} sx={logoSx} />;
@@ -78,19 +72,18 @@ const AdminCharities = () => {
         />
       </Box>
 
-      {selectedCharity && (
-        <CharityDeletionDialog
-          selectedCharity={selectedCharity}
-          open={openDeleteDialog}
-          handleClose={handleCloseDeleteDialog}
-          handleConfirm={({ id }) =>
-            api.charities
-              .deleteCharity(id)
-              .then(handleCloseDeleteDialog)
-              .then(() => refresh())
-          }
-        />
-      )}
+      <CharityDeletionDialog
+        selectedCharity={selectedCharity}
+        handleClose={handleCloseDeleteDialog}
+        open={selectedCharity !== null}
+        handleDelete={() =>
+          api.charities
+            // Non-null assertion is safe as the dialog will be closed if selection is null.
+            .deleteCharity(selectedCharity!.id)
+            .then(handleCloseDeleteDialog)
+            .then(() => refresh())
+        }
+      />
     </Box>
   );
 };
