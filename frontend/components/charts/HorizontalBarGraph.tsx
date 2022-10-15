@@ -1,5 +1,11 @@
 import { Box, SxProps } from '@mui/system';
-import { firstBarSx, graphSx, lastBarSx, middleBarSx } from '../../styles/components/charts/HorizontalBarGraphStyles';
+import {
+  firstBarSx,
+  graphSx,
+  lastBarSx,
+  middleBarSx,
+  onlyBarSx,
+} from '../../styles/components/charts/HorizontalBarGraphStyles';
 import { combineSxProps } from '../../utils/types';
 
 interface Props {
@@ -26,7 +32,9 @@ const HorizontalBarGraph = ({
           key={index}
           width={`calc(100% * ${fraction})`}
           sx={
-            index === 0
+            barFractions.length === 1
+              ? combineSxProps(onlyBarSx, overrideFirstBarSx)
+              : index === 0
               ? combineSxProps(firstBarSx, overrideFirstBarSx)
               : index === barCount - 1
               ? combineSxProps(lastBarSx, overrideLastBarSx)

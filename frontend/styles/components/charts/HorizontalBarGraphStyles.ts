@@ -5,6 +5,8 @@ const borderRadius = '200px';
 
 export const graphSx: SxProps = {
   display: 'flex',
+  height: '1em',
+  width: '100%',
 };
 
 export const middleBarSx: SxProps = {
@@ -25,4 +27,10 @@ export const lastBarSx: SxProps = {
   borderTopRightRadius: borderRadius,
   borderBottomRightRadius: borderRadius,
   backgroundColor: theme.palette.primaryTranslucent.main,
+};
+
+export const onlyBarSx: SxProps = {
+  border: '2px solid #FFFFFF',
+  backgroundColor: theme.palette.neutral.light,
+  borderRadius: borderRadius,
 };
