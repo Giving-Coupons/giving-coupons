@@ -1,64 +1,45 @@
-import { Box, Grid, Radio, Stack, Typography } from '@mui/material';
-import { isString } from 'formik';
+import { Box, Grid, InputAdornment, Radio, Stack, Typography } from '@mui/material';
+import { Form, Formik, isString } from 'formik';
 import { NextPage } from 'next';
 import Head from 'next/head';
-import { NextRouter, useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import useSWR from 'swr';
-import CampaignListCard from '../../../components/campaigns/CampaignListCard';
+import * as Yup from 'yup';
+import CampaignDescription from '../../../components/campaigns/CampaignDescription';
+import CampaignCharityCard from '../../../components/charities/CampaignCharityCard';
+import CampaignCharityList from '../../../components/charities/CampaignCharityList';
+import FormTextInput from '../../../components/forms/FormTextInput';
 import Button from '../../../components/generic/Button';
 import api from '../../../frontendApis';
 import CouponsAPI from '../../../frontendApis/coupons';
 import { containerSx } from '../../../styles/redeem/indexStyles';
-import { CampaignListData } from '../../../types/campaigns';
 import { CouponRedeemData } from '../../../types/coupons';
 import { Nullable } from '../../../types/utils';
-import { campaignImageBase64, logoBase64 } from '../../../utils/examples';
 import { theme } from '../../../utils/theme';
+import { makeMockCampaignCharity } from '../../campaigns/mock';
 
 const INITIAL_REDEEM_PAGE = 1;
 const NUMBER_OF_REDEEM_PAGES = 2;
 
-const sampleCharity: CharityListData = {
-  id: 1,
-  name: 'Beyond Social Services',
-  logoBase64: logoBase64,
-};
-
-const sampleCampaign: CampaignListData = {
-  id: 1,
-  name: 'Campaign Name',
-  description:
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sit amet accumsan dolor. Sed fermentum ex\n' +
-    '            neque, sit amet dapibus ante rutrum non.',
-  imageBase64: campaignImageBase64,
-  charities: Array(4).fill(sampleCharity),
-  donations: {
-    primaryDonor: {
-      amount: 60,
-      fraction: 0.6,
-    },
-    secondaryDonors: {
-      amount: 40,
-      fraction: 0.4,
-    },
-  },
-  couponsRedeemedCount: 0,
-};
-
-const sampleCampaigns: CampaignListData[] = Array(11).fill(sampleCampaign);
+export const couponRedeemFormSchema = Yup.object({
+  amount: Yup.number()
+    .required('Amount is required.')
+    .typeError('Amount must be a number.')
+    .integer('Amount must be an integer.')
+    .positive('Amount must be a positive.'),
+});
 
 const Redeem: NextPage = () => {
-  const router: NextRouter = useRouter();
-  const { urlToken } = router.query;
-
-  if (!urlToken || !isString(urlToken)) {
-    router.push('/');
-  }
+  const router = useRouter();
+  const urlToken = router.query.urlToken && isString(router.query.urlToken) ? router.query.urlToken : null;
 
   const { data: coupon } = useSWR<Nullable<CouponRedeemData>>(CouponsAPI.COUPONS_URL, () =>
-    api.coupons.getCoupon(urlToken as string).then((r) => r.payload),
+    urlToken !== null ? api.coupons.getCoupon(urlToken).then((r) => r.payload) : null,
   );
+
+  const [campaignCharityId, setCampaignCharityId] = useState<Nullable<number>>(null);
+  const [amount, setAmount] = useState<number>(0);
 
   const [redeemPageIndex, setRedeemPageIndex] = useState<number>(INITIAL_REDEEM_PAGE);
 
@@ -70,8 +51,9 @@ const Redeem: NextPage = () => {
     setRedeemPageIndex((prev) => Math.max(prev - 1, INITIAL_REDEEM_PAGE));
   };
 
-  const [campaignCharityId, setCampaignCharityId] = useState<Nullable<number>>(null);
-  const [amount, setAmount] = useState<number>(0);
+  if (!coupon) {
+    return null;
+  }
 
   const renderRedeemPage = () => {
     switch (redeemPageIndex) {
@@ -79,28 +61,37 @@ const Redeem: NextPage = () => {
         return (
           <Grid container sx={containerSx} component="main" justifyContent="center" paddingBottom={2}>
             <Grid item md={12} lg={4} container paddingLeft={2} paddingRight={2} paddingBottom={2}>
-              <Grid item>
+              <Grid xs={12} item paddingLeft={2} paddingRight={2}>
                 <Stack spacing={theme.spacing(2)}>
-                  <Typography variant="h2">{coupon?.campaign.name}</Typography>
+                  <Stack spacing={theme.spacing(1)}>
+                    <Typography variant="h2">{coupon.campaign.name}</Typography>
+                    <CampaignDescription campaign={coupon.campaign} />
+                  </Stack>
 
-                  <Typography variant="h2">Background info?</Typography>
-
-                  <Typography variant="h2">Quote thing</Typography>
+                  <CampaignCharityList campaignCharities={coupon.charities} />
                 </Stack>
               </Grid>
             </Grid>
 
             <Grid item md={12} lg={8} container spacing={2} paddingLeft={2} paddingRight={2} paddingBottom={2}>
-              {sampleCampaigns.map((campaign, index) => (
+              <Grid xs={12} padding={2}>
+                <Typography textAlign="center">You can make a difference too. Choose a coupon recipient!</Typography>
+
+                <Typography variant="h3" textAlign="center" color={theme.palette.primary.main}>
+                  Choose a coupon recipient!
+                </Typography>
+              </Grid>
+
+              {coupon.charities.map((campaignCharity, index) => (
                 <Grid item xs={12} sm={6} key={index}>
                   <Stack
                     direction="row"
                     justifyContent="start"
                     alignItems="flex-start"
-                    onClick={() => setCampaignCharityId(campaign.id)}
+                    onClick={() => setCampaignCharityId(campaignCharity.id)}
                   >
-                    <Radio checked={campaignCharityId === campaign.id} value={campaign.id} />
-                    <CampaignListCard campaign={campaign} />
+                    <Radio checked={campaignCharityId === campaignCharity.id} value={campaignCharity.id} />
+                    <CampaignCharityCard campaignCharity={makeMockCampaignCharity(1)} />
                   </Stack>
                 </Grid>
               ))}
@@ -116,7 +107,7 @@ const Redeem: NextPage = () => {
               paddingRight={2}
               paddingBottom={2}
             >
-              <Button actionType="primary" onClick={() => goToNextPage()}>
+              <Button actionType="primary" disabled={!campaignCharityId} onClick={() => goToNextPage()}>
                 Next
               </Button>
             </Grid>
@@ -124,53 +115,62 @@ const Redeem: NextPage = () => {
         );
       case 2:
         return (
-          <Grid container sx={containerSx} component="main" justifyContent="center" paddingBottom={2}>
-            <Grid item md={12} lg={4} container paddingLeft={2} paddingRight={2} paddingBottom={2}>
+          <Grid container sx={containerSx} component="main" justifyContent="center" paddingBottom={10}>
+            <Grid item xs={12} sm={6} md={4} container paddingLeft={2} paddingRight={2}>
               <Grid item>
-                <Stack spacing={theme.spacing(2)}>
-                  <Typography variant="h2">Campaign Name</Typography>
-
-                  <Typography variant="h2">Background info?</Typography>
-
-                  <Typography variant="h2">Quote thing</Typography>
-                </Stack>
+                <CampaignCharityCard campaignCharity={makeMockCampaignCharity(1)} />
               </Grid>
             </Grid>
 
-            <Grid item md={12} lg={8} container spacing={2} paddingLeft={2} paddingRight={2} paddingBottom={2}>
-              <Grid item xs={12}>
-                <Typography variant="h2">
-                  You have empowered CAMPAIGN NAME and their beneficiary with CAMPAIGN DENOMINTATION.
+            <Grid item xs={12} sm={6} md={8}>
+              <Stack spacing={theme.spacing(2)} padding={2}>
+                <Typography textAlign="center">
+                  You have empowered {coupon.campaign.name} and their beneficiary with $
+                  {coupon.campaign.couponDenomination}.
                 </Typography>
-              </Grid>
 
-              <Grid item xs={12}>
-                <Typography variant="h2">Would you like to add a personal contribution?</Typography>
-              </Grid>
-
-              <Grid item xs={12}>
-                <Typography variant="h2">
-                  STATS: 90% of coupon givers have made a personal contribution. Join them and make a bigger difference!
+                <Typography variant="h4" textAlign="center">
+                  Would you like to add a personal contribution?
                 </Typography>
-              </Grid>
 
-              <Grid item xs={12} flexDirection="row-reverse" container spacing={1}>
-                <Grid item xs={12} alignItems="center" justifyContent="center" container>
-                  <Button fullWidth actionType="primary" onClick={() => goToNextPage()}>
-                    Make a personal contribution
-                  </Button>
-                </Grid>
-                <Grid item xs={12} alignItems="center" justifyContent="center" container>
-                  <Button fullWidth actionType="secondary" onClick={() => goToNextPage()}>
-                    Continue without a personal contribution
-                  </Button>
-                </Grid>
-                <Grid item xs={12} alignItems="center" justifyContent="center" container>
-                  <Button fullWidth actionType="tertiary" onClick={() => goToPreviousPage()}>
-                    Change beneficiary
-                  </Button>
-                </Grid>
-              </Grid>
+                <Formik
+                  initialValues={{ amount: 0 }}
+                  validationSchema={couponRedeemFormSchema}
+                  onSubmit={(values: { amount: number }) =>
+                    couponRedeemFormSchema.validate(values).then(() => setAmount(values.amount))
+                  }
+                >
+                  {({ isValid, dirty }) => (
+                    <Form>
+                      <Stack spacing={theme.spacing(2)}>
+                        <FormTextInput
+                          name="amount"
+                          label="Amount"
+                          InputProps={{ startAdornment: <InputAdornment position="start">$</InputAdornment> }}
+                        />
+
+                        <Button
+                          type="submit"
+                          disabled={!isValid || !dirty}
+                          fullWidth
+                          actionType="primary"
+                          onClick={() => goToNextPage()}
+                        >
+                          Make a personal contribution
+                        </Button>
+                      </Stack>
+                    </Form>
+                  )}
+                </Formik>
+
+                <Button fullWidth actionType="secondary" onClick={() => goToNextPage()}>
+                  Continue without a personal contribution
+                </Button>
+
+                <Button fullWidth actionType="tertiary" onClick={() => goToPreviousPage()}>
+                  Change beneficiary
+                </Button>
+              </Stack>
             </Grid>
           </Grid>
         );
