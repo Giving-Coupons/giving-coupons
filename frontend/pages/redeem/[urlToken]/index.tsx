@@ -15,6 +15,7 @@ import RedeemLoading from '../../../components/redeem/RedeemLoading';
 import api from '../../../frontendApis';
 import { containerSx } from '../../../styles/redeem/indexStyles';
 import { CouponRedeemData } from '../../../types/coupons';
+import { SecondaryDonationPostData } from '../../../types/donations';
 import { Nullable } from '../../../types/utils';
 import { theme } from '../../../utils/theme';
 import { makeMockCampaignCharity } from '../../campaigns/mock';
@@ -48,6 +49,20 @@ const Redeem: NextPage = () => {
 
   const goToPreviousPage = () => {
     setRedeemPageIndex((prev) => Math.max(prev - 1, INITIAL_REDEEM_PAGE));
+  };
+
+  const handleSubmit = () => {
+    if (campaignCharityId === null) {
+      return;
+    }
+
+    const secondaryDonationPostData: SecondaryDonationPostData = {
+      amount,
+      campaignCharityId,
+      urlToken,
+    };
+
+    api.secondaryDonations.addSecondaryDonation(secondaryDonationPostData).then(() => router.push('/redeem/thank-you'));
   };
 
   const renderRedeemPage = () => {
@@ -158,7 +173,7 @@ const Redeem: NextPage = () => {
                           disabled={!isValid || !dirty}
                           fullWidth
                           actionType="primary"
-                          onClick={() => goToNextPage()}
+                          onClick={handleSubmit}
                         >
                           Make a personal contribution
                         </Button>
@@ -167,7 +182,7 @@ const Redeem: NextPage = () => {
                   )}
                 </Formik>
 
-                <Button fullWidth actionType="secondary" onClick={() => goToNextPage()}>
+                <Button fullWidth actionType="secondary" onClick={handleSubmit}>
                   Continue without a personal contribution
                 </Button>
 
