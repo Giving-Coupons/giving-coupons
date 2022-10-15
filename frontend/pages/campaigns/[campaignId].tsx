@@ -2,13 +2,12 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import { canBecomeInteger } from '../../utils/numbers';
 import CampaignCharityCard from '../../components/charities/CampaignCharityCard';
-import { Box, Button, Divider, Stack, Typography, useMediaQuery } from '@mui/material';
+import { Box, Button, Divider, Stack, Typography } from '@mui/material';
 import { theme } from '../../utils/theme';
 import { makeMockCampaign } from './mock';
 import OpenQuotes from '../../components/icons/OpenQuotes';
 import CloseQuotes from '../../components/icons/CloseQuotes';
 import CircularProgressWithLabel from '../../components/CircularProgressWithLabel';
-import CampaignCharityListItem from '../../components/charities/CampaignCharityListItem';
 import SwiperWrapper from '../../components/swiper/SwiperWrapper';
 import CampaignCharityList from '../../components/charities/CampaignCharityList';
 
@@ -31,8 +30,8 @@ export default function CampaignDetail() {
       </Typography>
 
       <SwiperWrapper navigable paginated>
-        {campaign.charities.map((campaignCharity) => (
-          <CampaignCharityCard campaignCharity={campaignCharity} />
+        {campaign.charities.map((campaignCharity, index) => (
+          <CampaignCharityCard key={index} campaignCharity={campaignCharity} />
         ))}
       </SwiperWrapper>
 

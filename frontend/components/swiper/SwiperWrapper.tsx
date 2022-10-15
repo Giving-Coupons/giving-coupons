@@ -27,7 +27,7 @@ const moduleMap: {
 
 const convertSelectionToModules = (selection: ModuleSelection): SwiperModule[] => {
   return Object.entries(selection)
-    .filter(([prop, isIncluded]) => isIncluded)
+    .filter((entry) => entry[1])
     .map(([prop]) => moduleMap[prop]);
 };
 

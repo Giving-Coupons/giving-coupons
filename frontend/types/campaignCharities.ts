@@ -1,5 +1,5 @@
 import { WithoutId } from './utils';
-import { CharityData, CharityListData } from './charity';
+import { CharityData } from './charity';
 import { DonationBreakdownData } from './donations';
 
 export type CampaignCharityBaseData = {

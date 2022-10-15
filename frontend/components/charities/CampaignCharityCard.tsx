@@ -1,11 +1,8 @@
 import { Box, Container, Stack } from '@mui/system';
-import { Typography, Grid } from '@mui/material';
+import { Typography } from '@mui/material';
 import Button from '../generic/Button';
 import CompetingGraph from '../charts/CompetingGraph';
-import { CampaignListData } from '../../types/campaigns';
 import CardWithImage from '../generic/CardWithImage';
-import {} from '../../styles/components/campaigns/CampaignListCardStyles';
-import { useRouter } from 'next/router';
 import { CampaignCharityDonationPublicData } from '../../types/campaignCharities';
 import {
   charityLogoSx,
@@ -22,8 +19,6 @@ interface Props {
 }
 
 const CampaignCharityCard = ({ campaignCharity }: Props) => {
-  const router = useRouter();
-
   const primaryDonorDonationData = campaignCharity.primaryDonor;
   const secondaryDonorDonationData = campaignCharity.secondaryDonors;
 
