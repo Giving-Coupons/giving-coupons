@@ -1,22 +1,22 @@
 import { Box, Container } from '@mui/system';
-import CampaignForm from '../../../components/campaigns/form/CampaignForm';
+import { isInteger } from 'formik';
+import moment from 'moment';
 import Head from 'next/head';
-import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import useSWR from 'swr';
 import * as Yup from 'yup';
+import CampaignForm from '../../../components/campaigns/form/CampaignForm';
+import api from '../../../frontendApis';
+import InterestsAPI from '../../../frontendApis/interests';
+import { CampaignCharityPostData } from '../../../types/campaignCharities';
+import { CampaignFormData, CampaignPostData } from '../../../types/campaigns';
+import { InterestData } from '../../../types/interest';
+import { PrimaryDonorPostData } from '../../../types/primaryDonor';
+import { Nullable } from '../../../types/utils';
 import { MAX_NUM_OF_CAMPAIGN_CHARITIES } from '../../../utils/constants';
 import { isValidDate } from '../../../utils/dates';
-import moment from 'moment';
-import { CampaignFormData, CampaignPostData } from '../../../types/campaigns';
-import { CampaignCharityPostData } from '../../../types/campaignCharities';
-import { PrimaryDonorPostData } from '../../../types/primaryDonor';
 import { canBecomeInteger } from '../../../utils/numbers';
-import { useRouter } from 'next/router';
-import useSWR from 'swr';
-import { Nullable } from '../../../types/utils';
-import { Interest } from '../../../types/interest';
-import InterestsAPI from '../../../frontendApis/interests';
-import api from '../../../frontendApis';
-import { isInteger } from 'formik';
 
 const createCampaignSchema = Yup.object().shape(
   {
@@ -100,7 +100,7 @@ const createCampaignSchema = Yup.object().shape(
 const CampaignCreate = () => {
   const router = useRouter();
   const { interestId } = router.query;
-  const { data: interest } = useSWR<Nullable<Interest>>(`${InterestsAPI.INTERESTS_URL}/getInterest`, () =>
+  const { data: interest } = useSWR<Nullable<InterestData>>(`${InterestsAPI.INTERESTS_URL}/getInterest`, () =>
     isInteger(interestId) ? api.interests.getInterest(Number(interestId)).then((r) => r.payload) : null,
   );
   const defaultInitialValues = {
@@ -153,8 +153,8 @@ const CampaignCreate = () => {
         const campaignPostData: CampaignPostData = {
           ...values,
           charities: charitiesPostData,
-          start: moment(values.start).toISOString(),
-          end: moment(values.end).toISOString(),
+          start: moment(values.start),
+          end: moment(values.end),
           primaryDonor: primaryDonorPostData,
         };
 
