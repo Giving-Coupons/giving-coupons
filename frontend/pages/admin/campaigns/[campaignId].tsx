@@ -117,9 +117,11 @@ const sampleCampaign: CampaignAdminData = {
 const AdminCampaign = () => {
   const { query } = useRouter();
   const campaignId = query.campaignId && isInteger(query.campaignId) ? Number(query.campaignId) : null;
-  const { data: campaign, error } = useSWR<Nullable<CampaignAdminData>>([campaignId], (campaignId) =>
+  const { data: fetchedCampaign, error } = useSWR<Nullable<CampaignAdminData>>([campaignId], (campaignId) =>
     campaignId !== null ? api.campaigns.adminGet(campaignId).then((res) => res.payload) : null,
   );
+
+  const campaign = sampleCampaign;
 
   const isLoading = !campaign && !error;
 
@@ -141,7 +143,7 @@ const AdminCampaign = () => {
 
         {campaign && !error && (
           <Grid container>
-            <Grid item sm={12} md={8}>
+            <Grid item xs={12} md={8}>
               <Stack sx={sectionSx} component="div" spacing={4}>
                 <CampaignInfoCard campaignBaseInfo={campaign} />
 
@@ -149,7 +151,7 @@ const AdminCampaign = () => {
               </Stack>
             </Grid>
 
-            <Grid item sm={12} md={4}>
+            <Grid item xs={12} md={4}>
               <Stack sx={sectionSx} component="div" spacing={4}>
                 <CampaignDonationBreakdownCard
                   totalDonationBreakdown={campaign.donations}

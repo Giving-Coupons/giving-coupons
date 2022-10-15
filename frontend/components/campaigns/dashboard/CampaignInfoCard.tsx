@@ -63,11 +63,11 @@ const CampaignInfoCard = ({ campaignBaseInfo }: Props) => {
   return (
     <Box>
       <Grid container columnSpacing={2}>
-        <Grid item sm={12} md={6}>
+        <Grid item xs={12} md={6}>
           <Box sx={campaignImageSx} component="img" src={campaignBaseInfo.imageBase64} />
         </Grid>
 
-        <Grid item sm={12} md={6}>
+        <Grid item xs={12} md={6}>
           <Stack component="div" spacing={2}>
             <Typography variant="h3">{campaignBaseInfo.name}</Typography>
 
