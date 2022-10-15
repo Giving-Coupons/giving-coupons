@@ -12,8 +12,10 @@ const ThankYou: NextPage = () => {
           <Lottie autoPlay loop={false} animationData={orangeThankYou} />
         </Box>
       </Box>
-      <Typography variant="h3" textAlign="center" marginTop={-100}>
-        Your gift will not just improve lives, it will transform futures. <br />
+
+      <Typography variant="h3" textAlign="center">
+        Your gift will not just improve lives, it will transform futures.
+        <br />
         Thank you for your generosity.
       </Typography>
     </Stack>
