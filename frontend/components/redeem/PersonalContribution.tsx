@@ -26,22 +26,19 @@ type Props = {
 
 const PersonalContribution = ({ coupon, setAmount, goToPreviousPage, handleSubmit }: Props) => {
   return (
-    <Grid container sx={containerSx} component="main" justifyContent="center" paddingBottom={10}>
-      <Grid item xs={12} sm={6} md={4} container paddingLeft={2} paddingRight={2}>
-        <Grid item>
-          <CampaignCharityCard campaignCharity={makeMockCampaignCharity(1)} />
-        </Grid>
+    <Grid container sx={containerSx} component="main" justifyContent="center">
+      <Grid item xs={12} sm={7} md={4} padding={4}>
+        <CampaignCharityCard campaignCharity={makeMockCampaignCharity(1)} />
       </Grid>
 
-      <Grid item xs={12} sm={6} md={8}>
-        <Stack spacing={theme.spacing(2)} padding={2}>
+      <Grid item xs={12} sm={5} md={8} padding={4}>
+        <Stack spacing={theme.spacing(2)}>
           <Typography textAlign="center">
-            You have empowered {coupon.campaign.name} and their beneficiary with ${coupon.campaign.couponDenomination}.
+            <strong>You have empowered {coupon.campaign.name}</strong> and their beneficiary with{' '}
+            <strong>${coupon.campaign.couponDenomination}</strong>.
           </Typography>
 
-          <Typography variant="h4" textAlign="center">
-            Would you like to add a personal contribution?
-          </Typography>
+          <Typography textAlign="center">Would you like to add a personal contribution?</Typography>
 
           <Formik
             initialValues={{ amount: 0 }}
@@ -68,18 +65,18 @@ const PersonalContribution = ({ coupon, setAmount, goToPreviousPage, handleSubmi
                   >
                     Make a personal contribution
                   </Button>
+
+                  <Button fullWidth actionType="secondary" onClick={handleSubmit}>
+                    Continue without a personal contribution
+                  </Button>
+
+                  <Button fullWidth actionType="tertiary" onClick={goToPreviousPage}>
+                    Change beneficiary
+                  </Button>
                 </Stack>
               </Form>
             )}
           </Formik>
-
-          <Button fullWidth actionType="secondary" onClick={handleSubmit}>
-            Continue without a personal contribution
-          </Button>
-
-          <Button fullWidth actionType="tertiary" onClick={goToPreviousPage}>
-            Change beneficiary
-          </Button>
         </Stack>
       </Grid>
     </Grid>
