@@ -5,7 +5,6 @@ import { Box, Stack } from '@mui/system';
 import { Grid } from '@mui/material';
 import { Typography } from '@mui/material';
 import {
-  hero,
   buttonSx,
   marTop2rem,
   marTop5,
@@ -15,7 +14,6 @@ import {
   largeFont,
   impactText,
   section,
-  buttonSecondary,
 } from '../styles/indexStyles';
 import Image from 'next/image';
 import ResponsiveImage from '../components/ResponsiveImage';
@@ -37,7 +35,14 @@ const Home: NextPage = () => {
             <Typography variant="h5" align="center" textAlign="left" fontWeight="900">
               Together, we are more
             </Typography>
-            <Typography sx={marTop5} variant="subtitle" align="center" fontSize="20px" textAlign="left" fontWeight="500">
+            <Typography
+              sx={marTop5}
+              variant="subtitle"
+              align="center"
+              fontSize="20px"
+              textAlign="left"
+              fontWeight="500"
+            >
               Giving coupons is an initiative to raise money for charities through public gift matching
             </Typography>
             <Button sx={buttonSx} actionType="primary">
@@ -162,25 +167,20 @@ const Home: NextPage = () => {
         </Stack>
       </Box>
 
-      <Stack 
-        direction="column"
-        justifyContent="space-between"
-        alignItems="center"
-        spacing={2}
-      >
-        <Typography sx={marTop10} variant="h1" align="center">
+      <Stack sx={marTop2rem} height="30vh" direction="column" justifyContent="center" alignItems="center" spacing={2}>
+        <Typography sx={marTop2rem} variant="h1" align="center">
           Join Our Mission
         </Typography>
-        <Grid container spacing={2} alignItems="center" justifyContent="center">
+        <Grid container spacing={2} alignItems="center" justifyContent="center" maxWidth="1000px">
           <Grid item xs={12} sm={12} md={6} lg={6} display="flex" alignItems="center" justifyContent="center">
-            <ButtonCard 
+            <ButtonCard
               title="Create a Campaign"
               content="Commit a sum and generate coupons to spread the gift of giving"
             />
           </Grid>
 
           <Grid item xs={12} sm={12} md={6} lg={6} display="flex" alignItems="center" justifyContent="center">
-            <ButtonCard 
+            <ButtonCard
               title="Contribute to a campaign"
               content="Learn more about existing campaigns and contribute directly"
             />
@@ -188,6 +188,19 @@ const Home: NextPage = () => {
         </Grid>
       </Stack>
 
+      <Stack
+        direction="column"
+        width="100%"
+        height="30vh"
+        justifyContent="flex-end"
+        alignItems="flex-start"
+        padding="10px"
+        spacing={2}
+      >
+        <Typography sx={marTop10} variant="subtitle">
+          Giving Coupons 2022
+        </Typography>
+      </Stack>
     </Box>
   );
 };

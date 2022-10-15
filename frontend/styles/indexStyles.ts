@@ -108,3 +108,8 @@ export const buttonSecondary: SxProps = {
   margin: '10px 0px',
   color: 'blue',
 };
+
+export const buttonCard: SxProps = {
+  backgroundImage: 'linear-gradient(to right, #FFF428 , #FF3200)',
+  maxWidth: 345,
+};

@@ -40,8 +40,8 @@ const ResponsiveImage = () => {
           </Grid>
         </Box>
       ) : (
-        <Box sx={{ display: 'block', width: '100vw', marginTop: '2rem',}}>
-            <Image src="/charity-image.png" layout="responsive" width="100vw" height="40vh"></Image>
+        <Box sx={{ display: 'block', width: '100vw', marginTop: '2rem' }}>
+          <Image src="/charity-image.png" layout="responsive" width="100vw" height="30vh"></Image>
         </Box>
       )}
     </Box>
