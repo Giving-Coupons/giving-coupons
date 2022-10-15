@@ -12,8 +12,8 @@ const CharityCreate = () => {
   const router = useRouter();
   useAdminLoginCheck();
 
-  const handleSubmit = (values: CharityFormData) => {
-    charitySchema
+  const handleSubmit = async (values: CharityFormData) => {
+    return charitySchema
       .validate(values)
       .then((values: Yup.InferType<typeof charitySchema>) => {
         const charityPostData: CharityPostData = {
@@ -30,7 +30,7 @@ const CharityCreate = () => {
   return (
     <Box>
       <Head>
-        <title>Create Charities</title>
+        <title>Create Charity</title>
       </Head>
 
       <Container sx={containerSx} component="main" maxWidth="sm">
