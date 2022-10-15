@@ -4,13 +4,9 @@ import { canBecomeInteger } from '../../utils/numbers';
 import CampaignCharityCard from '../../components/charities/CampaignCharityCard';
 import { Box, Button, Divider, Stack, Typography } from '@mui/material';
 import { theme } from '../../utils/theme';
-import { makeMockCampaign } from './mock';
-import OpenQuotes from '../../components/icons/OpenQuotes';
-import CloseQuotes from '../../components/icons/CloseQuotes';
 import CircularProgressWithLabel from '../../components/CircularProgressWithLabel';
 import SwiperWrapper from '../../components/swiper/SwiperWrapper';
 import CampaignCharityList from '../../components/charities/CampaignCharityList';
-import CampaignsAPI from '../../frontendApis/campaigns';
 import api from '../../frontendApis';
 import { GetServerSidePropsContext } from 'next';
 import { CampaignPublicData } from '../../types/campaigns';
@@ -51,7 +47,6 @@ type Props = {
 };
 
 export default function CampaignDetail({ campaign, message }: Props) {
-  const router = useRouter();
   const { enqueueSnackbar } = useSnackbar();
 
   enqueueGCSnackbar(enqueueSnackbar, message);
