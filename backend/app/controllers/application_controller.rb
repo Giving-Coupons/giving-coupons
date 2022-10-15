@@ -40,7 +40,6 @@ class ApplicationController < ActionController::API
     request.format = :json
   end
 
-  # Convert all JSON keys from camelCase to snake_case
   def underscore_params!
     params.deep_transform_keys!(&:underscore)
   end
