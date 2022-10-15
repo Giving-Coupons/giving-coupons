@@ -22,22 +22,6 @@ class Interest < ApplicationRecord
     return unless pending?
 
     self.status = :approved
-
-    primary_donor = PrimaryDonor.find_or_initialize_by(email: donor_email) do |new_donor|
-      new_donor.name = donor_name
-    end
-
-    self.campaign = Campaign.new(
-      name: campaign_name,
-      description: campaign_description,
-      promised_amount: promised_amount,
-      coupon_denomination: coupon_denomination,
-      start: start,
-      end: self.end,
-      primary_donor: primary_donor,
-      charities: charities
-    )
-
     save!
   end
 

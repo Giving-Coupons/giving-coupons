@@ -12,6 +12,7 @@ class Campaign < ApplicationRecord
   has_many :charities, through: :campaign_charities
   has_many :secondary_donations, through: :campaign_charities
 
+  after_create :approve_associated_interest
   after_create :generate_coupons
 
   validates :name, presence: true, allow_blank: false
@@ -44,6 +45,12 @@ class Campaign < ApplicationRecord
   end
 
   private
+
+  def approve_associated_interest
+    return unless interest
+
+    interest.approve
+  end
 
   def num_coupons
     promised_amount / coupon_denomination
