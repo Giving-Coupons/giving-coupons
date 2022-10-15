@@ -61,51 +61,49 @@ const CampaignInfoCard = ({ campaignBaseInfo }: Props) => {
   };
 
   return (
-    <Box>
-      <Grid container columnSpacing={2}>
-        <Grid item xs={12} md={6}>
-          <Box sx={campaignImageSx} component="img" src={campaignBaseInfo.imageBase64} />
-        </Grid>
+    <Grid container columnSpacing={2}>
+      <Grid item xs={12} md={6}>
+        <Box sx={campaignImageSx} component="img" src={campaignBaseInfo.imageBase64} />
+      </Grid>
 
-        <Grid item xs={12} md={6}>
-          <Stack component="div" spacing={2}>
-            <Typography variant="h3">{campaignBaseInfo.name}</Typography>
+      <Grid item xs={12} md={6}>
+        <Stack component="div" spacing={2}>
+          <Typography variant="h3">{campaignBaseInfo.name}</Typography>
 
-            <Typography variant="body2">{campaignBaseInfo.description}</Typography>
+          <Typography variant="body2">{campaignBaseInfo.description}</Typography>
 
-            <Stack sx={campaignInfoItemSx} component="div" spacing={1}>
-              <Typography variant="h4">Status: {getStatus(campaignBaseInfo.start, campaignBaseInfo.end)}</Typography>
+          <Stack sx={campaignInfoItemSx} component="div" spacing={1}>
+            <Typography variant="h4">Status: {getStatus(campaignBaseInfo.start, campaignBaseInfo.end)}</Typography>
 
-              <Stack component="div" direction="row" spacing={2}>
-                <CampaignDateInfoIcon date={campaignBaseInfo.start} />
+            <Stack component="div" direction="row" spacing={2}>
+              <CampaignDateInfoIcon date={campaignBaseInfo.start} />
 
-                <LinearScaleIcon fontSize="large" />
+              <LinearScaleIcon fontSize="large" />
 
-                <CampaignDateInfoIcon date={campaignBaseInfo.end} />
-              </Stack>
-            </Stack>
-
-            <Stack sx={campaignInfoItemSx} component="div" spacing={1}>
-              <Typography variant="h4">Money Info</Typography>
-
-              <Stack component="div" direction="row" spacing={2}>
-                <CampaignMoneyInfoIcon
-                  tooltipTitle="Promised Amount"
-                  icon={<PaidIcon fontSize="large" />}
-                  amount={campaignBaseInfo.promisedAmount}
-                />
-
-                <CampaignMoneyInfoIcon
-                  tooltipTitle="Coupon Denomination"
-                  icon={<LocalActivityIcon fontSize="large" />}
-                  amount={campaignBaseInfo.couponDenomination}
-                />
-              </Stack>
+              <CampaignDateInfoIcon date={campaignBaseInfo.end} />
             </Stack>
           </Stack>
-        </Grid>
+
+          <Stack sx={campaignInfoItemSx} component="div" spacing={1}>
+            <Typography variant="h4">Money Info</Typography>
+
+            <Stack component="div" direction="row" spacing={2}>
+              <CampaignMoneyInfoIcon
+                tooltipTitle="Promised Amount"
+                icon={<PaidIcon fontSize="large" />}
+                amount={campaignBaseInfo.promisedAmount}
+              />
+
+              <CampaignMoneyInfoIcon
+                tooltipTitle="Coupon Denomination"
+                icon={<LocalActivityIcon fontSize="large" />}
+                amount={campaignBaseInfo.couponDenomination}
+              />
+            </Stack>
+          </Stack>
+        </Stack>
       </Grid>
-    </Box>
+    </Grid>
   );
 };
 
