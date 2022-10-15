@@ -29,7 +29,6 @@ Rails.application.routes.draw do
 
       resources :interests do
         member do
-          post 'approve'
           post 'reject'
         end
       end
