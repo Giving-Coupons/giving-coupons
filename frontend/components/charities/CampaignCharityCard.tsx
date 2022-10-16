@@ -51,7 +51,7 @@ const CampaignCharityCard = ({ campaignCharity }: Props) => {
 
   const actionButtons = (
     <Box key="actionButtons">
-      <Button sx={buttonSx} actionType="tertiary" onClick={() => router.push(campaignCharity.givingSgUrl)}>
+      <Button sx={buttonSx} actionType="tertiary" onClick={() => router.push(campaignCharity.charity.websiteUrl)}>
         <Stack direction="row" spacing={1}>
           <LinkIcon />
           <Typography>Visit page</Typography>
