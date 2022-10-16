@@ -45,13 +45,13 @@ const CompetingGraph = ({
 
       {barFractions[0] !== null && barFractions[1] !== null ? (
         <HorizontalBarGraph
-          barFractions={[barFractions[0], barFractions[1]]}
+          bars={[{ fraction: barFractions[0] }, { fraction: barFractions[1] }]}
           overrideFirstBarSx={leftBarSx}
           overrideLastBarSx={rightBarSx}
           overrideGraphSx={overrideGraphSx}
         />
       ) : (
-        <HorizontalBarGraph barFractions={[1]} overrideGraphSx={overrideGraphSx} />
+        <HorizontalBarGraph bars={[{ fraction: 1 }]} overrideGraphSx={overrideGraphSx} />
       )}
 
       <Box sx={bottomGraphLegendSx}>

@@ -1,15 +1,17 @@
-import { Nullable, WithoutId } from './utils';
 import { Moment } from 'moment';
-import { PrimaryDonorData, PrimaryDonorPostData } from './primaryDonor';
 import {
   CampaignCharityBaseData,
   CampaignCharityDonationData,
   CampaignCharityDonationPublicData,
   CampaignCharityPostData,
 } from './campaignCharities';
-import { DonationBreakdownData } from './donations';
-import { CouponListData } from './coupons';
 import { CharityListData } from './charity';
+import { CouponListData } from './coupons';
+import { DonationBreakdownData } from './donations';
+import { PrimaryDonorData, PrimaryDonorPostData } from './primaryDonor';
+import { Nullable, WithoutId } from './utils';
+
+export type CampaignStatus = 'Active' | 'Completed' | 'Upcoming';
 
 export type CampaignListData = {
   id: number;
@@ -48,18 +50,18 @@ export type CampaignFormData = {
 
 export type CampaignListQueryParams = {
   name?: string;
-  status?: {
-    isActive?: boolean;
-    isUpcoming?: boolean;
-    isCompleted?: boolean;
+  status: {
+    isActive: boolean;
+    isUpcoming: boolean;
+    isCompleted: boolean;
   };
   start?: {
-    from?: Moment;
-    to?: Moment;
+    from?: string;
+    to?: string;
   };
   end?: {
-    from?: Moment;
-    to?: Moment;
+    from?: string;
+    to?: string;
   };
 };
 
@@ -102,7 +104,7 @@ export type CampaignPutData = Omit<
   primaryDonor: PrimaryDonorData;
 };
 
-export type CampaignPublicData = CampaignBaseData & {
+export type CampaignPublicData = Omit<CampaignBaseData, 'charities'> & {
   donations: DonationBreakdownData;
   charities: CampaignCharityDonationPublicData[];
 };

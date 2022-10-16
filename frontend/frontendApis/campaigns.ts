@@ -3,6 +3,8 @@ import {
   CampaignAdminData,
   CampaignAdminListData,
   CampaignListData,
+  CampaignPublicData,
+  CampaignListQueryParams,
   CampaignPostData,
   CampaignPutData,
 } from '../types/campaigns';
@@ -11,8 +13,8 @@ import BaseAPI from './base';
 class CampaignsAPI extends BaseAPI {
   static CAMPAIGNS_URL = 'campaigns';
 
-  public list(): ApiPromise<CampaignListData[]> {
-    return this.get(CampaignsAPI.CAMPAIGNS_URL);
+  public list(params: CampaignListQueryParams): ApiPromise<CampaignListData[]> {
+    return this.get(CampaignsAPI.CAMPAIGNS_URL, { params });
   }
 
   public adminList(): ApiPromise<CampaignAdminListData[]> {
@@ -25,6 +27,10 @@ class CampaignsAPI extends BaseAPI {
 
   public addCampaign(campaignPostData: CampaignPostData): ApiPromise<CampaignAdminData> {
     return this.post(CampaignsAPI.CAMPAIGNS_URL, campaignPostData);
+  }
+
+  public getCampaign(id: number): ApiPromise<CampaignPublicData> {
+    return this.get(`${CampaignsAPI.CAMPAIGNS_URL}/${id}`);
   }
 
   public putCampaign(id: number, campaignPutData: CampaignPutData): ApiPromise<CampaignAdminData> {

@@ -13,7 +13,7 @@ class SecondaryDonationsController < ApplicationController
     @secondary_donation.campaign_charity = CampaignCharity.find(params[:campaign_charity_id])
     @secondary_donation.save!
 
-    add_success_message('Donation successfully created!')
+    add_success_message('Thank you for your donation!')
   end
 
   private

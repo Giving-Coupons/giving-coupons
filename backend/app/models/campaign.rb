@@ -13,7 +13,7 @@ class Campaign < ApplicationRecord
   has_many :secondary_donations, through: :campaign_charities
 
   after_create :approve_associated_interest
-  after_create :generate_coupons
+  after_create :queue_generate_coupons_job
 
   validates :name, presence: true, allow_blank: false
   validates :description, presence: true, allow_blank: false
@@ -63,6 +63,14 @@ class Campaign < ApplicationRecord
       secondary_donors_fraction: secondary_donors_fraction }
   end
 
+  def generate_coupons
+    num_coupons.times do
+      coupons.new(denomination: coupon_denomination, url_token: Coupon.generate_unique_url_token)
+    end
+
+    save!
+  end
+
   def num_redeemed_coupons
     coupons.count(&:redeemed?)
   end
@@ -79,11 +87,7 @@ class Campaign < ApplicationRecord
     promised_amount / coupon_denomination
   end
 
-  def generate_coupons
-    num_coupons.times do
-      coupons.new(denomination: coupon_denomination, url_token: Coupon.generate_unique_url_token)
-    end
-
-    save!
+  def queue_generate_coupons_job
+    GenerateCouponsForCampaignJob.perform_later self
   end
 end

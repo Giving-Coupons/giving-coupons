@@ -1,48 +1,35 @@
-import { Box, Container, useTheme } from '@mui/system';
-import { CampaignListData } from '../../types/campaigns';
+import { Box, Container, Stack, useTheme } from '@mui/system';
+import { CampaignListData, CampaignListQueryParams } from '../../types/campaigns';
 import Head from 'next/head';
-import CampaignList from '../../components/campaigns/CampaignList';
-import { Fab, useMediaQuery } from '@mui/material';
+import CampaignList from '../../components/campaigns/list/CampaignList';
+import { Fab, Typography, useMediaQuery } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import CampaignSearch from '../../components/campaigns/search/CampaignSearch';
 import { containerSx, mobileSearchButtonSx } from '../../styles/pages/campaigns/indexStyles';
-import { campaignImageBase64, logoBase64 } from '../../utils/examples';
-import { CharityListData } from '../../types/charity';
-
-const sampleCharity: CharityListData = {
-  id: 1,
-  name: 'Beyond Social Services',
-  logoBase64: logoBase64,
-};
-
-const sampleCampaign: CampaignListData = {
-  id: 1,
-  name: 'Campaign Name',
-  description:
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sit amet accumsan dolor. Sed fermentum ex\n' +
-    '            neque, sit amet dapibus ante rutrum non.',
-  imageBase64: campaignImageBase64,
-  charities: Array(4).fill(sampleCharity),
-  donations: {
-    primaryDonor: {
-      amount: 60,
-      fraction: 0.6,
-    },
-    secondaryDonors: {
-      amount: 40,
-      fraction: 0.4,
-    },
-  },
-  couponsRedeemedCount: 0,
-};
-
-const sampleCampaigns: CampaignListData[] = Array(11).fill(sampleCampaign);
+import useSWR from 'swr';
+import { Nullable } from '../../types/utils';
+import api from '../../frontendApis';
+import CampaignsAPI from '../../frontendApis/campaigns';
+import CampaignListLoading from '../../components/campaigns/list/CampaignListLoading';
 
 const Campaigns = () => {
+  const defaultQueryParams = {
+    status: {
+      isActive: true,
+      isUpcoming: false,
+      isCompleted: false,
+    },
+  };
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [searchDrawerIsOpen, setSearchDrawerIsOpen] = useState<boolean>(false);
+  const [queryParams, setQueryParams] = useState<CampaignListQueryParams>(defaultQueryParams);
+  const { data: campaigns, error } = useSWR<Nullable<CampaignListData[]>>(
+    [CampaignsAPI.CAMPAIGNS_URL, queryParams],
+    () => api.campaigns.list(queryParams).then((r) => r.payload),
+  );
+  const isLoading = !campaigns && !error;
 
   return (
     <Box>
@@ -51,9 +38,24 @@ const Campaigns = () => {
       </Head>
 
       <Container sx={containerSx} component="main">
-        <CampaignSearch searchDrawerIsOpen={searchDrawerIsOpen} setSearchDrawerIsOpen={setSearchDrawerIsOpen} />
+        <CampaignSearch
+          searchDrawerIsOpen={searchDrawerIsOpen}
+          setSearchDrawerIsOpen={setSearchDrawerIsOpen}
+          queryParams={queryParams}
+          setQueryParams={setQueryParams}
+          handleReset={() => setQueryParams(defaultQueryParams)}
+        />
 
-        <CampaignList campaigns={sampleCampaigns} />
+        {isLoading && <CampaignListLoading />}
+
+        {error && (
+          <Stack spacing={2}>
+            <Typography variant="h1">Error</Typography>
+            <Typography variant="h2">That is all we know right now.</Typography>
+          </Stack>
+        )}
+
+        {campaigns && !error && <CampaignList campaigns={campaigns} />}
 
         {isMobile && (
           <Fab sx={mobileSearchButtonSx} onClick={() => setSearchDrawerIsOpen(true)}>
