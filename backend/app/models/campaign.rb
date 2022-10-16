@@ -22,10 +22,12 @@ class Campaign < ApplicationRecord
   validates :campaign_charities, length: { minimum: 1, maximum: 5 }
   validates :promised_amount, final: true
   validates :coupon_denomination, final: true
-  validates :image,
-            content_type: { in: ['image/png', 'image/jpg', 'image/jpeg'],
-                            message: 'is mot of a supported file type. Please upload a PNG, JPG or JPEG file.' },
-            size: { less_than: 1.megabytes, message: 'must be less than 1MB.' }
+  validates :image, presence: true,
+                    content_type: {
+                      in: ['image/png', 'image/jpg', 'image/jpeg'],
+                      message: 'is mot of a supported file type. Please upload a PNG, JPG or JPEG file.'
+                    },
+                    size: { less_than: 1.megabytes, message: 'must be less than 1MB.' }
 
   scope :contains, ->(name) { where('name ILIKE ?', "%#{Campaign.sanitize_sql_like(name)}%") }
 
