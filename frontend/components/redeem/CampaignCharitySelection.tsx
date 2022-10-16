@@ -1,5 +1,5 @@
 import { Grid, Radio, Stack, Typography, useTheme } from '@mui/material';
-import { containerSx } from '../../styles/redeem/indexStyles';
+import { containerSx, itemListSx } from '../../styles/redeem/indexStyles';
 import { CouponRedeemData } from '../../types/coupons';
 import { Nullable } from '../../types/utils';
 
@@ -43,7 +43,10 @@ const CampaignCharitySelection = ({ coupon, campaignCharityId, setCampaignCharit
           <Grid item xs={12} sm={6} key={index}>
             <Stack direction="row" alignItems="flex-start" onClick={() => setCampaignCharityId(campaignCharity.id)}>
               <Radio checked={campaignCharityId === campaignCharity.id} value={campaignCharity.id} />
-              <CampaignCharityCard campaignCharity={campaignCharity} />
+
+              <Grid item sx={itemListSx} xs={12}>
+                <CampaignCharityCard campaignCharity={campaignCharity} />
+              </Grid>
             </Stack>
           </Grid>
         ))}

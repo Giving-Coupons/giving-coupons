@@ -2,7 +2,7 @@ import { Grid, InputAdornment, Stack, Typography, useTheme } from '@mui/material
 import { Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
 import * as Yup from 'yup';
-import { containerSx } from '../../styles/redeem/indexStyles';
+import { containerSx, itemSx } from '../../styles/redeem/indexStyles';
 import { CouponRedeemData } from '../../types/coupons';
 import CampaignCharityCard from '../charities/CampaignCharityCard';
 import FormTextInput from '../forms/FormTextInput';
@@ -36,7 +36,7 @@ const PersonalContribution = ({ coupon, campaignCharityId, setAmount, goToPrevio
 
   return (
     <Grid container sx={containerSx} component="main" justifyContent="center">
-      <Grid item xs={12} sm={7} md={5} padding={4}>
+      <Grid item sx={itemSx} xs={12} sm={7} md={4} padding={4}>
         <CampaignCharityCard campaignCharity={campaignCharity} />
       </Grid>
 
