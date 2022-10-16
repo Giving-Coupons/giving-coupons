@@ -8,6 +8,7 @@ import { Nullable } from '../../../../types/utils';
 import CouponsAPI from '../../../../frontendApis/coupons';
 import { canBecomeInteger } from '../../../../utils/numbers';
 import api from '../../../../frontendApis';
+import Head from 'next/head';
 
 const CampaignCoupons = () => {
   useAdminLoginCheck();
@@ -20,6 +21,10 @@ const CampaignCoupons = () => {
 
   return (
     <Box>
+      <Head>
+        <title>Coupons</title>
+      </Head>
+
       {coupons?.map((coupon, index) => (
         <Coupon key={index} coupon={coupon} />
       ))}
