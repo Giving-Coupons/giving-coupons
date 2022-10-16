@@ -8,7 +8,7 @@ export const examplesContainerSx: SxProps = {
 };
 
 export const buttonSx: SxProps = {
-  width: '50%',
+  minWidth: '50%',
   margin: '10px 0px',
 };
 
@@ -52,4 +52,68 @@ export const secondaryTranslucentOverlaySx: SxProps = {
 
 export const contrastText: SxProps = {
   color: theme.palette.contrast.dark,
+};
+
+// Landing page css
+export const hero: SxProps = {
+  height: '80vh',
+  width: '100vw',
+};
+
+// OOCSS
+export const marTop5: SxProps = {
+  marginTop: '5px',
+};
+
+export const marTop10: SxProps = {
+  marginTop: '10px',
+};
+
+export const marTop2rem: SxProps = {
+  marginTop: '2rem',
+};
+
+export const marLeft10: SxProps = {
+  marginLeft: '2rem',
+};
+
+export const marRight10: SxProps = {
+  marginRight: '2rem',
+};
+
+export const shiftRight: SxProps = {
+  marginLeft: 'auto',
+};
+
+export const largeFont: SxProps = {
+  fontSize: '3rem',
+};
+
+export const impactText: SxProps = {
+  color: theme.palette.primary.main,
+  fontWeight: 'bold',
+};
+
+export const section: SxProps = {
+  height: '60vh',
+  width: '100vw',
+  paddingTop: '10px',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'flex-start',
+};
+
+export const pageBreak: SxProps = {
+  marginTop: '7rem',
+};
+
+export const buttonSecondary: SxProps = {
+  minWidth: '50%',
+  margin: '10px 0px',
+  color: 'blue',
+};
+
+export const buttonCard: SxProps = {
+  backgroundImage: 'linear-gradient(to right, #FFF428 , #FF3200)',
+  maxWidth: 345,
 };
