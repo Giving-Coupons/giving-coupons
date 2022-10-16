@@ -14,7 +14,7 @@ import FormImageUpload from '../../forms/FormImageUpload';
 interface Props {
   title: string;
   submitButtonTitle: string;
-  isEdit: boolean;
+  isForEditCampaign: boolean;
   initialValues: CampaignFormData;
   // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   validationSchema: Yup.ObjectSchema<any>;
@@ -29,7 +29,14 @@ export const campaignDefaultInitialValues = {
   charities: [{}],
 };
 
-const CampaignForm = ({ title, submitButtonTitle, isEdit, initialValues, validationSchema, onSubmit }: Props) => {
+const CampaignForm = ({
+  title,
+  submitButtonTitle,
+  isForEditCampaign,
+  initialValues,
+  validationSchema,
+  onSubmit,
+}: Props) => {
   const router = useRouter();
 
   return (
@@ -52,7 +59,7 @@ const CampaignForm = ({ title, submitButtonTitle, isEdit, initialValues, validat
                 minRows={2}
               />
 
-              {!isEdit && (
+              {!isForEditCampaign && (
                 <>
                   <FormTextInput
                     name="promisedAmount"

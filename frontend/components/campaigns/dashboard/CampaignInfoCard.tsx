@@ -140,8 +140,8 @@ const CampaignInfoCard = ({ campaign }: Props) => {
         open={openDeleteDialog}
         handleClose={() => setOpenDeleteDialog(false)}
         handleDelete={handleDelete}
-        titleName={campaign.name}
-        name="campaign"
+        itemName={campaign.name}
+        itemType="campaign"
       />
     </Grid>
   );

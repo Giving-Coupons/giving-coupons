@@ -170,7 +170,7 @@ const CampaignCreate = () => {
         <CampaignForm
           title="Create Campaign"
           submitButtonTitle="Create"
-          isEdit={false}
+          isForEditCampaign={false}
           initialValues={initialValues}
           validationSchema={createCampaignSchema}
           onSubmit={handleSubmit}

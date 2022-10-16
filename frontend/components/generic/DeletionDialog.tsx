@@ -5,18 +5,18 @@ interface Props {
   open: boolean;
   handleClose: () => void;
   handleDelete: () => void;
-  titleName: string;
-  name: string;
+  itemName: string;
+  itemType: string;
 }
 
-const DeletionDialog = ({ open, handleClose, handleDelete, titleName, name }: Props) => {
+const DeletionDialog = ({ open, handleClose, handleDelete, itemName, itemType }: Props) => {
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle>
-        <Typography>Delete {titleName}</Typography>
+        <Typography>Delete {itemName}</Typography>
       </DialogTitle>
 
-      <DialogContent>Are you sure you want to delete this {name}? This cannot be undone.</DialogContent>
+      <DialogContent>Are you sure you want to delete this {itemType}? This cannot be undone.</DialogContent>
 
       <DialogActions>
         <Button actionType="muted" onClick={handleClose}>

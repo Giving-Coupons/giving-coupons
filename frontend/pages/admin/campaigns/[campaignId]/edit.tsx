@@ -140,7 +140,7 @@ const CampaignEdit = () => {
         <CampaignForm
           title="Edit Campaign"
           submitButtonTitle="Save"
-          isEdit
+          isForEditCampaign
           initialValues={initialValues}
           validationSchema={editCampaignSchema}
           onSubmit={handleSubmit}
