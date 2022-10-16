@@ -1,4 +1,4 @@
-import { Box, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
 import React from 'react';
 import { CampaignCharityDonationPublicData } from '../../types/campaignCharities';
 import CampaignCharityListItem from './CampaignCharityListItem';
@@ -22,9 +22,11 @@ export default function CampaignCharityList({ campaignCharities }: Props) {
   return (
     <Stack spacing={2}>
       {campaignCharities.map((campaignCharity, index) => (
-        <Box key={index} style={{ width: `calc(80% * ${getFractionOfMaxDonation(campaignCharity)})` }}>
-          <CampaignCharityListItem campaignCharity={campaignCharity} />
-        </Box>
+        <CampaignCharityListItem
+          key={index}
+          campaignCharity={campaignCharity}
+          width={getFractionOfMaxDonation(campaignCharity)}
+        />
       ))}
     </Stack>
   );
