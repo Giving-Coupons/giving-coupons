@@ -96,6 +96,11 @@ const CampaignEdit = () => {
   }, [campaign]);
 
   const handleSubmit = (values: CampaignFormData) => {
+    if (campaignId === null) {
+      // This should never be available as useSWR will set error / loading and form will not be visible. (Defensive)
+      return Promise.reject('Campaign ID is not an integer.');
+    }
+
     editCampaignSchema
       .validate(values)
       .then((values: Yup.InferType<typeof editCampaignSchema>) => {
@@ -122,8 +127,7 @@ const CampaignEdit = () => {
           primaryDonor: primaryDonorPutData,
         };
 
-        // TODO: Replace with API
-        console.log(campaignPutData);
+        return api.campaigns.putCampaign(campaignId, campaignPutData);
       })
       .then(() => {
         canBecomeInteger(campaignId) ? router.push(`/admin/campaigns/${campaignId}`) : router.push('/admin/campaigns');
