@@ -47,6 +47,12 @@ export const donationTableHeaderSx: SxProps = {
   justifyContent: 'space-between',
 };
 
+export const couponsTableHeaderSx: SxProps = {
+  width: '100%',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+};
+
 export const couponsTableContainerSx: SxProps = {
   maxHeight: '400px',
   width: '100%',
@@ -58,6 +64,11 @@ export const campaignImageSx: SxProps = {
   height: '100%',
   minHeight: '100%',
   maxHeight: '100%',
+};
+
+export const campaignInfoCardHeaderSx: SxProps = {
+  justifyContent: 'space-between',
+  alignItems: 'start',
 };
 
 export const campaignInfoItemSx: SxProps = {

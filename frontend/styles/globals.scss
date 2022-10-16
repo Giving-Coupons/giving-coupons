@@ -4,7 +4,6 @@ html,
 body {
   padding: 0;
   margin: 0;
-  overflow-y: overlay;
   font-family: 'Urbanist', sans-serif;
 }
 
@@ -15,4 +14,13 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #ffe4ae !important;
+}
+
+.swiper-pagination {
+  bottom: 0px !important;
+  position: relative !important;
 }

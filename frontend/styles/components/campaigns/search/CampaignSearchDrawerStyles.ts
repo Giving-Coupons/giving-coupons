@@ -1,6 +1,6 @@
 import { SxProps } from '@mui/system';
 
 export const drawerPaperSx: SxProps = {
-  width: '70%',
+  width: '80%',
   paddingTop: '16px',
 };
