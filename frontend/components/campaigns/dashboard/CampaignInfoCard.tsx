@@ -1,26 +1,27 @@
-import React, { useState } from 'react';
-import { CampaignAdminData } from '../../../types/campaigns';
-import { Grid, Tooltip, Typography } from '@mui/material';
-import { Box, Stack } from '@mui/system';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-import { DATE_FORMAT } from '../../../utils/constants';
-import {
-  campaignInfoItemSx,
-  campaignDateIconSx,
-  campaignImageSx,
-  campaignMoneyIconSx,
-  campaignInfoCardHeaderSx,
-} from '../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
-import LinearScaleIcon from '@mui/icons-material/LinearScale';
-import moment, { Moment } from 'moment';
-import PaidIcon from '@mui/icons-material/Paid';
-import LocalActivityIcon from '@mui/icons-material/LocalActivity';
-import Button from '../../generic/Button';
-import { useRouter } from 'next/router';
-import api from '../../../frontendApis';
-import DeletionDialog from '../../generic/DeletionDialog';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import LinearScaleIcon from '@mui/icons-material/LinearScale';
+import LocalActivityIcon from '@mui/icons-material/LocalActivity';
+import PaidIcon from '@mui/icons-material/Paid';
+import { Grid, Tooltip, Typography } from '@mui/material';
+import { Box, Stack } from '@mui/system';
+import { Moment } from 'moment';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
+import api from '../../../frontendApis';
+import {
+  campaignDateIconSx,
+  campaignImageSx,
+  campaignInfoCardHeaderSx,
+  campaignInfoItemSx,
+  campaignMoneyIconSx,
+} from '../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
+import { CampaignAdminData } from '../../../types/campaigns';
+import { getCampaignStatus } from '../../../utils/campaigns';
+import { DATE_FORMAT } from '../../../utils/constants';
+import Button from '../../generic/Button';
+import DeletionDialog from '../../generic/DeletionDialog';
 
 interface Props {
   campaign: CampaignAdminData;
@@ -57,17 +58,6 @@ const CampaignDateInfoIcon = ({ date }: CampaignDateInfoProps) => (
 const CampaignInfoCard = ({ campaign }: Props) => {
   const router = useRouter();
   const [openDeleteDialog, setOpenDeleteDialog] = useState<boolean>(false);
-  const getStatus = (start: Moment, end: Moment) => {
-    if (end.isBefore(moment().startOf('day'))) {
-      return 'Completed';
-    }
-
-    if (start.isAfter(moment().endOf('day'))) {
-      return 'Upcoming';
-    }
-
-    return 'Active';
-  };
 
   const handleDelete = () => {
     api.campaigns.deleteCampaign(campaign.id).then(() => {
@@ -105,7 +95,7 @@ const CampaignInfoCard = ({ campaign }: Props) => {
           <Typography variant="body2">{campaign.description}</Typography>
 
           <Stack sx={campaignInfoItemSx} component="div" spacing={1}>
-            <Typography variant="h4">Status: {getStatus(campaign.start, campaign.end)}</Typography>
+            <Typography variant="h4">Status: {getCampaignStatus(campaign.start, campaign.end)}</Typography>
 
             <Stack component="div" direction="row" spacing={2}>
               <CampaignDateInfoIcon date={campaign.start} />
