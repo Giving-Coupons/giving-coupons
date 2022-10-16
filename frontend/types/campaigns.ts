@@ -100,7 +100,7 @@ export type CampaignPutData = Omit<
   WithoutId<CampaignBaseData>,
   'charities' | 'primaryDonor' | 'promisedAmount' | 'couponDenomination'
 > & {
-  charities: CampaignCharityBaseData[];
+  charities: CampaignCharityPostData[];
   primaryDonor: PrimaryDonorData;
 };
 
