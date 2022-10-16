@@ -44,7 +44,7 @@ const Home: NextPage = () => {
               textAlign="left"
               fontWeight="500"
             >
-              Giving coupons is an initiative to raise money for charities through public gift matching
+              Giving Coupons is an initiative to raise money for charities through public gift matching
             </Typography>
             <Button sx={buttonSx} actionType="primary" href="/campaigns">
               Explore Our Campaigns
@@ -105,7 +105,7 @@ const Home: NextPage = () => {
           spacing={2}
         >
           <Typography sx={marTop10} variant="h1" align="center">
-            How it Works
+            How It Works
           </Typography>
 
           <Stack
@@ -141,7 +141,7 @@ const Home: NextPage = () => {
             <Stack direction="row" justifyContent="space-between" alignItems="center">
               <Stack direction="column" justifyContent="space-between" alignItems="flex-end">
                 <Typography sx={marRight10} variant="h2" align="right">
-                  Giving coupons generate coupons
+                  Giving Coupons generates coupons
                 </Typography>
               </Stack>
               <Box sx={{ display: 'block', height: '60px', width: '60px' }} component="img" src="/icon-voucher.png" />
