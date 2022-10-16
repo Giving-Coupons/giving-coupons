@@ -28,11 +28,13 @@ export const campaignSearchFormSchema = Yup.object().shape(
       .required(),
     startDateFrom: Yup.date()
       .nullable()
+      .typeError('Start date from must be a date.')
       .when('startDateTo', (dateTo, schema) =>
         isValidDate(dateTo) ? schema.max(dateTo, 'From date cannot be after To date') : schema,
       ),
     startDateTo: Yup.date()
       .nullable()
+      .typeError('Start date to must be a date.')
       .when('startDateFrom', (dateFrom, schema) =>
         isValidDate(dateFrom) ? schema.min(dateFrom, 'To date cannot be before From date') : schema,
       )
@@ -41,6 +43,7 @@ export const campaignSearchFormSchema = Yup.object().shape(
       ),
     endDateFrom: Yup.date()
       .nullable()
+      .typeError('End date from must be a date.')
       .when('endDateTo', (dateTo, schema) =>
         isValidDate(dateTo) ? schema.max(dateTo, 'From date cannot be after To date') : schema,
       )
@@ -49,6 +52,7 @@ export const campaignSearchFormSchema = Yup.object().shape(
       ),
     endDateTo: Yup.date()
       .nullable()
+      .typeError('End date to must be a date.')
       .when('endDateFrom', (dateFrom, schema) =>
         isValidDate(dateFrom) ? schema.min(dateFrom, 'To date cannot be before From date') : schema,
       ),
@@ -89,7 +93,7 @@ const CampaignSearchForm = ({ initialValues, search, handleReset }: Props) => {
               name="name"
               label="Campaign name"
               variant="standard"
-              value={values.name}
+              value={values.name ?? ''}
               onChange={(e) => setFieldValue('name', e.target.value)}
             />
 
@@ -99,21 +103,21 @@ const CampaignSearchForm = ({ initialValues, search, handleReset }: Props) => {
               <CampaignSearchCheckbox
                 name="status.isActive"
                 checked={values.status.isActive}
-                label={'Active'}
+                label="Active"
                 setFieldValue={setFieldValue}
               />
 
               <CampaignSearchCheckbox
                 name="status.isUpcoming"
                 checked={values.status.isUpcoming}
-                label={'Upcoming'}
+                label="Upcoming"
                 setFieldValue={setFieldValue}
               />
 
               <CampaignSearchCheckbox
                 name="status.isCompleted"
                 checked={values.status.isCompleted}
-                label={'Completed'}
+                label="Completed"
                 setFieldValue={setFieldValue}
               />
             </Stack>
@@ -165,6 +169,7 @@ const CampaignSearchForm = ({ initialValues, search, handleReset }: Props) => {
                 onClick={() => {
                   handleReset();
                   resetForm();
+                  console.log(initialValues);
                 }}
               >
                 Reset
