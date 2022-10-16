@@ -17,7 +17,6 @@ import {
   pageBreak,
 } from '../styles/indexStyles';
 import Image from 'next/image';
-import Link from 'next/link';
 import ResponsiveImage from '../components/ResponsiveImage';
 import ButtonCard from '../components/ButtonCard';
 
@@ -62,7 +61,11 @@ const Home: NextPage = () => {
           <Grid sx={marTop2rem} container spacing={2} alignItems="center" justifyContent="center">
             <Grid item xs={12} sm={12} md={4} lg={4} display="flex" alignItems="center" justifyContent="center">
               <Stack direction="column" justifyContent="flex-start" alignItems="center">
-                <Box sx={{ display: 'block', height: '100px', width: '100px' }} component="img" src="/icon-charity.png" />
+                <Box
+                  sx={{ display: 'block', height: '100px', width: '100px' }}
+                  component="img"
+                  src="/icon-charity.png"
+                />
                 <Typography sx={[impactText, largeFont]}>$4,500</Typography>
                 <Typography variant="subtitle1">Additional funds raised for charity</Typography>
               </Stack>
@@ -70,7 +73,11 @@ const Home: NextPage = () => {
 
             <Grid item xs={12} sm={12} md={4} lg={4} display="flex" alignItems="center" justifyContent="center">
               <Stack sx={marTop2rem} direction="column" justifyContent="flex-start" alignItems="center">
-                <Box sx={{ display: 'block', height: '100px', width: '100px' }} component="img" src="/icon-voucher.png" />
+                <Box
+                  sx={{ display: 'block', height: '100px', width: '100px' }}
+                  component="img"
+                  src="/icon-voucher.png"
+                />
                 <Typography sx={[impactText, largeFont]}>632</Typography>
                 <Typography variant="subtitle1">Coupons issued</Typography>
               </Stack>
@@ -110,7 +117,11 @@ const Home: NextPage = () => {
             width="100%"
           >
             <Stack direction="row" justifyContent="space-between" alignItems="center">
-              <Box sx={{ display: 'block', height: '60px', width: '60px' }} component="img" src="/public-relation.png" />
+              <Box
+                sx={{ display: 'block', height: '60px', width: '60px' }}
+                component="img"
+                src="/public-relation.png"
+              />
               <Stack direction="column" justifyContent="space-between" alignItems="flex-start">
                 <Typography sx={marLeft10} variant="h2">
                   Donors commit a sum to one or more charities
