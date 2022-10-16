@@ -2,10 +2,9 @@ import { Grid, Radio, Stack, Typography, useTheme } from '@mui/material';
 import { containerSx, itemListSx } from '../../styles/redeem/indexStyles';
 import { CouponRedeemData } from '../../types/coupons';
 import { Nullable } from '../../types/utils';
-
+import CampaignCharityCard from '../campaigns/campaignCharities/CampaignCharityCard';
+import CampaignCharityList from '../campaigns/campaignCharities/CampaignCharityList';
 import CampaignDescription from '../campaigns/CampaignDescription';
-import CampaignCharityCard from '../charities/CampaignCharityCard';
-import CampaignCharityList from '../charities/CampaignCharityList';
 import Button from '../generic/Button';
 
 type Props = {
@@ -45,7 +44,7 @@ const CampaignCharitySelection = ({ coupon, campaignCharityId, setCampaignCharit
               <Radio checked={campaignCharityId === campaignCharity.id} value={campaignCharity.id} />
 
               <Grid item sx={itemListSx} xs={12}>
-                <CampaignCharityCard campaignCharity={campaignCharity} />
+                <CampaignCharityCard campaignCharity={campaignCharity} redirectTo="charity" />
               </Grid>
             </Stack>
           </Grid>
