@@ -1,7 +1,9 @@
+import { Typography, TypographyProps } from '@mui/material';
 import { Box, SxProps } from '@mui/system';
 import {
   firstBarSx,
   graphSx,
+  labelSx,
   lastBarSx,
   middleBarSx,
   onlyBarSx,
@@ -9,30 +11,32 @@ import {
 import { combineSxProps } from '../../utils/types';
 
 interface Props {
-  barFractions: number[];
+  bars: { fraction: number; label?: string | number }[];
   overrideGraphSx?: SxProps;
   overrideFirstBarSx?: SxProps;
   overrideMiddleBarSx?: SxProps;
   overrideLastBarSx?: SxProps;
+  labelProps?: TypographyProps;
 }
 
 const HorizontalBarGraph = ({
-  barFractions,
+  bars,
   overrideFirstBarSx = [],
   overrideLastBarSx = [],
   overrideMiddleBarSx = [],
   overrideGraphSx = [],
+  labelProps,
 }: Props) => {
-  const barCount = barFractions.length;
+  const barCount = bars.length;
 
   return (
     <Box sx={combineSxProps(overrideGraphSx, graphSx)}>
-      {barFractions.map((fraction, index) => (
+      {bars.map(({ fraction, label }, index) => (
         <Box
           key={index}
           width={`calc(100% * ${fraction})`}
           sx={
-            barFractions.length === 1
+            barCount === 1
               ? combineSxProps(onlyBarSx, overrideFirstBarSx)
               : index === 0
               ? combineSxProps(firstBarSx, overrideFirstBarSx)
@@ -40,7 +44,11 @@ const HorizontalBarGraph = ({
               ? combineSxProps(lastBarSx, overrideLastBarSx)
               : combineSxProps(middleBarSx, overrideMiddleBarSx)
           }
-        />
+        >
+          <Typography sx={labelSx} {...labelProps}>
+            {label}
+          </Typography>
+        </Box>
       ))}
     </Box>
   );

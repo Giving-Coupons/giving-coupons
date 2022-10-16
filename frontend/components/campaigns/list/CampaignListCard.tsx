@@ -10,13 +10,16 @@ import {
   graphContainerSx,
   graphSx,
   buttonSx,
-} from '../../../styles/components/campaigns/list/CapaignListCardStyles';
+} from '../../../styles/components/campaigns/list/CampaignListCardStyles';
+import { useRouter } from 'next/router';
 
 interface Props {
   campaign: CampaignListData;
 }
 
 const CampaignListCard = ({ campaign }: Props) => {
+  const router = useRouter();
+
   const primaryDonorDonationData = campaign.donations.primaryDonor;
   const secondaryDonorDonationData = campaign.donations.secondaryDonors;
 
@@ -57,7 +60,7 @@ const CampaignListCard = ({ campaign }: Props) => {
         Contribute
       </Button>
 
-      <Button sx={buttonSx} actionType="tertiary">
+      <Button sx={buttonSx} actionType="tertiary" onClick={() => router.push(`/campaigns/${campaign.id}`)}>
         Learn more
       </Button>
     </Box>

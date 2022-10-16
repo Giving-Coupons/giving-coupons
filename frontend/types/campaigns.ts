@@ -104,7 +104,7 @@ export type CampaignPutData = Omit<
   primaryDonor: PrimaryDonorData;
 };
 
-export type CampaignPublicData = CampaignBaseData & {
+export type CampaignPublicData = Omit<CampaignBaseData, 'charities'> & {
   donations: DonationBreakdownData;
   charities: CampaignCharityDonationPublicData[];
 };
