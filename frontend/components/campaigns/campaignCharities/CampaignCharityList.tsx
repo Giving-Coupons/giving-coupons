@@ -16,11 +16,11 @@ export default function CampaignCharityList({ campaignCharities }: Props) {
 
   const calculateBoxWidth = (campaignCharity: CampaignCharityDonationPublicData) => {
     if (maxTotalDonation === 0) {
-      return '100%';
+      return 100;
     }
 
     const totalDonation = campaignCharity.primaryDonor.amount + campaignCharity.secondaryDonors.amount;
-    return `${(totalDonation / maxTotalDonation) * 80}%`;
+    return totalDonation / maxTotalDonation;
   };
 
   return (
