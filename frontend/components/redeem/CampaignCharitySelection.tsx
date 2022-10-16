@@ -1,8 +1,8 @@
-import { Grid, Radio, Stack, Typography } from '@mui/material';
+import { Grid, Radio, Stack, Typography, useTheme } from '@mui/material';
 import { containerSx } from '../../styles/redeem/indexStyles';
 import { CouponRedeemData } from '../../types/coupons';
 import { Nullable } from '../../types/utils';
-import { theme } from '../../utils/theme';
+
 import CampaignDescription from '../campaigns/CampaignDescription';
 import CampaignCharityCard from '../charities/CampaignCharityCard';
 import CampaignCharityList from '../charities/CampaignCharityList';
@@ -16,6 +16,8 @@ type Props = {
 };
 
 const CampaignCharitySelection = ({ coupon, campaignCharityId, setCampaignCharityId, goToNextPage }: Props) => {
+  const theme = useTheme();
+
   return (
     <Grid container sx={containerSx} component="main" justifyContent="center" padding={2}>
       <Grid item md={12} lg={4}>

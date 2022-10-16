@@ -1,10 +1,9 @@
-import { Grid, InputAdornment, Stack, Typography } from '@mui/material';
+import { Grid, InputAdornment, Stack, Typography, useTheme } from '@mui/material';
 import { Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
 import * as Yup from 'yup';
 import { containerSx } from '../../styles/redeem/indexStyles';
 import { CouponRedeemData } from '../../types/coupons';
-import { theme } from '../../utils/theme';
 import CampaignCharityCard from '../charities/CampaignCharityCard';
 import FormTextInput from '../forms/FormTextInput';
 import Button from '../generic/Button';
@@ -27,6 +26,7 @@ type Props = {
 
 const PersonalContribution = ({ coupon, campaignCharityId, setAmount, goToPreviousPage, handleSubmit }: Props) => {
   const router = useRouter();
+  const theme = useTheme();
   const campaignCharity = coupon.charities.find((c) => c.id === campaignCharityId);
 
   if (!campaignCharity) {

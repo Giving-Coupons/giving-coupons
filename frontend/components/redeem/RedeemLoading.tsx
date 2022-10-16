@@ -1,8 +1,9 @@
-import { Grid, Skeleton, Stack } from '@mui/material';
+import { Grid, Skeleton, Stack, useTheme } from '@mui/material';
 import { containerSx } from '../../styles/redeem/indexStyles';
-import { theme } from '../../utils/theme';
 
 const RedeemLoading = () => {
+  const theme = useTheme();
+
   return (
     <Grid container sx={containerSx} component="main" justifyContent="center" paddingBottom={2}>
       <Grid item md={12} lg={4} container paddingLeft={2} paddingRight={2} paddingBottom={2}>
