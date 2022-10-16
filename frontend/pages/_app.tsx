@@ -10,7 +10,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const PULBIC_URL = window.location.host;
+  const PUBLIC_URL = process.env.NEXT_PUBLIC_BASE_CLIENT_URL;
 
   return (
     <ThemeProvider theme={theme}>
@@ -18,13 +18,13 @@ function MyApp({ Component, pageProps }: AppProps) {
         <SnackbarProvider maxSnack={3}>
           <AxiosInterceptor>
             <Head>
-              <link rel="icon" href={`${PULBIC_URL}/favicon.ico`} />
+              <link rel="icon" href={`${PUBLIC_URL}/favicon.ico`} />
               <meta name="viewport" content="width=device-width, initial-scale=1.0" />
               <meta name="theme-color" content="#000000" />
               <meta property="og:title" content="Giving Coupons" />
               <meta property="og:type" content="website" />
-              <meta property="og:url" content={PULBIC_URL} />
-              <meta property="og:image" content={`${PULBIC_URL}/giving-coupons.png`} />
+              <meta property="og:url" content={PUBLIC_URL} />
+              <meta property="og:image" content={`${PUBLIC_URL}/giving-coupons.png`} />
               <meta property="og:image:width" content="1200" />
               <meta property="og:image:height" content="630" />
               <meta
