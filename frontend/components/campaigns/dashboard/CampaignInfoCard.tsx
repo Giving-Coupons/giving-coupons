@@ -1,19 +1,27 @@
-import React from 'react';
-import { CampaignAdminData } from '../../../types/campaigns';
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import LinearScaleIcon from '@mui/icons-material/LinearScale';
+import LocalActivityIcon from '@mui/icons-material/LocalActivity';
+import PaidIcon from '@mui/icons-material/Paid';
 import { Grid, Tooltip, Typography } from '@mui/material';
 import { Box, Stack } from '@mui/system';
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-import { DATE_FORMAT } from '../../../utils/constants';
+import { Moment } from 'moment';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
+import api from '../../../frontendApis';
 import {
-  campaignInfoItemSx,
   campaignDateIconSx,
   campaignImageSx,
+  campaignInfoCardHeaderSx,
+  campaignInfoItemSx,
   campaignMoneyIconSx,
 } from '../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
-import LinearScaleIcon from '@mui/icons-material/LinearScale';
-import moment, { Moment } from 'moment';
-import PaidIcon from '@mui/icons-material/Paid';
-import LocalActivityIcon from '@mui/icons-material/LocalActivity';
+import { CampaignAdminData } from '../../../types/campaigns';
+import { getCampaignStatus } from '../../../utils/campaigns';
+import { DATE_FORMAT } from '../../../utils/constants';
+import Button from '../../generic/Button';
+import DeletionDialog from '../../generic/DeletionDialog';
 
 interface Props {
   campaign: CampaignAdminData;
@@ -48,16 +56,14 @@ const CampaignDateInfoIcon = ({ date }: CampaignDateInfoProps) => (
 );
 
 const CampaignInfoCard = ({ campaign }: Props) => {
-  const getStatus = (start: Moment, end: Moment) => {
-    if (end.isBefore(moment().startOf('day'))) {
-      return 'Completed';
-    }
+  const router = useRouter();
+  const [openDeleteDialog, setOpenDeleteDialog] = useState<boolean>(false);
 
-    if (start.isAfter(moment().endOf('day'))) {
-      return 'Upcoming';
-    }
-
-    return 'Active';
+  const handleDelete = () => {
+    api.campaigns.deleteCampaign(campaign.id).then(() => {
+      setOpenDeleteDialog(false);
+      router.push('/admin/campaigns');
+    });
   };
 
   return (
@@ -68,12 +74,28 @@ const CampaignInfoCard = ({ campaign }: Props) => {
 
       <Grid item xs={12} md={6}>
         <Stack component="div" spacing={2}>
-          <Typography variant="h3">{campaign.name}</Typography>
+          <Stack sx={campaignInfoCardHeaderSx} component="div" direction="row">
+            <Typography variant="h3">{campaign.name}</Typography>
+
+            <Stack component="div" direction="row" spacing={1}>
+              <Button
+                actionType="secondary"
+                startIcon={<EditIcon />}
+                onClick={() => router.push(`/admin/campaigns/${campaign.id}/edit`)}
+              >
+                Edit
+              </Button>
+
+              <Button actionType="danger" startIcon={<DeleteIcon />} onClick={() => setOpenDeleteDialog(true)}>
+                Delete
+              </Button>
+            </Stack>
+          </Stack>
 
           <Typography variant="body2">{campaign.description}</Typography>
 
           <Stack sx={campaignInfoItemSx} component="div" spacing={1}>
-            <Typography variant="h4">Status: {getStatus(campaign.start, campaign.end)}</Typography>
+            <Typography variant="h4">Status: {getCampaignStatus(campaign.start, campaign.end)}</Typography>
 
             <Stack component="div" direction="row" spacing={2}>
               <CampaignDateInfoIcon date={campaign.start} />
@@ -103,6 +125,14 @@ const CampaignInfoCard = ({ campaign }: Props) => {
           </Stack>
         </Stack>
       </Grid>
+
+      <DeletionDialog
+        open={openDeleteDialog}
+        handleClose={() => setOpenDeleteDialog(false)}
+        handleDelete={handleDelete}
+        itemName={campaign.name}
+        itemType="campaign"
+      />
     </Grid>
   );
 };

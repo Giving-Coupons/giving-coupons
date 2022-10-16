@@ -2,7 +2,6 @@ import AddIcon from '@mui/icons-material/Add';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import { Paper, Typography } from '@mui/material';
 import { Box, Stack } from '@mui/system';
-import moment from 'moment';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
@@ -16,6 +15,7 @@ import useAdminLoginCheck from '../../../hooks/useAdminLogInCheck';
 import { headerSx, rootSx } from '../../../styles/admin/campaigns/indexStyles';
 import { CampaignAdminListData } from '../../../types/campaigns';
 import { Nullable } from '../../../types/utils';
+import { getCampaignStatus } from '../../../utils/campaigns';
 import { DATE_FORMAT } from '../../../utils/constants';
 
 const AdminCampaigns = () => {
@@ -25,9 +25,9 @@ const AdminCampaigns = () => {
   );
   const router = useRouter();
 
-  const upcomingCampaigns = campaigns?.filter((c) => c.start.isAfter(moment.now()));
-  const activeCampaigns = campaigns?.filter((c) => c.start.isBefore(moment.now()) && c.end.isAfter(moment.now()));
-  const completedCampaigns = campaigns?.filter((c) => c.end.isBefore(moment.now()));
+  const upcomingCampaigns = campaigns?.filter((c) => getCampaignStatus(c.start, c.end) === 'Upcoming');
+  const activeCampaigns = campaigns?.filter((c) => getCampaignStatus(c.start, c.end) === 'Active');
+  const completedCampaigns = campaigns?.filter((c) => getCampaignStatus(c.start, c.end) === 'Completed');
 
   const makeCampaignsTable = (campaigns: Nullable<CampaignAdminListData[]> | undefined) => {
     const goToManageCampaignAction = {

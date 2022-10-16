@@ -1,7 +1,7 @@
-import { Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
+import { closeQuotesProps } from '../../styles/components/campaigns/CampaignDescription';
 import { CampaignBaseData } from '../../types/campaigns';
-import CloseQuotes from '../icons/CloseQuotes';
-import OpenQuotes from '../icons/OpenQuotes';
+import Quotes from '../icons/Quotes';
 
 type Props = {
   campaign: CampaignBaseData;
@@ -17,13 +17,15 @@ export default function CampaignDescription({ campaign }: Props) {
         <strong> ${campaign.promisedAmount}</strong> to the beneficiaries listed above.
       </Typography>
 
-      <OpenQuotes />
+      <Stack>
+        <Quotes variant="open" />
 
-      <Typography variant="body1" align="center">
-        {campaign.description}
-      </Typography>
+        <Typography variant="body1" align="center" color="contrast.dark">
+          {campaign.description}
+        </Typography>
 
-      <CloseQuotes style={{ alignSelf: 'flex-end' }} />
+        <Quotes variant="close" sxProps={closeQuotesProps} />
+      </Stack>
     </>
   );
 }

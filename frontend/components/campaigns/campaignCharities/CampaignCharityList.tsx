@@ -1,6 +1,6 @@
 import { Stack } from '@mui/material';
 import React from 'react';
-import { CampaignCharityDonationPublicData } from '../../types/campaignCharities';
+import { CampaignCharityDonationPublicData } from '../../../types/campaignCharities';
 import CampaignCharityListItem from './CampaignCharityListItem';
 
 type Props = {
@@ -14,9 +14,13 @@ export default function CampaignCharityList({ campaignCharities }: Props) {
     ),
   );
 
-  const getFractionOfMaxDonation = (campaignCharity: CampaignCharityDonationPublicData) => {
-    const total = campaignCharity.primaryDonor.amount + campaignCharity.secondaryDonors.amount;
-    return total / maxTotalDonation;
+  const calculateBoxWidth = (campaignCharity: CampaignCharityDonationPublicData) => {
+    if (maxTotalDonation === 0) {
+      return '100%';
+    }
+
+    const totalDonation = campaignCharity.primaryDonor.amount + campaignCharity.secondaryDonors.amount;
+    return `${(totalDonation / maxTotalDonation) * 80}%`;
   };
 
   return (
@@ -25,7 +29,7 @@ export default function CampaignCharityList({ campaignCharities }: Props) {
         <CampaignCharityListItem
           key={index}
           campaignCharity={campaignCharity}
-          width={getFractionOfMaxDonation(campaignCharity)}
+          width={calculateBoxWidth(campaignCharity)}
         />
       ))}
     </Stack>

@@ -1,16 +1,16 @@
 import { Box, Container, Stack } from '@mui/system';
 import { Typography, Grid } from '@mui/material';
-import Button from '../generic/Button';
-import CompetingGraph from '../charts/CompetingGraph';
-import { CampaignListData } from '../../types/campaigns';
-import CardWithImage from '../generic/CardWithImage';
+import Button from '../../generic/Button';
+import CompetingGraph from '../../charts/CompetingGraph';
+import { CampaignListData } from '../../../types/campaigns';
+import CardWithImage from '../../generic/CardWithImage';
 import {
   charityLogoSx,
   descriptionContainerSx,
   graphContainerSx,
   graphSx,
   buttonSx,
-} from '../../styles/components/campaigns/CampaignListCardStyles';
+} from '../../../styles/components/campaigns/list/CampaignListCardStyles';
 import { useRouter } from 'next/router';
 
 interface Props {
@@ -38,13 +38,13 @@ const CampaignListCard = ({ campaign }: Props) => {
 
   const description = (
     <Stack key="description" sx={descriptionContainerSx} spacing={0.5} component="div">
-      <Typography variant="h3">Campaign Name</Typography>
+      <Typography variant="h3">{campaign.name}</Typography>
 
       <Typography variant="caption">For the following beneficiaries</Typography>
 
       <Grid container>
         {campaign.charities.map((charity, index) => (
-          <Grid item xs={3} key={index}>
+          <Grid item xs={12 / 5} key={index}>
             <Box sx={charityLogoSx} component="img" src={charity.logoBase64} />
           </Grid>
         ))}
