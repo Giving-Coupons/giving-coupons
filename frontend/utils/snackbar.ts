@@ -11,6 +11,7 @@ const statusMessageToVariantTypeMap = Map<StatusMessageType, VariantType>({
 export const enqueueGCSnackbar = (
   enqueueSnackbar: (message: SnackbarMessage, options?: OptionsObject | undefined) => SnackbarKey,
   statusMessage: Nullable<StatusMessage>,
+  options?: OptionsObject,
 ): Nullable<SnackbarKey> => {
   if (!statusMessage) {
     return null;
@@ -19,5 +20,5 @@ export const enqueueGCSnackbar = (
   const { message, type } = statusMessage;
   const variant = statusMessageToVariantTypeMap.get(type);
 
-  return enqueueSnackbar(message, { variant });
+  return enqueueSnackbar(message, { ...options, variant });
 };

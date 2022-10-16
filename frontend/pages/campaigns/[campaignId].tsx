@@ -1,8 +1,7 @@
-import { useRouter } from 'next/router';
 import React from 'react';
 import { canBecomeInteger } from '../../utils/numbers';
 import CampaignCharityCard from '../../components/charities/CampaignCharityCard';
-import { Box, Button, Divider, Stack, Typography } from '@mui/material';
+import { Button, Container, Divider, Stack, Typography } from '@mui/material';
 import { theme } from '../../utils/theme';
 import CircularProgressWithLabel from '../../components/CircularProgressWithLabel';
 import SwiperWrapper from '../../components/swiper/SwiperWrapper';
@@ -10,11 +9,12 @@ import CampaignCharityList from '../../components/charities/CampaignCharityList'
 import api from '../../frontendApis';
 import { GetServerSidePropsContext } from 'next';
 import { CampaignPublicData } from '../../types/campaigns';
-import { StatusMessage } from '../../types/api';
+import { ApiResponse, StatusMessage } from '../../types/api';
 import { Nullable } from '../../types/utils';
 import { useSnackbar } from 'notistack';
 import { enqueueGCSnackbar } from '../../utils/snackbar';
 import CampaignDescription from '../../components/campaigns/CampaignDescription';
+import NotFound from '../../components/notFound/NotFound';
 
 export async function getServerSideProps(
   context: GetServerSidePropsContext,
@@ -31,14 +31,15 @@ export async function getServerSideProps(
     };
   }
 
-  const response = await api.campaigns.getCampaign(campaignId);
-
-  return {
-    props: {
-      campaign: response.payload,
-      message: response.message,
-    },
-  };
+  return api.campaigns
+    .getCampaign(campaignId)
+    .then((response) => ({
+      props: {
+        campaign: response.payload,
+        message: response.message,
+      },
+    }))
+    .catch((error: ApiResponse<null>) => ({ props: { campaign: null, message: error.message } }));
 }
 
 type Props = {
@@ -49,17 +50,17 @@ type Props = {
 export default function CampaignDetail({ campaign, message }: Props) {
   const { enqueueSnackbar } = useSnackbar();
 
-  enqueueGCSnackbar(enqueueSnackbar, message);
+  enqueueGCSnackbar(enqueueSnackbar, message, { preventDuplicate: true });
 
   if (!campaign) {
-    return null;
+    return <NotFound message="The requested campaign does not exist." />;
   }
 
   const numTotalCoupons = campaign.promisedAmount / campaign.couponDenomination;
   const numCouponsRedeemed = campaign.donations.primaryDonor.amount / campaign.couponDenomination;
 
   return (
-    <Box sx={{ padding: theme.spacing(2) }}>
+    <Container sx={{ padding: theme.spacing(2) }}>
       <Typography variant="h1">Campaign name</Typography>
 
       <Typography variant="subtitle1" align="center">
@@ -97,6 +98,6 @@ export default function CampaignDetail({ campaign, message }: Props) {
           }
         />
       </Stack>
-    </Box>
+    </Container>
   );
 }
