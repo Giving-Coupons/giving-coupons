@@ -14,13 +14,19 @@ import {
 } from '../../../../styles/admin/charities/viewStyles';
 import useAdminLoginCheck from '../../../../hooks/useAdminLogInCheck';
 import { Nullable } from '../../../../types/utils';
-import { Edit, List } from '@mui/icons-material';
-import ImageWithOverlay from '../../../../components/generic/ImageWithOverlay';
 import IconButtonWithTooltip from '../../../../components/IconButtonWithTooltip';
+import ImageWithOverlay from '../../../../components/generic/ImageWithOverlay';
+import Button from '../../../../components/generic/Button';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import React, { useState } from 'react';
+import DeletionDialog from '../../../../components/generic/DeletionDialog';
+import { List } from '@mui/icons-material';
 
 const CharityView = () => {
   useAdminLoginCheck();
   const router = useRouter();
+  const [openDeleteDialog, setOpenDeleteDialog] = useState<boolean>(false);
 
   // Note that the router query parameters will all be undefined on initial render.
   const { query } = router;
@@ -29,6 +35,16 @@ const CharityView = () => {
     charityId !== null ? api.charities.getCharity(charityId).then((res) => res.payload) : null,
   );
   const isLoading = !charityData && !error;
+
+  const handleDelete = () => {
+    api.charities
+      // Type assertion is safe as the dialog will be closed if selection is null.
+      .deleteCharity(charityData?.id as number)
+      .then(() => {
+        setOpenDeleteDialog(false);
+        router.push('/admin/charities');
+      });
+  };
 
   return (
     <Box>
@@ -53,11 +69,17 @@ const CharityView = () => {
               </Stack>
 
               <Stack spacing={2} component="div" direction="row">
-                <IconButtonWithTooltip
-                  icon={<Edit />}
-                  tooltip="Edit charity"
+                <Button
+                  actionType="secondary"
+                  startIcon={<EditIcon />}
                   onClick={() => router.push(`/admin/charities/${charityId}/edit`)}
-                />
+                >
+                  Edit
+                </Button>
+
+                <Button actionType="danger" startIcon={<DeleteIcon />} onClick={() => setOpenDeleteDialog(true)}>
+                  Delete
+                </Button>
 
                 <IconButtonWithTooltip
                   icon={<List />}
@@ -82,6 +104,14 @@ const CharityView = () => {
                 </Typography>
               ))}
             </Stack>
+
+            <DeletionDialog
+              open={openDeleteDialog}
+              handleClose={() => setOpenDeleteDialog(false)}
+              handleDelete={handleDelete}
+              itemName={charityData.name}
+              itemType="charity"
+            />
           </>
         )}
 

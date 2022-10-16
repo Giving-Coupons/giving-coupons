@@ -13,10 +13,10 @@ import SimpleTable from '../../../components/generic/SimpleTable';
 import CharitiesAPI from '../../../frontendApis/charities';
 import IconButtonWithTooltip from '../../../components/IconButtonWithTooltip';
 import { Edit, Delete, Info } from '@mui/icons-material';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Nullable } from '../../../types/utils';
-import CharityDeletionDialog from '../../../components/charities/CharityDeletionDialog';
 import { Base64String } from '../../../types/base64';
+import DeletionDialog from '../../../components/generic/DeletionDialog';
 
 const AdminCharities = () => {
   const router = useRouter();
@@ -76,10 +76,9 @@ const AdminCharities = () => {
         />
       </Box>
 
-      <CharityDeletionDialog
-        selectedCharity={selectedCharity}
-        handleClose={handleCloseDeleteDialog}
+      <DeletionDialog
         open={selectedCharity !== null}
+        handleClose={handleCloseDeleteDialog}
         handleDelete={() =>
           api.charities
             // Type assertion is safe as the dialog will be closed if selection is null.
@@ -87,6 +86,8 @@ const AdminCharities = () => {
             .then(handleCloseDeleteDialog)
             .then(() => refresh())
         }
+        itemName={selectedCharity?.name ?? 'charity'}
+        itemType="charity"
       />
     </Box>
   );

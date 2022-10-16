@@ -1,12 +1,11 @@
 import { Box, Container } from '@mui/system';
-import { isInteger } from 'formik';
 import moment from 'moment';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 import * as Yup from 'yup';
-import CampaignForm from '../../../components/campaigns/form/CampaignForm';
+import CampaignForm, { campaignDefaultInitialValues } from '../../../components/campaigns/form/CampaignForm';
 import api from '../../../frontendApis';
 import InterestsAPI from '../../../frontendApis/interests';
 import { CampaignCharityPostData } from '../../../types/campaignCharities';
@@ -67,7 +66,6 @@ const createCampaignSchema = Yup.object().shape(
       )
       .min(moment().endOf('day'), 'End date cannot be today or in the past.'),
     imageBase64: Yup.string().required('Campaign image is required.'),
-    interestId: Yup.number().nullable().required(),
     charities: Yup.array()
       .of(
         Yup.object().shape({
@@ -100,16 +98,11 @@ const createCampaignSchema = Yup.object().shape(
 const CampaignCreate = () => {
   const router = useRouter();
   const { interestId } = router.query;
-  const { data: interest } = useSWR<Nullable<InterestData>>(`${InterestsAPI.INTERESTS_URL}/getInterest`, () =>
-    isInteger(interestId) ? api.interests.getInterest(Number(interestId)).then((r) => r.payload) : null,
+  const { data: interest } = useSWR<Nullable<InterestData>>(
+    `${InterestsAPI.INTERESTS_URL}/getInterest/${interestId}`,
+    () => (canBecomeInteger(interestId) ? api.interests.getInterest(Number(interestId)).then((r) => r.payload) : null),
   );
-  const defaultInitialValues = {
-    start: null,
-    end: null,
-    interestId: null,
-    charities: [{}],
-  };
-  const [initialValues, setInitialValues] = useState<CampaignFormData>(defaultInitialValues);
+  const [initialValues, setInitialValues] = useState<CampaignFormData>(campaignDefaultInitialValues);
 
   useEffect(() => {
     if (interest) {
@@ -117,9 +110,9 @@ const CampaignCreate = () => {
         name: interest.campaignName,
         description: interest.campaignDescription,
         promisedAmount: interest.promisedAmount,
+        couponDenomination: campaignDefaultInitialValues.couponDenomination,
         start: interest.start,
         end: interest.end,
-        interestId: interest.id,
         charities: interest.charities.map((interestCharity) => ({
           charity: { id: interestCharity.id },
         })),
@@ -130,7 +123,7 @@ const CampaignCreate = () => {
       });
     } else {
       // Note: This has to be here otherwise the previous interest values may be shown
-      setInitialValues(defaultInitialValues);
+      setInitialValues(campaignDefaultInitialValues);
     }
   }, [interest]);
 
@@ -152,14 +145,14 @@ const CampaignCreate = () => {
         };
         const campaignPostData: CampaignPostData = {
           ...values,
-          charities: charitiesPostData,
+          interestId: interest?.id ?? null,
           start: moment(values.start),
           end: moment(values.end),
+          charities: charitiesPostData,
           primaryDonor: primaryDonorPostData,
         };
 
-        // TODO: Replace with API
-        console.log(campaignPostData);
+        return api.campaigns.addCampaign(campaignPostData);
       })
       .then(() => {
         router.push('/admin/campaigns');
@@ -176,6 +169,7 @@ const CampaignCreate = () => {
         <CampaignForm
           title="Create Campaign"
           submitButtonTitle="Create"
+          isForEditCampaign={false}
           initialValues={initialValues}
           validationSchema={createCampaignSchema}
           onSubmit={handleSubmit}

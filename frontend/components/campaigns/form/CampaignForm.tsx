@@ -14,13 +14,29 @@ import FormImageUpload from '../../forms/FormImageUpload';
 interface Props {
   title: string;
   submitButtonTitle: string;
+  isForEditCampaign: boolean;
   initialValues: CampaignFormData;
   // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   validationSchema: Yup.ObjectSchema<any>;
   onSubmit: (values: CampaignFormData) => void;
 }
 
-const CampaignForm = ({ title, submitButtonTitle, initialValues, validationSchema, onSubmit }: Props) => {
+export const campaignDefaultInitialValues = {
+  start: null,
+  end: null,
+  couponDenomination: 10,
+  interestId: null,
+  charities: [{}],
+};
+
+const CampaignForm = ({
+  title,
+  submitButtonTitle,
+  isForEditCampaign,
+  initialValues,
+  validationSchema,
+  onSubmit,
+}: Props) => {
   const router = useRouter();
 
   return (
@@ -43,17 +59,21 @@ const CampaignForm = ({ title, submitButtonTitle, initialValues, validationSchem
                 minRows={2}
               />
 
-              <FormTextInput
-                name="promisedAmount"
-                label="Promised Amount"
-                InputProps={{ startAdornment: <InputAdornment position="start">$</InputAdornment> }}
-              />
+              {!isForEditCampaign && (
+                <>
+                  <FormTextInput
+                    name="promisedAmount"
+                    label="Promised Amount"
+                    InputProps={{ startAdornment: <InputAdornment position="start">$</InputAdornment> }}
+                  />
 
-              <FormTextInput
-                name="couponDenomination"
-                label="Coupon Denomination"
-                InputProps={{ startAdornment: <InputAdornment position="start">$</InputAdornment> }}
-              />
+                  <FormTextInput
+                    name="couponDenomination"
+                    label="Coupon Denomination"
+                    InputProps={{ startAdornment: <InputAdornment position="start">$</InputAdornment> }}
+                  />
+                </>
+              )}
 
               <FormDatePicker name="start" label="Start Date" />
 
