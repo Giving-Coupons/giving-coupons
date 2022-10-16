@@ -1,37 +1,48 @@
 import { useTheme } from '@mui/system';
 import { useMediaQuery } from '@mui/material';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import CampaignSearchDrawer from './CampaignSearchDrawer';
 import CampaignSearchForm from './CampaignSearchForm';
-import { CampaignSearchFormData } from '../../../types/campaigns';
+import { CampaignListQueryParams, CampaignSearchFormData } from '../../../types/campaigns';
+import moment from 'moment';
+import { isIsoDateString } from '../../../utils/dates';
 
 interface Props {
   searchDrawerIsOpen: boolean;
   setSearchDrawerIsOpen: Dispatch<SetStateAction<boolean>>;
+  queryParams: CampaignListQueryParams;
+  setQueryParams: Dispatch<SetStateAction<CampaignListQueryParams>>;
 }
 
-const CampaignSearch = ({ searchDrawerIsOpen, setSearchDrawerIsOpen }: Props) => {
+const CampaignSearch = ({ searchDrawerIsOpen, setSearchDrawerIsOpen, queryParams, setQueryParams }: Props) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const [values, setValues] = useState<CampaignSearchFormData>({
-    name: undefined,
-    status: {
-      isActive: true,
-      isUpcoming: false,
-      isCompleted: false,
-    },
-    startDateFrom: null,
-    startDateTo: null,
-    endDateFrom: null,
-    endDateTo: null,
-  });
 
-  // TODO: Add API once available
   const search = (values: CampaignSearchFormData) => {
-    setValues(values);
+    setQueryParams({
+      ...values,
+      start: {
+        from: values.startDateFrom?.toISOString(),
+        to: values.startDateTo?.toISOString(),
+      },
+      end: {
+        from: values.endDateFrom?.toISOString(),
+        to: values.endDateTo?.toISOString(),
+      },
+    });
   };
 
-  const searchForm = <CampaignSearchForm initialValues={values} search={search} />;
+  const convertQueryParamsToSearchFormValues = (params: CampaignListQueryParams): CampaignSearchFormData => ({
+    ...params,
+    startDateFrom: isIsoDateString(params.start?.from) ? moment(params.start?.from) : null,
+    startDateTo: isIsoDateString(params.start?.to) ? moment(params.start?.to) : null,
+    endDateFrom: isIsoDateString(params.end?.from) ? moment(params.end?.from) : null,
+    endDateTo: isIsoDateString(params.end?.to) ? moment(params.end?.to) : null,
+  });
+
+  const searchForm = (
+    <CampaignSearchForm initialValues={convertQueryParamsToSearchFormValues(queryParams)} search={search} />
+  );
 
   return isMobile ? (
     <CampaignSearchDrawer isOpen={searchDrawerIsOpen} setIsOpen={setSearchDrawerIsOpen} searchForm={searchForm} />
