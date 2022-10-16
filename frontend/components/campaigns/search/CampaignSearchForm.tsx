@@ -5,7 +5,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { CampaignSearchFormData } from '../../../types/campaigns';
 import CampaignSearchDatePicker from './CampaignSearchDatePicker';
 import CampaignSearchCheckbox from './CampaignSearchCheckbox';
-import { headerSx } from '../../../styles/components/campaigns/search/CampaignSearchFormStyles';
+import { headerSx, titleSx } from '../../../styles/components/campaigns/search/CampaignSearchFormStyles';
 import * as Yup from 'yup';
 import { isValidDate } from '../../../utils/dates';
 import Button from '../../generic/Button';
@@ -76,18 +76,18 @@ const CampaignSearchForm = ({ initialValues, search, handleReset }: Props) => {
       validationSchema={campaignSearchFormSchema}
       onSubmit={handleSubmit}
     >
-      {({ values, setFieldValue, errors, resetForm }) => (
+      {({ values, setFieldValue, errors, isValid, resetForm }) => (
         <Form>
           <Stack component="div" spacing={2}>
             <Stack sx={headerSx} component="div" direction="row" spacing={2}>
-              <Stack component="div" direction="row" spacing={1}>
+              <Stack sx={titleSx} component="div" direction="row" spacing={1}>
                 <SearchIcon />
 
                 <Typography variant="h4">Search</Typography>
               </Stack>
 
               <Stack component="div" direction="row" spacing={1}>
-                <Button actionType="primary" type="submit">
+                <Button actionType="primary" type="submit" disabled={!isValid}>
                   Apply
                 </Button>
 
