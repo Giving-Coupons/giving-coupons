@@ -1,8 +1,8 @@
+import { CampaignCharityDonationPublicData } from './campaignCharities';
+import { CampaignBaseData } from './campaigns';
+import { CharityMinimalData } from './charity';
 import { SecondaryDonationData } from './donations';
 import { Nullable } from './utils';
-import { CharityMinimalData } from './charity';
-import { CampaignBaseData } from './campaigns';
-import { CampaignCharityDonationData } from './campaignCharities';
 
 export type CouponBaseData = {
   id: number;
@@ -18,5 +18,5 @@ export type CouponListData = CouponBaseData & {
 
 export type CouponRedeemData = CouponBaseData & {
   campaign: CampaignBaseData;
-  charities: CampaignCharityDonationData[];
+  charities: CampaignCharityDonationPublicData[];
 };

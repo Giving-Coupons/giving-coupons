@@ -1,18 +1,15 @@
 import { Stack, Typography } from '@mui/material';
-import React from 'react';
 import { closeQuotesProps } from '../../styles/components/campaigns/CampaignDescription';
-import { CampaignPublicData } from '../../types/campaigns';
+import { CampaignBaseData } from '../../types/campaigns';
 import Quotes from '../icons/Quotes';
 
 type Props = {
-  campaign: CampaignPublicData;
+  campaign: CampaignBaseData;
 };
 
 export default function CampaignDescription({ campaign }: Props) {
   return (
     <>
-      <Typography variant="h2">About the campaign</Typography>
-
       <Typography variant="body1">
         This campaign was started by <strong>{campaign.primaryDonor.name}</strong> who has generously committed
         <strong> ${campaign.promisedAmount}</strong> to the beneficiaries listed above.

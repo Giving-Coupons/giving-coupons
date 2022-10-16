@@ -3,6 +3,12 @@ import { theme } from '../../../utils/theme';
 
 export const donationBreakdownItemContainer: SxProps = {
   alignItems: 'center',
+  width: '100%',
+};
+
+export const donationBreakdownLabelSx: SxProps = {
+  alignItems: 'center',
+  width: '20%',
 };
 
 export const charityLogoSx: SxProps = {

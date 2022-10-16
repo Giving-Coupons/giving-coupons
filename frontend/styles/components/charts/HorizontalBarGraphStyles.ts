@@ -5,7 +5,7 @@ const borderRadius = '200px';
 
 export const graphSx: SxProps = {
   display: 'flex',
-  height: '2em',
+  height: '1em',
   width: '100%',
 };
 

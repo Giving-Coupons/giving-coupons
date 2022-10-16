@@ -19,9 +19,9 @@ export const descriptionContainerSx: SxProps = {
 };
 
 export const charityLogoSx: SxProps = {
-  maxHeight: '48px',
-  minHeight: '48px',
-  height: '48px',
+  maxHeight: '32px',
+  minHeight: '32px',
+  height: '32px',
 };
 
 export const buttonSx: SxProps = {
