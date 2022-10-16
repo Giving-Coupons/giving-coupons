@@ -9,11 +9,11 @@ import api from '../../frontendApis';
 import { CampaignPublicData } from '../../types/campaigns';
 import { Nullable } from '../../types/utils';
 import CampaignDescription from '../../components/campaigns/CampaignDescription';
-import NotFound from '../../components/notFound/NotFound';
 import useSWR from 'swr';
 import { isInteger } from 'formik';
 import { useRouter } from 'next/router';
 import CampaignLoading from '../../components/campaigns/dashboard/CampaignLoading';
+import NotFound from '../404';
 
 export default function CampaignDetail() {
   const { query } = useRouter();
@@ -31,7 +31,7 @@ export default function CampaignDetail() {
   }
 
   if (!campaign) {
-    return <NotFound message="The requested campaign does not exist." />;
+    return <NotFound entity="campaign" />;
   }
 
   const numTotalCoupons = campaign.promisedAmount / campaign.couponDenomination;
