@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { CampaignAdminData } from '../../../types/campaigns';
 import { Grid, Tooltip, Typography } from '@mui/material';
 import { Box, Stack } from '@mui/system';
@@ -9,11 +9,18 @@ import {
   campaignDateIconSx,
   campaignImageSx,
   campaignMoneyIconSx,
+  campaignInfoCardHeaderSx,
 } from '../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
 import LinearScaleIcon from '@mui/icons-material/LinearScale';
 import moment, { Moment } from 'moment';
 import PaidIcon from '@mui/icons-material/Paid';
 import LocalActivityIcon from '@mui/icons-material/LocalActivity';
+import Button from '../../generic/Button';
+import { useRouter } from 'next/router';
+import api from '../../../frontendApis';
+import DeletionDialog from '../../generic/DeletionDialog';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
 interface Props {
   campaign: CampaignAdminData;
@@ -48,6 +55,8 @@ const CampaignDateInfoIcon = ({ date }: CampaignDateInfoProps) => (
 );
 
 const CampaignInfoCard = ({ campaign }: Props) => {
+  const router = useRouter();
+  const [openDeleteDialog, setOpenDeleteDialog] = useState<boolean>(false);
   const getStatus = (start: Moment, end: Moment) => {
     if (end.isBefore(moment().startOf('day'))) {
       return 'Completed';
@@ -60,6 +69,13 @@ const CampaignInfoCard = ({ campaign }: Props) => {
     return 'Active';
   };
 
+  const handleDelete = () => {
+    api.campaigns.deleteCampaign(campaign.id).then(() => {
+      setOpenDeleteDialog(false);
+      router.push('/admin/campaigns');
+    });
+  };
+
   return (
     <Grid container columnSpacing={2}>
       <Grid item xs={12} md={6}>
@@ -68,7 +84,23 @@ const CampaignInfoCard = ({ campaign }: Props) => {
 
       <Grid item xs={12} md={6}>
         <Stack component="div" spacing={2}>
-          <Typography variant="h3">{campaign.name}</Typography>
+          <Stack sx={campaignInfoCardHeaderSx} component="div" direction="row">
+            <Typography variant="h3">{campaign.name}</Typography>
+
+            <Stack component="div" direction="row" spacing={1}>
+              <Button
+                actionType="secondary"
+                startIcon={<EditIcon />}
+                onClick={() => router.push(`/admin/campaigns/${campaign.id}/edit`)}
+              >
+                Edit
+              </Button>
+
+              <Button actionType="danger" startIcon={<DeleteIcon />} onClick={() => setOpenDeleteDialog(true)}>
+                Delete
+              </Button>
+            </Stack>
+          </Stack>
 
           <Typography variant="body2">{campaign.description}</Typography>
 
@@ -103,6 +135,14 @@ const CampaignInfoCard = ({ campaign }: Props) => {
           </Stack>
         </Stack>
       </Grid>
+
+      <DeletionDialog
+        open={openDeleteDialog}
+        handleClose={() => setOpenDeleteDialog(false)}
+        handleDelete={handleDelete}
+        itemName={campaign.name}
+        itemType="campaign"
+      />
     </Grid>
   );
 };
