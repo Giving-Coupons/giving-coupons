@@ -39,7 +39,7 @@ export default function CampaignDetail() {
 
   return (
     <Container sx={{ padding: theme.spacing(2) }}>
-      <Typography variant="h1">Campaign name</Typography>
+      <Typography variant="h1">{campaign.name}</Typography>
 
       <Typography variant="subtitle1" align="center">
         Swipe or click the arrows to see all beneficiaries
