@@ -7,7 +7,8 @@ export const containerSx: SxProps = {
 };
 
 export const itemListSx: SxProps = {
-  height: '400px',
+  height: '450px',
+  cursor: 'pointer',
 };
 
 export const itemSx: SxProps = {
