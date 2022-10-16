@@ -1,6 +1,6 @@
 import { Box, Stack } from '@mui/material';
 import React from 'react';
-import { CampaignCharityDonationPublicData } from '../../types/campaignCharities';
+import { CampaignCharityDonationPublicData } from '../../../types/campaignCharities';
 import CampaignCharityListItem from './CampaignCharityListItem';
 
 type Props = {

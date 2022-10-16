@@ -1,10 +1,10 @@
 import { Stack, Box, Typography } from '@mui/material';
 import React from 'react';
-import { charityLogoSx } from '../../styles/components/campaigns/CampaignListCardStyles';
-import { rightBarSx } from '../../styles/components/charts/CompetingGraphStyles';
-import { donationBreakdownItemContainer } from '../../styles/pages/campaigns/detailStyles';
-import { CampaignCharityDonationPublicData } from '../../types/campaignCharities';
-import HorizontalBarGraph from '../charts/HorizontalBarGraph';
+import { charityLogoSx } from '../../../styles/components/campaigns/CampaignListCardStyles';
+import { rightBarSx } from '../../../styles/components/charts/CompetingGraphStyles';
+import { donationBreakdownItemContainer } from '../../../styles/pages/campaigns/detailStyles';
+import { CampaignCharityDonationPublicData } from '../../../types/campaignCharities';
+import HorizontalBarGraph from '../../charts/HorizontalBarGraph';
 
 type Props = {
   campaignCharity: CampaignCharityDonationPublicData;

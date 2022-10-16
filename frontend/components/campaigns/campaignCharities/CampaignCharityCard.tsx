@@ -1,8 +1,8 @@
 import { Box, Container, Stack } from '@mui/system';
 import { Typography } from '@mui/material';
-import CompetingGraph from '../charts/CompetingGraph';
-import CardWithImage from '../generic/CardWithImage';
-import { CampaignCharityDonationPublicData } from '../../types/campaignCharities';
+import CompetingGraph from '../../charts/CompetingGraph';
+import CardWithImage from '../../generic/CardWithImage';
+import { CampaignCharityDonationPublicData } from '../../../types/campaignCharities';
 import {
   charityLogoSx,
   descriptionContainerSx,
@@ -10,10 +10,10 @@ import {
   graphSx,
   buttonSx,
   charityTitleSx,
-} from '../../styles/components/charities/CampaignCharityCardStyles';
+} from '../../../styles/components/charities/CampaignCharityCardStyles';
 import LinkIcon from '@mui/icons-material/Link';
 import { useRouter } from 'next/router';
-import Button from '../generic/Button';
+import Button from '../../generic/Button';
 
 interface Props {
   campaignCharity: CampaignCharityDonationPublicData;

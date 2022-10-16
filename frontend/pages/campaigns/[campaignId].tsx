@@ -1,56 +1,34 @@
 import React from 'react';
-import { canBecomeInteger } from '../../utils/numbers';
-import CampaignCharityCard from '../../components/charities/CampaignCharityCard';
+import CampaignCharityCard from '../../components/campaigns/campaignCharities/CampaignCharityCard';
 import { Button, Container, Divider, Stack, Typography } from '@mui/material';
 import { theme } from '../../utils/theme';
 import CircularProgressWithLabel from '../../components/CircularProgressWithLabel';
 import SwiperWrapper from '../../components/swiper/SwiperWrapper';
-import CampaignCharityList from '../../components/charities/CampaignCharityList';
+import CampaignCharityList from '../../components/campaigns/campaignCharities/CampaignCharityList';
 import api from '../../frontendApis';
-import { GetServerSidePropsContext } from 'next';
 import { CampaignPublicData } from '../../types/campaigns';
-import { ApiResponse, StatusMessage } from '../../types/api';
 import { Nullable } from '../../types/utils';
-import { useSnackbar } from 'notistack';
-import { enqueueGCSnackbar } from '../../utils/snackbar';
 import CampaignDescription from '../../components/campaigns/CampaignDescription';
 import NotFound from '../../components/notFound/NotFound';
+import useSWR from 'swr';
+import { isInteger } from 'formik';
+import { useRouter } from 'next/router';
+import CampaignLoading from '../../components/campaigns/dashboard/CampaignLoading';
 
-export async function getServerSideProps(
-  context: GetServerSidePropsContext,
-): Promise<{ props: { campaign: Nullable<CampaignPublicData>; message?: Nullable<StatusMessage> } }> {
-  const { campaignId: campaignIdParam } = context.query;
+export default function CampaignDetail() {
+  const { query } = useRouter();
+  const campaignId = query.campaignId && isInteger(query.campaignId) ? Number(query.campaignId) : null;
 
-  const campaignId = canBecomeInteger(campaignIdParam) ? Number(campaignIdParam) : undefined;
+  const { data: campaign, error } = useSWR<Nullable<CampaignPublicData>>([campaignId], (campaignId) =>
+    campaignId !== null ? api.campaigns.getCampaign(campaignId).then((res) => res.payload) : null,
+  );
 
-  if (!campaignId) {
-    return {
-      props: {
-        campaign: null,
-      },
-    };
+  const isLoading = !campaign && !error;
+
+  if (isLoading) {
+    // TODO: Replace skeleton
+    return <CampaignLoading />;
   }
-
-  return api.campaigns
-    .getCampaign(campaignId)
-    .then((response) => ({
-      props: {
-        campaign: response.payload,
-        message: response.message,
-      },
-    }))
-    .catch((error: ApiResponse<null>) => ({ props: { campaign: null, message: error.message } }));
-}
-
-type Props = {
-  campaign: Nullable<CampaignPublicData>;
-  message: Nullable<StatusMessage>;
-};
-
-export default function CampaignDetail({ campaign, message }: Props) {
-  const { enqueueSnackbar } = useSnackbar();
-
-  enqueueGCSnackbar(enqueueSnackbar, message, { preventDuplicate: true });
 
   if (!campaign) {
     return <NotFound message="The requested campaign does not exist." />;
