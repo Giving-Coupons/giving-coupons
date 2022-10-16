@@ -1,7 +1,8 @@
 import { useRouter } from 'next/router';
 import { useSnackbar } from 'notistack';
 import { useEffect } from 'react';
-import { isAuthHeaderSaved } from '../frontendApis/helpers/authHeaders';
+import api from '../frontendApis';
+import { isAuthHeaderSaved, unsetAuthHeaders } from '../frontendApis/helpers/authHeaders';
 
 /**
  * This hook can be used in any admin/* page.
@@ -21,6 +22,15 @@ export default function useAdminLoginCheck() {
     } else if (!isLoggedIn && isAdminSignedInPage) {
       enqueueSnackbar('Not logged in.', { variant: 'info', preventDuplicate: true });
       router.push('/admin/sign-in');
+    } else if (isLoggedIn) {
+      // TODO: Replace this API call with a proper endpoint to test tokens.
+      api.interests.list().catch((err) => {
+        if ('This action can only be performed by an authenticated admin' === err.message.message) {
+          unsetAuthHeaders();
+          enqueueSnackbar('Your credentials could not be verified.', { variant: 'error', preventDuplicate: true });
+          router.push('/admin/sign-in');
+        }
+      });
     }
   }, []);
 }
