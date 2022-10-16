@@ -21,6 +21,7 @@ class CampaignsController < ApplicationController
     @campaign = Campaign.new(campaign_params)
 
     set_donor
+    set_interest
     create_campaign_charities
 
     @campaign.image.attach(data: params[:image_base64]) if params[:image_base64].present?
@@ -35,6 +36,7 @@ class CampaignsController < ApplicationController
     @campaign.assign_attributes(campaign_params)
 
     set_donor
+    set_interest
     create_or_update_campaign_charities
 
     if params[:image_base64].nil?
@@ -63,7 +65,7 @@ class CampaignsController < ApplicationController
   end
 
   def campaign_params
-    top_level_params = %i[charities primary_donor]
+    top_level_params = %i[charities primary_donor interest_id]
     params.require(top_level_params)
 
     campaign_params = %i[name description promised_amount start end coupon_denomination]
@@ -76,6 +78,10 @@ class CampaignsController < ApplicationController
     @campaign.primary_donor = PrimaryDonor.find_or_initialize_by(email: primary_donor_params[:email]) do |new_donor|
       new_donor.name = primary_donor_params[:name]
     end
+  end
+
+  def set_interest
+    @campaign.interest = Interest.find(params[:interest_id])
   end
 
   def create_campaign_charities
