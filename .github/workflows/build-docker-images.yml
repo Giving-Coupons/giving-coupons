@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - master
+
 env:
   BACKEND_IMAGE_NAME: giving-coupons-backend
   FRONTEND_IMAGE_NAME: giving-coupons-frontend
