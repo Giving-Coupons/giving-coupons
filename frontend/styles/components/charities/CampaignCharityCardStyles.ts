@@ -31,3 +31,8 @@ export const buttonSx: SxProps = {
 export const charityTitleSx: SxProps = {
   alignItems: 'center',
 };
+
+export const imageContainerSxProps: SxProps = {
+  height: '20vh',
+  width: '30vw',
+};

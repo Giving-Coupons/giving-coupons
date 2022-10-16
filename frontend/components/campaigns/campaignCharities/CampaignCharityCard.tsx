@@ -10,6 +10,7 @@ import {
   graphSx,
   buttonSx,
   charityTitleSx,
+  imageContainerSxProps,
 } from '../../../styles/components/charities/CampaignCharityCardStyles';
 import LinkIcon from '@mui/icons-material/Link';
 import { useRouter } from 'next/router';
@@ -70,6 +71,7 @@ const CampaignCharityCard = ({ campaignCharity, redirectTo }: Props) => {
       imageUrl={campaignCharity.charity.imageBase64}
       imageOverlayContent={imageOverlayContent}
       descriptionContent={[description, actionButtons]}
+      imageContainerSxProps={imageContainerSxProps}
     />
   );
 };
