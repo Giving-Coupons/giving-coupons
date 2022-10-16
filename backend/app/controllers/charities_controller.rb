@@ -4,8 +4,6 @@ class CharitiesController < ApplicationController
   before_action :authenticate_admin!, only: %i[create update destroy]
   before_action :set_charity, only: %i[show update destroy]
 
-  wrap_parameters format: :json, include: %w[name description websiteUrl logoBase64 imageBase64]
-
   def index
     @charities = Charity.all
   end
@@ -13,9 +11,9 @@ class CharitiesController < ApplicationController
   def show; end
 
   def create
-    @charity = Charity.new(charity_params.except(:logo_base64, :image_base64))
-    @charity.logo.attach(data: charity_params[:logo_base64]) unless charity_params[:logo_base64].nil?
-    @charity.image.attach(data: charity_params[:image_base64]) unless charity_params[:image_base64].nil?
+    @charity = Charity.new(charity_params)
+    @charity.logo.attach(data: params[:logo_base64]) if params[:logo_base64].present?
+    @charity.image.attach(data: params[:image_base64]) if params[:image_base64].present?
     @charity.save!
 
     add_success_message "Charity, \"#{@charity.name}\", successfully created!"
@@ -23,19 +21,21 @@ class CharitiesController < ApplicationController
   end
 
   def update
-    @charity.update(charity_params.except(:logo_base64, :image_base64))
+    @charity.assign_attributes(charity_params)
 
-    if charity_params[:logo_base64].nil?
+    if params[:logo_base64].nil?
       @charity.logo.purge
     else
-      @charity.logo.attach(data: charity_params[:logo_base64])
+      @charity.logo.attach(data: params[:logo_base64])
     end
 
-    if charity_params[:image_base64].nil?
+    if params[:image_base64].nil?
       @charity.image.purge
     else
-      @charity.image.attach(data: charity_params[:image_base64])
+      @charity.image.attach(data: params[:image_base64])
     end
+
+    @charity.save!
 
     add_success_message "Charity, \"#{@charity.name}\", successfully updated!"
     render :show, status: :ok
@@ -55,6 +55,6 @@ class CharitiesController < ApplicationController
   end
 
   def charity_params
-    params.require(:charity).permit(:name, :description, :website_url, :logo_base64, :image_base64)
+    params.require(:charity).permit(:name, :description, :website_url)
   end
 end

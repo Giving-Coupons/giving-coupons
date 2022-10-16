@@ -9,3 +9,9 @@ export const headerSx: SxProps = {
   justifyContent: 'space-between',
   alignItems: 'center',
 };
+
+export const logoSx: SxProps = {
+  width: 30,
+  height: 30,
+  objectFit: 'contain',
+};
