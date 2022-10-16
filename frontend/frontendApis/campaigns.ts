@@ -13,7 +13,7 @@ class CampaignsAPI extends BaseAPI {
   static CAMPAIGNS_URL = 'campaigns';
 
   public list(params: CampaignListQueryParams): ApiPromise<CampaignListData[]> {
-    return this.get(CampaignsAPI.CAMPAIGNS_URL, { params: params });
+    return this.get(CampaignsAPI.CAMPAIGNS_URL, { params });
   }
 
   public adminList(): ApiPromise<CampaignAdminListData[]> {

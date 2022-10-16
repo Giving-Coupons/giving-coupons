@@ -4,7 +4,7 @@ import { theme } from '../../../utils/theme';
 export const containerSx: SxProps = {
   display: 'flex',
   flexDirection: 'row',
-  padding: '16px',
+  padding: '32px 0',
 };
 
 export const mobileSearchButtonSx: SxProps = {
