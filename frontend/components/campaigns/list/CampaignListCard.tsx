@@ -1,16 +1,16 @@
 import { Box, Container, Stack } from '@mui/system';
 import { Typography, Grid } from '@mui/material';
-import Button from '../generic/Button';
-import CompetingGraph from '../charts/CompetingGraph';
-import { CampaignListData } from '../../types/campaigns';
-import CardWithImage from '../generic/CardWithImage';
+import Button from '../../generic/Button';
+import CompetingGraph from '../../charts/CompetingGraph';
+import { CampaignListData } from '../../../types/campaigns';
+import CardWithImage from '../../generic/CardWithImage';
 import {
   charityLogoSx,
   descriptionContainerSx,
   graphContainerSx,
   graphSx,
   buttonSx,
-} from '../../styles/components/campaigns/CapaignListCardStyles';
+} from '../../../styles/components/campaigns/list/CapaignListCardStyles';
 
 interface Props {
   campaign: CampaignListData;

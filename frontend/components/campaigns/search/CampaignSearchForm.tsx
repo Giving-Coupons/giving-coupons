@@ -76,7 +76,7 @@ const CampaignSearchForm = ({ initialValues, search, handleReset }: Props) => {
       validationSchema={campaignSearchFormSchema}
       onSubmit={handleSubmit}
     >
-      {({ values, setFieldValue, errors }) => (
+      {({ values, setFieldValue, errors, resetForm }) => (
         <Form>
           <Stack component="div" spacing={2}>
             <Stack sx={headerSx} component="div" direction="row" spacing={2}>
@@ -91,7 +91,13 @@ const CampaignSearchForm = ({ initialValues, search, handleReset }: Props) => {
                   Apply
                 </Button>
 
-                <Button actionType="secondary" onClick={handleReset}>
+                <Button
+                  actionType="secondary"
+                  onClick={() => {
+                    handleReset();
+                    resetForm();
+                  }}
+                >
                   Reset
                 </Button>
               </Stack>
