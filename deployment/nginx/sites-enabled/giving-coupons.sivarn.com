@@ -59,16 +59,6 @@ server {
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header X-Forwarded-Proto $scheme;
   }
-
-  # This block will catch static file requests, such as images
-  location ~* \.(?:jpg|jpeg|gif|png|ico|xml|webp)$ {
-    access_log        off;
-    log_not_found     off;
-
-    expires           30d;
-    add_header        Pragma public;
-    add_header        Cache-Control "public";
-  }
 }
 
 server {
