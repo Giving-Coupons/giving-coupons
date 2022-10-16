@@ -5,7 +5,6 @@ import Typography from '@mui/material/Typography';
 import { Box, Stack } from '@mui/material';
 import { CardActionArea } from '@mui/material';
 import { buttonCard } from '../styles/indexStyles';
-import Image from 'next/image';
 import Link from 'next/link';
 
 interface Props {
@@ -29,9 +28,7 @@ const ButtonCard = ({ title, content, link }: Props) => {
                   {content}
                 </Typography>
               </Box>
-              <Box height="30px" width="30px">
-                <Image src="/right-arrow.png" layout="responsive" height="30px" width="30px" />
-              </Box>
+              <Box height="30px" width="30px" component="img" src="/right-arrow.png" />
             </Stack>
           </CardContent>
         </CardActionArea>

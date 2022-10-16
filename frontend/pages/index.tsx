@@ -172,7 +172,15 @@ const Home: NextPage = () => {
         <Typography sx={marTop2rem} variant="h1" align="center">
           Join Our Mission
         </Typography>
-        <Grid sx={pageBreak} container spacing={2} alignItems="center" justifyContent="center" maxWidth="1000px">
+        <Grid
+          sx={pageBreak}
+          container
+          spacing={2}
+          alignItems="center"
+          justifyContent="center"
+          width="100%"
+          maxWidth="1000px"
+        >
           <Grid item xs={12} sm={12} md={6} lg={6} display="flex" alignItems="center" justifyContent="center">
             <ButtonCard
               title="Create a Campaign"

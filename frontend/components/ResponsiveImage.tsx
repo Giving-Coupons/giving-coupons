@@ -36,7 +36,7 @@ const ResponsiveImage = () => {
         <Box>
           <Grid item lg={12}>
             <Box
-              sx={{ display: 'block', height: '400px', width: '400px' }}
+              sx={{ display: 'block', height: '400px', width: '100vw' }}
               component="img"
               src="/charity-image-blob.png"
             />
@@ -44,7 +44,7 @@ const ResponsiveImage = () => {
         </Box>
       ) : (
         <Box sx={{ display: 'block', width: '100vw', marginTop: '2rem' }}>
-          <Box sx={{ display: 'block', height: '30vh', width: '100vw' }} component="img" src="/charity-image.png" />
+          <Box sx={{ display: 'block', height: '40vh', width: '100vw' }} component="img" src="/charity-image.png" />
         </Box>
       )}
     </Box>
