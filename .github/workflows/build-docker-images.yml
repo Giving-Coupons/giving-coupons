@@ -2,9 +2,6 @@ name: Build Docker Images
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - master
 
 env:
   BACKEND_IMAGE_NAME: giving-coupons-backend
@@ -62,3 +59,25 @@ jobs:
           file: deployment/Dockerfile-frontend
           push: true
           tags: ghcr.io/giving-coupons/${{ env.FRONTEND_IMAGE_NAME }}:latest
+
+  build-nginx-image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Check out Source
+        uses: actions/checkout@v2
+      - name: Log in to the Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: giving-coupons
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: deployment/Dockerfile-nginx
+          push: true
+          tags: ghcr.io/giving-coupons/giving-coupons-nginx:latest
