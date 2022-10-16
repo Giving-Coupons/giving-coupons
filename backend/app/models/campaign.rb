@@ -13,7 +13,7 @@ class Campaign < ApplicationRecord
   has_many :secondary_donations, through: :campaign_charities
 
   after_create :approve_associated_interest
-  after_create :queue_generate_coupons_job
+  after_create_commit :queue_generate_coupons_job
 
   validates :name, presence: true, allow_blank: false
   validates :description, presence: true, allow_blank: false
