@@ -2,10 +2,13 @@ name: Build Docker Images
 
 on:
   workflow_dispatch:
-
+  push:
+    branches:
+      - master
 env:
   BACKEND_IMAGE_NAME: giving-coupons-backend
   FRONTEND_IMAGE_NAME: giving-coupons-frontend
+  NGINX_IMAGE_NAME: giving-coupons-nginx
 
 jobs:
   build-backend-image:
@@ -80,4 +83,4 @@ jobs:
           context: .
           file: deployment/Dockerfile-nginx
           push: true
-          tags: ghcr.io/giving-coupons/giving-coupons-nginx:latest
+          tags: ghcr.io/giving-coupons/${{ env.NGINX_IMAGE_NAME }}:latest
