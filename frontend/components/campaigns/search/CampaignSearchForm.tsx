@@ -5,7 +5,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { CampaignSearchFormData } from '../../../types/campaigns';
 import CampaignSearchDatePicker from './CampaignSearchDatePicker';
 import CampaignSearchCheckbox from './CampaignSearchCheckbox';
-import { headerSx, titleSx } from '../../../styles/components/campaigns/search/CampaignSearchFormStyles';
+import { titleSx } from '../../../styles/components/campaigns/search/CampaignSearchFormStyles';
 import * as Yup from 'yup';
 import { isValidDate } from '../../../utils/dates';
 import Button from '../../generic/Button';
@@ -79,28 +79,10 @@ const CampaignSearchForm = ({ initialValues, search, handleReset }: Props) => {
       {({ values, setFieldValue, errors, isValid, resetForm }) => (
         <Form>
           <Stack component="div" spacing={2}>
-            <Stack sx={headerSx} component="div" direction="row" spacing={2}>
-              <Stack sx={titleSx} component="div" direction="row" spacing={1}>
-                <SearchIcon />
+            <Stack sx={titleSx} component="div" direction="row" spacing={1}>
+              <SearchIcon />
 
-                <Typography variant="h4">Search</Typography>
-              </Stack>
-
-              <Stack component="div" direction="row" spacing={1}>
-                <Button actionType="primary" type="submit" disabled={!isValid}>
-                  Apply
-                </Button>
-
-                <Button
-                  actionType="secondary"
-                  onClick={() => {
-                    handleReset();
-                    resetForm();
-                  }}
-                >
-                  Reset
-                </Button>
-              </Stack>
+              <Typography variant="h4">Search</Typography>
             </Stack>
 
             <TextField
@@ -174,6 +156,23 @@ const CampaignSearchForm = ({ initialValues, search, handleReset }: Props) => {
                 errorMessage={errors?.endDateTo}
                 setFieldValue={setFieldValue}
               />
+            </Stack>
+
+            <Stack component="div" direction="row" spacing={1}>
+              <Button
+                fullWidth
+                actionType="secondary"
+                onClick={() => {
+                  handleReset();
+                  resetForm();
+                }}
+              >
+                Reset
+              </Button>
+
+              <Button fullWidth actionType="primary" type="submit" disabled={!isValid}>
+                Apply
+              </Button>
             </Stack>
           </Stack>
         </Form>
