@@ -14,15 +14,19 @@ export default function CampaignCharityList({ campaignCharities }: Props) {
     ),
   );
 
-  const getFractionOfMaxDonation = (campaignCharity: CampaignCharityDonationPublicData) => {
-    const total = campaignCharity.primaryDonor.amount + campaignCharity.secondaryDonors.amount;
-    return total / maxTotalDonation;
+  const calculateBoxWidth = (campaignCharity: CampaignCharityDonationPublicData) => {
+    if (maxTotalDonation === 0) {
+      return '100%';
+    }
+
+    const totalDonation = campaignCharity.primaryDonor.amount + campaignCharity.secondaryDonors.amount;
+    return `${(totalDonation / maxTotalDonation) * 80}%`;
   };
 
   return (
     <Stack spacing={2}>
       {campaignCharities.map((campaignCharity, index) => (
-        <Box key={index} style={{ width: `calc(80% * ${getFractionOfMaxDonation(campaignCharity)})` }}>
+        <Box key={index} style={{ width: calculateBoxWidth(campaignCharity) }}>
           <CampaignCharityListItem campaignCharity={campaignCharity} />
         </Box>
       ))}
