@@ -152,8 +152,7 @@ const CampaignCreate = () => {
           primaryDonor: primaryDonorPostData,
         };
 
-        // TODO: Replace with API
-        console.log(campaignPostData);
+        return api.campaigns.addCampaign(campaignPostData);
       })
       .then(() => {
         router.push('/admin/campaigns');
