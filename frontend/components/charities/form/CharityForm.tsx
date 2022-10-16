@@ -47,9 +47,9 @@ const CharityForm = ({ title, submitButtonTitle, initialValues, onSubmit }: Prop
 
             <FormTextInput name="websiteUrl" label="Charity Website" placeholder="Enter the charity website" />
 
-            <FormImageUpload name="logoBase64" label="Upload Charity Image" />
+            <FormImageUpload name="imageBase64" label="Upload Charity Image" />
 
-            <FormImageUpload name="imageBase64" label="Upload Logo Image" />
+            <FormImageUpload name="logoBase64" label="Upload Logo Image" />
 
             <Button type="submit" disabled={!isValid || !dirty} actionType="primary" fullWidth>
               {submitButtonTitle}
