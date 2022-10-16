@@ -50,18 +50,18 @@ export type CampaignFormData = {
 
 export type CampaignListQueryParams = {
   name?: string;
-  status?: {
-    isActive?: boolean;
-    isUpcoming?: boolean;
-    isCompleted?: boolean;
+  status: {
+    isActive: boolean;
+    isUpcoming: boolean;
+    isCompleted: boolean;
   };
   start?: {
-    from?: Moment;
-    to?: Moment;
+    from?: string;
+    to?: string;
   };
   end?: {
-    from?: Moment;
-    to?: Moment;
+    from?: string;
+    to?: string;
   };
 };
 
@@ -104,7 +104,7 @@ export type CampaignPutData = Omit<
   primaryDonor: PrimaryDonorData;
 };
 
-export type CampaignPublicData = CampaignBaseData & {
+export type CampaignPublicData = Omit<CampaignBaseData, 'charities'> & {
   donations: DonationBreakdownData;
   charities: CampaignCharityDonationPublicData[];
 };

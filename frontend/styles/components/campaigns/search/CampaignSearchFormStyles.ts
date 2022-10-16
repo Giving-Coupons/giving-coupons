@@ -1,5 +1,5 @@
 import { SxProps } from '@mui/system';
 
-export const headerSx: SxProps = {
+export const titleSx: SxProps = {
   alignItems: 'center',
 };
