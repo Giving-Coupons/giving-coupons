@@ -12,6 +12,7 @@ import api from '../../../frontendApis';
 import { CouponRedeemData } from '../../../types/coupons';
 import { SecondaryDonationPostData } from '../../../types/donations';
 import { Nullable } from '../../../types/utils';
+import { Container } from '@mui/system';
 
 const INITIAL_REDEEM_PAGE = 1;
 const NUMBER_OF_REDEEM_PAGES = 2;
@@ -83,7 +84,7 @@ const Redeem: NextPage = () => {
         <title>Redeem</title>
       </Head>
 
-      {renderRedeemPage()}
+      <Container component="main">{renderRedeemPage()}</Container>
     </Box>
   );
 };

@@ -1,5 +1,5 @@
 import { Grid, Radio, Stack, Typography, useTheme } from '@mui/material';
-import { containerSx, itemListSx } from '../../styles/redeem/indexStyles';
+import { itemListSx } from '../../styles/redeem/indexStyles';
 import { CouponRedeemData } from '../../types/coupons';
 import { Nullable } from '../../types/utils';
 import CampaignCharityCard from '../campaigns/campaignCharities/CampaignCharityCard';
@@ -18,7 +18,7 @@ const CampaignCharitySelection = ({ coupon, campaignCharityId, setCampaignCharit
   const theme = useTheme();
 
   return (
-    <Grid container sx={containerSx} component="main" justifyContent="center" padding={2}>
+    <Grid container justifyContent="center" padding={2}>
       <Grid item md={12} lg={4}>
         <Stack spacing={theme.spacing(2)} paddingBottom={4}>
           <Typography variant="h2">{coupon.campaign.name}</Typography>

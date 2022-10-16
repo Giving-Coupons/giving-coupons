@@ -2,11 +2,12 @@ import { Grid, InputAdornment, Stack, Typography, useTheme } from '@mui/material
 import { Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
 import * as Yup from 'yup';
-import { containerSx, itemSx } from '../../styles/redeem/indexStyles';
+import { itemSx } from '../../styles/redeem/indexStyles';
 import { CouponRedeemData } from '../../types/coupons';
 import CampaignCharityCard from '../campaigns/campaignCharities/CampaignCharityCard';
 import FormTextInput from '../forms/FormTextInput';
 import Button from '../generic/Button';
+import { Nullable } from '../../types/utils';
 
 const couponRedeemFormSchema = Yup.object({
   amount: Yup.number()
@@ -18,7 +19,7 @@ const couponRedeemFormSchema = Yup.object({
 
 type Props = {
   coupon: CouponRedeemData;
-  campaignCharityId: number | null;
+  campaignCharityId: Nullable<number>;
   setAmount: (amount: number) => void;
   goToPreviousPage: () => void;
   handleSubmit: () => void;
@@ -35,7 +36,7 @@ const PersonalContribution = ({ coupon, campaignCharityId, setAmount, goToPrevio
   }
 
   return (
-    <Grid container sx={containerSx} component="main" justifyContent="center">
+    <Grid container justifyContent="center">
       <Grid item sx={itemSx} xs={12} sm={7} md={4} padding={4}>
         <CampaignCharityCard campaignCharity={campaignCharity} redirectTo="givingSgCampaign" />
       </Grid>

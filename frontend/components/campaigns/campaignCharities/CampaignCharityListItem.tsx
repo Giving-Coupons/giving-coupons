@@ -7,6 +7,7 @@ import {
 } from '../../../styles/pages/campaigns/detailStyles';
 import { CampaignCharityDonationPublicData } from '../../../types/campaignCharities';
 import HorizontalBarGraph from '../../charts/HorizontalBarGraph';
+import { graphSx } from '../../../styles/components/charities/CampaignCharityListStyles';
 
 type Props = {
   width: number;
@@ -36,8 +37,13 @@ export default function CampaignCharityListItem({ width, campaignCharity }: Prop
       </Stack>
 
       {hasDonations ? (
-        <Box sx={{ width: `calc(80% * ${width})` }}>
-          <HorizontalBarGraph bars={bars} overrideLastBarSx={rightBarSx} labelProps={{ variant: 'h4' }} />
+        <Box width={`calc(80% * ${width})`}>
+          <HorizontalBarGraph
+            bars={bars}
+            overrideGraphSx={graphSx}
+            overrideLastBarSx={rightBarSx}
+            labelProps={{ variant: 'h4' }}
+          />
         </Box>
       ) : (
         <Typography variant="body1">No donations to date ☹</Typography>

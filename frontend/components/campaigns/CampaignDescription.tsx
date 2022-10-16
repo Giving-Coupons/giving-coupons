@@ -10,8 +10,6 @@ type Props = {
 export default function CampaignDescription({ campaign }: Props) {
   return (
     <>
-      <Typography variant="h2">About the campaign</Typography>
-
       <Typography variant="body1">
         This campaign was started by <strong>{campaign.primaryDonor.name}</strong> who has generously committed
         <strong> ${campaign.promisedAmount}</strong> to the beneficiaries listed above.
