@@ -13,7 +13,7 @@ function NotFound({ message }: Props) {
     <Stack justifyContent="center" alignItems="center" spacing={2}>
       <RandomKawaii isHappy={false} size={200} />
 
-      {message && <Typography className="mt-1 text-gray-400">{message}</Typography>}
+      {message && <Typography>{message}</Typography>}
 
       <Button actionType="secondary" onClick={() => router.back()}>
         Go back
