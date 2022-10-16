@@ -16,7 +16,7 @@ export type CouponListData = CouponBaseData & {
   charity: Nullable<CharityMinimalData>;
 };
 
-export type CouponRedeemData = CouponBaseData &
-  CampaignBaseData & {
-    charities: CampaignCharityDonationData[];
-  };
+export type CouponRedeemData = CouponBaseData & {
+  campaign: CampaignBaseData;
+  charities: CampaignCharityDonationData[];
+};

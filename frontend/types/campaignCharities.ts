@@ -10,7 +10,7 @@ export type CampaignCharityBaseData = {
   givingSgUrl: string;
 };
 
-type CampaignCharityData = CampaignCharityBaseData & {
+export type CampaignCharityData = CampaignCharityBaseData & {
   charity: CharityListData;
 };
 

@@ -40,7 +40,7 @@ const CharityEdit = () => {
         return api.charities.putCharity(charityId as number, charityPostData);
       })
       .then(() => {
-        router.push('/admin/charities');
+        router.push(`/admin/charities/${charityId}`);
       });
   };
 
