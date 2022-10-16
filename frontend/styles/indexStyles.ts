@@ -103,6 +103,10 @@ export const section: SxProps = {
   alignItems: 'flex-start',
 };
 
+export const pageBreak: SxProps = {
+  marginTop: '7rem',
+};
+
 export const buttonSecondary: SxProps = {
   minWidth: '50%',
   margin: '10px 0px',

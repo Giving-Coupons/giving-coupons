@@ -14,8 +14,10 @@ import {
   largeFont,
   impactText,
   section,
+  pageBreak,
 } from '../styles/indexStyles';
 import Image from 'next/image';
+import Link from 'next/link';
 import ResponsiveImage from '../components/ResponsiveImage';
 import ButtonCard from '../components/ButtonCard';
 
@@ -45,7 +47,7 @@ const Home: NextPage = () => {
             >
               Giving coupons is an initiative to raise money for charities through public gift matching
             </Typography>
-            <Button sx={buttonSx} actionType="primary">
+            <Button sx={buttonSx} actionType="primary" href="/campaigns">
               Explore Our Campaigns
             </Button>
           </Stack>
@@ -60,9 +62,7 @@ const Home: NextPage = () => {
           <Grid sx={marTop2rem} container spacing={2} alignItems="center" justifyContent="center">
             <Grid item xs={12} sm={12} md={4} lg={4} display="flex" alignItems="center" justifyContent="center">
               <Stack direction="column" justifyContent="flex-start" alignItems="center">
-                <Box sx={{ display: 'block', height: '100px', width: '100px' }}>
-                  <Image src="/icon-charity.png" layout="responsive" width="100px" height="100px"></Image>
-                </Box>
+                <Box sx={{ display: 'block', height: '100px', width: '100px' }} component="img" src="/icon-charity.png" />
                 <Typography sx={[impactText, largeFont]}>$4,500</Typography>
                 <Typography variant="subtitle1">Additional funds raised for charity</Typography>
               </Stack>
@@ -70,9 +70,7 @@ const Home: NextPage = () => {
 
             <Grid item xs={12} sm={12} md={4} lg={4} display="flex" alignItems="center" justifyContent="center">
               <Stack sx={marTop2rem} direction="column" justifyContent="flex-start" alignItems="center">
-                <div style={{ display: 'block', height: '100px', width: '100px' }}>
-                  <Image src="/icon-voucher.png" layout="responsive" width="100px" height="100px"></Image>
-                </div>
+                <Box sx={{ display: 'block', height: '100px', width: '100px' }} component="img" src="/icon-voucher.png" />
                 <Typography sx={[impactText, largeFont]}>632</Typography>
                 <Typography variant="subtitle1">Coupons issued</Typography>
               </Stack>
@@ -80,9 +78,7 @@ const Home: NextPage = () => {
 
             <Grid item xs={12} sm={12} md={4} lg={4} display="flex" alignItems="center" justifyContent="center">
               <Stack sx={marTop2rem} direction="column" justifyContent="flex-start" alignItems="center">
-                <div style={{ display: 'block', height: '100px', width: '100px' }}>
-                  <Image src="/icon-love.png" layout="responsive" width="100px" height="100px"></Image>
-                </div>
+                <Box sx={{ display: 'block', height: '100px', width: '100px' }} component="img" src="/icon-love.png" />
                 <Typography sx={[impactText, largeFont]}>20972</Typography>
                 <Typography variant="subtitle1">Lives impacted</Typography>
               </Stack>
@@ -114,9 +110,7 @@ const Home: NextPage = () => {
             width="100%"
           >
             <Stack direction="row" justifyContent="space-between" alignItems="center">
-              <div style={{ display: 'block', height: '60px', width: '60px' }}>
-                <Image src="/public-relation.png" layout="responsive" width="60px" height="60px"></Image>
-              </div>
+              <Box sx={{ display: 'block', height: '60px', width: '60px' }} component="img" src="/public-relation.png" />
               <Stack direction="column" justifyContent="space-between" alignItems="flex-start">
                 <Typography sx={marLeft10} variant="h2">
                   Donors commit a sum to one or more charities
@@ -139,9 +133,7 @@ const Home: NextPage = () => {
                   Giving coupons generate coupons
                 </Typography>
               </Stack>
-              <div style={{ display: 'block', height: '60px', width: '60px' }}>
-                <Image src="/icon-voucher.png" layout="responsive" width="60px" height="60px"></Image>
-              </div>
+              <Box sx={{ display: 'block', height: '60px', width: '60px' }} component="img" src="/icon-voucher.png" />
             </Stack>
           </Stack>
 
@@ -154,9 +146,7 @@ const Home: NextPage = () => {
             width="100%"
           >
             <Stack direction="row" justifyContent="space-between" alignItems="center">
-              <div style={{ display: 'block', height: '80px', width: '80px' }}>
-                <Image src="/icon-charity.png" layout="responsive" width="80px" height="80px"></Image>
-              </div>
+              <Box sx={{ display: 'block', height: '60px', width: '60px' }} component="img" src="/icon-charity.png" />
               <Box>
                 <Typography sx={marLeft10} variant="h2">
                   Coupon recipients choose which charities gets the donation
@@ -167,15 +157,16 @@ const Home: NextPage = () => {
         </Stack>
       </Box>
 
-      <Stack sx={marTop2rem} height="30vh" direction="column" justifyContent="center" alignItems="center" spacing={2}>
+      <Stack sx={pageBreak} height="30vh" direction="column" justifyContent="center" alignItems="center" spacing={2}>
         <Typography sx={marTop2rem} variant="h1" align="center">
           Join Our Mission
         </Typography>
-        <Grid container spacing={2} alignItems="center" justifyContent="center" maxWidth="1000px">
+        <Grid sx={pageBreak} container spacing={2} alignItems="center" justifyContent="center" maxWidth="1000px">
           <Grid item xs={12} sm={12} md={6} lg={6} display="flex" alignItems="center" justifyContent="center">
             <ButtonCard
               title="Create a Campaign"
               content="Commit a sum and generate coupons to spread the gift of giving"
+              link="/interest"
             />
           </Grid>
 
@@ -183,6 +174,7 @@ const Home: NextPage = () => {
             <ButtonCard
               title="Contribute to a campaign"
               content="Learn more about existing campaigns and contribute directly"
+              link="/campaigns"
             />
           </Grid>
         </Grid>
