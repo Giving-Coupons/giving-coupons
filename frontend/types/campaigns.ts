@@ -44,7 +44,6 @@ export type CampaignFormData = {
   imageBase64?: string;
   charities: Partial<CampaignCharityBaseData>[];
   primaryDonor?: Partial<PrimaryDonorData>;
-  interestId: Nullable<number>;
 };
 
 export type CampaignListQueryParams = {

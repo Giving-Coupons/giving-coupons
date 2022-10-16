@@ -66,7 +66,6 @@ const createCampaignSchema = Yup.object().shape(
       )
       .min(moment().endOf('day'), 'End date cannot be today or in the past.'),
     imageBase64: Yup.string().required('Campaign image is required.'),
-    interestId: Yup.number().nullable().required(),
     charities: Yup.array()
       .of(
         Yup.object().shape({
@@ -114,7 +113,6 @@ const CampaignCreate = () => {
         couponDenomination: campaignDefaultInitialValues.couponDenomination,
         start: interest.start,
         end: interest.end,
-        interestId: interest.id,
         charities: interest.charities.map((interestCharity) => ({
           charity: { id: interestCharity.id },
         })),
@@ -147,9 +145,10 @@ const CampaignCreate = () => {
         };
         const campaignPostData: CampaignPostData = {
           ...values,
-          charities: charitiesPostData,
+          interestId: interest?.id ?? null,
           start: moment(values.start),
           end: moment(values.end),
+          charities: charitiesPostData,
           primaryDonor: primaryDonorPostData,
         };
 

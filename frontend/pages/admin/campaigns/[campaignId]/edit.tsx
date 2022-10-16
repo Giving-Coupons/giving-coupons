@@ -34,7 +34,6 @@ const editCampaignSchema = Yup.object().shape(
         isValidDate(startDate) ? schema.min(startDate, 'End date cannot be before Start date') : schema,
       ),
     imageBase64: Yup.string().required('Campaign image is required.'),
-    interestId: Yup.number().nullable().required(),
     charities: Yup.array()
       .of(
         Yup.object().shape({
@@ -82,7 +81,6 @@ const CampaignEdit = () => {
         description: campaign.description,
         start: campaign.start,
         end: campaign.end,
-        interestId: campaign.interestId,
         charities: campaign.charities.map((campaignCharities) => ({
           id: campaignCharities.id,
           charity: {
@@ -118,6 +116,7 @@ const CampaignEdit = () => {
         const campaignPutData: CampaignPutData = {
           ...values,
           charities: charitiesPutData,
+          interestId: campaign?.interestId ?? null,
           start: moment(values.start),
           end: moment(values.end),
           primaryDonor: primaryDonorPutData,
