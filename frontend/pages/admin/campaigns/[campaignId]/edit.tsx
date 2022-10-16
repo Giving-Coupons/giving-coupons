@@ -37,7 +37,6 @@ const editCampaignSchema = Yup.object().shape(
     charities: Yup.array()
       .of(
         Yup.object().shape({
-          id: Yup.number().required(),
           charity: Yup.object()
             .shape({
               id: Yup.number().required('Charity is required'),
