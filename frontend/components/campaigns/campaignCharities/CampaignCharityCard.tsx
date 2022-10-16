@@ -17,9 +17,10 @@ import Button from '../../generic/Button';
 
 interface Props {
   campaignCharity: CampaignCharityDonationPublicData;
+  redirectTo: 'givingSgCampaign' | 'charity';
 }
 
-const CampaignCharityCard = ({ campaignCharity }: Props) => {
+const CampaignCharityCard = ({ campaignCharity, redirectTo }: Props) => {
   const router = useRouter();
 
   const primaryDonorDonationData = campaignCharity.primaryDonor;
@@ -49,12 +50,16 @@ const CampaignCharityCard = ({ campaignCharity }: Props) => {
     </Stack>
   );
 
+  const redirectUrl =
+    redirectTo === 'givingSgCampaign' ? campaignCharity.givingSgUrl : campaignCharity.charity.websiteUrl;
+  const redirectButtonText = redirectTo === 'givingSgCampaign' ? 'Go to Giving.sg Campaign' : 'Visit website';
+
   const actionButtons = (
     <Box key="actionButtons">
-      <Button sx={buttonSx} actionType="tertiary" onClick={() => router.push(campaignCharity.charity.websiteUrl)}>
+      <Button sx={buttonSx} actionType="tertiary" onClick={() => router.push(redirectUrl)}>
         <Stack direction="row" spacing={1}>
           <LinkIcon />
-          <Typography>Visit page</Typography>
+          <Typography>{redirectButtonText}</Typography>
         </Stack>
       </Button>
     </Box>

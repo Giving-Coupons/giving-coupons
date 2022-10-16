@@ -47,7 +47,7 @@ export default function CampaignDetail() {
 
       <SwiperWrapper navigable paginated>
         {campaign.charities.map((campaignCharity, index) => (
-          <CampaignCharityCard key={index} campaignCharity={campaignCharity} />
+          <CampaignCharityCard key={index} campaignCharity={campaignCharity} redirectTo="charity" />
         ))}
       </SwiperWrapper>
 
