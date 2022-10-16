@@ -65,8 +65,9 @@ class CampaignsController < ApplicationController
   end
 
   def campaign_params
-    top_level_params = %i[charities primary_donor interest_id]
+    top_level_params = %i[charities primary_donor]
     params.require(top_level_params)
+    params.permit(:interest_id)
 
     campaign_params = %i[name description promised_amount start end coupon_denomination]
     params.require(:campaign).permit(campaign_params)
@@ -81,6 +82,8 @@ class CampaignsController < ApplicationController
   end
 
   def set_interest
+    return if params[:interest_id].nil?
+
     @campaign.interest = Interest.find(params[:interest_id])
   end
 
