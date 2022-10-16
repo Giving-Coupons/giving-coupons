@@ -19,11 +19,17 @@ const Coupon = ({ coupon }: Props) => {
           ${coupon.denomination}
         </Typography>
 
-        <Typography gutterBottom>Donate ${coupon.denomination} to a charity of your choice for free</Typography>
+        <Typography gutterBottom align="center">
+          Donate ${coupon.denomination} to a charity of your choice for free
+        </Typography>
 
-        <Typography variant="caption">This was kindly sponsored by a donor through Giving Coupons.</Typography>
+        <Typography variant="caption" align="center">
+          This was kindly sponsored by a donor through Giving Coupons.
+        </Typography>
 
-        <Typography variant="caption">Find out more about how we spread the gift of giving at {websiteUrl}</Typography>
+        <Typography variant="caption" align="center">
+          Find out more about how we spread the gift of giving at {websiteUrl}
+        </Typography>
       </Stack>
 
       <Stack sx={rightSectionSx} component="div" spacing={1}>
