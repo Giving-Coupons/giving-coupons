@@ -26,10 +26,9 @@ const Redeem: NextPage = () => {
 
   const isLoading = !coupon && !error;
   const [campaignCharityId, setCampaignCharityId] = useState<Nullable<number>>(null);
-  const [amount, setAmount] = useState<number>(0);
   const [redeemPageIndex, setRedeemPageIndex] = useState<number>(INITIAL_REDEEM_PAGE);
 
-  const handleSubmit = () => {
+  const handleSubmit = (amount: number) => {
     if (campaignCharityId === null) {
       return;
     }
@@ -68,7 +67,6 @@ const Redeem: NextPage = () => {
           <PersonalContribution
             coupon={coupon}
             campaignCharityId={campaignCharityId}
-            setAmount={setAmount}
             goToPreviousPage={() => setRedeemPageIndex((prev) => Math.max(prev - 1, INITIAL_REDEEM_PAGE))}
             handleSubmit={handleSubmit}
           />
