@@ -14,6 +14,7 @@ import { isInteger } from 'formik';
 import { useRouter } from 'next/router';
 import CampaignLoading from '../../components/campaigns/dashboard/CampaignLoading';
 import NotFound from '../404';
+import Head from 'next/head';
 
 export default function CampaignDetail() {
   const { query } = useRouter();
@@ -39,6 +40,10 @@ export default function CampaignDetail() {
 
   return (
     <Container sx={{ padding: theme.spacing(2) }}>
+      <Head>
+        <title>{campaign.name}</title>
+      </Head>
+
       <Typography variant="h1">{campaign.name}</Typography>
 
       <Typography variant="subtitle1" align="center">
