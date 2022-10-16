@@ -81,6 +81,7 @@ const CampaignEdit = () => {
         description: campaign.description,
         start: campaign.start,
         end: campaign.end,
+        imageBase64: campaign.imageBase64,
         charities: campaign.charities.map((campaignCharities) => ({
           id: campaignCharities.id,
           charity: {
