@@ -4,7 +4,7 @@ import { theme } from '../../../../utils/theme';
 export const containerSx: SxProps = {
   width: '100%',
   borderRadius: '20px',
-  border: '0.5px solid',
+  border: '1px solid',
   alignItems: 'center',
   justifyContent: 'space-between',
   borderColor: theme.palette.neutral.light,

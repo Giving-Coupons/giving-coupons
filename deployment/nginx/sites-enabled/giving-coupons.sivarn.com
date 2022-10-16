@@ -36,8 +36,6 @@ server {
 server {
   listen 443 ssl http2;
   server_name giving-coupons.sivarn.com;
-  root /frontend;
-  index index.html;
 
   add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
 
@@ -47,12 +45,11 @@ server {
   ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
 
   location / {
-    # Pass on URL handling to Next Router
-    try_files $uri $uri.html $uri/ /index.html;
-    
-    # Disable caching of index.html so that any changes to the Next application invalidates the cache
-    # Note that the Next application itself is still cached
-    add_header Cache-Control "no-store, no-cache, must-revalidate";
+    proxy_pass http://giving-coupons-frontend:3000/;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
   }
 
   location /api/v1/ {

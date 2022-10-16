@@ -1,0 +1,17 @@
+# Use nginx to serve the app
+FROM nginx:stable
+
+# Delete NGINX defaults
+RUN rm -f /etc/nginx/conf.d/* /etc/nginx/sites-enabled/*
+
+# Copy NGINX config
+COPY deployment/nginx/nginx.conf /etc/nginx
+COPY deployment/nginx/sites-enabled/* /etc/nginx/sites-enabled/
+
+# Expose ports
+EXPOSE 80
+EXPOSE 443
+
+# Add a script containing the main command to be executed
+COPY deployment/scripts/cmd-frontend.sh /usr/bin/
+CMD ["cmd-frontend.sh"]

@@ -47,11 +47,24 @@ services:
     image: ghcr.io/giving-coupons/giving-coupons-frontend:latest
     container_name: giving-coupons-frontend
     restart: always
+    depends_on:
+      - backend
+    networks:
+      - giving-coupons-network
+    logging:
+      driver: journald
+    expose:
+      - '3000'
+
+  nginx:
+    image: ghcr.io/giving-coupons/giving-coupons-nginx:latest
+    container_name: giving-coupons-nginx
+    restart: always
     volumes:
       - /etc/letsencrypt:/etc/letsencrypt
       - /var/www/certbot:/var/www/certbot
     depends_on:
-      - backend
+      - frontend
     networks:
       - giving-coupons-network
     logging:
@@ -68,7 +81,7 @@ services:
       - /etc/letsencrypt:/etc/letsencrypt
       - /var/www/certbot:/var/www/certbot
     depends_on:
-      - frontend
+      - nginx
     networks:
       - giving-coupons-network
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
