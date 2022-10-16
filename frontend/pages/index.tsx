@@ -16,7 +16,6 @@ import {
   section,
   pageBreak,
 } from '../styles/indexStyles';
-import Image from 'next/image';
 import ResponsiveImage from '../components/ResponsiveImage';
 import ButtonCard from '../components/ButtonCard';
 import { combineSxProps } from '../utils/types';
@@ -30,7 +29,7 @@ const Home: NextPage = () => {
 
       <Grid container spacing={2} alignItems="center" justifyContent="center">
         <Grid item xs={12} sm={12} md={6} lg={6}>
-          <Image src="/nusstudents.png" layout="responsive" width="100%" height="100%"></Image>
+          <Box sx={{ display: 'block', height: '100%', width: '100%' }} component="img" src="/nusstudents.png" />
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={6} display="flex" alignItems="center" justifyContent="center">
           <Stack justifyContent="center" alignItems="flex-start" height="100%" width="80%">

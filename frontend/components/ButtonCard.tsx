@@ -8,6 +8,12 @@ import { buttonCard } from '../styles/indexStyles';
 import Image from 'next/image';
 import Link from 'next/link';
 
+interface Props {
+  title: string;
+  content: string;
+  link: string;
+}
+
 const ButtonCard = ({ title, content, link }: Props) => {
   return (
     <Link href={link}>

@@ -1,12 +1,11 @@
-import { useState, useCallback, useEffect } from 'react';
-import Image from 'next/image';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Box } from '@mui/system';
 import { Grid } from '@mui/material';
 
-const useMediaQuery = (width) => {
+const useMediaQuery = (width: number) => {
   const [targetReached, setTargetReached] = useState(false);
 
-  const updateTarget = useCallback((e) => {
+  const updateTarget = useCallback((e: MediaQueryListEvent) => {
     if (e.matches) {
       setTargetReached(true);
     } else {
@@ -36,12 +35,16 @@ const ResponsiveImage = () => {
       {isBreakpoint ? (
         <Box>
           <Grid item lg={12}>
-            <Image src="/charity-image-blob.png" layout="responsive" width="400px" height="400px"></Image>
+            <Box
+              sx={{ display: 'block', height: '400px', width: '400px' }}
+              component="img"
+              src="/charity-image-blob.png"
+            />
           </Grid>
         </Box>
       ) : (
         <Box sx={{ display: 'block', width: '100vw', marginTop: '2rem' }}>
-          <Image src="/charity-image.png" layout="responsive" width="100vw" height="30vh"></Image>
+          <Box sx={{ display: 'block', height: '30vh', width: '100vw' }} component="img" src="/charity-image.png" />
         </Box>
       )}
     </Box>
