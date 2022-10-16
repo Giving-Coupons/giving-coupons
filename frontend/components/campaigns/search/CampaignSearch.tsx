@@ -2,23 +2,32 @@ import { useTheme } from '@mui/system';
 import { useMediaQuery } from '@mui/material';
 import { Dispatch, SetStateAction } from 'react';
 import CampaignSearchDrawer from './CampaignSearchDrawer';
-import CampaignSearchForm from './CampaignSearchForm';
+import CampaignSearchForm, { campaignSearchFormSchema } from './CampaignSearchForm';
 import { CampaignListQueryParams, CampaignSearchFormData } from '../../../types/campaigns';
 import moment from 'moment';
 import { isIsoDateString } from '../../../utils/dates';
+import * as Yup from 'yup';
 
 interface Props {
   searchDrawerIsOpen: boolean;
   setSearchDrawerIsOpen: Dispatch<SetStateAction<boolean>>;
   queryParams: CampaignListQueryParams;
   setQueryParams: Dispatch<SetStateAction<CampaignListQueryParams>>;
+  handleReset: () => void;
 }
 
-const CampaignSearch = ({ searchDrawerIsOpen, setSearchDrawerIsOpen, queryParams, setQueryParams }: Props) => {
+const CampaignSearch = ({
+  searchDrawerIsOpen,
+  setSearchDrawerIsOpen,
+  queryParams,
+  setQueryParams,
+  handleReset,
+}: Props) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-  const search = (values: CampaignSearchFormData) => {
+  const search = (values: Yup.InferType<typeof campaignSearchFormSchema>) => {
+    setSearchDrawerIsOpen(false);
     setQueryParams({
       ...values,
       start: {
@@ -32,6 +41,11 @@ const CampaignSearch = ({ searchDrawerIsOpen, setSearchDrawerIsOpen, queryParams
     });
   };
 
+  const handleSearchReset = () => {
+    setSearchDrawerIsOpen(false);
+    handleReset();
+  };
+
   const convertQueryParamsToSearchFormValues = (params: CampaignListQueryParams): CampaignSearchFormData => ({
     ...params,
     startDateFrom: isIsoDateString(params.start?.from) ? moment(params.start?.from) : null,
@@ -41,7 +55,11 @@ const CampaignSearch = ({ searchDrawerIsOpen, setSearchDrawerIsOpen, queryParams
   });
 
   const searchForm = (
-    <CampaignSearchForm initialValues={convertQueryParamsToSearchFormValues(queryParams)} search={search} />
+    <CampaignSearchForm
+      initialValues={convertQueryParamsToSearchFormValues(queryParams)}
+      search={search}
+      handleReset={handleSearchReset}
+    />
   );
 
   return isMobile ? (

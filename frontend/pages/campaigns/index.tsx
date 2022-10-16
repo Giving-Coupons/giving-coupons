@@ -13,16 +13,17 @@ import api from '../../frontendApis';
 import CampaignsAPI from '../../frontendApis/campaigns';
 
 const Campaigns = () => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const [searchDrawerIsOpen, setSearchDrawerIsOpen] = useState<boolean>(false);
-  const [queryParams, setQueryParams] = useState<CampaignListQueryParams>({
+  const defaultQueryParams = {
     status: {
       isActive: true,
       isUpcoming: false,
       isCompleted: false,
     },
-  });
+  };
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const [searchDrawerIsOpen, setSearchDrawerIsOpen] = useState<boolean>(false);
+  const [queryParams, setQueryParams] = useState<CampaignListQueryParams>(defaultQueryParams);
   const { data: campaigns, error } = useSWR<Nullable<CampaignListData[]>>(
     [CampaignsAPI.CAMPAIGNS_URL, queryParams],
     () => api.campaigns.list(queryParams).then((r) => r.payload),
@@ -41,6 +42,7 @@ const Campaigns = () => {
           setSearchDrawerIsOpen={setSearchDrawerIsOpen}
           queryParams={queryParams}
           setQueryParams={setQueryParams}
+          handleReset={() => setQueryParams(defaultQueryParams)}
         />
 
         {isLoading && <Box>Loading</Box>}
