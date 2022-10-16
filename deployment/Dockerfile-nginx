@@ -1,13 +1,6 @@
 # Use nginx to serve the app
 FROM nginx:stable
 
-# Environment variables
-ENV APP_ROOT /frontend
-
-# Make app directory
-RUN mkdir --parents $APP_ROOT
-WORKDIR $APP_ROOT
-
 # Delete NGINX defaults
 RUN rm -f /etc/nginx/conf.d/* /etc/nginx/sites-enabled/*
 
