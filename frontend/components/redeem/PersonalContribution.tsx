@@ -20,12 +20,11 @@ const couponRedeemFormSchema = Yup.object({
 type Props = {
   coupon: CouponRedeemData;
   campaignCharityId: Nullable<number>;
-  setAmount: (amount: number) => void;
   goToPreviousPage: () => void;
-  handleSubmit: () => void;
+  handleSubmit: (amount: number) => void;
 };
 
-const PersonalContribution = ({ coupon, campaignCharityId, setAmount, goToPreviousPage, handleSubmit }: Props) => {
+const PersonalContribution = ({ coupon, campaignCharityId, goToPreviousPage, handleSubmit }: Props) => {
   const router = useRouter();
   const theme = useTheme();
   const campaignCharity = coupon.charities.find((c) => c.id === campaignCharityId);
@@ -54,7 +53,7 @@ const PersonalContribution = ({ coupon, campaignCharityId, setAmount, goToPrevio
             initialValues={{ amount: 0 }}
             validationSchema={couponRedeemFormSchema}
             onSubmit={(values: { amount: number }) =>
-              couponRedeemFormSchema.validate(values).then(() => setAmount(values.amount))
+              couponRedeemFormSchema.validate(values).then(() => handleSubmit(values.amount))
             }
           >
             {({ isValid, dirty }) => (
@@ -66,17 +65,11 @@ const PersonalContribution = ({ coupon, campaignCharityId, setAmount, goToPrevio
                     InputProps={{ startAdornment: <InputAdornment position="start">$</InputAdornment> }}
                   />
 
-                  <Button
-                    type="submit"
-                    disabled={!isValid || !dirty}
-                    fullWidth
-                    actionType="primary"
-                    onClick={handleSubmit}
-                  >
+                  <Button type="submit" disabled={!isValid || !dirty} fullWidth actionType="primary">
                     Make a personal contribution
                   </Button>
 
-                  <Button fullWidth actionType="secondary" onClick={handleSubmit}>
+                  <Button fullWidth actionType="secondary" onClick={() => handleSubmit(0)}>
                     Continue without a personal contribution
                   </Button>
 
