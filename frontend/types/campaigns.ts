@@ -1,15 +1,17 @@
-import { Nullable, WithoutId } from './utils';
 import { Moment } from 'moment';
-import { PrimaryDonorData, PrimaryDonorPostData } from './primaryDonor';
 import {
   CampaignCharityBaseData,
   CampaignCharityDonationData,
   CampaignCharityDonationPublicData,
   CampaignCharityPostData,
 } from './campaignCharities';
-import { DonationBreakdownData } from './donations';
-import { CouponListData } from './coupons';
 import { CharityListData } from './charity';
+import { CouponListData } from './coupons';
+import { DonationBreakdownData } from './donations';
+import { PrimaryDonorData, PrimaryDonorPostData } from './primaryDonor';
+import { Nullable, WithoutId } from './utils';
+
+export type CampaignStatus = 'Active' | 'Completed' | 'Upcoming';
 
 export type CampaignListData = {
   id: number;

@@ -1,6 +1,5 @@
 import moment, { Moment } from 'moment';
-
-type CampaignStatus = 'Active' | 'Completed' | 'Upcoming';
+import { CampaignStatus } from '../types/campaigns';
 
 export const getCampaignStatus = (start: Moment, end: Moment): CampaignStatus => {
   if (end.isBefore(moment().startOf('day'))) {
