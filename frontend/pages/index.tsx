@@ -19,6 +19,7 @@ import {
 import Image from 'next/image';
 import ResponsiveImage from '../components/ResponsiveImage';
 import ButtonCard from '../components/ButtonCard';
+import { combineSxProps } from '../utils/types';
 
 const Home: NextPage = () => {
   return (
@@ -33,12 +34,12 @@ const Home: NextPage = () => {
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={6} display="flex" alignItems="center" justifyContent="center">
           <Stack justifyContent="center" alignItems="flex-start" height="100%" width="80%">
-            <Typography variant="h5" align="center" textAlign="left" fontWeight="900">
+            <Typography variant="hero" align="center" textAlign="left" fontWeight="900">
               Together, we are more
             </Typography>
             <Typography
               sx={marTop5}
-              variant="subtitle"
+              variant="subtitle1"
               align="center"
               fontSize="20px"
               textAlign="left"
@@ -66,7 +67,7 @@ const Home: NextPage = () => {
                   component="img"
                   src="/icon-charity.png"
                 />
-                <Typography sx={[impactText, largeFont]}>$4,500</Typography>
+                <Typography sx={combineSxProps(impactText, largeFont)}>$4,500</Typography>
                 <Typography variant="subtitle1">Additional funds raised for charity</Typography>
               </Stack>
             </Grid>
@@ -78,7 +79,7 @@ const Home: NextPage = () => {
                   component="img"
                   src="/icon-voucher.png"
                 />
-                <Typography sx={[impactText, largeFont]}>632</Typography>
+                <Typography sx={combineSxProps(impactText, largeFont)}>632</Typography>
                 <Typography variant="subtitle1">Coupons issued</Typography>
               </Stack>
             </Grid>
@@ -86,7 +87,7 @@ const Home: NextPage = () => {
             <Grid item xs={12} sm={12} md={4} lg={4} display="flex" alignItems="center" justifyContent="center">
               <Stack sx={marTop2rem} direction="column" justifyContent="flex-start" alignItems="center">
                 <Box sx={{ display: 'block', height: '100px', width: '100px' }} component="img" src="/icon-love.png" />
-                <Typography sx={[impactText, largeFont]}>20972</Typography>
+                <Typography sx={combineSxProps(impactText, largeFont)}>20972</Typography>
                 <Typography variant="subtitle1">Lives impacted</Typography>
               </Stack>
             </Grid>
@@ -96,7 +97,7 @@ const Home: NextPage = () => {
 
       <ResponsiveImage />
 
-      <Box sx={[marTop2rem, section]}>
+      <Box sx={combineSxProps(marTop2rem, section)}>
         <Stack
           sx={{ width: '90%', maxWidth: '600px', height: '100%', padding: '16px' }}
           direction="column"
@@ -200,7 +201,7 @@ const Home: NextPage = () => {
         padding="10px"
         spacing={2}
       >
-        <Typography sx={marTop10} variant="subtitle">
+        <Typography sx={marTop10} variant="subtitle1">
           Giving Coupons 2022
         </Typography>
       </Stack>

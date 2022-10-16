@@ -1,5 +1,7 @@
 import { createTheme } from '@mui/material/styles';
 import { alpha } from '@mui/material';
+import React from 'react';
+import { createBreakpoints } from '@mui/system';
 
 declare module '@mui/material/styles' {
   interface Palette {
@@ -18,6 +20,15 @@ declare module '@mui/material/styles' {
     overlayTranslucent: PaletteOptions['primary'];
     danger: PaletteOptions['primary'];
   }
+
+  interface TypographyVariants {
+    hero: React.CSSProperties;
+  }
+
+  // allow configuration using `createTheme`
+  interface TypographyVariantsOptions {
+    hero?: React.CSSProperties;
+  }
 }
 
 declare module '@mui/material/Button' {
@@ -25,6 +36,15 @@ declare module '@mui/material/Button' {
     neutral: true;
   }
 }
+
+// Update the Typography's variant prop options
+declare module '@mui/material/Typography' {
+  interface TypographyPropsVariantOverrides {
+    hero: true;
+  }
+}
+
+const breakpoints = createBreakpoints({});
 
 export const theme = createTheme({
   typography: {
@@ -45,17 +65,20 @@ export const theme = createTheme({
       fontSize: '1em',
       fontWeight: 700,
     },
-    // h5 reserved for hero image
     h5: {
-      fontSize: '2.5rem',
-      fontWeight: 900,
-      '@media (min-width:600px)': {
-        fontSize: '4rem',
-      },
+      fontSize: '0.8em',
+      fontWeight: 700,
     },
     h6: {
       fontSize: '0.7em',
       fontWeight: 700,
+    },
+    hero: {
+      fontSize: '2.5rem',
+      fontWeight: 900,
+      [breakpoints.up(600)]: {
+        fontSize: '4rem',
+      },
     },
   },
   palette: {
