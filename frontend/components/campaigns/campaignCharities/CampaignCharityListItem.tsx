@@ -1,16 +1,20 @@
-import { Stack, Box, Typography } from '@mui/material';
-import React from 'react';
-import { charityLogoSx } from '../../../styles/components/campaigns/CampaignListCardStyles';
-import { rightBarSx } from '../../../styles/components/charts/CompetingGraphStyles';
-import { donationBreakdownItemContainer } from '../../../styles/pages/campaigns/detailStyles';
+import { Box, Stack, Typography } from '@mui/material';
+import {
+  charityLogoSx,
+  donationBreakdownItemContainer,
+  donationBreakdownLabelSx,
+  rightBarSx,
+} from '../../../styles/pages/campaigns/detailStyles';
 import { CampaignCharityDonationPublicData } from '../../../types/campaignCharities';
 import HorizontalBarGraph from '../../charts/HorizontalBarGraph';
+import { graphSx } from '../../../styles/components/charities/CampaignCharityListStyles';
 
 type Props = {
+  width: number;
   campaignCharity: CampaignCharityDonationPublicData;
 };
 
-export default function CampaignCharityListItem({ campaignCharity }: Props) {
+export default function CampaignCharityListItem({ width, campaignCharity }: Props) {
   const { amount: primaryAmount, fraction: primaryFraction } = campaignCharity.primaryDonor;
   const { amount: secondaryAmount, fraction: secondaryFraction } = campaignCharity.primaryDonor;
   const totalAmount = primaryAmount + secondaryAmount;
@@ -26,9 +30,21 @@ export default function CampaignCharityListItem({ campaignCharity }: Props) {
 
   return (
     <Stack direction="row" sx={donationBreakdownItemContainer} spacing={2}>
-      <Box sx={charityLogoSx} component="img" src={campaignCharity.charity.logoBase64} />
+      <Stack sx={donationBreakdownLabelSx} spacing={1}>
+        <Box sx={charityLogoSx} component="img" src={campaignCharity.charity.logoBase64} />
+
+        <Typography variant="h4">{campaignCharity.charity.name}</Typography>
+      </Stack>
+
       {hasDonations ? (
-        <HorizontalBarGraph bars={bars} overrideLastBarSx={rightBarSx} labelProps={{ variant: 'h4' }} />
+        <Box width={`calc(80% * ${width})`}>
+          <HorizontalBarGraph
+            bars={bars}
+            overrideGraphSx={graphSx}
+            overrideLastBarSx={rightBarSx}
+            labelProps={{ variant: 'h4' }}
+          />
+        </Box>
       ) : (
         <Typography variant="body1">No donations to date ☹</Typography>
       )}

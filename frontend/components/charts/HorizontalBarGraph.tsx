@@ -30,7 +30,7 @@ const HorizontalBarGraph = ({
   const barCount = bars.length;
 
   return (
-    <Box sx={combineSxProps(overrideGraphSx, graphSx)}>
+    <Box sx={combineSxProps(graphSx, overrideGraphSx)}>
       {bars.map(({ fraction, label }, index) => (
         <Box
           key={index}

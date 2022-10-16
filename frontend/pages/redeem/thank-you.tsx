@@ -1,8 +1,8 @@
 import { Box, Stack, Typography } from '@mui/material';
 import Lottie from 'lottie-react';
 import { NextPage } from 'next';
-import orangeThankYou from '../../../assets/orangeThankYouLottie.json';
-import { lottieContainerSx, lottieFrameSx, stackSx } from '../../../styles/redeem/thankYou';
+import orangeThankYou from '../../assets/orangeThankYouLottie.json';
+import { lottieContainerSx, lottieFrameSx, stackSx } from '../../styles/redeem/thankYou';
 
 const ThankYou: NextPage = () => {
   return (
