@@ -33,6 +33,7 @@ const CampaignFormCharitiesSection = ({ values }: Props) => {
             <CampaignFormCharitySection
               key={index}
               index={index}
+              selected={values}
               charityOptions={charityOptions ?? []}
               handleRemove={() => remove(index)}
             />
