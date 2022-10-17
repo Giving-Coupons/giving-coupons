@@ -23,9 +23,8 @@ export default function useAdminLoginCheck() {
       enqueueSnackbar('Not logged in.', { variant: 'info', preventDuplicate: true });
       router.push('/admin/sign-in');
     } else if (isLoggedIn) {
-      // TODO: Replace this API call with a proper endpoint to test tokens.
-      api.interests.list().catch((err) => {
-        if ('This action can only be performed by an authenticated admin' === err.message.message) {
+      api.admins.validateToken().catch((err) => {
+        if (err.success === false) {
           unsetAuthHeaders();
           enqueueSnackbar('Your credentials could not be verified.', { variant: 'error', preventDuplicate: true });
           router.push('/admin/sign-in');

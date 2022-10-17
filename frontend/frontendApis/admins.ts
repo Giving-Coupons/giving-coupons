@@ -1,9 +1,13 @@
-import { AdminData, AdminLoginData, AdminPostData } from '../types/admin';
+import { AdminData, AdminLoginData, AdminPostData, AdminValidateData } from '../types/admin';
 import { ApiPromise } from '../types/api';
 import BaseAPI from './base';
 
 class AdminsAPI extends BaseAPI {
   protected static AUTH_URL = 'auth';
+
+  public validateToken(): ApiPromise<AdminValidateData> {
+    return this.get(`${AdminsAPI.AUTH_URL}/validate_token`);
+  }
 
   public registerNewAdmin(adminPostData: AdminPostData): ApiPromise<AdminData> {
     return this.post(AdminsAPI.AUTH_URL, adminPostData);
