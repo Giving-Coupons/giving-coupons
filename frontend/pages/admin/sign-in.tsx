@@ -40,6 +40,7 @@ const SignIn: NextPage = () => {
             Admin
           </Typography>
         </Stack>
+
         <Typography component="h1" variant="h4" sx={h1Sx}>
           Sign in
         </Typography>
@@ -51,13 +52,16 @@ const SignIn: NextPage = () => {
                 <Grid item xs={12}>
                   <FormTextInput name="username" label="Username" />
                 </Grid>
+
                 <Grid item xs={12}>
                   <FormTextInput name="password" label="Password" type="password" />
                 </Grid>
               </Grid>
+
               <Button fullWidth type="submit" disabled={!isValid || !dirty} actionType="primary" sx={submitButtonSx}>
                 Sign In
               </Button>
+
               <Grid container justifyContent="center">
                 <Grid item>
                   <Link href="/admin/sign-up">{`Don't have an account? Sign up`}</Link>

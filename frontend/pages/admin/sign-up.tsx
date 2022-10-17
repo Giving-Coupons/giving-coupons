@@ -53,6 +53,7 @@ const SignUp: NextPage = () => {
             Admin
           </Typography>
         </Stack>
+
         <Typography component="h1" variant="h4" sx={h1Sx}>
           Sign up
         </Typography>
@@ -64,19 +65,24 @@ const SignUp: NextPage = () => {
                 <Grid item xs={12}>
                   <FormTextInput name="username" label="Username" />
                 </Grid>
+
                 <Grid item xs={12}>
                   <FormTextInput name="password" label="Password" type="password" />
                 </Grid>
+
                 <Grid item xs={12}>
                   <FormTextInput name="passwordConfirmation" label="Retype your password" type="password" />
                 </Grid>
+
                 <Grid item xs={12}>
                   <FormTextInput name="masterPassword" label="Master password" type="password" />
                 </Grid>
               </Grid>
+
               <Button fullWidth type="submit" disabled={!isValid || !dirty} actionType="primary" sx={submitButtonSx}>
                 Sign Up
               </Button>
+
               <Grid container justifyContent="center">
                 <Grid item>
                   <Link href="/admin/sign-in">Already have an account? Sign in</Link>
