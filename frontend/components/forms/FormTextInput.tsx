@@ -13,6 +13,7 @@ interface TextInputProps {
   multiline?: MuiTextFieldProps['multiline'];
   InputProps?: MuiTextFieldProps['InputProps'];
   minRows?: MuiTextFieldProps['minRows'];
+  type?: MuiTextFieldProps['type'];
 }
 
 const FormTextInput = ({
@@ -23,13 +24,14 @@ const FormTextInput = ({
   InputProps,
   minRows,
   disableAutocomplete,
+  type,
 }: TextInputProps) => {
   const [, { value, error, touched }, { setTouched, setValue }] = useField(name);
 
   const innerProps: MuiTextFieldProps = {
     id: name,
     name: name,
-    type: 'text',
+    type: type ?? 'text',
     required: true,
     fullWidth: true,
     value: value ?? '',
