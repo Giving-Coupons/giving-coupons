@@ -9,23 +9,6 @@ export function unsetAuthHeaders() {
   Cookies.remove('authHeaders');
 }
 
-export function fkItUp() {
-  const saved = JSON.parse(Cookies.get('authHeaders')!);
-  if (saved['access-token']) {
-    Cookies.set(
-      'authHeaders',
-      JSON.stringify({
-        'access-token': saved['access-token'] + '0',
-        client: saved['client'] + '0',
-        uid: saved['uid'],
-        'token-type': saved['token-type'],
-        expiry: saved['expiry'],
-      }),
-      { expires: 7 },
-    );
-  }
-}
-
 export function setAuthHeaders(requestConfig: AxiosRequestConfig) {
   const rawAuthHeaders = Cookies.get('authHeaders');
   if (!rawAuthHeaders) {

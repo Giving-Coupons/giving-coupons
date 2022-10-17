@@ -4,12 +4,10 @@ import { Box, Paper, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
 import DeleteButton from '../../../components/DeleteButton';
-import Button from '../../../components/generic/Button';
 import SimpleTable from '../../../components/generic/SimpleTable';
 import IconButtonWithTooltip from '../../../components/IconButtonWithTooltip';
 import Tabbed from '../../../components/Tabs';
 import api from '../../../frontendApis';
-import { fkItUp } from '../../../frontendApis/helpers/authHeaders';
 import InterestsAPI from '../../../frontendApis/interests';
 import useAdminLoginCheck from '../../../hooks/useAdminLogInCheck';
 import { InterestData, InterestStatus } from '../../../types/interest';
@@ -78,9 +76,6 @@ const Interests = () => {
 
   return (
     <Box sx={{ padding: theme.spacing(2) }}>
-      <Button onClick={fkItUp} actionType="primary">
-        Ruin sign in token
-      </Button>
       <Typography variant="h1" gutterBottom>
         Interests
       </Typography>
