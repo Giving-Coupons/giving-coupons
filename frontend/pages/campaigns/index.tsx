@@ -6,7 +6,7 @@ import { Fab, Typography, useMediaQuery } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import React, { useState } from 'react';
 import CampaignSearch from '../../components/campaigns/search/CampaignSearch';
-import { containerSx, mobileSearchButtonSx } from '../../styles/pages/campaigns/indexStyles';
+import { containerSx, messageContainerSx, mobileSearchButtonSx } from '../../styles/pages/campaigns/indexStyles';
 import useSWR from 'swr';
 import { Nullable } from '../../types/utils';
 import api from '../../frontendApis';
@@ -30,6 +30,7 @@ const Campaigns = () => {
     () => api.campaigns.list(queryParams).then((r) => r.payload),
   );
   const isLoading = !campaigns && !error;
+  const hasLoadedSuccessfully = campaigns && !error;
 
   return (
     <Box>
@@ -49,13 +50,21 @@ const Campaigns = () => {
         {isLoading && <CampaignListLoading />}
 
         {error && (
-          <Stack spacing={2}>
+          <Stack sx={messageContainerSx} spacing={2}>
             <Typography variant="h1">Error</Typography>
             <Typography variant="h2">That is all we know right now.</Typography>
           </Stack>
         )}
 
-        {campaigns && !error && <CampaignList campaigns={campaigns} />}
+        {hasLoadedSuccessfully && campaigns.length > 0 && <CampaignList campaigns={campaigns} />}
+
+        {hasLoadedSuccessfully && campaigns.length === 0 && (
+          <Stack sx={messageContainerSx} component="div">
+            <Typography variant="h2" align="center">
+              There are no campaigns for this search query
+            </Typography>
+          </Stack>
+        )}
 
         {isMobile && (
           <Fab sx={mobileSearchButtonSx} onClick={() => setSearchDrawerIsOpen(true)}>
