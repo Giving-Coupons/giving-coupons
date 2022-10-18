@@ -16,8 +16,7 @@ interface Props {
   submitButtonTitle: string;
   isForEditCampaign: boolean;
   initialValues: CampaignFormData;
-  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-  validationSchema: Yup.ObjectSchema<any>;
+  validationSchema: Yup.AnyObjectSchema;
   onSubmit: (values: CampaignFormData) => void;
 }
 

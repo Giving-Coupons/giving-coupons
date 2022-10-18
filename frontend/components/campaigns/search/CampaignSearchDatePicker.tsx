@@ -12,8 +12,7 @@ interface Props {
   value: Nullable<Moment>;
   label: string;
   errorMessage: React.ReactNode;
-  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-  setFieldValue: (field: string, value: any, shouldValidate?: boolean | undefined) => void;
+  setFieldValue: (field: string, value: Nullable<Moment>, shouldValidate?: boolean | undefined) => void;
 }
 
 const CampaignSearchDatePicker = ({ name, value, label, errorMessage, setFieldValue }: Props) => {
