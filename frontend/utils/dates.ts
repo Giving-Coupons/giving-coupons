@@ -9,19 +9,24 @@ export function isIsoDateString(value: any): boolean {
   return value && typeof value === 'string' && isoDateFormat.test(value);
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function handleDates(body: any) {
-  if (body === null || body === undefined || typeof body !== 'object') {
-    return body;
+export function handleDates(body: unknown): unknown {
+  if (body === null || body === undefined) {
+    return body as unknown;
   }
 
-  for (const key of Object.keys(body)) {
-    const value = body[key];
-
-    if (isIsoDateString(value)) {
-      body[key] = moment(value);
-    } else if (typeof value === 'object') {
-      handleDates(value);
-    }
+  if (isIsoDateString(body)) {
+    return moment(body as string);
   }
+
+  if (typeof body !== 'object') {
+    return body as unknown;
+  }
+
+  if (Array.isArray(body)) {
+    return body.map(handleDates);
+  }
+
+  return Object.fromEntries(
+    Object.entries(body as { [key: string]: unknown }).map(([k, v]: [string, unknown]) => [k, handleDates(v)]),
+  );
 }
