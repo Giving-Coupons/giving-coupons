@@ -29,7 +29,7 @@ const CampaignFormCharitiesSection = ({ values }: Props) => {
         <Stack sx={sectionSx} component="div" spacing={2}>
           <Typography variant="h3">Charities Info</Typography>
 
-          {values?.map((charity, index) => (
+          {values?.map((_charity, index) => (
             <CampaignFormCharitySection
               key={index}
               index={index}
