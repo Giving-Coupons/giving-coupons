@@ -4,8 +4,7 @@ interface Props {
   name: string;
   checked: boolean;
   label: string;
-  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-  setFieldValue: (field: string, value: any, shouldValidate?: boolean | undefined) => void;
+  setFieldValue: (field: string, value: boolean, shouldValidate?: boolean | undefined) => void;
 }
 
 const CampaignSearchCheckbox = ({ name, checked, label, setFieldValue }: Props) => {
