@@ -6,7 +6,9 @@ class CampaignsController < ApplicationController
   before_action :set_campaign, only: %i[show admin_show update destroy]
 
   def index
-    @campaigns = final_scope
+    scope = Campaign.includes(:primary_donor, :coupons, :secondary_donations, image_attachment: :blob,
+                                                        charities: [logo_attachment: :blob]).all
+    @campaigns = filtered(scope)
   end
 
   def admin_index
@@ -109,8 +111,8 @@ class CampaignsController < ApplicationController
     @campaign.campaign_charities = campaign_charities
   end
 
-  def final_scope
-    scope = scoped_with_name
+  def filtered(scope)
+    scope = scope.merge(scoped_with_name)
 
     scope = scope.merge(scoped_with_dates)
     return scope if start_params? || end_params?
