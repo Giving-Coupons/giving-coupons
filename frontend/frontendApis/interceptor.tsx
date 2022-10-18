@@ -22,14 +22,14 @@ const AxiosInterceptor = ({ children }: Props) => {
 
     // We do not know the type of ApiResponse<D> so we use null to get type information about StatusMessage
     const responseInterceptor = AxiosClient.instance.interceptors.response.use(
-      (response: AxiosResponse<ApiResponse<null>>) => {
+      (response: AxiosResponse<ApiResponse<unknown>>) => {
         const statusMessage = response?.data?.message?.message;
         if (statusMessage) {
           enqueueSnackbar(statusMessage, { variant: 'success' });
         }
 
         saveAuthHeaders(response);
-        handleDates(response.data);
+        response.data.payload = handleDates(response.data.payload);
         return response;
       },
       (error: AxiosError<ApiResponse<null>>) => {
