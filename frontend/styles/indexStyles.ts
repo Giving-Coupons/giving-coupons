@@ -54,10 +54,20 @@ export const contrastText: SxProps = {
   color: theme.palette.contrast.dark,
 };
 
-// Landing page css
-export const hero: SxProps = {
+export const section100: SxProps = {
+  height: '95vh',
+  width: '100%',
+};
+
+export const section: SxProps = {
   height: '80vh',
-  width: '100vw',
+  width: '100%',
+};
+
+export const centralize: SxProps = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
 };
 
 // OOCSS
@@ -92,15 +102,6 @@ export const largeFont: SxProps = {
 export const impactText: SxProps = {
   color: theme.palette.primary.main,
   fontWeight: 'bold',
-};
-
-export const section: SxProps = {
-  height: '60vh',
-  width: '100vw',
-  paddingTop: '10px',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'flex-start',
 };
 
 export const pageBreak: SxProps = {
