@@ -103,7 +103,6 @@ class CampaignsController < ApplicationController
       campaign_charity = CampaignCharity.find_or_initialize_by(id: param[:id])
       campaign_charity.giving_sg_url = param[:giving_sg_url]
       campaign_charity.charity_id = param[:charity][:id]
-      campaign_charity.save!
       campaign_charity
     end
 

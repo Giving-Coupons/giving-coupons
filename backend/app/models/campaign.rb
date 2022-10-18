@@ -8,7 +8,7 @@ class Campaign < ApplicationRecord
   belongs_to :primary_donor
   belongs_to :interest, optional: true
   has_many :coupons, dependent: :destroy
-  has_many :campaign_charities, dependent: :destroy
+  has_many :campaign_charities, dependent: :destroy, autosave: true
   has_many :charities, through: :campaign_charities
   has_many :secondary_donations, through: :campaign_charities
 
