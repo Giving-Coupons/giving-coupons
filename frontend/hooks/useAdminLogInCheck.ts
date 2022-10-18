@@ -1,7 +1,8 @@
 import { useRouter } from 'next/router';
 import { useSnackbar } from 'notistack';
 import { useEffect } from 'react';
-import { isAuthHeaderSaved } from '../frontendApis/helpers/authHeaders';
+import api from '../frontendApis';
+import { isAuthHeaderSaved, unsetAuthHeaders } from '../frontendApis/helpers/authHeaders';
 
 /**
  * This hook can be used in any admin/* page.
@@ -21,6 +22,11 @@ export default function useAdminLoginCheck() {
     } else if (!isLoggedIn && isAdminSignedInPage) {
       enqueueSnackbar('Not logged in.', { variant: 'info', preventDuplicate: true });
       router.push('/admin/sign-in');
+    } else if (isLoggedIn && isAdminSignedInPage) {
+      api.admins.validateToken().catch(() => {
+        unsetAuthHeaders();
+        router.push('/admin/sign-in');
+      });
     }
   }, []);
 }

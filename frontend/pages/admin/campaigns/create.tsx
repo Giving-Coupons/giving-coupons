@@ -8,6 +8,7 @@ import * as Yup from 'yup';
 import CampaignForm, { campaignDefaultInitialValues } from '../../../components/campaigns/form/CampaignForm';
 import api from '../../../frontendApis';
 import InterestsAPI from '../../../frontendApis/interests';
+import useAdminLoginCheck from '../../../hooks/useAdminLogInCheck';
 import { CampaignCharityPostData } from '../../../types/campaignCharities';
 import { CampaignFormData, CampaignPostData } from '../../../types/campaigns';
 import { InterestData } from '../../../types/interest';
@@ -96,6 +97,7 @@ const createCampaignSchema = Yup.object().shape(
 );
 
 const CampaignCreate = () => {
+  useAdminLoginCheck();
   const router = useRouter();
   const { interestId } = router.query;
   const { data: interest } = useSWR<Nullable<InterestData>>(
