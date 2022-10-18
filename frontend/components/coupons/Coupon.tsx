@@ -9,8 +9,7 @@ interface Props {
 }
 
 const Coupon = ({ coupon }: Props) => {
-  const websiteUrl = 'https://giving-coupons.sivarn.com/';
-  // const websiteUrl = process.env.NEXT_PUBLIC_BASE_CLIENT_URL;
+  const websiteUrl = process.env.NEXT_PUBLIC_BASE_CLIENT_URL;
   const redeemUrl = `${websiteUrl}/redeem/${coupon.urlToken}`;
 
   return (
