@@ -36,6 +36,8 @@ const AxiosInterceptor = ({ children }: Props) => {
         const statusMessage = error?.response?.data?.message?.message;
         if (statusMessage) {
           enqueueSnackbar(statusMessage, { variant: 'error' });
+        } else if (error?.message == 'Network Error') {
+          enqueueSnackbar('Unable to connect to the server, please try again later.', { variant: 'error' });
         }
 
         return Promise.reject(error);
