@@ -22,7 +22,7 @@ export default function useAdminLoginCheck() {
     } else if (!isLoggedIn && isAdminSignedInPage) {
       enqueueSnackbar('Not logged in.', { variant: 'info', preventDuplicate: true });
       router.push('/admin/sign-in');
-    } else if (isLoggedIn) {
+    } else if (isLoggedIn && isAdminSignedInPage) {
       api.admins.validateToken().catch(() => {
         unsetAuthHeaders();
         router.push('/admin/sign-in');
