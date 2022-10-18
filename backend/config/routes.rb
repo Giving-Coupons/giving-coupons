@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       mount_devise_token_auth_for 'Admin', at: 'auth', skip: %i[passwords], controllers: {
         registrations: 'auth/registrations',
         sessions: 'auth/sessions',
-        token_validations: 'devise_token_auth/token_validations'
+        token_validations: 'auth/token_validations'
       }
 
       resources :campaigns do
