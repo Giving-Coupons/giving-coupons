@@ -61,7 +61,6 @@ export const section100: SxProps = {
 
 export const section: SxProps = {
   height: '80vh',
-  width: '100%',
 };
 
 export const centralize: SxProps = {
@@ -117,4 +116,28 @@ export const buttonSecondary: SxProps = {
 export const buttonCard: SxProps = {
   backgroundImage: 'linear-gradient(to right, #FFF428 , #FF3200)',
   maxWidth: 345,
+};
+
+export const heroImg: SxProps = {
+  display: 'block',
+  height: '100%',
+  width: '100%',
+};
+
+export const impactIconImg: ScProps = {
+  display: 'block',
+  height: '100px',
+  width: '100px',
+};
+
+export const stepsContainer: SxProps = {
+  width: '90%',
+  maxWidth: '600px',
+  height: '80%',
+};
+
+export const stepsIconImg: SxProps = {
+  display: 'block',
+  height: '60px',
+  width: '60px',
 };

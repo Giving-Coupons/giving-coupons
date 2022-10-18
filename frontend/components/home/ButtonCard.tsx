@@ -4,7 +4,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { Box, Stack } from '@mui/material';
 import { CardActionArea } from '@mui/material';
-import { buttonCard } from '../styles/indexStyles';
+import { buttonCard } from '../../styles/indexStyles';
 import Link from 'next/link';
 
 interface Props {
