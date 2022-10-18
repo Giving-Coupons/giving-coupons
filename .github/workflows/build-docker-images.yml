@@ -45,8 +45,8 @@ jobs:
       - name: Make Environment File
         uses: SpicyPizza/create-envfile@v1.3
         with:
-          envkey_NEXT_PUBLIC_BASE_SERVER_URL: 'https://giving-coupons.sivarn.com/api/v1'
-          envkey_NEXT_PUBLIC_BASE_CLIENT_URL: 'https://giving-coupons.sivarn.com'
+          envkey_NEXT_PUBLIC_BASE_SERVER_URL: 'https://giving-coupons.sg/api/v1'
+          envkey_NEXT_PUBLIC_BASE_CLIENT_URL: 'https://giving-coupons.sg'
           directory: frontend
           file_name: .env
           fail_on_empty: true
