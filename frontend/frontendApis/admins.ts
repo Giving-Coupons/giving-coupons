@@ -5,6 +5,10 @@ import BaseAPI from './base';
 class AdminsAPI extends BaseAPI {
   protected static AUTH_URL = 'auth';
 
+  public validateToken(): ApiPromise<null> {
+    return this.get(`${AdminsAPI.AUTH_URL}/validate_token`);
+  }
+
   public registerNewAdmin(adminPostData: AdminPostData): ApiPromise<AdminData> {
     return this.post(AdminsAPI.AUTH_URL, adminPostData);
   }
