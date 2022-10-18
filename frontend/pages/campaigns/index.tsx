@@ -61,7 +61,7 @@ const Campaigns = () => {
         {hasLoadedSuccessfully && campaigns.length === 0 && (
           <Stack sx={messageContainerSx} component="div">
             <Typography variant="h2" align="center">
-              There are no campaigns for this search query
+              No campaigns found
             </Typography>
           </Stack>
         )}
