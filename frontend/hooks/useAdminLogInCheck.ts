@@ -27,6 +27,9 @@ export default function useAdminLoginCheck() {
         unsetAuthHeaders();
         router.push('/admin/sign-in');
       });
+      // If not caught and redirected, user may continue to use page.
+    } else {
+      // User is not logged in and is on /admin/sign-up or /admin/sign-in and may continue to use the page.
     }
   }, []);
 }
