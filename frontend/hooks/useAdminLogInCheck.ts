@@ -23,12 +23,9 @@ export default function useAdminLoginCheck() {
       enqueueSnackbar('Not logged in.', { variant: 'info', preventDuplicate: true });
       router.push('/admin/sign-in');
     } else if (isLoggedIn) {
-      api.admins.validateToken().catch((err) => {
-        // Verify that it is strictly an error returned by the backend (i.e. not a network error, etc).
-        if ('Your credentials could not be verified.' === err?.message?.message) {
-          unsetAuthHeaders();
-          router.push('/admin/sign-in');
-        }
+      api.admins.validateToken().catch(() => {
+        unsetAuthHeaders();
+        router.push('/admin/sign-in');
       });
     }
   }, []);
