@@ -8,7 +8,7 @@ class Campaign < ApplicationRecord
   belongs_to :primary_donor
   belongs_to :interest, optional: true
   has_many :coupons, dependent: :destroy
-  has_many :campaign_charities, dependent: :destroy
+  has_many :campaign_charities, dependent: :destroy, autosave: true
   has_many :charities, through: :campaign_charities
   has_many :secondary_donations, through: :campaign_charities
 
@@ -22,6 +22,7 @@ class Campaign < ApplicationRecord
   validates :campaign_charities, length: { minimum: 1, maximum: 5 }
   validates :promised_amount, final: true
   validates :coupon_denomination, final: true
+  validates :interest_id, allow_nil: true, uniqueness: true
   validates :image, presence: true,
                     content_type: {
                       in: ['image/png', 'image/jpg', 'image/jpeg'],
