@@ -24,9 +24,9 @@ export default function useAdminLoginCheck() {
       router.push('/admin/sign-in');
     } else if (isLoggedIn) {
       api.admins.validateToken().catch((err) => {
-        if (err.success === false) {
+        // Verify that it is strictly an error returned by the backend (i.e. not a network error, etc).
+        if ('Your credentials could not be verified.' === err?.message?.message) {
           unsetAuthHeaders();
-          enqueueSnackbar('Your credentials could not be verified.', { variant: 'error', preventDuplicate: true });
           router.push('/admin/sign-in');
         }
       });
