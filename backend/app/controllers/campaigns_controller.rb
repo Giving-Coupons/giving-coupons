@@ -7,7 +7,7 @@ class CampaignsController < ApplicationController
 
   def index
     scope = Campaign.includes(:primary_donor, :coupons, :secondary_donations, image_attachment: :blob,
-                                                        charities: [logo_attachment: :blob]).all
+                                                                              charities: [logo_attachment: :blob]).all
     @campaigns = filtered(scope)
   end
 
@@ -63,7 +63,11 @@ class CampaignsController < ApplicationController
   private
 
   def set_campaign
-    @campaign = Campaign.find(params[:id])
+    @campaign = Campaign.includes(:primary_donor, :coupons, :secondary_donations,
+                                  campaign_charities: [:coupons,
+                                                       { secondary_donations: [:coupon] },
+                                                       { charity: [logo_attachment: :blob,
+                                                                   image_attachment: :blob] }]).find(params[:id])
   end
 
   def campaign_params
