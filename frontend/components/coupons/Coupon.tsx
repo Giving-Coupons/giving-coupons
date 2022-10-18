@@ -15,20 +15,22 @@ const Coupon = ({ coupon }: Props) => {
   return (
     <Stack sx={couponContainerSx} component="div" direction="row">
       <Stack sx={leftSectionSx} component="div">
-        <Typography fontSize={120} fontWeight={800}>
+        <Typography fontSize={100} fontWeight={800}>
           ${coupon.denomination}
         </Typography>
 
-        <Typography gutterBottom align="center">
-          Donate ${coupon.denomination} to a charity of your choice for free
-        </Typography>
+        <Typography align="center">Donate ${coupon.denomination} to a charity of your choice for free</Typography>
 
         <Typography variant="caption" align="center">
           This was kindly sponsored by a donor through Giving Coupons.
         </Typography>
 
         <Typography variant="caption" align="center">
-          Find out more about how we spread the gift of giving at {websiteUrl}
+          Find out more about how we spread the gift of giving at
+        </Typography>
+
+        <Typography variant="caption" align="center" noWrap>
+          {websiteUrl}
         </Typography>
       </Stack>
 
