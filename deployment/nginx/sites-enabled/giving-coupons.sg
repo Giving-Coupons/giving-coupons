@@ -9,7 +9,7 @@
 
 server {
   listen 80;
-  server_name giving-coupons.sivarn.com;
+  server_name giving-coupons.sg;
 
   location /.well-known/acme-challenge/ {
     root /var/www/certbot;
@@ -23,24 +23,24 @@ server {
 
 server {
   listen 80;
-  server_name www.giving-coupons.sivarn.com;
+  server_name www.giving-coupons.sg;
 
   location /.well-known/acme-challenge/ {
     root /var/www/certbot;
   }
 
   # Redirect www to non-www
-  return 301 http://giving-coupons.sivarn.com$request_uri;
+  return 301 http://giving-coupons.sg$request_uri;
 }
 
 server {
   listen 443 ssl http2;
-  server_name giving-coupons.sivarn.com;
+  server_name giving-coupons.sg;
 
   add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
 
-  ssl_certificate /etc/letsencrypt/live/giving-coupons.sivarn.com/fullchain.pem;
-  ssl_certificate_key /etc/letsencrypt/live/giving-coupons.sivarn.com/privkey.pem;
+  ssl_certificate /etc/letsencrypt/live/giving-coupons.sg/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/giving-coupons.sg/privkey.pem;
   include /etc/letsencrypt/options-ssl-nginx.conf;
   ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
 
@@ -63,17 +63,17 @@ server {
 
 server {
   listen 443 ssl http2;
-  server_name www.giving-coupons.sivarn.com;
+  server_name www.giving-coupons.sg;
 
   add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
 
-  ssl_certificate /etc/letsencrypt/live/www.giving-coupons.sivarn.com/fullchain.pem;
-  ssl_certificate_key /etc/letsencrypt/live/www.giving-coupons.sivarn.com/privkey.pem;
+  ssl_certificate /etc/letsencrypt/live/www.giving-coupons.sg/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/www.giving-coupons.sg/privkey.pem;
   include /etc/letsencrypt/options-ssl-nginx.conf;
   ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
 
   # Redirect www to non-www
-  return 301 https://giving-coupons.sivarn.com$request_uri;
+  return 301 https://giving-coupons.sg$request_uri;
 }
 
 # Catch-all for unrecognised requests

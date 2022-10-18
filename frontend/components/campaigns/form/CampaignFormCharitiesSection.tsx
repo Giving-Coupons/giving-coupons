@@ -29,11 +29,11 @@ const CampaignFormCharitiesSection = ({ values }: Props) => {
         <Stack sx={sectionSx} component="div" spacing={2}>
           <Typography variant="h3">Charities Info</Typography>
 
-          {values?.map((charity, index) => (
+          {values?.map((_charity, index) => (
             <CampaignFormCharitySection
               key={index}
               index={index}
-              charityOptions={charityOptions ?? []}
+              charityOptions={!charityOptions ? [] : removeSelectedCharitiesFromOptions(charityOptions, values, index)}
               handleRemove={() => remove(index)}
             />
           ))}
@@ -52,5 +52,18 @@ const CampaignFormCharitiesSection = ({ values }: Props) => {
     </FieldArray>
   );
 };
+
+function removeSelectedCharitiesFromOptions(
+  options: CharityListData[],
+  selected: Partial<CampaignCharityBaseData>[],
+  currentIndex: number,
+) {
+  const otherSelectedCharityIds = selected
+    // Remove current CampaignFormCharitySection from inspection to protect value in current component.
+    .map((value, selectedIndex) => (selectedIndex !== currentIndex ? value : undefined))
+    .map((value) => value?.charity?.id)
+    .filter((v) => v !== undefined);
+  return options.filter((v) => !otherSelectedCharityIds.includes(v.id));
+}
 
 export default CampaignFormCharitiesSection;
