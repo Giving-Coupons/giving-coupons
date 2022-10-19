@@ -5,7 +5,7 @@ class InterestsController < ApplicationController
   before_action :set_interest, only: %i[show update reject destroy]
 
   def index
-    @interests = Interest.all
+    @interests = Interest.includes(charities: [logo_attachment: :blob, image_attachment: :blob]).all
   end
 
   def show; end
@@ -47,7 +47,7 @@ class InterestsController < ApplicationController
   private
 
   def set_interest
-    @interest = Interest.find(params[:id])
+    @interest = Interest.includes(charities: [logo_attachment: :blob, image_attachment: :blob]).find(params[:id])
   end
 
   def interest_params
