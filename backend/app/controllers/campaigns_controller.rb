@@ -3,19 +3,30 @@
 # rubocop:disable Metrics/ClassLength
 class CampaignsController < ApplicationController
   before_action :authenticate_admin!, except: %i[index show]
-  before_action :set_campaign, only: %i[show admin_show update destroy]
+  before_action :set_campaign, only: %i[show update destroy]
 
   def index
-    @campaigns = final_scope
+    scope = Campaign.includes(:primary_donor, :coupons, :secondary_donations, image_attachment: :blob,
+                                                                              charities: [logo_attachment: :blob]).all
+    @campaigns = filtered(scope)
   end
 
   def admin_index
-    @campaigns = Campaign.all
+    @campaigns = Campaign.includes(:primary_donor).all
   end
 
   def show; end
 
-  def admin_show; end
+  def admin_show
+    @campaign = Campaign.includes(:primary_donor,
+                                  :secondary_donations,
+                                  image_attachment: :blob,
+                                  coupons: { secondary_donation: { campaign_charity: :charity } },
+                                  campaign_charities: [:secondary_donations,
+                                                       :coupons,
+                                                       { charity: [logo_attachment: :blob, image_attachment: :blob] }])
+                        .find(params[:id])
+  end
 
   def create
     @campaign = Campaign.new(campaign_params)
@@ -61,7 +72,11 @@ class CampaignsController < ApplicationController
   private
 
   def set_campaign
-    @campaign = Campaign.find(params[:id])
+    @campaign = Campaign.includes(:primary_donor, :coupons, :secondary_donations,
+                                  campaign_charities: [:coupons,
+                                                       { secondary_donations: [:coupon] },
+                                                       { charity: [logo_attachment: :blob,
+                                                                   image_attachment: :blob] }]).find(params[:id])
   end
 
   def campaign_params
@@ -109,8 +124,8 @@ class CampaignsController < ApplicationController
     @campaign.campaign_charities = campaign_charities
   end
 
-  def final_scope
-    scope = scoped_with_name
+  def filtered(scope)
+    scope = scope.merge(scoped_with_name)
 
     scope = scope.merge(scoped_with_dates)
     return scope if start_params? || end_params?

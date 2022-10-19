@@ -73,7 +73,7 @@ class Campaign < ApplicationRecord
   end
 
   def num_redeemed_coupons
-    coupons.count(&:redeemed?)
+    coupons.count(&:is_redeemed?)
   end
 
   private

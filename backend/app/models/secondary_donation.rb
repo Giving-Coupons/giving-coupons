@@ -6,8 +6,8 @@ class SecondaryDonation < ApplicationRecord
 
   validates :amount, presence: true, numericality: { only_integer: true }
   validates :coupon, final: true
+  validates :coupon_id, allow_nil: true, uniqueness: true
   validate :coupon_must_be_for_campaign_charity
-  validate :coupon_unredeemed, on: :create
 
   private
 
@@ -20,11 +20,5 @@ class SecondaryDonation < ApplicationRecord
     return if coupon_campaign == campaign_charity_campaign
 
     errors.add(:coupon, 'must be for the same campaign as the campaign charity')
-  end
-
-  def coupon_unredeemed
-    return unless coupon.present? && coupon.redeemed?
-
-    errors.add(:coupon, 'has already been redeemed')
   end
 end
