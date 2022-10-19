@@ -3,7 +3,7 @@
 # rubocop:disable Metrics/ClassLength
 class CampaignsController < ApplicationController
   before_action :authenticate_admin!, except: %i[index show]
-  before_action :set_campaign, only: %i[show admin_show update destroy]
+  before_action :set_campaign, only: %i[show update destroy]
 
   def index
     scope = Campaign.includes(:primary_donor, :coupons, :secondary_donations, image_attachment: :blob,
@@ -17,7 +17,16 @@ class CampaignsController < ApplicationController
 
   def show; end
 
-  def admin_show; end
+  def admin_show
+    @campaign = Campaign.includes(:primary_donor,
+                                  :secondary_donations,
+                                  image_attachment: :blob,
+                                  coupons: { secondary_donation: { campaign_charity: :charity } },
+                                  campaign_charities: [:secondary_donations,
+                                                       :coupons,
+                                                       { charity: [logo_attachment: :blob, image_attachment: :blob] }])
+                        .find(params[:id])
+  end
 
   def create
     @campaign = Campaign.new(campaign_params)
