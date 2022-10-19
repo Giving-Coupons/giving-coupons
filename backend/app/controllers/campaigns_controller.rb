@@ -12,7 +12,7 @@ class CampaignsController < ApplicationController
   end
 
   def admin_index
-    @campaigns = Campaign.all
+    @campaigns = Campaign.includes(:primary_donor).all
   end
 
   def show; end
