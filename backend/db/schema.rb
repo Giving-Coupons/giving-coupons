@@ -109,7 +109,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_162926) do
     t.bigint "campaign_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "is_redeemed", null: false
+    t.boolean "is_redeemed", default: false, null: false
     t.index ["campaign_id"], name: "index_coupons_on_campaign_id"
     t.index ["url_token"], name: "index_coupons_on_url_token", unique: true
   end
