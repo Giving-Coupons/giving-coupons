@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddIsRedeemedToCoupon < ActiveRecord::Migration[7.0]
   def self.up
     add_column :coupons, :is_redeemed, :boolean
