@@ -5,7 +5,7 @@ class CharitiesController < ApplicationController
   before_action :set_charity, only: %i[show update destroy]
 
   def index
-    @charities = Charity.all
+    @charities = Charity.includes(logo_attachment: :blob).all
   end
 
   def show; end
