@@ -7,7 +7,7 @@
     "build": "next build",
     "rebuild": "rm -rf .next && yarn build",
     "start": "next start",
-    "restart": "yarn re-build && yarn start",
+    "restart": "yarn rebuild && yarn start",
     "lint": "eslint --no-error-on-unmatched-pattern --ext .js, .ts, .jsx, .tsx './**'",
     "lint:fix": "eslint --no-error-on-unmatched-pattern --ext .js, .ts, .jsx, .tsx --fix './**'",
     "find:unused": "next-unused"
