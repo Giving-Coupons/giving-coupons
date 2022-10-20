@@ -38,7 +38,7 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "@types/node": "18.11.2",
+    "@types/node": "18.11.3",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
     "@types/react-kawaii": "^0.17.0",
