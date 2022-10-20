@@ -55,8 +55,11 @@ export const contrastText: SxProps = {
 };
 
 export const firstSectionBoxSx: SxProps = {
-  height: '95vh',
+  minHeight: '95vh',
   width: '100%',
+  marginBottom: { xs: '80px', md: '0px' },
+  alignItems: 'center',
+  justifyContent: 'center',
 };
 
 export const firstImageSx: SxProps = {
