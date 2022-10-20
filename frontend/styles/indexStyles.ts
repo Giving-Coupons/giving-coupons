@@ -54,7 +54,7 @@ export const contrastText: SxProps = {
   color: theme.palette.contrast.dark,
 };
 
-export const firstSectionBoxSx: SxProps = {
+export const headlineSectionBoxResponsiveSx: SxProps = {
   minHeight: '95vh',
   width: '100%',
   marginBottom: { xs: '80px', md: '0px' },
@@ -62,10 +62,65 @@ export const firstSectionBoxSx: SxProps = {
   justifyContent: 'center',
 };
 
-export const firstImageSx: SxProps = {
+export const headlineImageSx: SxProps = {
   display: 'block',
   height: '100%',
   width: '100%',
+};
+
+export const headlineTextGridSx: SxProps = {
+  display: 'flex',
+  alignItems: 'flex-start',
+  justifyContent: 'center',
+};
+
+export const headlineTextStackSx: SxProps = {
+  justifyContent: 'center',
+  alignItems: 'flex-start',
+  height: '100%',
+  width: '80%',
+};
+
+export const statsSectionSx: SxProps = {
+  justifyContent: 'center',
+  alignItems: 'center',
+};
+
+export const statsSectionGridSx: SxProps = {
+  marginTop: '2rem',
+  alignItems: 'center',
+  justifyContent: 'center',
+};
+
+export const statsSectionGridItemSx: SxProps = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+};
+
+export const statsSectionGridItemStackSx: SxProps = {
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+};
+
+export const statsSectionImageSx: SxProps = {
+  display: 'block',
+  height: '100px',
+  width: '100px',
+};
+
+export const charityImageBlobResponsiveSx: SxProps = {
+  display: { xs: 'block', md: 'none' },
+  width: '100vw',
+  objectFit: 'contain',
+};
+
+export const charityImageLargeResponsiveSx: SxProps = {
+  display: { xs: 'none', md: 'block' },
+  marginTop: '2rem',
+  width: '100vw',
+  height: '40vh',
+  objectFit: 'cover',
 };
 
 export const howItWorksSectionSx: SxProps = {
@@ -76,24 +131,25 @@ export const howItWorksSectionSx: SxProps = {
   display: 'flex',
 };
 
+export const howItWorksHeaderSx: SxProps = {
+  marginTop: '80px',
+  textAlign: 'center',
+};
+
+export const howItWorksStackSx: SxProps = {
+  marginTop: '10px',
+  justifyContent: 'space-between',
+  width: '100%',
+};
+
+export const howItWorksImageSx: SxProps = {
+  display: 'block',
+  height: '60px',
+  width: '60px',
+};
+
 export const orgDescriptionSx: SxProps = {
   marginTop: '5px',
-};
-
-export const marTop10: SxProps = {
-  marginTop: '10px',
-};
-
-export const marTop2rem: SxProps = {
-  marginTop: '2rem',
-};
-
-export const marLeft10: SxProps = {
-  marginLeft: '2rem',
-};
-
-export const marRight10: SxProps = {
-  marginRight: '2rem',
 };
 
 export const largeImpactTextSx: SxProps = {
@@ -117,6 +173,13 @@ export const callToActionStackSx: SxProps = {
   height: '30vh',
   justifyContent: 'center',
   alignItems: 'center',
+  paddingTop: '2rem',
+};
+
+export const callToActionSectionGridItemSx: SxProps = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
 };
 
 export const givingCouponsNoticeSx: SxProps = {
