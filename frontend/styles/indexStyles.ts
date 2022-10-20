@@ -54,14 +54,26 @@ export const contrastText: SxProps = {
   color: theme.palette.contrast.dark,
 };
 
-// Landing page css
-export const hero: SxProps = {
-  height: '80vh',
-  width: '100vw',
+export const firstSectionBoxSx: SxProps = {
+  height: '95vh',
+  width: '100%',
 };
 
-// OOCSS
-export const marTop5: SxProps = {
+export const firstImageSx: SxProps = {
+  display: 'block',
+  height: '100%',
+  width: '100%',
+};
+
+export const howItWorksSectionSx: SxProps = {
+  height: { xs: '95vh', sm: '90vh' },
+  width: '90%',
+  maxWidth: '800px',
+  margin: 'auto',
+  display: 'flex',
+};
+
+export const orgDescriptionSx: SxProps = {
   marginTop: '5px',
 };
 
@@ -81,30 +93,10 @@ export const marRight10: SxProps = {
   marginRight: '2rem',
 };
 
-export const shiftRight: SxProps = {
-  marginLeft: 'auto',
-};
-
-export const largeFont: SxProps = {
+export const largeImpactTextSx: SxProps = {
   fontSize: '3rem',
-};
-
-export const impactText: SxProps = {
   color: theme.palette.primary.main,
   fontWeight: 'bold',
-};
-
-export const section: SxProps = {
-  height: '60vh',
-  width: '100vw',
-  paddingTop: '10px',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'flex-start',
-};
-
-export const pageBreak: SxProps = {
-  marginTop: '7rem',
 };
 
 export const buttonSecondary: SxProps = {
@@ -116,4 +108,18 @@ export const buttonSecondary: SxProps = {
 export const buttonCard: SxProps = {
   backgroundImage: 'linear-gradient(to right, #FFF428 , #FF3200)',
   maxWidth: 345,
+};
+
+export const callToActionStackSx: SxProps = {
+  height: '30vh',
+  justifyContent: 'center',
+  alignItems: 'center',
+};
+
+export const givingCouponsNoticeSx: SxProps = {
+  width: '100%',
+  height: '30vh',
+  justifyContent: 'flex-end',
+  alignItems: 'flex-start',
+  padding: '10px',
 };
