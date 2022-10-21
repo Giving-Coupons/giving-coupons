@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CouponsController < ApplicationController
-  before_action :authenticate_admin!, except: [:show]
+  before_action :authenticate_admin!, except: [:show, :redeem]
 
   def index
     @coupons = Coupon.all.includes({ secondary_donation: { campaign_charity: :charity } })
@@ -25,6 +25,12 @@ class CouponsController < ApplicationController
 
   def redeem
     @coupon = Coupon.find_by(url_token: params[:url_token])
+
+    if @coupon.redeemed?
+      add_error_message('Coupon is already redeemed!')
+      render 'layouts/empty', status: :bad_request
+      return
+    end
 
     @coupon.assign_attributes(redeem_params)
 
