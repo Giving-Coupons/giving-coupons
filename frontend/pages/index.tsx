@@ -31,7 +31,7 @@ import {
 
 const Home: NextPage = () => {
   return (
-    <Box sx={{ alignItems: 'center' }}>
+    <Box>
       <Head>
         <title>Giving Coupons</title>
       </Head>
@@ -46,7 +46,7 @@ const Home: NextPage = () => {
 
       <CallToActionSection />
 
-      <Stack spacing={2} sx={givingCouponsNoticeSx}>
+      <Stack sx={givingCouponsNoticeSx}>
         <Typography variant="subtitle1">© Giving Coupons 2022</Typography>
       </Stack>
     </Box>
