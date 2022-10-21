@@ -11,15 +11,16 @@ export type InterestData = {
   id: number;
   donorName: string;
   donorEmail: string;
+  donorImageBase64: string;
   campaignName: string;
   campaignDescription: string;
+  campaignImageBase64: string;
   promisedAmount: number;
   start: Moment;
   end: Moment;
   status: InterestStatus;
   charities: CharityMinimalData[];
   couponDenomination: number;
-  imageBase64: string;
 };
 
 export type InterestPostData = Omit<InterestData, 'id' | 'charities'> & {

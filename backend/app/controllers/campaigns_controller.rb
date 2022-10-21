@@ -18,14 +18,16 @@ class CampaignsController < ApplicationController
   def show; end
 
   def admin_show
-    @campaign = Campaign.includes(:primary_donor,
+    @campaign = Campaign.includes(
                                   :secondary_donations,
                                   image_attachment: :blob,
+                                  primary_donor: { image_attachment: :blob },
                                   coupons: { secondary_donation: { campaign_charity: :charity } },
                                   campaign_charities: [:secondary_donations,
                                                        :coupons,
                                                        { charity: [logo_attachment: :blob, image_attachment: :blob] }])
                         .find(params[:id])
+
   end
 
   def create
@@ -93,6 +95,7 @@ class CampaignsController < ApplicationController
 
     @campaign.primary_donor = PrimaryDonor.find_or_initialize_by(email: primary_donor_params[:email]) do |new_donor|
       new_donor.name = primary_donor_params[:name]
+      new_donor.image.attach(data: primary_donor_params[:image_base64]) if primary_donor_params[:image_base64].present?
     end
   end
 

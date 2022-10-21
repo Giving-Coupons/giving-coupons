@@ -5,7 +5,8 @@ class Interest < ApplicationRecord
 
   enum :status, { pending: 'pending', approved: 'approved', rejected: 'rejected' }
 
-  has_one_base64_attached :image
+  has_one_base64_attached :campaign_image
+  has_one_base64_attached :donor_image
 
   has_one :campaign, required: false, dependent: nil
   has_many :interest_charities, dependent: :destroy

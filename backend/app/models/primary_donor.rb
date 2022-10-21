@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class PrimaryDonor < ApplicationRecord
+  has_one_base64_attached :image
+
   has_many :campaigns, dependent: :destroy
 
   validates :name, presence: true

@@ -1,5 +1,5 @@
-import { primaryDonorItemSx } from '../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
-import { Avatar, Typography } from '@mui/material';
+import { avatarSx, primaryDonorItemSx } from '../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
+import { Avatar, Box, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import EmailIcon from '@mui/icons-material/Email';
@@ -14,6 +14,8 @@ interface Props {
 const CampaignPrimaryDonorCard = ({ primaryDonor }: Props) => (
   <CampaignCard>
     <Typography variant="h3">Primary Donor Info</Typography>
+
+    <Avatar variant="rounded" sx={avatarSx} src={primaryDonor.imageBase64}></Avatar>
 
     <Stack sx={primaryDonorItemSx} component="div" direction="row" spacing={2}>
       <Avatar variant="rounded">
