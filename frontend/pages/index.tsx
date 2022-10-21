@@ -4,21 +4,30 @@ import Button from '../components/generic/Button';
 import { Box, Stack } from '@mui/system';
 import { Grid } from '@mui/material';
 import { Typography } from '@mui/material';
-import {
-  buttonSx,
-  marTop2rem,
-  marTop5,
-  marTop10,
-  marLeft10,
-  marRight10,
-  largeFont,
-  impactText,
-  section,
-  pageBreak,
-} from '../styles/indexStyles';
-import ResponsiveImage from '../components/ResponsiveImage';
 import ButtonCard from '../components/ButtonCard';
-import { combineSxProps } from '../utils/types';
+import {
+  largeImpactTextSx,
+  buttonSx,
+  headlineSectionBoxResponsiveSx,
+  orgDescriptionSx,
+  headlineImageSx,
+  howItWorksSectionSx,
+  givingCouponsNoticeSx,
+  callToActionStackSx,
+  headlineTextGridSx,
+  headlineTextStackSx,
+  statsSectionSx,
+  statsSectionGridSx,
+  statsSectionGridItemSx,
+  statsSectionImageSx,
+  statsSectionGridItemStackSx,
+  howItWorksHeaderSx,
+  howItWorksStackSx,
+  callToActionSectionGridItemSx,
+  charityImageBlobResponsiveSx,
+  charityImageLargeResponsiveSx,
+  howItWorksImageSx,
+} from '../styles/indexStyles';
 
 const Home: NextPage = () => {
   return (
@@ -27,192 +36,161 @@ const Home: NextPage = () => {
         <title>Giving Coupons</title>
       </Head>
 
-      <Grid container spacing={2} alignItems="center" justifyContent="center">
-        <Grid item xs={12} sm={12} md={6} lg={6}>
-          <Box sx={{ display: 'block', height: '100%', width: '100%' }} component="img" src="/nusstudents.png" />
-        </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={6} display="flex" alignItems="center" justifyContent="center">
-          <Stack justifyContent="center" alignItems="flex-start" height="100%" width="80%">
-            <Typography variant="hero" align="center" textAlign="left" fontWeight="900">
-              Together, we are more
-            </Typography>
-            <Typography
-              sx={marTop5}
-              variant="subtitle1"
-              align="center"
-              fontSize="20px"
-              textAlign="left"
-              fontWeight="500"
-            >
-              Giving Coupons is an initiative to raise money for charities through public gift matching
-            </Typography>
-            <Button sx={buttonSx} actionType="primary" href="/campaigns">
-              Explore Our Campaigns
-            </Button>
-          </Stack>
-        </Grid>
-      </Grid>
+      <HeadlineSection />
 
-      <Stack sx={marTop2rem} direction="column" justifyContent="center" alignItems="center">
-        <Typography sx={marTop10} variant="h1" align="center">
-          To Date
-        </Typography>
-        <Box width="80%">
-          <Grid sx={marTop2rem} container spacing={2} alignItems="center" justifyContent="center">
-            <Grid item xs={12} sm={12} md={4} lg={4} display="flex" alignItems="center" justifyContent="center">
-              <Stack direction="column" justifyContent="flex-start" alignItems="center">
-                <Box
-                  sx={{ display: 'block', height: '100px', width: '100px' }}
-                  component="img"
-                  src="/icon-charity.png"
-                />
-                <Typography sx={combineSxProps(impactText, largeFont)}>$4,500</Typography>
-                <Typography variant="subtitle1">Additional funds raised for charity</Typography>
-              </Stack>
-            </Grid>
+      <StatsSection />
 
-            <Grid item xs={12} sm={12} md={4} lg={4} display="flex" alignItems="center" justifyContent="center">
-              <Stack sx={marTop2rem} direction="column" justifyContent="flex-start" alignItems="center">
-                <Box
-                  sx={{ display: 'block', height: '100px', width: '100px' }}
-                  component="img"
-                  src="/icon-voucher.png"
-                />
-                <Typography sx={combineSxProps(impactText, largeFont)}>632</Typography>
-                <Typography variant="subtitle1">Coupons issued</Typography>
-              </Stack>
-            </Grid>
+      <ResponsiveCharityImage />
 
-            <Grid item xs={12} sm={12} md={4} lg={4} display="flex" alignItems="center" justifyContent="center">
-              <Stack sx={marTop2rem} direction="column" justifyContent="flex-start" alignItems="center">
-                <Box sx={{ display: 'block', height: '100px', width: '100px' }} component="img" src="/icon-love.png" />
-                <Typography sx={combineSxProps(impactText, largeFont)}>20972</Typography>
-                <Typography variant="subtitle1">Lives impacted</Typography>
-              </Stack>
-            </Grid>
-          </Grid>
-        </Box>
-      </Stack>
+      <HowItWorksSection />
 
-      <ResponsiveImage />
+      <CallToActionSection />
 
-      <Box sx={combineSxProps(marTop2rem, section)}>
-        <Stack
-          sx={{ width: '90%', maxWidth: '600px', height: '100%', padding: '16px' }}
-          direction="column"
-          justifyContent="space-between"
-          alignItems="center"
-          spacing={2}
-        >
-          <Typography sx={marTop10} variant="h1" align="center">
-            How It Works
-          </Typography>
-
-          <Stack
-            sx={marTop10}
-            direction="column"
-            justifyContent="space-between"
-            alignItems="flex-start"
-            spacing={2}
-            width="100%"
-          >
-            <Stack direction="row" justifyContent="space-between" alignItems="center">
-              <Box
-                sx={{ display: 'block', height: '60px', width: '60px' }}
-                component="img"
-                src="/public-relation.png"
-              />
-              <Stack direction="column" justifyContent="space-between" alignItems="flex-start">
-                <Typography sx={marLeft10} variant="h2">
-                  Donors commit a sum to one or more charities
-                </Typography>
-              </Stack>
-            </Stack>
-          </Stack>
-
-          <Stack
-            sx={marTop10}
-            direction="column"
-            justifyContent="space-between"
-            alignItems="flex-end"
-            spacing={2}
-            width="100%"
-          >
-            <Stack direction="row" justifyContent="space-between" alignItems="center">
-              <Stack direction="column" justifyContent="space-between" alignItems="flex-end">
-                <Typography sx={marRight10} variant="h2" align="right">
-                  Giving Coupons generates coupons
-                </Typography>
-              </Stack>
-              <Box sx={{ display: 'block', height: '60px', width: '60px' }} component="img" src="/icon-voucher.png" />
-            </Stack>
-          </Stack>
-
-          <Stack
-            sx={marTop10}
-            direction="column"
-            justifyContent="space-between"
-            alignItems="flex-start"
-            spacing={2}
-            width="100%"
-          >
-            <Stack direction="row" justifyContent="space-between" alignItems="center">
-              <Box sx={{ display: 'block', height: '60px', width: '60px' }} component="img" src="/icon-charity.png" />
-              <Box>
-                <Typography sx={marLeft10} variant="h2">
-                  Coupon recipients choose which charities gets the donation
-                </Typography>
-              </Box>
-            </Stack>
-          </Stack>
-        </Stack>
-      </Box>
-
-      <Stack sx={pageBreak} height="30vh" direction="column" justifyContent="center" alignItems="center" spacing={2}>
-        <Typography sx={marTop2rem} variant="h1" align="center">
-          Join Our Mission
-        </Typography>
-        <Grid
-          sx={pageBreak}
-          container
-          spacing={2}
-          alignItems="center"
-          justifyContent="center"
-          width="100%"
-          maxWidth="1000px"
-        >
-          <Grid item xs={12} sm={12} md={6} lg={6} display="flex" alignItems="center" justifyContent="center">
-            <ButtonCard
-              title="Create a Campaign"
-              content="Commit a sum and generate coupons to spread the gift of giving"
-              link="/interest"
-            />
-          </Grid>
-
-          <Grid item xs={12} sm={12} md={6} lg={6} display="flex" alignItems="center" justifyContent="center">
-            <ButtonCard
-              title="Contribute to a campaign"
-              content="Learn more about existing campaigns and contribute directly"
-              link="/campaigns"
-            />
-          </Grid>
-        </Grid>
-      </Stack>
-
-      <Stack
-        direction="column"
-        width="100%"
-        height="30vh"
-        justifyContent="flex-end"
-        alignItems="flex-start"
-        padding="10px"
-        spacing={2}
-      >
-        <Typography sx={marTop10} variant="subtitle1">
-          Giving Coupons 2022
-        </Typography>
+      <Stack sx={givingCouponsNoticeSx}>
+        <Typography variant="subtitle1">© Giving Coupons 2022</Typography>
       </Stack>
     </Box>
+  );
+};
+
+const HeadlineSection = () => (
+  // Adds bottom margin if breakpoint < md to account for extra length from text below image.
+  <Grid sx={headlineSectionBoxResponsiveSx} container spacing={2}>
+    <Grid item xs={12} sm={12} md={6} lg={6}>
+      <Box sx={headlineImageSx} component="img" src="/nusstudents.png" />
+    </Grid>
+
+    <Grid item xs={12} sm={12} md={6} lg={6} sx={headlineTextGridSx}>
+      <Stack sx={headlineTextStackSx}>
+        <Typography variant="hero" align="center" textAlign="left" fontWeight="900">
+          Together, we are more
+        </Typography>
+
+        <Typography
+          sx={orgDescriptionSx}
+          variant="subtitle1"
+          align="center"
+          fontSize="20px"
+          textAlign="left"
+          fontWeight="500"
+        >
+          Giving Coupons is an initiative to raise money for charities through public gift matching
+        </Typography>
+
+        <Button sx={buttonSx} actionType="primary" href="/campaigns">
+          Explore Our Campaigns
+        </Button>
+      </Stack>
+    </Grid>
+  </Grid>
+);
+
+const StatsSection = () => {
+  const StatItem = (props: { imgSrc: string; stat: string; subtitle: string }) => (
+    <Grid item xs={12} sm={12} md={4} lg={4} sx={statsSectionGridItemSx}>
+      <Stack sx={statsSectionGridItemStackSx}>
+        <Box sx={statsSectionImageSx} component="img" src={props.imgSrc} />
+
+        <Typography sx={largeImpactTextSx}>{props.stat}</Typography>
+
+        <Typography variant="subtitle1">{props.subtitle}</Typography>
+      </Stack>
+    </Grid>
+  );
+
+  return (
+    <Stack sx={statsSectionSx}>
+      <Typography variant="h1" align="center">
+        To Date
+      </Typography>
+
+      <Box width="80%">
+        <Grid sx={statsSectionGridSx} container spacing={2}>
+          <StatItem imgSrc="/icon-charity.png" stat="$4,500" subtitle="Additional funds raised for charity" />
+
+          <StatItem imgSrc="/icon-voucher.png" stat="632" subtitle="Coupons issued" />
+
+          <StatItem imgSrc="/icon-love.png" stat="20972" subtitle="Lives impacted" />
+        </Grid>
+      </Box>
+    </Stack>
+  );
+};
+
+const ResponsiveCharityImage = () => (
+  <>
+    {/* Hides if breakpoint >= md */}
+    <Box sx={charityImageBlobResponsiveSx} component="img" src="/charity-image-blob.png" />
+    {/* Shows if breakpoint < md */}
+    <Box sx={charityImageLargeResponsiveSx} component="img" src="/charity-image.png" />
+  </>
+);
+
+const HowItWorksSection = () => {
+  const GridItem = (props: { imgSrc: string; text: string; alignTo: 'start' | 'end' }) => (
+    <Grid item xs={12}>
+      <Stack sx={howItWorksStackSx} alignItems={props.alignTo === 'start' ? 'flex-start' : 'flex-end'} spacing={2}>
+        <Stack
+          alignItems="center"
+          justifyContent="space-between"
+          direction={props.alignTo === 'start' ? 'row' : 'row-reverse'}
+        >
+          <Box sx={howItWorksImageSx} component="img" src={props.imgSrc} />
+
+          <Typography sx={{ margin: '2rem' }} variant="h3">
+            {props.text}
+          </Typography>
+        </Stack>
+      </Stack>
+    </Grid>
+  );
+
+  return (
+    <Grid sx={howItWorksSectionSx} container spacing={2}>
+      <Grid item xs={12}>
+        <Typography sx={howItWorksHeaderSx} variant="h1">
+          How It Works
+        </Typography>
+      </Grid>
+
+      <GridItem imgSrc="/public-relation.png" text="Donors commit a sum to one or more charities" alignTo="start" />
+
+      <GridItem text="Giving Coupons generates coupons" imgSrc="/icon-voucher.png" alignTo="end" />
+
+      <GridItem
+        imgSrc="/icon-charity.png"
+        text="Coupon recipients choose which charities gets the donation"
+        alignTo="start"
+      />
+    </Grid>
+  );
+};
+
+const CallToActionSection = () => {
+  return (
+    <Stack sx={callToActionStackSx} spacing={2}>
+      <Typography variant="h1" align="center">
+        Join Our Mission
+      </Typography>
+
+      <Grid container spacing={2} alignItems="center" justifyContent="center" width="100%" maxWidth="1000px">
+        <Grid item xs={12} sm={12} md={6} lg={6} sx={callToActionSectionGridItemSx}>
+          <ButtonCard
+            title="Create a Campaign"
+            content="Commit a sum and generate coupons to spread the gift of giving"
+            link="/interest"
+          />
+        </Grid>
+
+        <Grid item xs={12} sm={12} md={6} lg={6} sx={callToActionSectionGridItemSx}>
+          <ButtonCard
+            title="Contribute to a campaign"
+            content="Learn more about existing campaigns and contribute directly"
+            link="/campaigns"
+          />
+        </Grid>
+      </Grid>
+    </Stack>
   );
 };
 
