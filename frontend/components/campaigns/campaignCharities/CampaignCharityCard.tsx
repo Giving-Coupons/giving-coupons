@@ -34,10 +34,9 @@ const CampaignCharityCard = ({ campaignCharity }: Props) => {
         <Stack paddingTop={1} paddingBottom={1} paddingRight={1}>
           <Typography variant="h5">{campaignCharity.charity.name}</Typography>
 
-          {/* TODO: Fix hardcoded values */}
           <SmallCompetingGraph
             overrideGraphSx={graphSx}
-            leftLabel={`$${primaryDonorDonationData.amount} from Hong Yao`}
+            leftLabel={`$${primaryDonorDonationData.amount} from ${campaignCharity.primaryDonor.name}`}
             rightLabel={`$${secondaryDonorDonationData.amount} from people like you`}
             barFractions={[primaryDonorDonationData.fraction, secondaryDonorDonationData.fraction]}
           />
