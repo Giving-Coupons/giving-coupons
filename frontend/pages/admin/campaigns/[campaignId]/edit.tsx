@@ -56,6 +56,7 @@ const editCampaignSchema = Yup.object().shape(
       email: Yup.string()
         .required('Primary donor email is required.')
         .email('Primary donor email is not in the correct form.'),
+      imageBase64: Yup.string().required('Avatar is required.'),
     }).required('Primary donor is required'),
   },
   [['start', 'end']],
@@ -117,6 +118,7 @@ const CampaignEdit = () => {
           id: values.primaryDonor.id,
           name: values.primaryDonor.name,
           email: values.primaryDonor.email,
+          imageBase64: values.primaryDonor.imageBase64,
         };
         const campaignPutData: CampaignPutData = {
           ...values,

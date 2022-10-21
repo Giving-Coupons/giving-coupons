@@ -13,8 +13,8 @@ interface Props {
 }
 
 const CampaignCharityCard = ({ campaignCharity }: Props) => {
-  const primaryDonorDonationData = campaignCharity.primaryDonor;
-  const secondaryDonorDonationData = campaignCharity.secondaryDonors;
+  const primaryDonorDonationData = campaignCharity.primaryDonation;
+  const secondaryDonorDonationData = campaignCharity.secondaryDonation;
 
   return (
     <Grid
