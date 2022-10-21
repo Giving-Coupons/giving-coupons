@@ -1,13 +1,12 @@
 import { Nullable } from './utils';
 
 export enum RedemptionStep {
-  Initial,
-  InstructionsCompleted,
-  CharitySelected,
-  AmountSelected,
-  PersonalContributionMade,
-  RedemptionVerified,
-  Completed,
+  Initial = 'Initial',
+  InstructionsCompleted = 'InstructionsCompleted',
+  CharitySelected = 'CharitySelected',
+  AmountSelected = 'AmountSelected',
+  PersonalContributionMade = 'PersonalContributionMade',
+  RedemptionVerified = 'RedemptionVerified',
 }
 
 type SessionIdentifier = {
@@ -47,20 +46,13 @@ type RedemptionVerifiedData = {
   personalContribution: Nullable<number>;
 };
 
-type CompletedData = {
-  step: RedemptionStep.RedemptionVerified;
-  charityId: number;
-  personalContribution: Nullable<number>;
-};
-
 export type RedemptionStepData =
   | InitialData
   | InstructionsCompletedData
   | CharitySelectedData
   | AmountSelectedData
   | PersonalContributionMadeData
-  | RedemptionVerifiedData
-  | CompletedData;
+  | RedemptionVerifiedData;
 
 export type RedemptionState = {
   session: SessionIdentifier;
