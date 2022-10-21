@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CouponsController < ApplicationController
-  before_action :authenticate_admin!, except: [:show, :redeem]
+  before_action :authenticate_admin!, except: %i[show redeem]
 
   def index
     @coupons = Coupon.all.includes({ secondary_donation: { campaign_charity: :charity } })
