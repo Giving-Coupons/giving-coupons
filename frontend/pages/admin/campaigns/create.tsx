@@ -122,6 +122,7 @@ const CampaignCreate = () => {
           name: interest.donorName,
           email: interest.donorEmail,
         },
+        imageBase64: interest.imageBase64,
       });
     } else {
       // Note: This has to be here otherwise the previous interest values may be shown

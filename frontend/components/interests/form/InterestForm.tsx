@@ -11,6 +11,7 @@ import { Nullable } from '../../../types/utils';
 import FormTextInput from '../../forms/FormTextInput';
 import InterestFormAmountButton from './InterestFormAmountButton';
 import InterestFormCharitySelector from './InterestFormCharitySelector';
+import FormImageUpload from '../../forms/FormImageUpload';
 
 export type InterestFormData = Partial<
   Omit<InterestData, 'id' | 'status' | 'couponDenomination' | 'start' | 'end' | 'charities'>
@@ -49,6 +50,7 @@ export const interestFormSchema = Yup.object({
     .min(1, 'At least 1 charity must be selected.')
     .max(MAX_NUM_OF_CAMPAIGN_CHARITIES, `At most ${MAX_NUM_OF_CAMPAIGN_CHARITIES} charities can be selected.`)
     .required('Charity selection is required.'),
+  imageBase64: Yup.string().required('Campaign image is required.'),
 });
 
 export type InterestFormSubmitHandler = (formState: Yup.InferType<typeof interestFormSchema>) => Promise<unknown>;
@@ -110,6 +112,8 @@ export default function InterestForm({ onSubmit }: InterestFormProps) {
                   label="Length of Campaign"
                   InputProps={{ endAdornment: <InputAdornment position="end">day(s)</InputAdornment> }}
                 />
+
+                <FormImageUpload name="imageBase64" label="Upload Image" />
               </Stack>
               <Stack spacing={2}>
                 <Stack spacing={0}>

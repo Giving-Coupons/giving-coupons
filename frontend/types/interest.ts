@@ -19,6 +19,7 @@ export type InterestData = {
   status: InterestStatus;
   charities: CharityMinimalData[];
   couponDenomination: number;
+  imageBase64: string;
 };
 
 export type InterestPostData = Omit<InterestData, 'id' | 'charities'> & {
