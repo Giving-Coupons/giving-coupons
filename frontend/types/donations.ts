@@ -6,8 +6,8 @@ type DonationData = {
 };
 
 export type DonationBreakdownData = {
-  primaryDonor: DonationData;
-  secondaryDonors: DonationData;
+  primaryDonation: DonationData;
+  secondaryDonation: DonationData;
 };
 
 export type SecondaryDonationData = {

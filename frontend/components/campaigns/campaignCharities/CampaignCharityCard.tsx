@@ -23,8 +23,8 @@ interface Props {
 const CampaignCharityCard = ({ campaignCharity, redirectTo }: Props) => {
   const router = useRouter();
 
-  const primaryDonorDonationData = campaignCharity.primaryDonor;
-  const secondaryDonorDonationData = campaignCharity.secondaryDonors;
+  const primaryDonorDonationData = campaignCharity.primaryDonation;
+  const secondaryDonorDonationData = campaignCharity.secondaryDonation;
 
   const imageOverlayContent = (
     <Container sx={graphContainerSx} component="div">
