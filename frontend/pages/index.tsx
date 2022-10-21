@@ -54,6 +54,7 @@ const Home: NextPage = () => {
 };
 
 const HeadlineSection = () => (
+  // Adds bottom margin if breakpoint < md to account for extra length from text below image.
   <Grid sx={headlineSectionBoxResponsiveSx} container spacing={2}>
     <Grid item xs={12} sm={12} md={6} lg={6}>
       <Box sx={headlineImageSx} component="img" src="/nusstudents.png" />
@@ -118,7 +119,9 @@ const StatsSection = () => {
 
 const ResponsiveCharityImage = () => (
   <>
+    {/* Hides if breakpoint >= md */}
     <Box sx={charityImageBlobResponsiveSx} component="img" src="/charity-image-blob.png" />
+    {/* Shows if breakpoint < md */}
     <Box sx={charityImageLargeResponsiveSx} component="img" src="/charity-image.png" />
   </>
 );
