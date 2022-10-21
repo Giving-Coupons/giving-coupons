@@ -1,5 +1,4 @@
 import { Box, Stack, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
 import { TextLoop } from 'react-text-loop-next';
 import { boxSx, stackSx, textSx } from '../../styles/redeem/DidYouKnowStyles';
 
@@ -14,16 +13,6 @@ const DID_YOU_KNOW_FACTS: string[] = [
 ];
 
 const DidYouKnow = () => {
-  const [factIndex, setfactIndex] = useState<number>(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setfactIndex((prevIndex) => (prevIndex + 1) % DID_YOU_KNOW_FACTS.length);
-    }, 2000);
-
-    return () => clearInterval(interval);
-  }, [factIndex]);
-
   return (
     <Stack component="div" sx={stackSx}>
       <Typography variant="h4">Did you know?</Typography>
