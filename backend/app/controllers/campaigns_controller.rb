@@ -95,10 +95,13 @@ class CampaignsController < ApplicationController
   def set_donor
     primary_donor_params = params[:primary_donor]
 
-    @campaign.primary_donor = PrimaryDonor.find_or_initialize_by(email: primary_donor_params[:email]) do |new_donor|
-      new_donor.name = primary_donor_params[:name]
-      new_donor.image.attach(data: primary_donor_params[:image_base64]) if primary_donor_params[:image_base64].present?
+    primary_donor = PrimaryDonor.find_or_initialize_by(email: primary_donor_params[:email])
+    primary_donor.name = primary_donor_params[:name]
+    if primary_donor_params[:image_base64].present?
+      primary_donor.image.attach(data: primary_donor_params[:image_base64])
     end
+
+    @campaign.primary_donor = primary_donor
   end
 
   def set_interest
