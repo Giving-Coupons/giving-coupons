@@ -10,7 +10,7 @@ type Props = {
 export default function CampaignCharityList({ campaignCharities }: Props) {
   const maxTotalDonation = Math.max(
     ...campaignCharities.map(
-      (campaignCharity) => campaignCharity.primaryDonor.amount + campaignCharity.secondaryDonors.amount,
+      (campaignCharity) => campaignCharity.primaryDonation.amount + campaignCharity.secondaryDonation.amount,
     ),
   );
 
@@ -19,7 +19,7 @@ export default function CampaignCharityList({ campaignCharities }: Props) {
       return 100;
     }
 
-    const totalDonation = campaignCharity.primaryDonor.amount + campaignCharity.secondaryDonors.amount;
+    const totalDonation = campaignCharity.primaryDonation.amount + campaignCharity.secondaryDonation.amount;
     return totalDonation / maxTotalDonation;
   };
 

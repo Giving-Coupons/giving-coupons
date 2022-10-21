@@ -1,6 +1,7 @@
 import { WithoutId } from './utils';
 import { CharityData } from './charity';
 import { DonationBreakdownData } from './donations';
+import { PrimaryDonorData } from './primaryDonor';
 
 export type CampaignCharityBaseData = {
   id: number;
@@ -14,8 +15,10 @@ export type CampaignCharityData = CampaignCharityBaseData & {
   charity: CharityData;
 };
 
-export type CampaignCharityDonationPublicData = CampaignCharityData & DonationBreakdownData;
+export type CampaignCharityDonationPublicData = (CampaignCharityData & DonationBreakdownData) & {
+  primaryDonor: PrimaryDonorData;
+};
 
-export type CampaignCharityDonationData = CampaignCharityData & DonationBreakdownData;
+export type CampaignCharityDonationData = CampaignCharityData & DonationBreakdownData & PrimaryDonorData;
 
 export type CampaignCharityPostData = WithoutId<CampaignCharityBaseData>;
