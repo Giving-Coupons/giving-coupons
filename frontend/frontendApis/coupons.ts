@@ -1,5 +1,6 @@
 import { ApiPromise } from '../types/api';
-import { CouponBaseData, CouponRedeemData } from '../types/coupons';
+import { CouponBaseData, CouponRedeemData, CouponRedeemPostData } from '../types/coupons';
+import { SecondaryDonationPostData } from '../types/donations';
 import BaseAPI from './base';
 
 class CouponsAPI extends BaseAPI {
@@ -11,6 +12,10 @@ class CouponsAPI extends BaseAPI {
 
   public getCoupon(urlToken: string): ApiPromise<CouponRedeemData> {
     return this.get(`${CouponsAPI.COUPONS_URL}/${urlToken}`);
+  }
+
+  public redeemCoupon(redeemPostData: CouponRedeemPostData): ApiPromise<SecondaryDonationPostData> {
+    return this.post(`${CouponsAPI.COUPONS_URL}/redeem`, redeemPostData);
   }
 }
 

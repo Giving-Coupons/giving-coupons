@@ -19,4 +19,26 @@ class CouponsController < ApplicationController
                                                                                image_attachment: :blob } }] },
                                            :primary_donor] }).find_by(url_token: params[:id])
   end
+
+  def redeem
+    @coupon = Coupon.find_by(url_token: params[:url_token])
+
+    @coupon.assign_attributes(redeem_params)
+
+    if params[:amount].positive?
+      @coupon.build_secondary_donation(campaign_charity_id: params[:campaign_charity_id],
+                                       amount: params[:amount])
+    end
+
+    @coupon.save!
+
+    add_success_message('Thank you for your donation!')
+    render 'show', status: :created
+  end
+
+  private
+
+  def redeem_params
+    params.require(:coupon).permit(:campaign_charity_id)
+  end
 end

@@ -20,3 +20,9 @@ export type CouponRedeemData = CouponBaseData & {
   campaign: CampaignBaseData;
   charities: CampaignCharityDonationPublicData[];
 };
+
+export type CouponRedeemPostData = {
+  urlToken: string;
+  amount: number;
+  campaignCharityId: number;
+};

@@ -25,6 +25,7 @@ Rails.application.routes.draw do
       resources :coupons, only: %i[index show] do
         collection do
           get 'campaign/:campaign_id/unredeemed', to: 'coupons#campaign_unredeemed'
+          post 'redeem'
         end
       end
 

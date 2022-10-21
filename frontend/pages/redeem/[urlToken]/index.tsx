@@ -33,13 +33,13 @@ const Redeem: NextPage = () => {
       return;
     }
 
-    const secondaryDonationPostData: SecondaryDonationPostData = {
-      amount,
-      campaignCharityId,
-      urlToken,
-    };
-
-    api.secondaryDonations.addSecondaryDonation(secondaryDonationPostData).then(() => router.push('/redeem/thank-you'));
+    if (urlToken) {
+      api.coupons.redeemCoupon({ amount, campaignCharityId, urlToken }).then(() => router.push('/redeem/thank-you'));
+    } else {
+      api.secondaryDonations
+        .addSecondaryDonation({ amount, campaignCharityId })
+        .then(() => router.push('/redeem/thank-you'));
+    }
   };
 
   const renderRedeemPage = () => {

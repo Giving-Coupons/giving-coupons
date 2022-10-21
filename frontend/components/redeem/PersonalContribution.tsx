@@ -50,10 +50,10 @@ const PersonalContribution = ({ coupon, campaignCharityId, goToPreviousPage, han
           <Typography textAlign="center">Would you like to add a personal contribution?</Typography>
 
           <Formik
-            initialValues={{ amount: 0 }}
+            initialValues={{ amount: '0' }}
             validationSchema={couponRedeemFormSchema}
-            onSubmit={(values: { amount: number }) =>
-              couponRedeemFormSchema.validate(values).then(() => handleSubmit(values.amount))
+            onSubmit={(values: { amount: string }) =>
+              couponRedeemFormSchema.validate(values).then(() => handleSubmit(Number(values.amount)))
             }
           >
             {({ isValid, dirty }) => (

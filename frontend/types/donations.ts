@@ -12,7 +12,6 @@ export type DonationBreakdownData = {
 
 export type SecondaryDonationData = {
   id: number;
-  urlToken: Nullable<string>;
   amount: number;
   campaignCharityId: number;
 };
