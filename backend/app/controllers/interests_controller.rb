@@ -49,7 +49,8 @@ class InterestsController < ApplicationController
   private
 
   def set_interest
-    @interest = Interest.includes(campaign_image_attachment: :blob, donor_image_attachment: :blob, charities: [logo_attachment: :blob, image_attachment: :blob]).find(params[:id])
+    @interest = Interest.includes(campaign_image_attachment: :blob, donor_image_attachment: :blob,
+                                  charities: [logo_attachment: :blob, image_attachment: :blob]).find(params[:id])
   end
 
   def interest_params

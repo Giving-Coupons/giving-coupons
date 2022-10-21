@@ -1,5 +1,5 @@
 import { avatarSx, primaryDonorItemSx } from '../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
-import { Avatar, Box, Typography } from '@mui/material';
+import { Avatar, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import EmailIcon from '@mui/icons-material/Email';
