@@ -74,7 +74,9 @@ class CampaignsController < ApplicationController
   private
 
   def set_campaign
-    @campaign = Campaign.includes(:primary_donor, :coupons, :secondary_donations,
+    @campaign = Campaign.includes(:coupons, :secondary_donations,
+                                  image_attachment: :blob,
+                                  primary_donor: [image_attachment: :blob],
                                   campaign_charities: [:coupons,
                                                        { secondary_donations: [:coupon] },
                                                        { charity: [logo_attachment: :blob,
