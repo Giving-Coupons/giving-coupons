@@ -5,7 +5,7 @@ class Campaign < ApplicationRecord
 
   has_one_base64_attached :image
 
-  belongs_to :primary_donor
+  belongs_to :primary_donor, autosave: true
   belongs_to :interest, optional: true
   has_many :coupons, dependent: :destroy
   has_many :campaign_charities, dependent: :destroy, autosave: true
