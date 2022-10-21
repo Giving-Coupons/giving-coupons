@@ -10,7 +10,6 @@ import PersonalContribution from '../../../components/redeem/PersonalContributio
 import RedeemLoading from '../../../components/redeem/RedeemLoading';
 import api from '../../../frontendApis';
 import { CouponRedeemData } from '../../../types/coupons';
-import { SecondaryDonationPostData } from '../../../types/donations';
 import { Nullable } from '../../../types/utils';
 import { Container } from '@mui/system';
 
