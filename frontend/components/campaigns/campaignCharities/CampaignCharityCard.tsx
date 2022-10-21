@@ -3,9 +3,9 @@ import {
   charityLogoContainerSx,
   charityLogoSx,
   graphSx,
+  gridSx,
 } from '../../../styles/components/charities/CampaignCharityCardStyles';
 import { CampaignCharityDonationPublicData } from '../../../types/campaignCharities';
-import { theme } from '../../../utils/theme';
 import SmallCompetingGraph from '../../charts/SmallCompetingGraph';
 
 interface Props {
@@ -17,15 +17,7 @@ const CampaignCharityCard = ({ campaignCharity }: Props) => {
   const secondaryDonorDonationData = campaignCharity.secondaryDonation;
 
   return (
-    <Grid
-      container
-      justifyContent="center"
-      alignItems="center"
-      sx={{
-        boxShadow: `0px 0px 30px 10px ${theme.palette.neutral.light}`,
-        borderRadius: '10px',
-      }}
-    >
+    <Grid container justifyContent="center" alignItems="center" sx={gridSx}>
       <Grid xs={2} sx={charityLogoContainerSx}>
         <Box sx={charityLogoSx} component="img" src={campaignCharity.charity.logoBase64} />
       </Grid>
