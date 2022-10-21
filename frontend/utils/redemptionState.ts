@@ -1,4 +1,3 @@
-import { StatusMessage, StatusMessageType } from '../types/api';
 import { RedemptionState, RedemptionStepData } from '../types/redemptionState';
 import Cookies from 'js-cookie';
 import moment from 'moment';
@@ -24,10 +23,7 @@ export function getRedemptionStateCookie() {
   return parseRedemptionStateFromCookie(jsonState);
 }
 
-export function unsetRedemptionState() {
-  Cookies.remove(cookieKey);
-}
-
+/** Save the latest step of the coupon redemption process as a cookie.. */
 export function setRedemptionStateCookie(urlToken: string, completed: RedemptionStepData) {
   const state: RedemptionState = {
     session: { urlToken, stateLastUpdatedAt: moment().toISOString() },
