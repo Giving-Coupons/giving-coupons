@@ -20,6 +20,7 @@ import {
 import PersonalContributionStep from '../../../components/redeem/steps/PersonalContributionStep';
 import VerifyStep from '../../../components/redeem/steps/VerifyStep';
 import AlreadyRedeemedPage from '../../../components/redeem/AlreadyRedeemedPage';
+import RedeemLoading from '../../../components/redeem/RedeemLoading';
 
 const validationSchema = Yup.object().shape({
   campaignCharityId: Yup.number().required('Campaign charity is required'),
@@ -33,9 +34,10 @@ const validationSchema = Yup.object().shape({
 const Redeem: NextPage = () => {
   const router = useRouter();
   const urlToken = router.query.urlToken && typeof router.query.urlToken === 'string' ? router.query.urlToken : null;
-  const { data: coupon } = useSWR<Nullable<CouponRedeemData>>([urlToken], (urlToken) =>
+  const { data: coupon, error } = useSWR<Nullable<CouponRedeemData>>([urlToken], (urlToken) =>
     urlToken !== null ? api.coupons.getCoupon(urlToken).then((r) => r.payload) : null,
   );
+  const isLoading = !coupon && !error;
 
   const minStep = 0;
   const maxStep = 2;
@@ -133,6 +135,14 @@ const Redeem: NextPage = () => {
 
       <Container component="main" maxWidth="md">
         <Stack sx={containerSx} component="div" spacing={4}>
+          {isLoading && (
+            <>
+              <RedeemStepper activeStep={activeStep} />
+
+              <RedeemLoading />
+            </>
+          )}
+
           {coupon && coupon.campaignCharity && (
             <AlreadyRedeemedPage
               campaignCharity={coupon.campaignCharity}
