@@ -29,16 +29,18 @@ const VerifyStep = ({
 }: Props) => {
   return (
     <Stack sx={formPageContainerSx} component="div">
-      <Typography variant="h2" align="center">
-        Verify your redemption
-      </Typography>
+      <Stack component="div" width="100%" spacing={4}>
+        <Typography variant="h2" align="center">
+          Verify your redemption
+        </Typography>
 
-      <Receipt
-        charity={charity}
-        primaryDonor={primaryDonor}
-        primaryDonorAmount={primaryDonorAmount}
-        secondaryDonorAmount={secondaryDonorAmount}
-      />
+        <Receipt
+          charity={charity}
+          primaryDonor={primaryDonor}
+          primaryDonorAmount={primaryDonorAmount}
+          secondaryDonorAmount={secondaryDonorAmount}
+        />
+      </Stack>
 
       <RedeemFormButtons activeStep={activeStep} setActiveStep={setActiveStep} minStep={minStep} maxStep={maxStep} />
     </Stack>
