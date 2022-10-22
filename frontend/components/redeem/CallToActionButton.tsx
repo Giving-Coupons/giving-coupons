@@ -8,15 +8,16 @@ import {
   iconGridSx,
   stackSx,
 } from '../../styles/redeem/RedemtionCallToActionButtonStyles';
+import { ReactNode } from 'react';
 
 interface Props {
-  icon: React.ReactNode;
+  icon: ReactNode;
   title: string;
   description: string;
   onClick: () => void;
 }
 
-const RedemtionCallToActionButton = ({ icon, title, description, onClick }: Props) => {
+const CallToActionButton = ({ icon, title, description, onClick }: Props) => {
   return (
     <Grid container sx={gridContainerSx} onClick={onClick}>
       <Grid item xs={10}>
@@ -38,4 +39,4 @@ const RedemtionCallToActionButton = ({ icon, title, description, onClick }: Prop
   );
 };
 
-export default RedemtionCallToActionButton;
+export default CallToActionButton;
