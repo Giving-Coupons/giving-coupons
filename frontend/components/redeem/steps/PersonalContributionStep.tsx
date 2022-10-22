@@ -1,5 +1,5 @@
 import { Stack } from '@mui/system';
-import { charityLogoSx, formPageContainerSx, givingSgLogoSx } from '../../../styles/components/redeem/RedeemStyles';
+import { charityLogoSx, formStepContainerSx, givingSgLogoSx } from '../../../styles/components/redeem/RedeemStyles';
 import { Box, InputAdornment, Typography } from '@mui/material';
 import RedeemFormButtons from '../RedeemFormButtons';
 import { CampaignCharityData } from '../../../types/campaignCharities';
@@ -37,7 +37,7 @@ const PersonalContributionStep = ({
   const [openRedirectDialog, setOpenRedirectDialog] = useState<boolean>(false);
 
   return (
-    <Stack sx={formPageContainerSx} component="div">
+    <Stack sx={formStepContainerSx} component="div">
       <Typography variant="h2" align="center">
         {primaryDonorName} will be giving ${couponDenomination} to
       </Typography>

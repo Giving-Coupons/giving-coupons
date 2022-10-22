@@ -31,7 +31,7 @@ const Receipt = ({ charity, primaryDonor, primaryDonorAmount, secondaryDonorAmou
         </Typography>
 
         <VerifyRedemptionCard
-          imageBaseUrl={charity.logoBase64}
+          imageBaseUrl={primaryDonor.imageBase64}
           text={`$${primaryDonorAmount} from ${primaryDonor.name}`}
         />
 

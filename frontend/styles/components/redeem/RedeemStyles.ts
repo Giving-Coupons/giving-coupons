@@ -3,14 +3,14 @@ import { theme } from '../../../utils/theme';
 
 export const containerSx: SxProps = {
   width: '100%',
-  minHeight: `calc(100vh - ${theme.mixins.toolbar.minHeight}px)`,
+  minHeight: `calc(100vh - 16px - ${theme.mixins.toolbar.minHeight}px)`,
   justifyContent: 'start',
   alignItems: 'center',
   padding: '16px 0',
   display: 'flex',
 };
 
-export const formContainerSx: SxProps = {
+const formContainerSx: SxProps = {
   display: 'flex',
   justifyContent: 'center',
   padding: '0 8px',
@@ -27,10 +27,15 @@ export const mobileFormContainerSx = {
   width: '100%',
 };
 
-export const formPageContainerSx = {
+export const formStepContainerSx = {
   height: 'auto',
   width: '100%',
   alignItems: 'center',
+  justifyContent: 'space-between',
+};
+
+export const alreadyRedeemedContainerSx = {
+  minHeight: `calc(100vh - 48px - ${theme.mixins.toolbar.minHeight}px)`,
   justifyContent: 'space-between',
 };
 

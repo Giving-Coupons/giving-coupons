@@ -4,7 +4,7 @@ import Receipt from '../Receipt';
 import { Stack } from '@mui/system';
 import RedeemFormButtons from '../RedeemFormButtons';
 import { Typography } from '@mui/material';
-import { formPageContainerSx } from '../../../styles/components/redeem/RedeemStyles';
+import { formStepContainerSx } from '../../../styles/components/redeem/RedeemStyles';
 
 interface Props {
   charity: CharityListData;
@@ -28,7 +28,7 @@ const VerifyStep = ({
   maxStep,
 }: Props) => {
   return (
-    <Stack sx={formPageContainerSx} component="div">
+    <Stack sx={formStepContainerSx} component="div">
       <Stack component="div" width="100%" spacing={4}>
         <Typography variant="h2" align="center">
           Verify your redemption

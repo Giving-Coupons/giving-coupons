@@ -1,5 +1,5 @@
 import { FormControl, Radio, RadioGroup, Stack, Typography } from '@mui/material';
-import { formPageContainerSx, radioSx } from '../../../styles/components/redeem/RedeemStyles';
+import { formStepContainerSx, radioSx } from '../../../styles/components/redeem/RedeemStyles';
 import { CampaignCharityDonationPublicData } from '../../../types/campaignCharities';
 import CampaignCharityCard from '../../campaigns/campaignCharities/CampaignCharityCard';
 import { Nullable } from '../../../types/utils';
@@ -38,7 +38,7 @@ const CharitySelectionStep = ({
   };
 
   return (
-    <Stack sx={formPageContainerSx} component="div" spacing={4}>
+    <Stack sx={formStepContainerSx} component="div" spacing={4}>
       <Stack spacing={2}>
         <Typography variant="h2" align="center">
           Select a charity to give {primaryDonorName}&apos;s ${couponDenomination} to
