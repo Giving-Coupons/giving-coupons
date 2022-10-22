@@ -29,3 +29,5 @@ export type CouponRedeemPostData = {
   amount: number;
   campaignCharityId: number;
 };
+
+export type CouponRedeemFormData = Partial<Omit<CouponRedeemPostData, 'urlToken'>>;

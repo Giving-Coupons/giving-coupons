@@ -8,28 +8,42 @@ import {
 import { CampaignCharityDonationPublicData } from '../../types/campaignCharities';
 import CampaignCharityCard from '../campaigns/campaignCharities/CampaignCharityCard';
 import { Nullable } from '../../types/utils';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useTheme } from '@mui/system';
 import CampaignCharityDialog from '../campaigns/campaignCharities/CampaignCharityDialog';
+import { CouponRedeemFormData } from '../../types/coupons';
+import { useField } from 'formik';
+import RedeemFormButtons from './RedeemFormButtons';
 
 interface Props {
   primaryDonorName: string;
   couponDenomination: number;
   campaignCharities: CampaignCharityDonationPublicData[];
-  selectedCampaignCharityId: Nullable<number>;
-  setSelectedCampaignCharityId: Dispatch<SetStateAction<Nullable<number>>>;
+  name: keyof CouponRedeemFormData;
+  activeStep: number;
+  setActiveStep: (value: ((prevState: number) => number) | number) => void;
+  minStep: number;
+  maxStep: number;
 }
 
 const CampaignCharitySelection = ({
   primaryDonorName,
   couponDenomination,
   campaignCharities,
-  selectedCampaignCharityId,
-  setSelectedCampaignCharityId,
+  name,
+  activeStep,
+  setActiveStep,
+  minStep,
+  maxStep,
 }: Props) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [openCharityDialogId, setOpenCharityDialogId] = useState<Nullable<number>>(null);
+  const [, { value, error, touched }, { setValue, setTouched }] = useField(name);
+  const selectCharity = (e: ChangeEvent<HTMLInputElement>) => {
+    setTouched(true);
+    setValue(Number((e.target as HTMLInputElement).value), true);
+  };
 
   return (
     <Stack sx={formContainerSx} spacing={2}>
@@ -38,10 +52,7 @@ const CampaignCharitySelection = ({
       </Typography>
 
       <FormControl sx={isMobile ? mobileCampaignCharitySelectionSx : desktopCampaignCharitySelectionSx}>
-        <RadioGroup
-          value={selectedCampaignCharityId}
-          onChange={(e) => setSelectedCampaignCharityId(Number((e.target as HTMLInputElement).value))}
-        >
+        <RadioGroup name={name} value={value ?? null} onChange={selectCharity}>
           <Stack spacing={2}>
             {campaignCharities.map((campaignCharity, index) => (
               <Stack key={index} direction="row">
@@ -62,6 +73,14 @@ const CampaignCharitySelection = ({
           </Stack>
         </RadioGroup>
       </FormControl>
+
+      <RedeemFormButtons
+        activeStep={activeStep}
+        setActiveStep={setActiveStep}
+        minStep={minStep}
+        maxStep={maxStep}
+        shouldDisablePrimaryButton={!touched || !!error}
+      />
     </Stack>
   );
 };

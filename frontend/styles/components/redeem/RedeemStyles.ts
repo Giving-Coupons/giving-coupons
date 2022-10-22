@@ -22,3 +22,13 @@ export const radioSx: SxProps = {
     backgroundColor: 'transparent',
   },
 };
+
+export const progressButtonContainerSx: SxProps = {
+  width: '100%',
+  justifyContent: 'space-between',
+};
+
+export const progressButtonFirstStepContainerSx: SxProps = {
+  width: '100%',
+  justifyContent: 'end',
+};
