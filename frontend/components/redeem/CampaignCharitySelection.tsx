@@ -1,64 +1,57 @@
-import { Grid, Radio, Stack, Typography, useTheme } from '@mui/material';
-import { itemListSx } from '../../styles/redeem/indexStyles';
-import { CouponRedeemData } from '../../types/coupons';
-import { Nullable } from '../../types/utils';
+import { FormControl, Radio, RadioGroup, Stack, Typography, useMediaQuery } from '@mui/material';
+import {
+  desktopCampaignCharitySelectionSx,
+  formContainerSx,
+  mobileCampaignCharitySelectionSx,
+  radioSx,
+} from '../../styles/components/redeem/RedeemStyles';
+import { CampaignCharityDonationPublicData } from '../../types/campaignCharities';
 import CampaignCharityCard from '../campaigns/campaignCharities/CampaignCharityCard';
-import CampaignCharityList from '../campaigns/campaignCharities/CampaignCharityList';
-import CampaignDescription from '../campaigns/CampaignDescription';
-import Button from '../generic/Button';
+import { Nullable } from '../../types/utils';
+import { Dispatch, SetStateAction } from 'react';
+import { useTheme } from '@mui/system';
 
-type Props = {
-  coupon: CouponRedeemData;
-  campaignCharityId: Nullable<number>;
-  setCampaignCharityId: (campaignCharityId: number) => void;
-  goToNextPage: () => void;
-};
+interface Props {
+  primaryDonorName: string;
+  couponDenomination: number;
+  campaignCharities: CampaignCharityDonationPublicData[];
+  selectedCampaignCharityId: Nullable<number>;
+  setSelectedCampaignCharityId: Dispatch<SetStateAction<Nullable<number>>>;
+}
 
-const CampaignCharitySelection = ({ coupon, campaignCharityId, setCampaignCharityId, goToNextPage }: Props) => {
+const CampaignCharitySelection = ({
+  primaryDonorName,
+  couponDenomination,
+  campaignCharities,
+  selectedCampaignCharityId,
+  setSelectedCampaignCharityId,
+}: Props) => {
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <Grid container justifyContent="center" padding={2}>
-      <Grid item md={12} lg={4}>
-        <Stack spacing={theme.spacing(2)} paddingBottom={4}>
-          <Typography variant="h2">{coupon.campaign.name}</Typography>
+    <Stack sx={formContainerSx} spacing={2}>
+      <Typography variant="h2" align="center">
+        Select a charity to give {primaryDonorName}&apos;s ${couponDenomination} to
+      </Typography>
 
-          <CampaignDescription campaign={coupon.campaign} />
+      <FormControl sx={isMobile ? mobileCampaignCharitySelectionSx : desktopCampaignCharitySelectionSx}>
+        <RadioGroup
+          value={selectedCampaignCharityId}
+          onChange={(e) => setSelectedCampaignCharityId(Number((e.target as HTMLInputElement).value))}
+        >
+          <Stack spacing={2}>
+            {campaignCharities.map((campaignCharity, index) => (
+              <Stack key={index} direction="row">
+                <Radio sx={radioSx} value={campaignCharity.id} />
 
-          <CampaignCharityList campaignCharities={coupon.charities} />
-        </Stack>
-      </Grid>
-
-      <Grid item md={12} lg={8} container spacing={4}>
-        <Grid item xs={12}>
-          <Typography textAlign="center">You can make a difference too. Choose a coupon recipient!</Typography>
-
-          <Typography variant="h3" textAlign="center" color={theme.palette.primary.main}>
-            Choose a coupon recipient!
-          </Typography>
-        </Grid>
-
-        {coupon.charities.map((campaignCharity, index) => (
-          <Grid item xs={12} sm={6} key={index}>
-            <Stack direction="row" alignItems="flex-start" onClick={() => setCampaignCharityId(campaignCharity.id)}>
-              <Radio checked={campaignCharityId === campaignCharity.id} value={campaignCharity.id} />
-
-              <Grid item sx={itemListSx} xs={12}>
                 <CampaignCharityCard campaignCharity={campaignCharity} />
-              </Grid>
-            </Stack>
-          </Grid>
-        ))}
-      </Grid>
-
-      <Grid item xs={12} paddingTop={2}>
-        <Stack alignItems="flex-end">
-          <Button actionType="primary" disabled={!campaignCharityId} onClick={goToNextPage}>
-            Next
-          </Button>
-        </Stack>
-      </Grid>
-    </Grid>
+              </Stack>
+            ))}
+          </Stack>
+        </RadioGroup>
+      </FormControl>
+    </Stack>
   );
 };
 
