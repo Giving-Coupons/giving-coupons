@@ -31,3 +31,7 @@ export type CouponRedeemPostData = {
 };
 
 export type CouponRedeemFormData = Partial<Omit<CouponRedeemPostData, 'urlToken'>>;
+
+export type CouponRedirectFormData = {
+  hasAcknowledged: boolean;
+};

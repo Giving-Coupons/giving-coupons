@@ -34,20 +34,24 @@ const RedeemFormButtons = ({
 
     if (handleClickNext) {
       handleClickNext();
+      return;
     }
 
     if (activeStep < maxStep) {
       setActiveStep(activeStep + 1);
+      return;
     }
   };
 
   const onClickBack = () => {
     if (handleClickBack) {
       handleClickBack();
+      return;
     }
 
     if (activeStep > minStep) {
       setActiveStep(activeStep - 1);
+      return;
     }
   };
 

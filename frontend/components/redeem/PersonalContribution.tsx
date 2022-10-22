@@ -14,6 +14,9 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import IconButtonWithTooltip from '../IconButtonWithTooltip';
 import DidYouKnow from './DidYouKnow';
 import { useField } from 'formik';
+import { useState } from 'react';
+import RedirectDialog from './RedirectDialog';
+import { Nullable } from '../../types/utils';
 
 type Props = {
   primaryDonorName: string;
@@ -37,7 +40,13 @@ const PersonalContribution = ({
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const fieldName = 'amount';
-  const [, , { setValue }] = useField(fieldName);
+  const [, { value }, { setValue }] = useField<Nullable<number>>(fieldName);
+  const [openRedirectDialog, setOpenRedirectDialog] = useState<boolean>(false);
+  const handleClickNext = () => {
+    if (value !== null) {
+      setOpenRedirectDialog(true);
+    }
+  };
 
   return (
     <Stack component="div" sx={isMobile ? mobileFormContainerSx : desktopFormContainerSx} spacing={4}>
@@ -93,7 +102,22 @@ const PersonalContribution = ({
 
       <DidYouKnow />
 
-      <RedeemFormButtons activeStep={activeStep} setActiveStep={setActiveStep} minStep={minStep} maxStep={maxStep} />
+      <RedeemFormButtons
+        activeStep={activeStep}
+        setActiveStep={setActiveStep}
+        minStep={minStep}
+        maxStep={maxStep}
+        handleClickNext={handleClickNext}
+      />
+
+      <RedirectDialog
+        open={openRedirectDialog}
+        primaryDonorName={primaryDonorName}
+        couponDenomination={couponDenomination}
+        secondaryDonationAmount={value ?? 0}
+        campaignCharity={campaignCharity}
+        goToNextStep={() => setActiveStep(activeStep + 1)}
+      />
     </Stack>
   );
 };

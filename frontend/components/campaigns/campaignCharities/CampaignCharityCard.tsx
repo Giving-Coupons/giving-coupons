@@ -10,7 +10,7 @@ import SmallCompetingGraph from '../../charts/SmallCompetingGraph';
 
 interface Props {
   campaignCharity: CampaignCharityDonationPublicData;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 const CampaignCharityCard = ({ campaignCharity, onClick }: Props) => {
