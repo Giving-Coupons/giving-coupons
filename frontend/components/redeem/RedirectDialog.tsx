@@ -17,6 +17,7 @@ import { CouponRedirectFormData } from '../../types/coupons';
 
 interface Props {
   open: boolean;
+  handleClose: () => void;
   primaryDonorName: string;
   couponDenomination: number;
   campaignCharity: CampaignCharityData;
@@ -30,6 +31,7 @@ const validationSchema = Yup.object().shape({
 
 const RedirectDialog = ({
   open,
+  handleClose,
   primaryDonorName,
   couponDenomination,
   secondaryDonationAmount,
@@ -45,7 +47,7 @@ const RedirectDialog = ({
   };
 
   return (
-    <Dialog open={open}>
+    <Dialog open={open} onClose={handleClose}>
       <DialogTitle>
         <Typography component="div" variant="h1" align="center">
           Proceed to <Box sx={givingSgLogoSx} component="img" src="/giving-sg-logo.png" /> to pay?
@@ -60,7 +62,7 @@ const RedirectDialog = ({
         >
           {({ values, errors, setFieldValue }) => (
             <Form>
-              <Stack component="div" alignItems="center" spacing={2}>
+              <Stack component="div" alignItems="center" spacing={4}>
                 <Stack component="div" alignItems="center" width="100%">
                   <Typography variant="h5">Your donation amount</Typography>
 
@@ -83,29 +85,35 @@ const RedirectDialog = ({
                   </Stack>
                 </Stack>
 
-                <Stack component="div" sx={redirectAcknowledgementContainerSx}>
-                  <Typography variant="caption">
-                    {primaryDonorName}&apos;s ${couponDenomination} will not be redeemed until you return, so please
-                    come back afterwards!
-                  </Typography>
-
-                  <FormControlLabel
-                    name="hasAcknowledged"
-                    control={<Checkbox onChange={(e) => setFieldValue('hasAcknowledged', e.target.checked)} />}
-                    label={<Typography variant="caption">I acknowledge</Typography>}
-                    checked={values.hasAcknowledged}
-                  />
-
-                  {errors.hasAcknowledged && (
-                    <Typography color="error" variant="caption">
-                      {errors.hasAcknowledged}
+                <Stack component="div" alignItems="center" width="100%" spacing={2}>
+                  <Stack component="div" sx={redirectAcknowledgementContainerSx}>
+                    <Typography align="center" variant="caption">
+                      {primaryDonorName}&apos;s ${couponDenomination} will not be redeemed until you return, so please
+                      come back afterwards!
                     </Typography>
-                  )}
-                </Stack>
 
-                <Button type="submit" actionType="primary" startIcon={<LockIcon />}>
-                  Pay through giving.sg
-                </Button>
+                    <FormControlLabel
+                      name="hasAcknowledged"
+                      control={<Checkbox onChange={(e) => setFieldValue('hasAcknowledged', e.target.checked)} />}
+                      label={<Typography variant="caption">I acknowledge</Typography>}
+                      checked={values.hasAcknowledged}
+                    />
+
+                    {errors.hasAcknowledged && (
+                      <Typography color="error" variant="caption">
+                        {errors.hasAcknowledged}
+                      </Typography>
+                    )}
+                  </Stack>
+
+                  <Button type="submit" actionType="primary" startIcon={<LockIcon />} fullWidth>
+                    Pay through giving.sg
+                  </Button>
+
+                  <Button actionType="muted" onClick={handleClose} fullWidth>
+                    Cancel
+                  </Button>
+                </Stack>
               </Stack>
             </Form>
           )}

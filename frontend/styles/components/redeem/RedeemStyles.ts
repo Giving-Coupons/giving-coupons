@@ -75,7 +75,7 @@ export const redirectAmountSx: SxProps = {
 };
 
 export const redirectAcknowledgementContainerSx: SxProps = {
-  width: '60%',
+  width: '100%',
   justifyContent: 'center',
   alignItems: 'center',
 };

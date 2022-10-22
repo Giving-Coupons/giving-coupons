@@ -40,13 +40,8 @@ const PersonalContribution = ({
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const fieldName = 'amount';
-  const [, { value }, { setValue }] = useField<Nullable<number>>(fieldName);
+  const [, { value, error }, { setValue }] = useField<Nullable<number>>(fieldName);
   const [openRedirectDialog, setOpenRedirectDialog] = useState<boolean>(false);
-  const handleClickNext = () => {
-    if (value !== null) {
-      setOpenRedirectDialog(true);
-    }
-  };
 
   return (
     <Stack component="div" sx={isMobile ? mobileFormContainerSx : desktopFormContainerSx} spacing={4}>
@@ -104,14 +99,16 @@ const PersonalContribution = ({
 
       <RedeemFormButtons
         activeStep={activeStep}
+        shouldDisablePrimaryButton={!!error}
         setActiveStep={setActiveStep}
         minStep={minStep}
         maxStep={maxStep}
-        handleClickNext={handleClickNext}
+        handleClickNext={() => (value === null ? setActiveStep(activeStep + 1) : setOpenRedirectDialog(true))}
       />
 
       <RedirectDialog
         open={openRedirectDialog}
+        handleClose={() => setOpenRedirectDialog(false)}
         primaryDonorName={primaryDonorName}
         couponDenomination={couponDenomination}
         secondaryDonationAmount={value ?? 0}
