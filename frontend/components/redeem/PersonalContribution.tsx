@@ -1,88 +1,100 @@
-import { Grid, InputAdornment, Stack, Typography, useTheme } from '@mui/material';
-import { Form, Formik } from 'formik';
-import { useRouter } from 'next/router';
-import * as Yup from 'yup';
-import { itemSx } from '../../styles/redeem/indexStyles';
-import { CouponRedeemData } from '../../types/coupons';
-import CampaignCharityCard from '../campaigns/campaignCharities/CampaignCharityCard';
+import { Stack, useTheme } from '@mui/system';
+import {
+  charityLogoSx,
+  desktopFormContainerSx,
+  givingSgLogoSx,
+  mobileFormContainerSx,
+} from '../../styles/components/redeem/RedeemStyles';
+import { Box, InputAdornment, Typography, useMediaQuery } from '@mui/material';
+import RedeemFormButtons from './RedeemFormButtons';
+import { CampaignCharityData } from '../../types/campaignCharities';
 import FormTextInput from '../forms/FormTextInput';
-import Button from '../generic/Button';
-import { Nullable } from '../../types/utils';
-
-const couponRedeemFormSchema = Yup.object({
-  amount: Yup.number()
-    .required('Amount is required.')
-    .typeError('Amount must be a number.')
-    .integer('Amount must be an integer.')
-    .positive('Amount must be a positive.'),
-});
+import FormAmountButton from '../forms/FormAmountButton';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import IconButtonWithTooltip from '../IconButtonWithTooltip';
+import DidYouKnow from './DidYouKnow';
+import { useField } from 'formik';
 
 type Props = {
-  coupon: CouponRedeemData;
-  campaignCharityId: Nullable<number>;
-  goToPreviousPage: () => void;
-  handleSubmit: (amount: number) => void;
+  primaryDonorName: string;
+  couponDenomination: number;
+  campaignCharity: CampaignCharityData;
+  activeStep: number;
+  setActiveStep: (value: ((prevState: number) => number) | number) => void;
+  minStep: number;
+  maxStep: number;
 };
 
-const PersonalContribution = ({ coupon, campaignCharityId, goToPreviousPage, handleSubmit }: Props) => {
-  const router = useRouter();
+const PersonalContribution = ({
+  primaryDonorName,
+  couponDenomination,
+  campaignCharity,
+  activeStep,
+  setActiveStep,
+  minStep,
+  maxStep,
+}: Props) => {
   const theme = useTheme();
-  const campaignCharity = coupon.charities.find((c) => c.id === campaignCharityId);
-
-  if (!campaignCharity) {
-    router.reload();
-    return null;
-  }
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const fieldName = 'amount';
+  const [, , { setValue }] = useField(fieldName);
 
   return (
-    <Grid container justifyContent="center">
-      <Grid item sx={itemSx} xs={12} sm={7} md={4} padding={4}>
-        <CampaignCharityCard campaignCharity={campaignCharity} />
-      </Grid>
+    <Stack component="div" sx={isMobile ? mobileFormContainerSx : desktopFormContainerSx} spacing={4}>
+      <Typography variant="h2" align="center">
+        {primaryDonorName} will be giving ${couponDenomination} to
+      </Typography>
 
-      <Grid item xs={12} sm={5} md={7} padding={4}>
-        <Stack spacing={theme.spacing(2)}>
-          <Typography textAlign="center">
-            <strong>You have empowered {coupon.campaign.name}</strong> and their beneficiary with{' '}
-            <strong>${coupon.campaign.couponDenomination}</strong>.
-          </Typography>
+      <Stack component="div" direction="row" spacing={2} alignItems="center">
+        <Box sx={charityLogoSx} component="img" src={campaignCharity.charity.logoBase64} />
 
-          <Typography textAlign="center">Would you like to add a personal contribution?</Typography>
+        <Typography variant="h4">{campaignCharity.charity.name}</Typography>
+      </Stack>
 
-          <Formik
-            initialValues={{ amount: 0 }}
-            validationSchema={couponRedeemFormSchema}
-            onSubmit={(values: Yup.InferType<typeof couponRedeemFormSchema>) =>
-              couponRedeemFormSchema.validate(values).then((validated) => handleSubmit(validated.amount))
-            }
-          >
-            {({ isValid, dirty }) => (
-              <Form>
-                <Stack spacing={theme.spacing(2)}>
-                  <FormTextInput
-                    name="amount"
-                    label="Amount"
-                    InputProps={{ startAdornment: <InputAdornment position="start">$</InputAdornment> }}
-                  />
+      <Stack component="div" alignItems="center" spacing={1}>
+        <Typography variant="h2" align="center">
+          Do you want to add a personal contribution too?
+        </Typography>
 
-                  <Button type="submit" disabled={!isValid || !dirty} fullWidth actionType="primary">
-                    Make a personal contribution
-                  </Button>
+        <Typography variant="body2" align="center">
+          Your donation will be securely transferred through{' '}
+          <Box sx={givingSgLogoSx} component="img" src="/giving-sg-logo.png" />
+        </Typography>
+      </Stack>
 
-                  <Button fullWidth actionType="secondary" onClick={() => handleSubmit(0)}>
-                    Continue without a personal contribution
-                  </Button>
+      <Stack component="div" alignItems="center">
+        <FormTextInput
+          name={fieldName}
+          label="Amount"
+          InputProps={{
+            startAdornment: <InputAdornment position="start">$</InputAdornment>,
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButtonWithTooltip
+                  icon={<HighlightOffIcon color={theme.palette.neutral.light} />}
+                  tooltip="Clear"
+                  onClick={() => setValue(null)}
+                />
+              </InputAdornment>
+            ),
+          }}
+        />
 
-                  <Button fullWidth actionType="tertiary" onClick={goToPreviousPage}>
-                    Change beneficiary
-                  </Button>
-                </Stack>
-              </Form>
-            )}
-          </Formik>
+        <Stack component="div" spacing={1}>
+          <Typography variant="caption">Can&apos;t decide? Choose an amount:</Typography>
+
+          <Stack component="div" direction="row" spacing={2}>
+            {[10, 15, 20, 25].map((value) => (
+              <FormAmountButton name={fieldName} value={value} key={value} />
+            ))}
+          </Stack>
         </Stack>
-      </Grid>
-    </Grid>
+      </Stack>
+
+      <DidYouKnow />
+
+      <RedeemFormButtons activeStep={activeStep} setActiveStep={setActiveStep} minStep={minStep} maxStep={maxStep} />
+    </Stack>
   );
 };
 

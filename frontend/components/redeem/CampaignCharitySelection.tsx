@@ -41,7 +41,7 @@ const CampaignCharitySelection = ({
   };
 
   return (
-    <Stack sx={isMobile ? mobileFormContainerSx : desktopFormContainerSx} spacing={4}>
+    <Stack component="div" sx={isMobile ? mobileFormContainerSx : desktopFormContainerSx} spacing={4}>
       <Typography variant="h2" align="center">
         Select a charity to give {primaryDonorName}&apos;s ${couponDenomination} to
       </Typography>

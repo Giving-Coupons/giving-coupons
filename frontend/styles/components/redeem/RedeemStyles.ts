@@ -4,6 +4,7 @@ export const containerSx: SxProps = {
   width: '100%',
   justifyContent: 'center',
   alignItems: 'center',
+  padding: '16px 0',
 };
 
 export const formContainerSx: SxProps = {
@@ -36,4 +37,18 @@ export const progressButtonContainerSx: SxProps = {
 export const progressButtonFirstStepContainerSx: SxProps = {
   width: '100%',
   justifyContent: 'end',
+};
+
+export const charityLogoSx: SxProps = {
+  maxHeight: '40px',
+  minHeight: '40px',
+  height: '40px',
+};
+
+export const givingSgLogoSx: SxProps = {
+  maxHeight: '1em',
+  minHeight: '1em',
+  height: '1em',
+  verticalAlign: 'middle',
+  paddingLeft: '2px',
 };
