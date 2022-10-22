@@ -8,8 +8,9 @@ import {
 import { CampaignCharityDonationPublicData } from '../../types/campaignCharities';
 import CampaignCharityCard from '../campaigns/campaignCharities/CampaignCharityCard';
 import { Nullable } from '../../types/utils';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { useTheme } from '@mui/system';
+import CampaignCharityDialog from '../campaigns/campaignCharities/CampaignCharityDialog';
 
 interface Props {
   primaryDonorName: string;
@@ -28,6 +29,7 @@ const CampaignCharitySelection = ({
 }: Props) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const [openCharityDialogId, setOpenCharityDialogId] = useState<Nullable<number>>(null);
 
   return (
     <Stack sx={formContainerSx} spacing={2}>
@@ -45,7 +47,16 @@ const CampaignCharitySelection = ({
               <Stack key={index} direction="row">
                 <Radio sx={radioSx} value={campaignCharity.id} />
 
-                <CampaignCharityCard campaignCharity={campaignCharity} />
+                <CampaignCharityCard
+                  campaignCharity={campaignCharity}
+                  onClick={() => setOpenCharityDialogId(campaignCharity.id)}
+                />
+
+                <CampaignCharityDialog
+                  campaignCharity={campaignCharity}
+                  open={openCharityDialogId === campaignCharity.id}
+                  handleClose={() => setOpenCharityDialogId(null)}
+                />
               </Stack>
             ))}
           </Stack>

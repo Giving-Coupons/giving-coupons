@@ -10,14 +10,15 @@ import SmallCompetingGraph from '../../charts/SmallCompetingGraph';
 
 interface Props {
   campaignCharity: CampaignCharityDonationPublicData;
+  onClick: () => void;
 }
 
-const CampaignCharityCard = ({ campaignCharity }: Props) => {
+const CampaignCharityCard = ({ campaignCharity, onClick }: Props) => {
   const primaryDonorDonationData = campaignCharity.primaryDonation;
   const secondaryDonorDonationData = campaignCharity.secondaryDonation;
 
   return (
-    <Grid container justifyContent="center" alignItems="center" sx={gridSx}>
+    <Grid container justifyContent="center" alignItems="center" sx={gridSx} onClick={onClick}>
       <Grid item xs={2} sx={charityLogoContainerSx}>
         <Box sx={charityLogoSx} component="img" src={campaignCharity.charity.logoBase64} />
       </Grid>
