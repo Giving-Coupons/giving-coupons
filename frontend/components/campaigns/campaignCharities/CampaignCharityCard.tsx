@@ -1,76 +1,40 @@
-import { Box, Container, Stack } from '@mui/system';
-import { Typography } from '@mui/material';
-import CompetingGraph from '../../charts/CompetingGraph';
-import CardWithImage from '../../generic/CardWithImage';
-import { CampaignCharityDonationPublicData } from '../../../types/campaignCharities';
+import { Box, Grid, Stack, Typography } from '@mui/material';
 import {
+  charityLogoContainerSx,
   charityLogoSx,
-  descriptionContainerSx,
-  graphContainerSx,
   graphSx,
-  buttonSx,
-  charityTitleSx,
+  gridSx,
 } from '../../../styles/components/charities/CampaignCharityCardStyles';
-import LinkIcon from '@mui/icons-material/Link';
-import { useRouter } from 'next/router';
-import Button from '../../generic/Button';
+import { CampaignCharityDonationPublicData } from '../../../types/campaignCharities';
+import SmallCompetingGraph from '../../charts/SmallCompetingGraph';
 
 interface Props {
   campaignCharity: CampaignCharityDonationPublicData;
-  redirectTo: 'givingSgCampaign' | 'charity';
 }
 
-const CampaignCharityCard = ({ campaignCharity, redirectTo }: Props) => {
-  const router = useRouter();
-
-  const primaryDonorDonationData = campaignCharity.primaryDonor;
-  const secondaryDonorDonationData = campaignCharity.secondaryDonors;
-
-  const imageOverlayContent = (
-    <Container sx={graphContainerSx} component="div">
-      <CompetingGraph
-        overrideGraphSx={graphSx}
-        topLabelTitle={`$${primaryDonorDonationData.amount}`}
-        topLabels={['by the primary donor']}
-        bottomLabelTitle={`$${secondaryDonorDonationData.amount}`}
-        bottomLabels={['by the secondary donors']}
-        barFractions={[primaryDonorDonationData.fraction, secondaryDonorDonationData.fraction]}
-      />
-    </Container>
-  );
-
-  const description = (
-    <Stack key="description" sx={descriptionContainerSx} spacing={1} component="div">
-      <Stack direction="row" sx={charityTitleSx} spacing={2}>
-        <Box sx={charityLogoSx} component="img" src={campaignCharity.charity.logoBase64} />
-        <Typography variant="h3">{campaignCharity.charity.name}</Typography>
-      </Stack>
-
-      <Typography variant="subtitle1">{campaignCharity.charity.description}</Typography>
-    </Stack>
-  );
-
-  const redirectUrl =
-    redirectTo === 'givingSgCampaign' ? campaignCharity.givingSgUrl : campaignCharity.charity.websiteUrl;
-  const redirectButtonText = redirectTo === 'givingSgCampaign' ? 'Go to Giving.sg Campaign' : 'Visit website';
-
-  const actionButtons = (
-    <Box key="actionButtons">
-      <Button sx={buttonSx} actionType="tertiary" onClick={() => router.push(redirectUrl)}>
-        <Stack direction="row" spacing={1}>
-          <LinkIcon />
-          <Typography>{redirectButtonText}</Typography>
-        </Stack>
-      </Button>
-    </Box>
-  );
+const CampaignCharityCard = ({ campaignCharity }: Props) => {
+  const primaryDonorDonationData = campaignCharity.primaryDonation;
+  const secondaryDonorDonationData = campaignCharity.secondaryDonation;
 
   return (
-    <CardWithImage
-      imageUrl={campaignCharity.charity.imageBase64}
-      imageOverlayContent={imageOverlayContent}
-      descriptionContent={[description, actionButtons]}
-    />
+    <Grid container justifyContent="center" alignItems="center" sx={gridSx}>
+      <Grid xs={2} sx={charityLogoContainerSx}>
+        <Box sx={charityLogoSx} component="img" src={campaignCharity.charity.logoBase64} />
+      </Grid>
+
+      <Grid xs={10}>
+        <Stack paddingTop={1} paddingBottom={1} paddingRight={1}>
+          <Typography variant="h5">{campaignCharity.charity.name}</Typography>
+
+          <SmallCompetingGraph
+            overrideGraphSx={graphSx}
+            leftLabel={`$${primaryDonorDonationData.amount} from ${campaignCharity.primaryDonor.name}`}
+            rightLabel={`$${secondaryDonorDonationData.amount} from people like you`}
+            barFractions={[primaryDonorDonationData.fraction, secondaryDonorDonationData.fraction]}
+          />
+        </Stack>
+      </Grid>
+    </Grid>
   );
 };
 

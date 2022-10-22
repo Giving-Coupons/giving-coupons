@@ -44,7 +44,7 @@ const CampaignCharitySelection = ({ coupon, campaignCharityId, setCampaignCharit
               <Radio checked={campaignCharityId === campaignCharity.id} value={campaignCharity.id} />
 
               <Grid item sx={itemListSx} xs={12}>
-                <CampaignCharityCard campaignCharity={campaignCharity} redirectTo="charity" />
+                <CampaignCharityCard campaignCharity={campaignCharity} />
               </Grid>
             </Stack>
           </Grid>

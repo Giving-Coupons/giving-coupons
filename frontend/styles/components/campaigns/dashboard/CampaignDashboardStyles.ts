@@ -36,6 +36,12 @@ export const primaryDonorItemSx: SxProps = {
   alignItems: 'center',
 };
 
+export const avatarSx: SxProps = {
+  width: 100,
+  height: 100,
+  objectFit: 'contain',
+};
+
 export const logoSx: SxProps = {
   height: '32px',
   width: 'auto',

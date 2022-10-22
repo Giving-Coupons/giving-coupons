@@ -169,7 +169,6 @@ const CampaignSearchForm = ({ initialValues, search, handleReset }: Props) => {
                 onClick={() => {
                   handleReset();
                   resetForm();
-                  console.log(initialValues);
                 }}
               >
                 Reset

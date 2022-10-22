@@ -36,7 +36,7 @@ export default function CampaignDetail() {
   }
 
   const numTotalCoupons = campaign.promisedAmount / campaign.couponDenomination;
-  const numCouponsRedeemed = campaign.donations.primaryDonor.amount / campaign.couponDenomination;
+  const numCouponsRedeemed = campaign.donations.primaryDonation.amount / campaign.couponDenomination;
 
   return (
     <Container sx={{ padding: theme.spacing(2) }}>
@@ -52,7 +52,7 @@ export default function CampaignDetail() {
 
       <SwiperWrapper navigable paginated>
         {campaign.charities.map((campaignCharity, index) => (
-          <CampaignCharityCard key={index} campaignCharity={campaignCharity} redirectTo="charity" />
+          <CampaignCharityCard key={index} campaignCharity={campaignCharity} />
         ))}
       </SwiperWrapper>
 

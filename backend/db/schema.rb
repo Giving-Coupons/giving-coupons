@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_19_162926) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_20_170809) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -109,7 +109,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_162926) do
     t.bigint "campaign_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "is_redeemed", default: false, null: false
+    t.bigint "campaign_charity_id"
+    t.index ["campaign_charity_id"], name: "index_coupons_on_campaign_charity_id"
     t.index ["campaign_id"], name: "index_coupons_on_campaign_id"
     t.index ["url_token"], name: "index_coupons_on_url_token", unique: true
   end
@@ -161,6 +162,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_162926) do
   add_foreign_key "campaign_charities", "charities"
   add_foreign_key "campaigns", "interests"
   add_foreign_key "campaigns", "primary_donors"
+  add_foreign_key "coupons", "campaign_charities"
   add_foreign_key "coupons", "campaigns"
   add_foreign_key "interest_charities", "charities"
   add_foreign_key "interest_charities", "interests"

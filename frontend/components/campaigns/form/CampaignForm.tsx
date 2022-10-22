@@ -78,7 +78,7 @@ const CampaignForm = ({
 
               <FormDatePicker name="end" label="End Date" />
 
-              <FormImageUpload name="imageBase64" label="Upload Image" />
+              <FormImageUpload name="imageBase64" label="Upload Campaign Image" />
             </Stack>
 
             <CampaignFormCharitiesSection values={values.charities} />
@@ -89,6 +89,8 @@ const CampaignForm = ({
               <FormTextInput name="primaryDonor.name" label="Name" placeholder="Enter the primary donor name" />
 
               <FormTextInput name="primaryDonor.email" label="Email" placeholder="Enter the primary donor email" />
+
+              <FormImageUpload name="primaryDonor.imageBase64" label="Upload Avatar" />
             </Stack>
 
             <Button type="submit" disabled={!isValid || !dirty} actionType="primary" fullWidth>

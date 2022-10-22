@@ -88,6 +88,7 @@ const createCampaignSchema = Yup.object().shape(
       email: Yup.string()
         .required('Primary donor email is required.')
         .email('Primary donor email is not in the correct form.'),
+      imageBase64: Yup.string().required('Avatar is required'),
     }).required('Primary donor is required'),
   },
   [
@@ -121,7 +122,9 @@ const CampaignCreate = () => {
         primaryDonor: {
           name: interest.donorName,
           email: interest.donorEmail,
+          imageBase64: interest.donorImageBase64,
         },
+        imageBase64: interest.campaignImageBase64,
       });
     } else {
       // Note: This has to be here otherwise the previous interest values may be shown
@@ -144,6 +147,7 @@ const CampaignCreate = () => {
         const primaryDonorPostData: PrimaryDonorPostData = {
           name: values.primaryDonor.name,
           email: values.primaryDonor.email,
+          imageBase64: values.primaryDonor.imageBase64,
         };
         const campaignPostData: CampaignPostData = {
           ...values,
