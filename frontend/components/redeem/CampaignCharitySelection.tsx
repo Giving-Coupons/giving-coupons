@@ -1,10 +1,5 @@
 import { FormControl, Radio, RadioGroup, Stack, Typography, useMediaQuery } from '@mui/material';
-import {
-  desktopCampaignCharitySelectionSx,
-  formContainerSx,
-  mobileCampaignCharitySelectionSx,
-  radioSx,
-} from '../../styles/components/redeem/RedeemStyles';
+import { desktopFormContainerSx, mobileFormContainerSx, radioSx } from '../../styles/components/redeem/RedeemStyles';
 import { CampaignCharityDonationPublicData } from '../../types/campaignCharities';
 import CampaignCharityCard from '../campaigns/campaignCharities/CampaignCharityCard';
 import { Nullable } from '../../types/utils';
@@ -46,12 +41,12 @@ const CampaignCharitySelection = ({
   };
 
   return (
-    <Stack sx={formContainerSx} spacing={2}>
+    <Stack sx={isMobile ? mobileFormContainerSx : desktopFormContainerSx} spacing={4}>
       <Typography variant="h2" align="center">
         Select a charity to give {primaryDonorName}&apos;s ${couponDenomination} to
       </Typography>
 
-      <FormControl sx={isMobile ? mobileCampaignCharitySelectionSx : desktopCampaignCharitySelectionSx}>
+      <FormControl fullWidth>
         <RadioGroup name={name} value={value ?? null} onChange={selectCharity}>
           <Stack spacing={2}>
             {campaignCharities.map((campaignCharity, index) => (

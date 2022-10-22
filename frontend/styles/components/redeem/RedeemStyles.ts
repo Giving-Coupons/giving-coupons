@@ -1,19 +1,24 @@
 import { SxProps } from '@mui/system';
 
+export const containerSx: SxProps = {
+  width: '100%',
+  justifyContent: 'center',
+  alignItems: 'center',
+};
+
 export const formContainerSx: SxProps = {
   alignItems: 'center',
-  width: '100%',
-  paddingBottom: '16px',
+  justifyContent: 'center',
 };
 
-export const desktopCampaignCharitySelectionSx: SxProps = {
+export const desktopFormContainerSx: SxProps = {
+  ...formContainerSx,
   width: '60%',
-  justifyContent: 'center',
 };
 
-export const mobileCampaignCharitySelectionSx: SxProps = {
+export const mobileFormContainerSx: SxProps = {
+  ...formContainerSx,
   width: '100%',
-  justifyContent: 'center',
 };
 
 export const radioSx: SxProps = {

@@ -13,6 +13,7 @@ import { useState } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import RedeemFormButtons from '../../../components/redeem/RedeemFormButtons';
+import { containerSx } from '../../../styles/components/redeem/RedeemStyles';
 
 const validationSchema = Yup.object().shape({
   campaignCharityId: Yup.number().required('Campaign charity is required'),
@@ -80,7 +81,7 @@ const Redeem: NextPage = () => {
       </Head>
 
       <Container component="main" maxWidth="md">
-        <Stack component="div" spacing={2}>
+        <Stack sx={containerSx} component="div" spacing={4}>
           <RedeemStepper activeStep={activeStep} />
 
           {coupon && (
