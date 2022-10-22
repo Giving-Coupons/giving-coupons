@@ -37,7 +37,7 @@ const PersonalContribution = ({ coupon, campaignCharityId, goToPreviousPage, han
   return (
     <Grid container justifyContent="center">
       <Grid item sx={itemSx} xs={12} sm={7} md={4} padding={4}>
-        <CampaignCharityCard campaignCharity={campaignCharity} redirectTo="givingSgCampaign" />
+        <CampaignCharityCard campaignCharity={campaignCharity} />
       </Grid>
 
       <Grid item xs={12} sm={5} md={7} padding={4}>
