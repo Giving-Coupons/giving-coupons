@@ -11,6 +11,7 @@ import { Nullable } from '../../../types/utils';
 import FormTextInput from '../../forms/FormTextInput';
 import InterestFormAmountButton from './InterestFormAmountButton';
 import InterestFormCharitySelector from './InterestFormCharitySelector';
+import FormImageUpload from '../../forms/FormImageUpload';
 
 export type InterestFormData = Partial<
   Omit<InterestData, 'id' | 'status' | 'couponDenomination' | 'start' | 'end' | 'charities'>
@@ -23,6 +24,7 @@ export type InterestFormData = Partial<
 export const interestFormSchema = Yup.object({
   donorName: Yup.string().required('Donor name is required.'),
   donorEmail: Yup.string().required('Donor email is required.').email('Donor email is not in the correct form.'),
+  donorImageBase64: Yup.string().required('Avatar is required.'),
   campaignName: Yup.string().required('Campaign name is required.'),
   campaignDescription: Yup.string().required('Campaign description is required.'),
   promisedAmount: Yup.number()
@@ -35,6 +37,7 @@ export const interestFormSchema = Yup.object({
       test: (promisedAmount) => (promisedAmount ?? 0) % DEFAULT_COUPON_DENOMINATION === 0,
       message: `Promised amount must be a multiple of $${DEFAULT_COUPON_DENOMINATION}.`,
     }),
+  campaignImageBase64: Yup.string().required('Campaign image is required.'),
   start: Yup.date()
     .required('Start date is required.')
     .typeError('Start date must be a date.')
@@ -110,6 +113,8 @@ export default function InterestForm({ onSubmit }: InterestFormProps) {
                   label="Length of Campaign"
                   InputProps={{ endAdornment: <InputAdornment position="end">day(s)</InputAdornment> }}
                 />
+
+                <FormImageUpload name="campaignImageBase64" label="Upload Campaign Image" />
               </Stack>
               <Stack spacing={2}>
                 <Stack spacing={0}>
@@ -147,6 +152,8 @@ export default function InterestForm({ onSubmit }: InterestFormProps) {
                 <FormTextInput name="donorName" label="Name" />
 
                 <FormTextInput name="donorEmail" label="Email" />
+
+                <FormImageUpload name="donorImageBase64" label="Upload Avatar" />
               </Stack>
             </Stack>
 

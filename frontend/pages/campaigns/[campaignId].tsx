@@ -36,7 +36,7 @@ export default function CampaignDetail() {
   }
 
   const numTotalCoupons = campaign.promisedAmount / campaign.couponDenomination;
-  const numCouponsRedeemed = campaign.donations.primaryDonor.amount / campaign.couponDenomination;
+  const numCouponsRedeemed = campaign.donations.primaryDonation.amount / campaign.couponDenomination;
 
   return (
     <Container sx={{ padding: theme.spacing(2) }}>

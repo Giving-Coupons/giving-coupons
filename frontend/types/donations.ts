@@ -6,13 +6,12 @@ type DonationData = {
 };
 
 export type DonationBreakdownData = {
-  primaryDonor: DonationData;
-  secondaryDonors: DonationData;
+  primaryDonation: DonationData;
+  secondaryDonation: DonationData;
 };
 
 export type SecondaryDonationData = {
   id: number;
-  urlToken: Nullable<string>;
   amount: number;
   campaignCharityId: number;
 };

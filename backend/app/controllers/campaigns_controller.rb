@@ -18,13 +18,15 @@ class CampaignsController < ApplicationController
   def show; end
 
   def admin_show
-    @campaign = Campaign.includes(:primary_donor,
-                                  :secondary_donations,
-                                  image_attachment: :blob,
-                                  coupons: { secondary_donation: { campaign_charity: :charity } },
-                                  campaign_charities: [:secondary_donations,
-                                                       :coupons,
-                                                       { charity: [logo_attachment: :blob, image_attachment: :blob] }])
+    @campaign = Campaign.includes(
+      :secondary_donations,
+      image_attachment: :blob,
+      primary_donor: { image_attachment: :blob },
+      coupons: { secondary_donation: { campaign_charity: :charity } },
+      campaign_charities: [:secondary_donations,
+                           :coupons,
+                           { charity: [logo_attachment: :blob, image_attachment: :blob] }]
+    )
                         .find(params[:id])
   end
 
@@ -72,7 +74,9 @@ class CampaignsController < ApplicationController
   private
 
   def set_campaign
-    @campaign = Campaign.includes(:primary_donor, :coupons, :secondary_donations,
+    @campaign = Campaign.includes(:coupons, :secondary_donations,
+                                  image_attachment: :blob,
+                                  primary_donor: [image_attachment: :blob],
                                   campaign_charities: [:coupons,
                                                        { secondary_donations: [:coupon] },
                                                        { charity: [logo_attachment: :blob,
@@ -91,9 +95,13 @@ class CampaignsController < ApplicationController
   def set_donor
     primary_donor_params = params[:primary_donor]
 
-    @campaign.primary_donor = PrimaryDonor.find_or_initialize_by(email: primary_donor_params[:email]) do |new_donor|
-      new_donor.name = primary_donor_params[:name]
+    primary_donor = PrimaryDonor.find_or_initialize_by(email: primary_donor_params[:email])
+    primary_donor.name = primary_donor_params[:name]
+    if primary_donor_params[:image_base64].present?
+      primary_donor.image.attach(data: primary_donor_params[:image_base64])
     end
+
+    @campaign.primary_donor = primary_donor
   end
 
   def set_interest

@@ -10,7 +10,6 @@ import PersonalContribution from '../../../components/redeem/PersonalContributio
 import RedeemLoading from '../../../components/redeem/RedeemLoading';
 import api from '../../../frontendApis';
 import { CouponRedeemData } from '../../../types/coupons';
-import { SecondaryDonationPostData } from '../../../types/donations';
 import { Nullable } from '../../../types/utils';
 import { Container } from '@mui/system';
 
@@ -33,13 +32,13 @@ const Redeem: NextPage = () => {
       return;
     }
 
-    const secondaryDonationPostData: SecondaryDonationPostData = {
-      amount,
-      campaignCharityId,
-      urlToken,
-    };
-
-    api.secondaryDonations.addSecondaryDonation(secondaryDonationPostData).then(() => router.push('/redeem/thank-you'));
+    if (urlToken) {
+      api.coupons.redeemCoupon({ amount, campaignCharityId, urlToken }).then(() => router.push('/redeem/thank-you'));
+    } else {
+      api.secondaryDonations
+        .addSecondaryDonation({ amount, campaignCharityId })
+        .then(() => router.push('/redeem/thank-you'));
+    }
   };
 
   const renderRedeemPage = () => {

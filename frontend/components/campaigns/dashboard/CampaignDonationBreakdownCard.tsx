@@ -39,13 +39,13 @@ const DonationTableRow = ({ label, donationBreakdown }: DonationTableRowProps) =
 
     <TableCell>
       <Stack sx={donationTableHeaderSx} component="div" direction="row">
-        <Typography variant="caption">${donationBreakdown.primaryDonor.amount}</Typography>
+        <Typography variant="caption">${donationBreakdown.primaryDonation.amount}</Typography>
 
-        <Typography variant="caption">${donationBreakdown.secondaryDonors.amount}</Typography>
+        <Typography variant="caption">${donationBreakdown.secondaryDonation.amount}</Typography>
       </Stack>
 
       <CompetingGraph
-        barFractions={[donationBreakdown.primaryDonor.fraction, donationBreakdown.secondaryDonors.fraction]}
+        barFractions={[donationBreakdown.primaryDonation.fraction, donationBreakdown.secondaryDonation.fraction]}
       />
     </TableCell>
   </TableRow>

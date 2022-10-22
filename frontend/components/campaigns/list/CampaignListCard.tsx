@@ -20,8 +20,8 @@ interface Props {
 const CampaignListCard = ({ campaign }: Props) => {
   const router = useRouter();
 
-  const primaryDonorDonationData = campaign.donations.primaryDonor;
-  const secondaryDonorDonationData = campaign.donations.secondaryDonors;
+  const primaryDonorDonationData = campaign.donations.primaryDonation;
+  const secondaryDonorDonationData = campaign.donations.secondaryDonation;
 
   const imageOverlayContent = (
     <Container sx={graphContainerSx} component="div">

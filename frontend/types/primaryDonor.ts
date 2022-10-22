@@ -4,6 +4,7 @@ export type PrimaryDonorData = {
   id: number;
   name: string;
   email: string;
+  imageBase64: string;
 };
 
 export type PrimaryDonorPostData = WithoutId<PrimaryDonorData>;

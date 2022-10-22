@@ -52,8 +52,8 @@ const PersonalContribution = ({ coupon, campaignCharityId, goToPreviousPage, han
           <Formik
             initialValues={{ amount: 0 }}
             validationSchema={couponRedeemFormSchema}
-            onSubmit={(values: { amount: number }) =>
-              couponRedeemFormSchema.validate(values).then(() => handleSubmit(values.amount))
+            onSubmit={(values: Yup.InferType<typeof couponRedeemFormSchema>) =>
+              couponRedeemFormSchema.validate(values).then((validated) => handleSubmit(validated.amount))
             }
           >
             {({ isValid, dirty }) => (

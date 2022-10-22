@@ -1,4 +1,4 @@
-import { CampaignCharityDonationPublicData } from './campaignCharities';
+import { CampaignCharityData, CampaignCharityDonationPublicData } from './campaignCharities';
 import { CampaignBaseData } from './campaigns';
 import { CharityMinimalData } from './charity';
 import { SecondaryDonationData } from './donations';
@@ -9,6 +9,7 @@ export type CouponBaseData = {
   urlToken: string;
   denomination: number;
   campaignId: number;
+  campaignCharityId: Nullable<number>;
 };
 
 export type CouponListData = CouponBaseData & {
@@ -19,4 +20,12 @@ export type CouponListData = CouponBaseData & {
 export type CouponRedeemData = CouponBaseData & {
   campaign: CampaignBaseData;
   charities: CampaignCharityDonationPublicData[];
+  campaignCharity: Nullable<CampaignCharityData>;
+  secondaryDonation: Nullable<SecondaryDonationData>;
+};
+
+export type CouponRedeemPostData = {
+  urlToken: string;
+  amount: number;
+  campaignCharityId: number;
 };

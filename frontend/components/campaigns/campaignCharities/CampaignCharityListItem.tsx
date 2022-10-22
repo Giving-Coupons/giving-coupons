@@ -15,8 +15,8 @@ type Props = {
 };
 
 export default function CampaignCharityListItem({ width, campaignCharity }: Props) {
-  const { amount: primaryAmount, fraction: primaryFraction } = campaignCharity.primaryDonor;
-  const { amount: secondaryAmount, fraction: secondaryFraction } = campaignCharity.secondaryDonors;
+  const { amount: primaryAmount, fraction: primaryFraction } = campaignCharity.primaryDonation;
+  const { amount: secondaryAmount, fraction: secondaryFraction } = campaignCharity.secondaryDonation;
   const totalAmount = primaryAmount + secondaryAmount;
   const hasDonations = totalAmount > 0;
 
