@@ -15,10 +15,10 @@ export type CampaignCharityData = CampaignCharityBaseData & {
   charity: CharityData;
 };
 
-export type CampaignCharityDonationPublicData = (CampaignCharityData & DonationBreakdownData) & {
-  primaryDonor: PrimaryDonorData;
-};
+export type CampaignCharityDonationPublicData = CampaignCharityData &
+  DonationBreakdownData & { primaryDonor: PrimaryDonorData };
 
-export type CampaignCharityDonationData = CampaignCharityData & DonationBreakdownData & PrimaryDonorData;
+export type CampaignCharityDonationData = CampaignCharityData &
+  DonationBreakdownData & { primaryDonor: PrimaryDonorData };
 
 export type CampaignCharityPostData = WithoutId<CampaignCharityBaseData>;
