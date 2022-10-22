@@ -1,4 +1,4 @@
-import { Box, useMediaQuery } from '@mui/material';
+import { Box, Typography, useMediaQuery } from '@mui/material';
 import { NextPage } from 'next';
 import Head from 'next/head';
 import { Container, Stack, useTheme } from '@mui/system';
@@ -9,7 +9,7 @@ import { Nullable } from '../../../types/utils';
 import { CouponRedeemData, CouponRedeemFormData, CouponRedeemPostData } from '../../../types/coupons';
 import { useRouter } from 'next/router';
 import api from '../../../frontendApis';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import {
@@ -21,6 +21,7 @@ import PersonalContributionStep from '../../../components/redeem/steps/PersonalC
 import VerifyStep from '../../../components/redeem/steps/VerifyStep';
 import AlreadyRedeemedPage from '../../../components/redeem/AlreadyRedeemedPage';
 import RedeemLoading from '../../../components/redeem/RedeemLoading';
+import { messageContainerSx } from '../../../styles/pages/campaigns/indexStyles';
 
 const validationSchema = Yup.object().shape({
   campaignCharityId: Yup.number().required('Campaign charity is required'),
@@ -38,6 +39,7 @@ const Redeem: NextPage = () => {
     urlToken !== null ? api.coupons.getCoupon(urlToken).then((r) => r.payload) : null,
   );
   const isLoading = !coupon && !error;
+  const hasLoadedSuccessfully = !error && coupon;
 
   const minStep = 0;
   const maxStep = 2;
@@ -143,7 +145,15 @@ const Redeem: NextPage = () => {
             </>
           )}
 
-          {coupon && coupon.campaignCharity && (
+          {error && (
+            <Stack component="div" sx={messageContainerSx} spacing={2}>
+              <Typography variant="h1">Error</Typography>
+
+              <Typography variant="h2">That is all we know right now.</Typography>
+            </Stack>
+          )}
+
+          {hasLoadedSuccessfully && coupon.campaignCharity && (
             <AlreadyRedeemedPage
               campaignCharity={coupon.campaignCharity}
               primaryDonor={coupon.campaign.primaryDonor}
@@ -152,7 +162,7 @@ const Redeem: NextPage = () => {
             />
           )}
 
-          {coupon && !coupon.campaignCharity && (
+          {hasLoadedSuccessfully && !coupon.campaignCharity && (
             <>
               <RedeemStepper activeStep={activeStep} />
 
