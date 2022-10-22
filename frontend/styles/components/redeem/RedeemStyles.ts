@@ -3,16 +3,18 @@ import { theme } from '../../../utils/theme';
 
 export const containerSx: SxProps = {
   width: '100%',
-  justifyContent: 'center',
+  minHeight: `calc(100vh - ${theme.mixins.toolbar.minHeight}px)`,
+  justifyContent: 'start',
   alignItems: 'center',
   padding: '16px 0',
+  display: 'flex',
 };
 
 export const formContainerSx: SxProps = {
   display: 'flex',
-  alignItems: 'center',
   justifyContent: 'center',
   padding: '0 8px',
+  flex: 1,
 };
 
 export const desktopFormContainerSx = {
@@ -23,6 +25,13 @@ export const desktopFormContainerSx = {
 export const mobileFormContainerSx = {
   ...formContainerSx,
   width: '100%',
+};
+
+export const formPageContainerSx = {
+  height: 'auto',
+  width: '100%',
+  alignItems: 'center',
+  justifyContent: 'space-between',
 };
 
 export const radioSx: SxProps = {
