@@ -3,7 +3,7 @@ import { NextPage } from 'next';
 import Head from 'next/head';
 import { Container, Stack, useTheme } from '@mui/system';
 import RedeemStepper from '../../../components/redeem/RedeemStepper';
-import CampaignCharitySelection from '../../../components/redeem/CampaignCharitySelection';
+import CharitySelectionStep from '../../../components/redeem/steps/CharitySelectionStep';
 import useSWR from 'swr';
 import { Nullable } from '../../../types/utils';
 import { CouponRedeemData, CouponRedeemFormData, CouponRedeemPostData } from '../../../types/coupons';
@@ -17,8 +17,9 @@ import {
   desktopFormContainerSx,
   mobileFormContainerSx,
 } from '../../../styles/components/redeem/RedeemStyles';
-import PersonalContribution from '../../../components/redeem/PersonalContribution';
-import VerifyStep from '../../../components/redeem/VerifyStep';
+import PersonalContributionStep from '../../../components/redeem/steps/PersonalContributionStep';
+import VerifyStep from '../../../components/redeem/steps/VerifyStep';
+import AlreadyRedeemedPage from '../../../components/redeem/AlreadyRedeemedPage';
 
 const validationSchema = Yup.object().shape({
   campaignCharityId: Yup.number().required('Campaign charity is required'),
@@ -73,7 +74,7 @@ const Redeem: NextPage = () => {
     switch (activeStep) {
       case 0:
         return (
-          <CampaignCharitySelection
+          <CharitySelectionStep
             primaryDonorName={coupon.campaign.primaryDonor.name}
             couponDenomination={coupon.denomination}
             campaignCharities={coupon.charities}
@@ -91,7 +92,7 @@ const Redeem: NextPage = () => {
         }
 
         return (
-          <PersonalContribution
+          <PersonalContributionStep
             primaryDonorName={coupon.campaign.primaryDonor.name}
             couponDenomination={coupon.denomination}
             campaignCharity={campaignCharity}
@@ -132,16 +133,27 @@ const Redeem: NextPage = () => {
 
       <Container component="main" maxWidth="md">
         <Stack sx={containerSx} component="div" spacing={4}>
-          <RedeemStepper activeStep={activeStep} />
+          {coupon && coupon.campaignCharity && (
+            <AlreadyRedeemedPage
+              campaignCharity={coupon.campaignCharity}
+              primaryDonor={coupon.campaign.primaryDonor}
+              primaryDonorAmount={coupon.denomination}
+              secondaryDonorAmount={coupon.secondaryDonation?.amount ?? 0}
+            />
+          )}
 
-          {coupon && (
-            <Formik initialValues={redeemFormValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
-              {({ values }) => (
-                <Form style={isMobile ? mobileFormContainerSx : desktopFormContainerSx}>
-                  {renderFormPage(activeStep, values)}
-                </Form>
-              )}
-            </Formik>
+          {coupon && !coupon.campaignCharity && (
+            <>
+              <RedeemStepper activeStep={activeStep} />
+
+              <Formik initialValues={redeemFormValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
+                {({ values }) => (
+                  <Form style={isMobile ? mobileFormContainerSx : desktopFormContainerSx}>
+                    {renderFormPage(activeStep, values)}
+                  </Form>
+                )}
+              </Formik>
+            </>
           )}
         </Stack>
       </Container>

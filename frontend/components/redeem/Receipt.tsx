@@ -12,7 +12,7 @@ interface Props {
   secondaryDonorAmount: number;
 }
 
-const VerifyRedemption = ({ charity, primaryDonor, primaryDonorAmount, secondaryDonorAmount }: Props) => {
+const Receipt = ({ charity, primaryDonor, primaryDonorAmount, secondaryDonorAmount }: Props) => {
   return (
     <Stack component="div" sx={stackSx}>
       <Stack margin={2} spacing={1}>
@@ -68,4 +68,4 @@ const VerifyRedemptionCard = ({ imageBaseUrl, text }: VerifyRedemptionCardProps)
   );
 };
 
-export default VerifyRedemption;
+export default Receipt;

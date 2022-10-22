@@ -1,13 +1,13 @@
 import { FormControl, Radio, RadioGroup, Stack, Typography } from '@mui/material';
-import { radioSx } from '../../styles/components/redeem/RedeemStyles';
-import { CampaignCharityDonationPublicData } from '../../types/campaignCharities';
-import CampaignCharityCard from '../campaigns/campaignCharities/CampaignCharityCard';
-import { Nullable } from '../../types/utils';
+import { radioSx } from '../../../styles/components/redeem/RedeemStyles';
+import { CampaignCharityDonationPublicData } from '../../../types/campaignCharities';
+import CampaignCharityCard from '../../campaigns/campaignCharities/CampaignCharityCard';
+import { Nullable } from '../../../types/utils';
 import { ChangeEvent, useState } from 'react';
-import CampaignCharityDialog from '../campaigns/campaignCharities/CampaignCharityDialog';
-import { CouponRedeemFormData } from '../../types/coupons';
+import CampaignCharityDialog from '../../campaigns/campaignCharities/CampaignCharityDialog';
+import { CouponRedeemFormData } from '../../../types/coupons';
 import { useField } from 'formik';
-import RedeemFormButtons from './RedeemFormButtons';
+import RedeemFormButtons from '../RedeemFormButtons';
 
 interface Props {
   primaryDonorName: string;
@@ -20,7 +20,7 @@ interface Props {
   maxStep: number;
 }
 
-const CampaignCharitySelection = ({
+const CharitySelectionStep = ({
   primaryDonorName,
   couponDenomination,
   campaignCharities,
@@ -77,4 +77,4 @@ const CampaignCharitySelection = ({
   );
 };
 
-export default CampaignCharitySelection;
+export default CharitySelectionStep;

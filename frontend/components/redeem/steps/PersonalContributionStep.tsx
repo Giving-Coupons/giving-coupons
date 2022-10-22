@@ -1,17 +1,17 @@
 import { Stack } from '@mui/system';
-import { charityLogoSx, givingSgLogoSx } from '../../styles/components/redeem/RedeemStyles';
+import { charityLogoSx, givingSgLogoSx } from '../../../styles/components/redeem/RedeemStyles';
 import { Box, InputAdornment, Typography } from '@mui/material';
-import RedeemFormButtons from './RedeemFormButtons';
-import { CampaignCharityData } from '../../types/campaignCharities';
-import FormTextInput from '../forms/FormTextInput';
-import FormAmountButton from '../forms/FormAmountButton';
+import RedeemFormButtons from '../RedeemFormButtons';
+import { CampaignCharityData } from '../../../types/campaignCharities';
+import FormTextInput from '../../forms/FormTextInput';
+import FormAmountButton from '../../forms/FormAmountButton';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import IconButtonWithTooltip from '../IconButtonWithTooltip';
-import DidYouKnow from './DidYouKnow';
+import IconButtonWithTooltip from '../../IconButtonWithTooltip';
+import DidYouKnow from '../DidYouKnow';
 import { useField } from 'formik';
 import { useState } from 'react';
-import RedirectDialog from './RedirectDialog';
-import { Nullable } from '../../types/utils';
+import RedirectDialog from '../RedirectDialog';
+import { Nullable } from '../../../types/utils';
 
 type Props = {
   primaryDonorName: string;
@@ -23,7 +23,7 @@ type Props = {
   maxStep: number;
 };
 
-const PersonalContribution = ({
+const PersonalContributionStep = ({
   primaryDonorName,
   couponDenomination,
   campaignCharity,
@@ -108,4 +108,4 @@ const PersonalContribution = ({
   );
 };
 
-export default PersonalContribution;
+export default PersonalContributionStep;

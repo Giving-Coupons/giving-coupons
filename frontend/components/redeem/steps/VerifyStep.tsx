@@ -1,8 +1,9 @@
-import { CharityListData } from '../../types/charity';
-import { PrimaryDonorData } from '../../types/primaryDonor';
-import VerifyRedemption from './VerifyRedemption';
+import { CharityListData } from '../../../types/charity';
+import { PrimaryDonorData } from '../../../types/primaryDonor';
+import Receipt from '../Receipt';
 import { Stack } from '@mui/system';
-import RedeemFormButtons from './RedeemFormButtons';
+import RedeemFormButtons from '../RedeemFormButtons';
+import { Typography } from '@mui/material';
 
 interface Props {
   charity: CharityListData;
@@ -27,7 +28,11 @@ const VerifyStep = ({
 }: Props) => {
   return (
     <Stack component="div" spacing={4} width="100%" alignItems="center">
-      <VerifyRedemption
+      <Typography variant="h2" align="center">
+        Verify your redemption
+      </Typography>
+
+      <Receipt
         charity={charity}
         primaryDonor={primaryDonor}
         primaryDonorAmount={primaryDonorAmount}
