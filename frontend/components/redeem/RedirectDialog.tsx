@@ -64,7 +64,7 @@ const RedirectDialog = ({
             <Form>
               <Stack component="div" alignItems="center" spacing={4}>
                 <Stack component="div" alignItems="center" width="100%">
-                  <Typography variant="h5">Your donation amount</Typography>
+                  <Typography variant="h5">You are donating</Typography>
 
                   <Typography sx={redirectAmountSx}>${secondaryDonationAmount}</Typography>
 
