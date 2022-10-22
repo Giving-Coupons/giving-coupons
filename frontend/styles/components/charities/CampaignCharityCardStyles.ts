@@ -1,25 +1,33 @@
 import { SxProps } from '@mui/system';
-import { theme } from '../../../utils/theme';
 
-export const gridSx: SxProps = {
-  boxShadow: `0px 0px 30px 10px ${theme.palette.neutral.light}`,
-  borderRadius: '10px',
+export const graphContainerSx: SxProps = {
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'end',
+  height: '100%',
+  paddingBottom: '8px',
 };
 
 export const graphSx: SxProps = {
-  height: '0.7em',
+  height: '1em',
   width: '100%',
-  '&>div': { border: 'none' },
 };
 
-export const charityLogoContainerSx: SxProps = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
+export const descriptionContainerSx: SxProps = {
+  width: '100%',
+  overflow: 'auto',
 };
 
 export const charityLogoSx: SxProps = {
-  maxHeight: '40px',
-  minHeight: '40px',
-  height: '40px',
+  maxHeight: '48px',
+  minHeight: '48px',
+  height: '48px',
+};
+
+export const buttonSx: SxProps = {
+  width: '100%',
+};
+
+export const charityTitleSx: SxProps = {
+  alignItems: 'center',
 };
