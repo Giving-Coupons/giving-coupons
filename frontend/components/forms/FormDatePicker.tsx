@@ -1,7 +1,7 @@
 import { TextField, useMediaQuery } from '@mui/material';
 import { DesktopDatePicker, MobileDatePicker } from '@mui/x-date-pickers';
 import { Nullable } from '../../types/utils';
-import moment, { Moment } from 'moment';
+import { Moment } from 'moment';
 import { useTheme } from '@mui/system';
 import React from 'react';
 import { MuiTextFieldProps } from '@mui/x-date-pickers/internals';
@@ -11,9 +11,10 @@ import { DATE_FORMAT } from '../../utils/constants';
 interface Props {
   name: string;
   label: string;
+  minDate?: Moment | undefined;
 }
 
-const FormDatePicker = ({ name, label }: Props) => {
+const FormDatePicker = ({ name, label, minDate }: Props) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [, { error, touched, value }, { setTouched, setValue }] = useField(name);
@@ -21,8 +22,8 @@ const FormDatePicker = ({ name, label }: Props) => {
   const innerProps = {
     label,
     value,
+    minDate,
     inputFormat: DATE_FORMAT,
-    minDate: moment().add(1, 'day').startOf('day'),
     onChange: (value: Nullable<Moment>) => {
       const corrected = value === null ? value : value.startOf('day');
       // It is not explicitly stated in the docs / types, but it appears setFieldValue is an

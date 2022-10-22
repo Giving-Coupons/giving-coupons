@@ -106,7 +106,7 @@ export default function InterestForm({ onSubmit }: InterestFormProps) {
                   minRows={2}
                 />
 
-                <FormDatePicker name="start" label={'Start Date'} />
+                <FormDatePicker name="start" label={'Start Date'} minDate={moment().add(1, 'day').startOf('day')} />
 
                 <FormTextInput
                   name="lengthOfCampaign"
