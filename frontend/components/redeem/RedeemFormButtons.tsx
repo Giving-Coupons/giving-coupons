@@ -73,7 +73,11 @@ const RedeemFormButtons = ({
         </Button>
       )}
 
-      {isLastStep && <Button actionType="primary">Finish</Button>}
+      {isLastStep && (
+        <Button type="submit" actionType="primary">
+          Finish
+        </Button>
+      )}
     </Stack>
   );
 };

@@ -1,11 +1,6 @@
-import { Stack, useTheme } from '@mui/system';
-import {
-  charityLogoSx,
-  desktopFormContainerSx,
-  givingSgLogoSx,
-  mobileFormContainerSx,
-} from '../../styles/components/redeem/RedeemStyles';
-import { Box, InputAdornment, Typography, useMediaQuery } from '@mui/material';
+import { Stack } from '@mui/system';
+import { charityLogoSx, givingSgLogoSx } from '../../styles/components/redeem/RedeemStyles';
+import { Box, InputAdornment, Typography } from '@mui/material';
 import RedeemFormButtons from './RedeemFormButtons';
 import { CampaignCharityData } from '../../types/campaignCharities';
 import FormTextInput from '../forms/FormTextInput';
@@ -37,14 +32,12 @@ const PersonalContribution = ({
   minStep,
   maxStep,
 }: Props) => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const fieldName = 'amount';
   const [, { value, error }, { setValue }] = useField<Nullable<number>>(fieldName);
   const [openRedirectDialog, setOpenRedirectDialog] = useState<boolean>(false);
 
   return (
-    <Stack component="div" sx={isMobile ? mobileFormContainerSx : desktopFormContainerSx} spacing={4}>
+    <Stack component="div" spacing={4} width="100%" alignItems="center">
       <Typography variant="h2" align="center">
         {primaryDonorName} will be giving ${couponDenomination} to
       </Typography>
@@ -74,11 +67,7 @@ const PersonalContribution = ({
             startAdornment: <InputAdornment position="start">$</InputAdornment>,
             endAdornment: (
               <InputAdornment position="end">
-                <IconButtonWithTooltip
-                  icon={<HighlightOffIcon color={theme.palette.neutral.light} />}
-                  tooltip="Clear"
-                  onClick={() => setValue(null)}
-                />
+                <IconButtonWithTooltip icon={<HighlightOffIcon />} tooltip="Clear" onClick={() => setValue(null)} />
               </InputAdornment>
             ),
           }}

@@ -1,8 +1,9 @@
-import PersonIcon from '@mui/icons-material/Person';
-import { Box, Divider, Grid, Stack, Typography } from '@mui/material';
-import { headerSx, iconSx, imageSx, stackSx } from '../../styles/redeem/VerifyRedemptionStyles';
+import { Avatar, Box, Divider, Grid, Stack, Typography } from '@mui/material';
+import { headerSx, imageSx, stackSx } from '../../styles/redeem/VerifyRedemptionStyles';
 import { CharityListData } from '../../types/charity';
 import { PrimaryDonorData } from '../../types/primaryDonor';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import React from 'react';
 
 interface Props {
   charity: CharityListData;
@@ -49,7 +50,15 @@ const VerifyRedemptionCard = ({ imageBaseUrl, text }: VerifyRedemptionCardProps)
   return (
     <Grid container alignItems="center">
       <Grid item xs={2}>
-        {imageBaseUrl ? <Box sx={imageSx} component="img" src={imageBaseUrl} /> : <PersonIcon sx={iconSx} />}
+        {imageBaseUrl ? (
+          <Avatar variant="rounded">
+            <Box sx={imageSx} component="img" src={imageBaseUrl} />
+          </Avatar>
+        ) : (
+          <Avatar variant="rounded">
+            <AccountBoxIcon />
+          </Avatar>
+        )}
       </Grid>
 
       <Grid item xs={10} padding={2}>

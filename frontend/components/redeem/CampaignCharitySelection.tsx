@@ -1,10 +1,9 @@
-import { FormControl, Radio, RadioGroup, Stack, Typography, useMediaQuery } from '@mui/material';
-import { desktopFormContainerSx, mobileFormContainerSx, radioSx } from '../../styles/components/redeem/RedeemStyles';
+import { FormControl, Radio, RadioGroup, Stack, Typography } from '@mui/material';
+import { radioSx } from '../../styles/components/redeem/RedeemStyles';
 import { CampaignCharityDonationPublicData } from '../../types/campaignCharities';
 import CampaignCharityCard from '../campaigns/campaignCharities/CampaignCharityCard';
 import { Nullable } from '../../types/utils';
 import { ChangeEvent, useState } from 'react';
-import { useTheme } from '@mui/system';
 import CampaignCharityDialog from '../campaigns/campaignCharities/CampaignCharityDialog';
 import { CouponRedeemFormData } from '../../types/coupons';
 import { useField } from 'formik';
@@ -31,8 +30,6 @@ const CampaignCharitySelection = ({
   minStep,
   maxStep,
 }: Props) => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [openCharityDialogId, setOpenCharityDialogId] = useState<Nullable<number>>(null);
   const [, { value, error, touched }, { setValue, setTouched }] = useField(name);
   const selectCharity = (e: ChangeEvent<HTMLInputElement>) => {
@@ -41,7 +38,7 @@ const CampaignCharitySelection = ({
   };
 
   return (
-    <Stack component="div" sx={isMobile ? mobileFormContainerSx : desktopFormContainerSx} spacing={4}>
+    <Stack component="div" spacing={4} width="100%" alignItems="center">
       <Typography variant="h2" align="center">
         Select a charity to give {primaryDonorName}&apos;s ${couponDenomination} to
       </Typography>

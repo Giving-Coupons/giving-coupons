@@ -9,16 +9,18 @@ export const containerSx: SxProps = {
 };
 
 export const formContainerSx: SxProps = {
+  display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+  padding: '0 8px',
 };
 
-export const desktopFormContainerSx: SxProps = {
+export const desktopFormContainerSx = {
   ...formContainerSx,
   width: '60%',
 };
 
-export const mobileFormContainerSx: SxProps = {
+export const mobileFormContainerSx = {
   ...formContainerSx,
   width: '100%',
 };

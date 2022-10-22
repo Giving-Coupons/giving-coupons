@@ -1,20 +1,24 @@
-import { Box } from '@mui/material';
+import { Box, useMediaQuery } from '@mui/material';
 import { NextPage } from 'next';
 import Head from 'next/head';
-import { Container, Stack } from '@mui/system';
+import { Container, Stack, useTheme } from '@mui/system';
 import RedeemStepper from '../../../components/redeem/RedeemStepper';
 import CampaignCharitySelection from '../../../components/redeem/CampaignCharitySelection';
 import useSWR from 'swr';
 import { Nullable } from '../../../types/utils';
-import { CouponRedeemData, CouponRedeemFormData } from '../../../types/coupons';
+import { CouponRedeemData, CouponRedeemFormData, CouponRedeemPostData } from '../../../types/coupons';
 import { useRouter } from 'next/router';
 import api from '../../../frontendApis';
 import { useState } from 'react';
-import { Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
-import RedeemFormButtons from '../../../components/redeem/RedeemFormButtons';
-import { containerSx } from '../../../styles/components/redeem/RedeemStyles';
+import {
+  containerSx,
+  desktopFormContainerSx,
+  mobileFormContainerSx,
+} from '../../../styles/components/redeem/RedeemStyles';
 import PersonalContribution from '../../../components/redeem/PersonalContribution';
+import VerifyStep from '../../../components/redeem/VerifyStep';
 
 const validationSchema = Yup.object().shape({
   campaignCharityId: Yup.number().required('Campaign charity is required'),
@@ -32,15 +36,39 @@ const Redeem: NextPage = () => {
     urlToken !== null ? api.coupons.getCoupon(urlToken).then((r) => r.payload) : null,
   );
 
-  const [redeemFormValues] = useState<CouponRedeemFormData>({ amount: 10 });
   const minStep = 0;
   const maxStep = 2;
   const [activeStep, setActiveStep] = useState<number>(minStep);
+  const [redeemFormValues] = useState<CouponRedeemFormData>({ amount: 10 });
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const handleSubmit = (values: CouponRedeemFormData) => {
+    if (urlToken === null) {
+      // This should never be available as useSWR will set error / loading and form will not be visible. (Defensive)
+      return Promise.reject('urlToken is invalid.');
+    }
+
+    validationSchema
+      .validate(values)
+      .then((values) => {
+        const couponRedeemPostData: CouponRedeemPostData = {
+          urlToken: urlToken,
+          campaignCharityId: values.campaignCharityId,
+          amount: values.amount ?? 0,
+        };
+
+        return api.coupons.redeemCoupon(couponRedeemPostData);
+      })
+      .then(() => router.push('/redeem/thank-you'));
+  };
 
   const renderFormPage = (activeStep: number, values: CouponRedeemFormData) => {
     if (!coupon) {
       return null;
     }
+
+    const campaignCharity = coupon.charities.find((charity) => charity.id === values.campaignCharityId);
 
     switch (activeStep) {
       case 0:
@@ -57,8 +85,6 @@ const Redeem: NextPage = () => {
           />
         );
       case 1:
-        const campaignCharity = coupon.charities.find((charity) => charity.id === values.campaignCharityId);
-
         if (!campaignCharity) {
           setActiveStep(0);
           return null;
@@ -76,8 +102,17 @@ const Redeem: NextPage = () => {
           />
         );
       case 2:
+        if (!campaignCharity) {
+          setActiveStep(0);
+          return null;
+        }
+
         return (
-          <RedeemFormButtons
+          <VerifyStep
+            charity={campaignCharity.charity}
+            primaryDonor={coupon.campaign.primaryDonor}
+            primaryDonorAmount={coupon.denomination}
+            secondaryDonorAmount={values?.amount ?? 0}
             activeStep={activeStep}
             setActiveStep={setActiveStep}
             minStep={minStep}
@@ -100,8 +135,12 @@ const Redeem: NextPage = () => {
           <RedeemStepper activeStep={activeStep} />
 
           {coupon && (
-            <Formik initialValues={redeemFormValues} validationSchema={validationSchema} onSubmit={() => undefined}>
-              {({ values }) => renderFormPage(activeStep, values)}
+            <Formik initialValues={redeemFormValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
+              {({ values }) => (
+                <Form style={isMobile ? mobileFormContainerSx : desktopFormContainerSx}>
+                  {renderFormPage(activeStep, values)}
+                </Form>
+              )}
             </Formik>
           )}
         </Stack>
