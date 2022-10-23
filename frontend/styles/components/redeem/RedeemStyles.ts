@@ -3,7 +3,7 @@ import { theme } from '../../../utils/theme';
 
 export const containerSx: SxProps = {
   width: '100%',
-  minHeight: `calc(100vh - 16px - ${theme.mixins.toolbar.minHeight}px)`,
+  minHeight: `calc(100vh - ${theme.spacing(2)} - ${theme.mixins.toolbar.minHeight}px)`,
   justifyContent: 'start',
   alignItems: 'center',
   padding: '16px 0',
@@ -93,4 +93,16 @@ export const redirectAcknowledgementContainerSx: SxProps = {
   width: '100%',
   justifyContent: 'center',
   alignItems: 'center',
+};
+
+export const desktopHelpButtonSx: SxProps = {
+  position: 'absolute',
+  right: theme.spacing(4),
+  top: `calc(${theme.mixins.toolbar.minHeight}px + ${theme.spacing(2)})`,
+};
+
+export const mobileHelpButtonSx: SxProps = {
+  position: 'absolute',
+  right: theme.spacing(1),
+  top: `calc(${theme.mixins.toolbar.minHeight}px + ${theme.spacing(1)})`,
 };

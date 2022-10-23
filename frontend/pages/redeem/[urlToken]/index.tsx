@@ -15,13 +15,17 @@ import * as Yup from 'yup';
 import {
   containerSx,
   desktopFormContainerSx,
+  desktopHelpButtonSx,
   mobileFormContainerSx,
+  mobileHelpButtonSx,
 } from '../../../styles/components/redeem/RedeemStyles';
 import PersonalContributionStep from '../../../components/redeem/steps/PersonalContributionStep';
 import VerifyStep from '../../../components/redeem/steps/VerifyStep';
 import AlreadyRedeemedDisplay from '../../../components/redeem/AlreadyRedeemedDisplay';
 import RedeemLoading from '../../../components/redeem/RedeemLoading';
 import { messageContainerSx } from '../../../styles/campaigns/indexStyles';
+import IconButtonWithTooltip from '../../../components/IconButtonWithTooltip';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 
 const validationSchema = Yup.object().shape({
   campaignCharityId: Yup.number().required('Campaign charity is required'),
@@ -136,6 +140,12 @@ const Redeem: NextPage = () => {
       </Head>
 
       <Container component="main" maxWidth="md">
+        <IconButtonWithTooltip
+          sx={isMobile ? mobileHelpButtonSx : desktopHelpButtonSx}
+          icon={<HelpOutlineIcon />}
+          tooltip="Instructions"
+        />
+
         <Stack sx={containerSx} component="div" spacing={4}>
           {isLoading && (
             <>
