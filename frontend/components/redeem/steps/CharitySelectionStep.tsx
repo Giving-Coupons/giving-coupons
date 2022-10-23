@@ -42,7 +42,7 @@ const CharitySelectionStep = ({
         <Stack>
           <Typography variant="h2" align="center">
             {couponSponsorship
-              ? `Select a charity to give ${couponSponsorship.primaryDonorName}'s ${couponSponsorship.couponDenomination} to`
+              ? `Select a charity to give ${couponSponsorship.primaryDonorName}'s $${couponSponsorship.couponDenomination} to`
               : 'Select a charity to contribute to'}
           </Typography>
 
