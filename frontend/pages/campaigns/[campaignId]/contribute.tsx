@@ -2,15 +2,13 @@ import { Box, Typography, useMediaQuery } from '@mui/material';
 import { NextPage } from 'next';
 import Head from 'next/head';
 import { Container, Stack, useTheme } from '@mui/system';
-import RedeemStepper from '../../../components/redeem/RedeemStepper';
 import CharitySelectionStep from '../../../components/redeem/steps/CharitySelectionStep';
 import useSWR from 'swr';
 import { Nullable } from '../../../types/utils';
-import { CouponRedeemData, CouponRedeemFormData, CouponRedeemPostData } from '../../../types/coupons';
 import { useRouter } from 'next/router';
 import api from '../../../frontendApis';
 import React, { useState } from 'react';
-import { Form, Formik } from 'formik';
+import { Form, Formik, isInteger } from 'formik';
 import * as Yup from 'yup';
 import {
   containerSx,
@@ -19,9 +17,11 @@ import {
 } from '../../../styles/components/redeem/RedeemStyles';
 import PersonalContributionStep from '../../../components/redeem/steps/PersonalContributionStep';
 import VerifyStep from '../../../components/redeem/steps/VerifyStep';
-import AlreadyRedeemedDisplay from '../../../components/redeem/AlreadyRedeemedDisplay';
 import RedeemLoading from '../../../components/redeem/RedeemLoading';
 import { messageContainerSx } from '../../../styles/campaigns/indexStyles';
+import { CampaignPublicData } from '../../../types/campaigns';
+import { SecondaryDonationFormData, SecondaryDonationPostData } from '../../../types/donations';
+import ContributeStepper from '../../../components/campaigns/contribute/ContributeStepper';
 
 const validationSchema = Yup.object().shape({
   campaignCharityId: Yup.number().required('Campaign charity is required'),
@@ -32,24 +32,25 @@ const validationSchema = Yup.object().shape({
     .max(100000, 'The maximum donation is $100000'),
 });
 
-const Redeem: NextPage = () => {
+const Contribute: NextPage = () => {
   const router = useRouter();
-  const urlToken = router.query.urlToken && typeof router.query.urlToken === 'string' ? router.query.urlToken : null;
-  const { data: coupon, error } = useSWR<Nullable<CouponRedeemData>>([urlToken], (urlToken) =>
-    urlToken !== null ? api.coupons.getCoupon(urlToken).then((r) => r.payload) : null,
+  const campaignId =
+    router.query.campaignId && isInteger(router.query.campaignId) ? Number(router.query.campaignId) : null;
+  const { data: campaign, error } = useSWR<Nullable<CampaignPublicData>>([campaignId], (campaignId) =>
+    campaignId !== null ? api.campaigns.getCampaign(campaignId).then((res) => res.payload) : null,
   );
-  const isLoading = !coupon && !error;
-  const hasLoadedSuccessfully = !error && coupon;
+  const isLoading = !campaign && !error;
+  const hasLoadedSuccessfully = !error && campaign;
 
   const minStep = 0;
   const maxStep = 2;
   const [activeStep, setActiveStep] = useState<number>(minStep);
-  const [redeemFormValues] = useState<CouponRedeemFormData>({ amount: 10 });
+  const [redeemFormValues] = useState<SecondaryDonationFormData>({ amount: 10 });
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const handleSubmit = (values: CouponRedeemFormData) => {
-    if (urlToken === null) {
+  const handleSubmit = (values: SecondaryDonationFormData) => {
+    if (campaignId === null) {
       // This should never be available as useSWR will set error / loading and form will not be visible. (Defensive)
       return Promise.reject('urlToken is invalid.');
     }
@@ -57,33 +58,28 @@ const Redeem: NextPage = () => {
     validationSchema
       .validate(values)
       .then((values) => {
-        const couponRedeemPostData: CouponRedeemPostData = {
-          urlToken: urlToken,
+        const secondaryDonationPostData: SecondaryDonationPostData = {
           campaignCharityId: values.campaignCharityId,
           amount: values.amount ?? 0,
         };
 
-        return api.coupons.redeemCoupon(couponRedeemPostData);
+        return api.secondaryDonations.addSecondaryDonation(secondaryDonationPostData);
       })
       .then(() => router.push('/redeem/thank-you'));
   };
 
-  const renderFormPage = (activeStep: number, values: CouponRedeemFormData) => {
-    if (!coupon) {
+  const renderFormPage = (activeStep: number, values: SecondaryDonationFormData) => {
+    if (!campaign) {
       return null;
     }
 
-    const campaignCharity = coupon.charities.find((charity) => charity.id === values.campaignCharityId);
+    const campaignCharity = campaign.charities.find((charity) => charity.id === values.campaignCharityId);
 
     switch (activeStep) {
       case 0:
         return (
           <CharitySelectionStep
-            couponSponsorship={{
-              primaryDonorName: coupon.campaign.primaryDonor.name,
-              couponDenomination: coupon.campaign.couponDenomination,
-            }}
-            campaignCharities={coupon.charities}
+            campaignCharities={campaign.charities}
             name="campaignCharityId"
             activeStep={activeStep}
             setActiveStep={setActiveStep}
@@ -99,10 +95,6 @@ const Redeem: NextPage = () => {
 
         return (
           <PersonalContributionStep
-            couponSponsorship={{
-              primaryDonorName: coupon.campaign.primaryDonor.name,
-              couponDenomination: coupon.denomination,
-            }}
             campaignCharity={campaignCharity}
             activeStep={activeStep}
             setActiveStep={setActiveStep}
@@ -119,10 +111,6 @@ const Redeem: NextPage = () => {
         return (
           <VerifyStep
             charity={campaignCharity.charity}
-            couponSponsorship={{
-              primaryDonor: coupon.campaign.primaryDonor,
-              primaryDonorAmount: coupon.denomination,
-            }}
             secondaryDonorAmount={values?.amount ?? 0}
             activeStep={activeStep}
             setActiveStep={setActiveStep}
@@ -145,7 +133,7 @@ const Redeem: NextPage = () => {
         <Stack sx={containerSx} component="div" spacing={4}>
           {isLoading && (
             <>
-              <RedeemStepper activeStep={activeStep} />
+              <ContributeStepper activeStep={activeStep} />
 
               <RedeemLoading />
             </>
@@ -159,18 +147,9 @@ const Redeem: NextPage = () => {
             </Stack>
           )}
 
-          {hasLoadedSuccessfully && coupon.campaignCharity && (
-            <AlreadyRedeemedDisplay
-              campaignCharity={coupon.campaignCharity}
-              primaryDonor={coupon.campaign.primaryDonor}
-              primaryDonorAmount={coupon.denomination}
-              secondaryDonorAmount={coupon.secondaryDonation?.amount ?? 0}
-            />
-          )}
-
-          {hasLoadedSuccessfully && !coupon.campaignCharity && (
+          {hasLoadedSuccessfully && (
             <>
-              <RedeemStepper activeStep={activeStep} />
+              <ContributeStepper activeStep={activeStep} />
 
               <Formik initialValues={redeemFormValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
                 {({ values }) => (
@@ -187,4 +166,4 @@ const Redeem: NextPage = () => {
   );
 };
 
-export default Redeem;
+export default Contribute;

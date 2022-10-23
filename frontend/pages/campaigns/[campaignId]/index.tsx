@@ -1,19 +1,19 @@
 import React from 'react';
-import CampaignCharityCard from '../../components/campaigns/campaignCharities/CampaignCharityCard';
+import CampaignCharityCard from '../../../components/campaigns/campaignCharities/CampaignCharityCard';
 import { Button, Container, Divider, Stack, Typography } from '@mui/material';
-import { theme } from '../../utils/theme';
-import CircularProgressWithLabel from '../../components/CircularProgressWithLabel';
-import SwiperWrapper from '../../components/swiper/SwiperWrapper';
-import CampaignCharityList from '../../components/campaigns/campaignCharities/CampaignCharityList';
-import api from '../../frontendApis';
-import { CampaignPublicData } from '../../types/campaigns';
-import { Nullable } from '../../types/utils';
-import CampaignDescription from '../../components/campaigns/CampaignDescription';
+import { theme } from '../../../utils/theme';
+import CircularProgressWithLabel from '../../../components/CircularProgressWithLabel';
+import SwiperWrapper from '../../../components/swiper/SwiperWrapper';
+import CampaignCharityList from '../../../components/campaigns/campaignCharities/CampaignCharityList';
+import api from '../../../frontendApis';
+import { CampaignPublicData } from '../../../types/campaigns';
+import { Nullable } from '../../../types/utils';
+import CampaignDescription from '../../../components/campaigns/CampaignDescription';
 import useSWR from 'swr';
 import { isInteger } from 'formik';
 import { useRouter } from 'next/router';
-import CampaignLoading from '../../components/campaigns/dashboard/CampaignLoading';
-import NotFound from '../404';
+import CampaignLoading from '../../../components/campaigns/dashboard/CampaignLoading';
+import NotFound from '../../404';
 import Head from 'next/head';
 
 export default function CampaignDetail() {
