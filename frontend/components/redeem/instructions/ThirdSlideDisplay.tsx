@@ -2,7 +2,6 @@ import {
   couponAmountSx,
   couponReceivedLineContainerSx,
   lineSx,
-  screenDisplaySx,
 } from '../../../styles/components/redeem/InstructionDialogStyles';
 import { Typography } from '@mui/material';
 import { Box, Stack, useTheme } from '@mui/system';
@@ -17,7 +16,7 @@ const ThirdSlideDisplay = ({ couponDenomination }: Props) => {
   const theme = useTheme();
 
   return (
-    <Stack sx={screenDisplaySx} component="div" spacing={1}>
+    <>
       <Typography>Bob will pay</Typography>
 
       <Typography sx={couponAmountSx}>${couponDenomination}</Typography>
@@ -39,7 +38,7 @@ const ThirdSlideDisplay = ({ couponDenomination }: Props) => {
           through <Box sx={givingSgLogoSx} component="img" src="/giving-sg-logo.png" />.
         </Typography>
       </Stack>
-    </Stack>
+    </>
   );
 };
 

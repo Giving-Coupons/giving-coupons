@@ -40,6 +40,10 @@ export const mockAppBarSx: SxProps = {
   padding: '4px',
 };
 
+export const toolbarLogoIconSx: SxProps = {
+  height: '1em',
+};
+
 export const mockTypographySx: SxProps = {
   fontSize: '0.8rem',
   fontWeight: 700,

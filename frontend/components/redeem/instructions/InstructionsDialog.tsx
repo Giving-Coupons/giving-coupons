@@ -1,9 +1,10 @@
 import { Dialog, Typography, useMediaQuery } from '@mui/material';
 import Button from '../../generic/Button';
 import {
-  containerSx,
+  containerSx, desktopScreenDisplaySx,
   desktopSwiperSx,
   dialogPaperSx,
+  mobileScreenDisplaySx,
   mobileSwiperSx,
   slideContainerSx,
   slideSx,
@@ -17,13 +18,13 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { ReactNode } from 'react';
 import { givingSgLogoSx } from '../../../styles/components/redeem/RedeemStyles';
-import MockMobileScreen from './MockMobileScreen';
+import MockScreen from './MockMobileScreen';
 import { PrimaryDonorData } from '../../../types/primaryDonor';
 import FirstSlideDisplay from './FirstSlideDisplay';
 import SecondSlideDisplay from './SecondSlideDisplay';
 import ThirdSlideDisplay from './ThirdSlideDisplay';
-import FourthSlideDisplay from './FourthSlideDisplay';
-import FifthSlideDisplay from './FifthSlideDisplay';
+import MockPersonalContribution from './MockPersonalContribution';
+import MockCharityDialog from './MockCharityDialog';
 
 interface Props {
   open: boolean;
@@ -64,7 +65,11 @@ const Slide = ({ instructions, display }: SlideProps) => {
           {instructions}
         </Stack>
 
-        {isMobile ? <MockMobileScreen>{display}</MockMobileScreen> : null}
+        <MockScreen>
+          <Stack sx={isMobile ? mobileScreenDisplaySx : desktopScreenDisplaySx} component="div" spacing={1}>
+            {display}
+          </Stack>
+        </MockScreen>
       </Stack>
     </Box>
   );
@@ -116,7 +121,7 @@ const InstructionsDialog = ({ open, handleClose, primaryDonor, couponDenominatio
           You can click on the charity options to find out more about how your choice impacts someone&apos;s life!
         </SlideInstruction>
       ),
-      display: <FourthSlideDisplay />,
+      display: <MockCharityDialog />,
     },
     {
       instructions: (
@@ -125,7 +130,7 @@ const InstructionsDialog = ({ open, handleClose, primaryDonor, couponDenominatio
           <Box sx={givingSgLogoSx} component="img" src="/giving-sg-logo.png" />.
         </SlideInstruction>
       ),
-      display: <FifthSlideDisplay />,
+      display: <MockPersonalContribution />,
     },
   ];
 

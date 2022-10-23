@@ -59,12 +59,22 @@ export const primaryDonorImageSx: SxProps = {
   objectFit: 'contain',
 };
 
-export const screenDisplaySx: SxProps = {
+const screenDisplaySx: SxProps = {
   width: '100%',
   height: '100%',
   alignItems: 'center',
   justifyContent: 'center',
   padding: '8px',
+};
+
+export const mobileScreenDisplaySx: SxProps = {
+  ...screenDisplaySx,
+  width: '100%',
+};
+
+export const desktopScreenDisplaySx: SxProps = {
+  ...screenDisplaySx,
+  width: '60%',
 };
 
 export const couponAmountSx: SxProps = {
