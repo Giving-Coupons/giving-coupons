@@ -22,6 +22,10 @@ export const boxSx: SxProps = {
 };
 
 export const textSx: SxProps = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  minHeight: '80px',
   color: 'white',
   fontWeight: 500,
   textAlign: 'center',
