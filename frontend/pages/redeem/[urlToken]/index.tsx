@@ -26,6 +26,7 @@ import RedeemLoading from '../../../components/redeem/RedeemLoading';
 import { messageContainerSx } from '../../../styles/campaigns/indexStyles';
 import IconButtonWithTooltip from '../../../components/IconButtonWithTooltip';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import InstructionsDialog from '../../../components/redeem/instructions/InstructionsDialog';
 
 const validationSchema = Yup.object().shape({
   campaignCharityId: Yup.number().required('Campaign charity is required'),
@@ -49,6 +50,7 @@ const Redeem: NextPage = () => {
   const maxStep = 2;
   const [activeStep, setActiveStep] = useState<number>(minStep);
   const [redeemFormValues] = useState<CouponRedeemFormData>({ amount: 10 });
+  const [openInstructions, setOpenInstructions] = useState<boolean>(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -144,6 +146,7 @@ const Redeem: NextPage = () => {
           sx={isMobile ? mobileHelpButtonSx : desktopHelpButtonSx}
           icon={<HelpOutlineIcon />}
           tooltip="Instructions"
+          onClick={() => setOpenInstructions(true)}
         />
 
         <Stack sx={containerSx} component="div" spacing={4}>
@@ -186,6 +189,8 @@ const Redeem: NextPage = () => {
             </>
           )}
         </Stack>
+
+        <InstructionsDialog open={openInstructions} handleClose={() => setOpenInstructions(false)} />
       </Container>
     </Box>
   );
