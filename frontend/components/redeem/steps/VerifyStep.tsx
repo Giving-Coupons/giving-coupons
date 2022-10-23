@@ -5,6 +5,7 @@ import { Stack } from '@mui/system';
 import RedeemFormButtons from '../RedeemFormButtons';
 import { Typography } from '@mui/material';
 import { formStepContainerSx } from '../../../styles/components/redeem/RedeemStyles';
+import { Dispatch, SetStateAction } from 'react';
 
 interface Props {
   charity: CharityListData;
@@ -12,7 +13,7 @@ interface Props {
   primaryDonorAmount: number;
   secondaryDonorAmount: number;
   activeStep: number;
-  setActiveStep: (value: ((prevState: number) => number) | number) => void;
+  setActiveStep: Dispatch<SetStateAction<number>>;
   minStep: number;
   maxStep: number;
 }

@@ -3,7 +3,7 @@ import { formStepContainerSx, radioSx } from '../../../styles/components/redeem/
 import { CampaignCharityDonationPublicData } from '../../../types/campaignCharities';
 import CampaignCharityCard from '../../campaigns/campaignCharities/CampaignCharityCard';
 import { Nullable } from '../../../types/utils';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 import CampaignCharityDialog from '../../campaigns/campaignCharities/CampaignCharityDialog';
 import { CouponRedeemFormData } from '../../../types/coupons';
 import { useField } from 'formik';
@@ -15,7 +15,7 @@ interface Props {
   campaignCharities: CampaignCharityDonationPublicData[];
   name: keyof CouponRedeemFormData;
   activeStep: number;
-  setActiveStep: (value: ((prevState: number) => number) | number) => void;
+  setActiveStep: Dispatch<SetStateAction<number>>;
   minStep: number;
   maxStep: number;
 }
