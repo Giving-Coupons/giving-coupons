@@ -24,6 +24,7 @@ import { ReactNode } from 'react';
 import { givingSgLogoSx } from '../../../styles/components/redeem/RedeemStyles';
 import MobileScreen from './MobileScreen';
 import { PrimaryDonorData } from '../../../types/primaryDonor';
+import MockCharityCard from './MockCharityCard';
 
 interface Props {
   open: boolean;
@@ -102,7 +103,16 @@ const InstructionsDialog = ({ open, handleClose, primaryDonor, couponDenominatio
           You will see {charitiesCount} charities. You can only choose 1 of them to give the ${couponDenomination} to.
         </Typography>
       ),
-      display: null,
+      display: (
+        <Stack sx={screenDisplaySx} component="div" spacing={1}>
+          <Typography variant="caption" fontWeight={700}>
+            Select a charity to give {primaryDonor.name}&apos;s ${couponDenomination}
+          </Typography>
+          {Array.from(Array(charitiesCount).keys()).map((index) => (
+            <MockCharityCard key={index} />
+          ))}
+        </Stack>
+      ),
     },
     {
       instructions: (

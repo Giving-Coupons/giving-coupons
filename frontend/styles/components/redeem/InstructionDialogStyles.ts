@@ -60,7 +60,11 @@ export const primaryDonorImageSx: SxProps = {
 };
 
 export const screenDisplaySx: SxProps = {
+  width: '100%',
+  height: '100%',
   alignItems: 'center',
+  justifyContent: 'center',
+  padding: '8px',
 };
 
 export const couponAmountSx: SxProps = {
