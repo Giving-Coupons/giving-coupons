@@ -105,4 +105,5 @@ export const mobileHelpButtonSx: SxProps = {
   position: 'absolute',
   right: theme.spacing(1),
   top: `calc(${theme.mixins.toolbar.minHeight}px + ${theme.spacing(1)})`,
+  zIndex: 1,
 };
