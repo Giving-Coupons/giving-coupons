@@ -5,4 +5,3 @@ json.partial! 'secondary_donations/breakdown', donation_breakdown: campaign_char
 json.primaryDonor do
   json.partial! 'primary_donors/primary_donor', primary_donor: campaign_charity.campaign.primary_donor
 end
-json.attributes!.delete('givingSgUrl')
