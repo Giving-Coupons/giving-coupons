@@ -25,6 +25,7 @@ import { givingSgLogoSx } from '../../../styles/components/redeem/RedeemStyles';
 import MobileScreen from './MobileScreen';
 import { PrimaryDonorData } from '../../../types/primaryDonor';
 import MockCharityCard from './MockCharityCard';
+import MockCharityDialog from './MockCharityDialog';
 
 interface Props {
   open: boolean;
@@ -153,7 +154,11 @@ const InstructionsDialog = ({ open, handleClose, primaryDonor, couponDenominatio
           You can click on the charity options to find out more about how your choice impacts someone&apos;s life!
         </Typography>
       ),
-      display: null,
+      display: (
+        <Stack sx={screenDisplaySx} component="div" spacing={1}>
+          <MockCharityDialog />
+        </Stack>
+      ),
     },
     {
       instructions: (
