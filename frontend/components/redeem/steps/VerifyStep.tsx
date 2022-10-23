@@ -27,7 +27,7 @@ const VerifyStep = ({
   maxStep,
 }: Props) => {
   return (
-    <Stack sx={formStepContainerSx} component="div">
+    <Stack sx={formStepContainerSx} component="div" spacing={2}>
       <Stack component="div" width="100%" spacing={4}>
         <Typography variant="h2" align="center">
           Verify your {couponSponsorship ? 'redemption' : 'contribution'}

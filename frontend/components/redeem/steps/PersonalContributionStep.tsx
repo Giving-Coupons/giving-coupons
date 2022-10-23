@@ -36,56 +36,58 @@ const PersonalContributionStep = ({
   const [openRedirectDialog, setOpenRedirectDialog] = useState<boolean>(false);
 
   return (
-    <Stack sx={formStepContainerSx} component="div">
-      <Typography variant="h2" align="center">
-        {couponSponsorship
-          ? `${couponSponsorship.primaryDonorName} will be giving $${couponSponsorship.couponDenomination} to`
-          : 'You have chosen to contribute to'}
-      </Typography>
-
-      <Stack component="div" direction="row" spacing={2} alignItems="center">
-        <Box sx={charityLogoSx} component="img" src={campaignCharity.charity.logoBase64} />
-
-        <Typography variant="h4">{campaignCharity.charity.name}</Typography>
-      </Stack>
-
-      <Stack component="div" alignItems="center" spacing={1}>
+    <Stack sx={formStepContainerSx} component="div" spacing={2}>
+      <Stack spacing={4} width="100%" alignItems="center">
         <Typography variant="h2" align="center">
-          {couponSponsorship ? 'Do you want to add a personal contribution too?' : 'How much would you like to give?'}
+          {couponSponsorship
+            ? `${couponSponsorship.primaryDonorName} will be giving $${couponSponsorship.couponDenomination} to`
+            : 'You have chosen to contribute to'}
         </Typography>
 
-        <Typography variant="body2" align="center">
-          Your donation will be securely transferred through{' '}
-          <Box sx={givingSgLogoSx} component="img" src="/giving-sg-logo.png" />
-        </Typography>
-      </Stack>
+        <Stack component="div" direction="row" spacing={2} alignItems="center">
+          <Box sx={charityLogoSx} component="img" src={campaignCharity.charity.logoBase64} />
 
-      <Stack component="div" alignItems="center">
-        <FormTextInput
-          name={fieldName}
-          label="Amount"
-          InputProps={{
-            startAdornment: <InputAdornment position="start">$</InputAdornment>,
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButtonWithTooltip icon={<HighlightOffIcon />} tooltip="Clear" onClick={() => setValue(null)} />
-              </InputAdornment>
-            ),
-          }}
-        />
+          <Typography variant="h4">{campaignCharity.charity.name}</Typography>
+        </Stack>
 
-        <Stack component="div" spacing={1}>
-          <Typography variant="caption">Can&apos;t decide? Choose an amount:</Typography>
+        <Stack component="div" alignItems="center" spacing={1}>
+          <Typography variant="h2" align="center">
+            {couponSponsorship ? 'Do you want to add a personal contribution too?' : 'How much would you like to give?'}
+          </Typography>
 
-          <Stack component="div" direction="row" spacing={2}>
-            {[10, 15, 20, 25].map((value) => (
-              <FormAmountButton name={fieldName} value={value} key={value} />
-            ))}
+          <Typography variant="body2" align="center">
+            Your donation will be securely transferred through{' '}
+            <Box sx={givingSgLogoSx} component="img" src="/giving-sg-logo.png" />
+          </Typography>
+        </Stack>
+
+        <Stack component="div" alignItems="center">
+          <FormTextInput
+            name={fieldName}
+            label="Amount"
+            InputProps={{
+              startAdornment: <InputAdornment position="start">$</InputAdornment>,
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButtonWithTooltip icon={<HighlightOffIcon />} tooltip="Clear" onClick={() => setValue(null)} />
+                </InputAdornment>
+              ),
+            }}
+          />
+
+          <Stack component="div" spacing={1}>
+            <Typography variant="caption">Can&apos;t decide? Choose an amount:</Typography>
+
+            <Stack component="div" direction="row" spacing={2}>
+              {[10, 15, 20, 25].map((value) => (
+                <FormAmountButton name={fieldName} value={value} key={value} />
+              ))}
+            </Stack>
           </Stack>
         </Stack>
-      </Stack>
 
-      <DidYouKnow />
+        <DidYouKnow />
+      </Stack>
 
       <FormNavigationButtons
         activeStep={activeStep}

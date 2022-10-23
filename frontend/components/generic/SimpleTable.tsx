@@ -1,3 +1,4 @@
+import { simpleTableStyles } from '../../styles/components/SimpleTable/simpleTableStyles';
 import * as React from 'react';
 import {
   CircularProgress,
@@ -86,8 +87,8 @@ export default function SimpleTable<D>({
   };
 
   return (
-    <TableContainer component={shouldUsePaper ? Paper : 'div'}>
-      <Table>
+    <TableContainer component={shouldUsePaper ? Paper : 'div'} sx={simpleTableStyles}>
+      <Table stickyHeader>
         <TableHead>
           <TableRow>
             {columns.map(({ title, key }, index) => (

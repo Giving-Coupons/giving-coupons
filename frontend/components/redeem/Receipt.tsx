@@ -1,4 +1,4 @@
-import { Avatar, Box, Divider, Grid, Stack, Typography } from '@mui/material';
+import { Avatar, Box, Divider, Stack, Typography } from '@mui/material';
 import { headerSx, imageSx, stackSx } from '../../styles/components/redeem/ReceiptStyles';
 import { CharityListData } from '../../types/charity';
 import { CouponSponsorship } from '../../types/primaryDonor';
@@ -52,17 +52,13 @@ interface ReceiptItemProps {
 
 const ReceiptItem = ({ imageBaseUrl, text }: ReceiptItemProps) => {
   return (
-    <Grid container alignItems="center">
-      <Grid item xs={1}>
-        <Avatar variant="rounded">
-          {imageBaseUrl ? <Box sx={imageSx} component="img" src={imageBaseUrl} /> : <AccountBoxIcon />}
-        </Avatar>
-      </Grid>
+    <Stack direction="row" spacing={1} alignItems="center">
+      <Avatar variant="rounded">
+        {imageBaseUrl ? <Box sx={imageSx} component="img" src={imageBaseUrl} /> : <AccountBoxIcon />}
+      </Avatar>
 
-      <Grid item xs={11} padding={2}>
-        <Typography variant="h4">{text}</Typography>
-      </Grid>
-    </Grid>
+      <Typography variant="h4">{text}</Typography>
+    </Stack>
   );
 };
 
