@@ -194,7 +194,7 @@ const Redeem: NextPage = () => {
           <InstructionsDialog
             open={openInstructions}
             handleClose={() => setOpenInstructions(false)}
-            primaryDonorName={coupon.campaign.primaryDonor.name}
+            primaryDonor={coupon.campaign.primaryDonor}
             couponDenomination={coupon.denomination}
             charitiesCount={coupon.charities.length}
           />

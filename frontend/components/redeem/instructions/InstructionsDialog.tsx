@@ -2,9 +2,14 @@ import { Dialog, Typography, useMediaQuery } from '@mui/material';
 import Button from '../../generic/Button';
 import {
   containerSx,
+  couponAmountSx,
+  couponReceivedLineContainerSx,
   desktopSwiperSx,
   dialogPaperSx,
+  lineSx,
   mobileSwiperSx,
+  primaryDonorImageSx,
+  screenDisplaySx,
   slideContainerSx,
   slideSx,
 } from '../../../styles/components/redeem/InstructionDialogStyles';
@@ -17,32 +22,40 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { ReactNode } from 'react';
 import { givingSgLogoSx } from '../../../styles/components/redeem/RedeemStyles';
+import MobileScreen from './MobileScreen';
+import { PrimaryDonorData } from '../../../types/primaryDonor';
 
 interface Props {
   open: boolean;
   handleClose: () => void;
-  primaryDonorName: string;
+  primaryDonor: PrimaryDonorData;
   couponDenomination: number;
   charitiesCount: number;
 }
 
 interface SlideProps {
   instructions: ReactNode;
+  display: ReactNode;
 }
 
-const Slide = ({ instructions }: SlideProps) => {
+const Slide = ({ instructions, display }: SlideProps) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
   return (
     <Box sx={slideContainerSx}>
       <Stack sx={slideSx} component="div">
         <Stack component="div" spacing={2}>
           {instructions}
         </Stack>
+
+        {isMobile ? <MobileScreen>{display}</MobileScreen> : null}
       </Stack>
     </Box>
   );
 };
 
-const InstructionsDialog = ({ open, handleClose, primaryDonorName, couponDenomination, charitiesCount }: Props) => {
+const InstructionsDialog = ({ open, handleClose, primaryDonor, couponDenomination, charitiesCount }: Props) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const slideProps: SlideProps[] = [
@@ -54,10 +67,33 @@ const InstructionsDialog = ({ open, handleClose, primaryDonorName, couponDenomin
           </Typography>
 
           <Typography variant={isMobile ? 'h4' : 'h3'} align="center">
-            Our kind donor {primaryDonorName} has sponsored you ${couponDenomination} to donate to a charity of your
+            Our kind donor {primaryDonor.name} has sponsored you ${couponDenomination} to donate to a charity of your
             choice.
           </Typography>
         </>
+      ),
+      display: (
+        <Stack sx={screenDisplaySx} component="div">
+          <Typography>You have received</Typography>
+
+          <Typography sx={couponAmountSx}>${couponDenomination}</Typography>
+
+          <Stack sx={couponReceivedLineContainerSx} component="div" direction="row">
+            <Box sx={lineSx} />
+
+            <Typography variant="caption" color={theme.palette.grey[700]}>
+              From
+            </Typography>
+
+            <Box sx={lineSx} />
+          </Stack>
+
+          <Stack component="div" direction="row" alignItems="center" spacing={1}>
+            <Box sx={primaryDonorImageSx} component="img" src={primaryDonor.imageBase64} />
+
+            <Typography variant="h4">{primaryDonor.name}</Typography>
+          </Stack>
+        </Stack>
       ),
     },
     {
@@ -66,14 +102,16 @@ const InstructionsDialog = ({ open, handleClose, primaryDonorName, couponDenomin
           You will see {charitiesCount} charities. You can only choose 1 of them to give the ${couponDenomination} to.
         </Typography>
       ),
+      display: null,
     },
     {
       instructions: (
         <Typography variant={isMobile ? 'h4' : 'h3'} align="center">
-          Once this campaign ends, {primaryDonorName} will transfer the ${couponDenomination} directly to your chosen
+          Once this campaign ends, {primaryDonor.name} will transfer the ${couponDenomination} directly to your chosen
           charity through <Box sx={givingSgLogoSx} component="img" src="/giving-sg-logo.png" />.
         </Typography>
       ),
+      display: null,
     },
     {
       instructions: (
@@ -81,6 +119,7 @@ const InstructionsDialog = ({ open, handleClose, primaryDonorName, couponDenomin
           You can click on the charity options to find out more about how your choice impacts someone&apos;s life!
         </Typography>
       ),
+      display: null,
     },
     {
       instructions: (
@@ -89,6 +128,7 @@ const InstructionsDialog = ({ open, handleClose, primaryDonorName, couponDenomin
           <Box sx={givingSgLogoSx} component="img" src="/giving-sg-logo.png" />.
         </Typography>
       ),
+      display: null,
     },
   ];
 
@@ -108,7 +148,7 @@ const InstructionsDialog = ({ open, handleClose, primaryDonorName, couponDenomin
         >
           {slideProps.map((slideProp, index) => (
             <SwiperSlide key={index}>
-              <Slide instructions={slideProp.instructions} />
+              <Slide instructions={slideProp.instructions} display={slideProp.display} />
             </SwiperSlide>
           ))}
         </Swiper>
