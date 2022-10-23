@@ -29,9 +29,10 @@ const CampaignListCard = ({ campaign }: Props) => {
       <CompetingGraph
         overrideGraphSx={graphSx}
         topLabelTitle={`$${primaryDonorDonationData.amount}`}
-        topLabels={['by the primary donor']}
+        // TODO: Replace primary donor with actual name once backend is modified.
+        topLabels={['by the organizer']}
         bottomLabelTitle={`$${secondaryDonorDonationData.amount}`}
-        bottomLabels={['by the secondary donors']}
+        bottomLabels={['by people like you']}
         barFractions={[primaryDonorDonationData.fraction, secondaryDonorDonationData.fraction]}
       />
     </Container>

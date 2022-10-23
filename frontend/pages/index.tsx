@@ -64,7 +64,7 @@ const HeadlineSection = () => (
     <Grid item xs={12} sm={12} md={6} lg={6} sx={headlineTextGridSx}>
       <Stack sx={headlineTextStackSx}>
         <Typography variant="hero" align="center" textAlign="left" fontWeight="900">
-          Together, we are more
+          Share the gift of giving
         </Typography>
 
         <Typography
@@ -75,7 +75,8 @@ const HeadlineSection = () => (
           textAlign="left"
           fontWeight="500"
         >
-          Giving Coupons is an initiative to raise money for charities through public gift matching
+          Giving Coupons is an initiative to raise awareness and money for charities by empowering more people to
+          donate.
         </Typography>
 
         <Button
@@ -114,11 +115,11 @@ const StatsSection = () => {
 
       <Box width="80%">
         <Grid sx={statsSectionGridSx} container spacing={2}>
-          <StatItem imgSrc="/icon-charity.png" stat="$4,500" subtitle="Additional funds raised for charity" />
+          <StatItem imgSrc="/icon-charity.png" stat="$1,600" subtitle="Additional funds raised for charity" />
 
-          <StatItem imgSrc="/icon-voucher.png" stat="632" subtitle="Coupons issued" />
+          <StatItem imgSrc="/icon-voucher.png" stat="160" subtitle="Coupons issued" />
 
-          <StatItem imgSrc="/icon-love.png" stat="20972" subtitle="Lives impacted" />
+          <StatItem imgSrc="/icon-love.png" stat="8" subtitle="Charities supported" />
         </Grid>
       </Box>
     </Stack>
@@ -161,14 +162,24 @@ const HowItWorksSection = () => {
         </Typography>
       </Grid>
 
-      <GridItem imgSrc="/public-relation.png" text="Donors commit a sum to one or more charities" alignTo="start" />
+      <GridItem
+        imgSrc="/public-relation.png"
+        text="Donors start a campaign by committing a sum to one or more charities"
+        alignTo="start"
+      />
 
-      <GridItem text="Giving Coupons generates coupons" imgSrc="/icon-voucher.png" alignTo="end" />
+      <GridItem text="Giving Coupons generates and prints out coupons" imgSrc="/icon-voucher.png" alignTo="end" />
 
       <GridItem
         imgSrc="/icon-charity.png"
-        text="Coupon recipients choose which charities gets the donation"
+        text="Coupon recipients choose which charities gets the donation, and can add their own contributions"
         alignTo="start"
+      />
+
+      <GridItem
+        imgSrc="/icon-love.png"
+        text="The selected charities directly receive the funds from the donor or via Giving.SG"
+        alignTo="end"
       />
     </Grid>
   );
