@@ -1,5 +1,14 @@
 import { SxProps } from '@mui/material';
 
+export const dialogSx: SxProps = {
+  '& .MuiDialog-container': {
+    '& .MuiPaper-root': {
+      width: '100%',
+      maxWidth: '1000px',
+    },
+  },
+};
+
 export const dialogTitleSx: SxProps = {
   padding: '10px',
 };
@@ -7,8 +16,6 @@ export const dialogTitleSx: SxProps = {
 export const dialogContentSx: SxProps = { padding: 0 };
 
 export const dialogContentTextSx: SxProps = { padding: '10px' };
-
-export const dialogActionsSx: SxProps = { justifyContent: 'space-between' };
 
 export const charityLogoSx: SxProps = {
   maxHeight: '40px',

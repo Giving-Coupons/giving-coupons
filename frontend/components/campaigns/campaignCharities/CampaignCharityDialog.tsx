@@ -1,3 +1,4 @@
+import CloseIcon from '@mui/icons-material/Close';
 import LinkIcon from '@mui/icons-material/Link';
 import {
   Box,
@@ -5,6 +6,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  IconButton,
   Stack,
   Typography,
   useMediaQuery,
@@ -14,9 +16,9 @@ import { useRouter } from 'next/router';
 import { charityLogoSx } from '../../../styles/components/charities/CampaignCharityCardStyles';
 import {
   charityImageSx,
-  dialogActionsSx,
   dialogContentSx,
   dialogContentTextSx,
+  dialogSx,
   dialogTitleSx,
 } from '../../../styles/components/charities/CampaignCharityDialogStyles';
 import { CampaignCharityDonationPublicData } from '../../../types/campaignCharities';
@@ -34,12 +36,18 @@ const CampaignCharityDialog = ({ campaignCharity, open, handleClose }: Props) =>
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
-    <Dialog fullScreen={isMobile} maxWidth="md" open={open} onClose={handleClose}>
+    <Dialog fullScreen={isMobile} maxWidth="md" open={open} onClose={handleClose} sx={dialogSx}>
       <DialogTitle sx={dialogTitleSx}>
-        <Stack component="div" direction="row" spacing={2} alignItems="center">
-          <Box sx={charityLogoSx} component="img" src={campaignCharity.charity.logoBase64} />
+        <Stack component="div" direction="row" justifyContent="space-between">
+          <Stack component="div" direction="row" spacing={2} alignItems="center">
+            <Box sx={charityLogoSx} component="img" src={campaignCharity.charity.logoBase64} />
 
-          <Typography variant="h2">{campaignCharity.charity.name}</Typography>
+            <Typography variant="h2">{campaignCharity.charity.name}</Typography>
+          </Stack>
+
+          <IconButton onClick={handleClose}>
+            <CloseIcon />
+          </IconButton>
         </Stack>
       </DialogTitle>
 
@@ -49,18 +57,14 @@ const CampaignCharityDialog = ({ campaignCharity, open, handleClose }: Props) =>
         <Typography sx={dialogContentTextSx}>{campaignCharity.charity.description}</Typography>
       </DialogContent>
 
-      <DialogActions sx={dialogActionsSx}>
+      <DialogActions>
         <Button
           actionType="mutedWithoutOutline"
-          size="small"
+          fullWidth
           startIcon={<LinkIcon />}
           onClick={() => router.push(campaignCharity.charity.websiteUrl)}
         >
           Vist Page
-        </Button>
-
-        <Button actionType="mutedWithoutOutline" size="small" onClick={handleClose}>
-          Close
         </Button>
       </DialogActions>
     </Dialog>
