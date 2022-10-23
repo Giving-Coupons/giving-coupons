@@ -8,18 +8,23 @@ import CampaignIcon from '../../components/icons/CampaignIcon';
 import { useRouter } from 'next/router';
 import ContributeIcon from '../../components/icons/ContributeIcon';
 import ExploreIcon from '../../components/icons/ExploreIcon';
+import { isInteger } from 'formik';
 
 const ThankYou: NextPage = () => {
   const router = useRouter();
+  const campaignId = router.query.campaignId;
 
   const buttonProps = [
-    {
-      icon: <ContributeIcon />,
-      title: 'Contribute more',
-      description: 'Have another charity in mind? Contribute more to this campaign.',
-      // TODO: Contribute is not implemented yet
-      onClick: () => router.push('/'),
-    },
+    ...(isInteger(campaignId)
+      ? [
+          {
+            icon: <ContributeIcon />,
+            title: 'Contribute more',
+            description: 'Have another charity in mind? Contribute more to this campaign.',
+            onClick: () => router.push(`/campaigns/${campaignId}/contribute`),
+          },
+        ]
+      : []),
     {
       icon: <ExploreIcon />,
       title: 'Explore other campaigns',

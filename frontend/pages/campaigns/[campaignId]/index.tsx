@@ -17,8 +17,9 @@ import NotFound from '../../404';
 import Head from 'next/head';
 
 export default function CampaignDetail() {
-  const { query } = useRouter();
-  const campaignId = query.campaignId && isInteger(query.campaignId) ? Number(query.campaignId) : null;
+  const router = useRouter();
+  const campaignId =
+    router.query.campaignId && isInteger(router.query.campaignId) ? Number(router.query.campaignId) : null;
 
   const { data: campaign, error } = useSWR<Nullable<CampaignPublicData>>([campaignId], (campaignId) =>
     campaignId !== null ? api.campaigns.getCampaign(campaignId).then((res) => res.payload) : null,
@@ -76,7 +77,9 @@ export default function CampaignDetail() {
             <Stack alignItems="center" spacing={2}>
               <Typography variant="h2">{numCouponsRedeemed}</Typography>
               <Typography variant="h4">{`of ${numTotalCoupons} coupons redeemed.`}</Typography>
-              <Button variant="contained">Contribute</Button>
+              <Button variant="contained" onClick={() => router.push(`/campaigns/${campaignId}/contribute`)}>
+                Contribute
+              </Button>
             </Stack>
           }
         />

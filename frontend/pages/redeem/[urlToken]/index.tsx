@@ -65,7 +65,7 @@ const Redeem: NextPage = () => {
 
         return api.coupons.redeemCoupon(couponRedeemPostData);
       })
-      .then(() => router.push('/redeem/thank-you'));
+      .then(() => router.push({ pathname: '/redeem/thank-you', query: { campaignId: coupon?.campaign.id } }));
   };
 
   const renderFormPage = (activeStep: number, values: CouponRedeemFormData) => {
@@ -161,6 +161,7 @@ const Redeem: NextPage = () => {
 
           {hasLoadedSuccessfully && coupon.campaignCharity && (
             <AlreadyRedeemedDisplay
+              campaignId={coupon.campaign.id}
               campaignCharity={coupon.campaignCharity}
               primaryDonor={coupon.campaign.primaryDonor}
               primaryDonorAmount={coupon.denomination}

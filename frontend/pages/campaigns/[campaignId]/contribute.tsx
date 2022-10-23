@@ -65,7 +65,7 @@ const Contribute: NextPage = () => {
 
         return api.secondaryDonations.addSecondaryDonation(secondaryDonationPostData);
       })
-      .then(() => router.push('/redeem/thank-you'));
+      .then(() => router.push({ pathname: '/redeem/thank-you', query: { campaignId } }));
   };
 
   const renderFormPage = (activeStep: number, values: SecondaryDonationFormData) => {

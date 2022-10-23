@@ -5,15 +5,24 @@ import Button from '../generic/Button';
 import { PrimaryDonorData } from '../../types/primaryDonor';
 import { Typography } from '@mui/material';
 import { alreadyRedeemedContainerSx } from '../../styles/components/redeem/RedeemStyles';
+import { useRouter } from 'next/router';
 
 interface Props {
+  campaignId: number;
   campaignCharity: CampaignCharityData;
   primaryDonor: PrimaryDonorData;
   primaryDonorAmount: number;
   secondaryDonorAmount: number;
 }
 
-const AlreadyRedeemedDisplay = ({ campaignCharity, primaryDonor, primaryDonorAmount, secondaryDonorAmount }: Props) => {
+const AlreadyRedeemedDisplay = ({
+  campaignId,
+  campaignCharity,
+  primaryDonor,
+  primaryDonorAmount,
+  secondaryDonorAmount,
+}: Props) => {
+  const router = useRouter();
   return (
     <Stack sx={alreadyRedeemedContainerSx} component="div">
       <Stack component="div" spacing={4}>
@@ -23,13 +32,14 @@ const AlreadyRedeemedDisplay = ({ campaignCharity, primaryDonor, primaryDonorAmo
 
         <Receipt
           charity={campaignCharity.charity}
-          primaryDonor={primaryDonor}
-          primaryDonorAmount={primaryDonorAmount}
+          couponSponsorship={{ primaryDonor, primaryDonorAmount }}
           secondaryDonorAmount={secondaryDonorAmount}
         />
       </Stack>
 
-      <Button actionType="primary">Contribute directly</Button>
+      <Button actionType="primary" onClick={() => router.push(`/campaigns/${campaignId}/contribute`)}>
+        Contribute directly
+      </Button>
     </Stack>
   );
 };
