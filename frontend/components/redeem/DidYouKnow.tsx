@@ -4,7 +4,6 @@ import { boxSx, stackSx, textSx } from '../../styles/components/redeem/DidYouKno
 
 // TODO: Change this if needed
 const DID_YOU_KNOW_FACTS: string[] = [
-  '$5 can cover a round trip for seniors or the disabled to their medical appointments',
   '$2 can feed a hungry neighbour',
   '$5 can cover a round trip for seniors or the disabled to their medical appointments',
   '$10 pays for 5 breakfasts for the elderly at nursing homes',
