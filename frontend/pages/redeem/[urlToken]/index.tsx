@@ -45,12 +45,13 @@ const Redeem: NextPage = () => {
   );
   const isLoading = !coupon && !error;
   const hasLoadedSuccessfully = !error && coupon;
+  const isCouponNotRedeemed = hasLoadedSuccessfully && !coupon.campaignCharity;
 
   const minStep = 0;
   const maxStep = 2;
   const [activeStep, setActiveStep] = useState<number>(minStep);
   const [redeemFormValues] = useState<CouponRedeemFormData>({ amount: 10 });
-  const [openInstructions, setOpenInstructions] = useState<boolean>(false);
+  const [openInstructions, setOpenInstructions] = useState<boolean>(true);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -142,12 +143,14 @@ const Redeem: NextPage = () => {
       </Head>
 
       <Container component="main" maxWidth="md">
-        <IconButtonWithTooltip
-          sx={isMobile ? mobileHelpButtonSx : desktopHelpButtonSx}
-          icon={<HelpOutlineIcon />}
-          tooltip="Instructions"
-          onClick={() => setOpenInstructions(true)}
-        />
+        {isCouponNotRedeemed && (
+          <IconButtonWithTooltip
+            sx={isMobile ? mobileHelpButtonSx : desktopHelpButtonSx}
+            icon={<HelpOutlineIcon />}
+            tooltip="Instructions"
+            onClick={() => setOpenInstructions(true)}
+          />
+        )}
 
         <Stack sx={containerSx} component="div" spacing={4}>
           {isLoading && (
@@ -175,7 +178,7 @@ const Redeem: NextPage = () => {
             />
           )}
 
-          {hasLoadedSuccessfully && !coupon.campaignCharity && (
+          {isCouponNotRedeemed && (
             <>
               <RedeemStepper activeStep={activeStep} />
 
@@ -190,7 +193,7 @@ const Redeem: NextPage = () => {
           )}
         </Stack>
 
-        {hasLoadedSuccessfully && (
+        {isCouponNotRedeemed && (
           <InstructionsDialog
             open={openInstructions}
             handleClose={() => setOpenInstructions(false)}
