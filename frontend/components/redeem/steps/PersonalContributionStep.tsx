@@ -1,7 +1,7 @@
 import { Stack } from '@mui/system';
 import { charityLogoSx, formStepContainerSx, givingSgLogoSx } from '../../../styles/components/redeem/RedeemStyles';
 import { Box, InputAdornment, Typography } from '@mui/material';
-import RedeemFormButtons from '../RedeemFormButtons';
+import FormNavigationButtons from '../FormNavigationButtons';
 import { CampaignCharityData } from '../../../types/campaignCharities';
 import FormTextInput from '../../forms/FormTextInput';
 import FormAmountButton from '../../forms/FormAmountButton';
@@ -86,7 +86,7 @@ const PersonalContributionStep = ({
 
       <DidYouKnow />
 
-      <RedeemFormButtons
+      <FormNavigationButtons
         activeStep={activeStep}
         shouldDisablePrimaryButton={!!error}
         setActiveStep={setActiveStep}

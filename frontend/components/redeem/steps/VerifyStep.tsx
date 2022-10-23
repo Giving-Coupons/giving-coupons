@@ -2,7 +2,7 @@ import { CharityListData } from '../../../types/charity';
 import { PrimaryDonorData } from '../../../types/primaryDonor';
 import Receipt from '../Receipt';
 import { Stack } from '@mui/system';
-import RedeemFormButtons from '../RedeemFormButtons';
+import FormNavigationButtons from '../FormNavigationButtons';
 import { Typography } from '@mui/material';
 import { formStepContainerSx } from '../../../styles/components/redeem/RedeemStyles';
 import { Dispatch, SetStateAction } from 'react';
@@ -43,7 +43,12 @@ const VerifyStep = ({
         />
       </Stack>
 
-      <RedeemFormButtons activeStep={activeStep} setActiveStep={setActiveStep} minStep={minStep} maxStep={maxStep} />
+      <FormNavigationButtons
+        activeStep={activeStep}
+        setActiveStep={setActiveStep}
+        minStep={minStep}
+        maxStep={maxStep}
+      />
     </Stack>
   );
 };

@@ -7,7 +7,7 @@ import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 import CampaignCharityDialog from '../../campaigns/campaignCharities/CampaignCharityDialog';
 import { CouponRedeemFormData } from '../../../types/coupons';
 import { useField } from 'formik';
-import RedeemFormButtons from '../RedeemFormButtons';
+import FormNavigationButtons from '../FormNavigationButtons';
 
 interface Props {
   primaryDonorName: string;
@@ -66,7 +66,7 @@ const CharitySelectionStep = ({
         </RadioGroup>
       </Stack>
 
-      <RedeemFormButtons
+      <FormNavigationButtons
         activeStep={activeStep}
         setActiveStep={setActiveStep}
         minStep={minStep}

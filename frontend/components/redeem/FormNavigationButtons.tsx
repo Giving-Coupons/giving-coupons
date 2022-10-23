@@ -16,7 +16,7 @@ interface Props {
   shouldDisablePrimaryButton?: boolean;
 }
 
-const RedeemFormButtons = ({
+const FormNavigationButtons = ({
   activeStep,
   setActiveStep,
   minStep,
@@ -75,7 +75,7 @@ const RedeemFormButtons = ({
       )}
 
       {isLastStep && (
-        <Button type="submit" actionType="primary">
+        <Button type="submit" actionType="primary" disabled={shouldDisablePrimaryButton}>
           Finish
         </Button>
       )}
@@ -83,4 +83,4 @@ const RedeemFormButtons = ({
   );
 };
 
-export default RedeemFormButtons;
+export default FormNavigationButtons;
