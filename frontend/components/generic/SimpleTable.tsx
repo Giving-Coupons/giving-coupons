@@ -1,3 +1,4 @@
+import { simpleTableStyles } from '../../styles/components/SimpleTable/simpleTableStyles';
 import * as React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -7,7 +8,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { CircularProgress, Grid } from '@mui/material';
-import { simpleTableStyles } from '../../styles/components/SimpleTable/simpleTableStyles';
 
 type TableColumn<D, K> = K extends keyof D
   ? D[K] extends React.ReactNode
