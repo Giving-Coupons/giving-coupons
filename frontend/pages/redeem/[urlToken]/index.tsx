@@ -190,7 +190,15 @@ const Redeem: NextPage = () => {
           )}
         </Stack>
 
-        <InstructionsDialog open={openInstructions} handleClose={() => setOpenInstructions(false)} />
+        {hasLoadedSuccessfully && (
+          <InstructionsDialog
+            open={openInstructions}
+            handleClose={() => setOpenInstructions(false)}
+            primaryDonorName={coupon.campaign.primaryDonor.name}
+            couponDenomination={coupon.denomination}
+            charitiesCount={coupon.charities.length}
+          />
+        )}
       </Container>
     </Box>
   );
