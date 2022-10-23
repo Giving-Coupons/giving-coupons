@@ -52,7 +52,7 @@ const Contribute: NextPage = () => {
   const handleSubmit = (values: SecondaryDonationFormData) => {
     if (campaignId === null) {
       // This should never be available as useSWR will set error / loading and form will not be visible. (Defensive)
-      return Promise.reject('urlToken is invalid.');
+      return Promise.reject('campaignId is invalid.');
     }
 
     validationSchema
