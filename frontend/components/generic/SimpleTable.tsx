@@ -1,12 +1,16 @@
 import * as React from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import { CircularProgress, Grid } from '@mui/material';
+import {
+  CircularProgress,
+  Grid,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TableSortLabel,
+} from '@mui/material';
 
 type TableColumn<D, K> = K extends keyof D
   ? D[K] extends React.ReactNode
@@ -38,25 +42,64 @@ type Action<D> = {
   onClick: (row: D) => void;
 };
 
+type Order = 'asc' | 'desc';
+
+type OrderingData<D> = {
+  order: 'asc' | 'desc';
+  orderBy: keyof D;
+};
+
 type Props<D> = {
   columns: TableColumn<D, keyof D>[];
   rows: D[];
   actions?: Action<D>[];
   isLoading?: boolean;
   shouldUsePaper?: boolean;
+  initialOrder?: OrderingData<D>;
 };
 
-export default function SimpleTable<D>({ columns, rows, actions = [], isLoading, shouldUsePaper = true }: Props<D>) {
+export default function SimpleTable<D>({
+  columns,
+  rows,
+  actions = [],
+  isLoading,
+  shouldUsePaper = true,
+  initialOrder,
+}: Props<D>) {
   const hasActions = actions.length > 0;
   const numColumns = columns.length + (hasActions ? 1 : 0);
+  const [orderingData, setOrderingData] = React.useState<OrderingData<D> | undefined>(initialOrder);
+  const sorter = !orderingData
+    ? (rows: D[]) => rows
+    : (rows: D[]) => rows.sort(getComparator<D, keyof D>(orderingData.order, orderingData.orderBy));
+
+  const createSortHandler = (property: keyof D) => () => {
+    if (!orderingData) {
+      return setOrderingData({ order: 'asc', orderBy: property });
+    }
+    const { order, orderBy } = orderingData;
+    if (orderBy !== property) {
+      return setOrderingData({ order: 'asc', orderBy: property });
+    } else {
+      return setOrderingData({ order: 'asc' === order ? 'desc' : 'asc', orderBy: property });
+    }
+  };
 
   return (
     <TableContainer component={shouldUsePaper ? Paper : 'div'}>
       <Table>
         <TableHead>
           <TableRow>
-            {columns.map(({ title }, index) => (
-              <TableCell key={index}>{title}</TableCell>
+            {columns.map(({ title, key }, index) => (
+              <TableCell key={index} sortDirection={orderingData?.orderBy === key ? orderingData?.order : false}>
+                <TableSortLabel
+                  active={orderingData?.orderBy === key}
+                  direction={orderingData?.orderBy === key ? orderingData?.order : 'asc'}
+                  onClick={createSortHandler(key)}
+                >
+                  {title}
+                </TableSortLabel>
+              </TableCell>
             ))}
 
             {hasActions && <TableCell title="Actions">Actions</TableCell>}
@@ -79,7 +122,7 @@ export default function SimpleTable<D>({ columns, rows, actions = [], isLoading,
               </TableCell>
             </TableRow>
           ) : (
-            rows.map((row, index) => {
+            sorter(rows).map((row, index) => {
               const definiteColumns = columns.map(defineTransformOnTableColumn);
               const dataCells = definiteColumns.map(({ key, transformValue }, index) => (
                 <TableCell key={index}>{transformValue(row[key])}</TableCell>
@@ -111,4 +154,27 @@ function defineTransformOnTableColumn<D, K extends keyof D>(
       arg: D[K],
     ) => React.ReactNode,
   };
+}
+
+function getComparator<D, K extends keyof D>(
+  order: Order,
+  orderBy: K,
+): (a: { [key in K]: unknown }, b: { [key in K]: unknown }) => number {
+  return order === 'desc'
+    ? (a, b) => descendingComparator<D, K>(a, b, orderBy)
+    : (a, b) => -descendingComparator<D, K>(a, b, orderBy);
+}
+
+function descendingComparator<D, K extends keyof D>(
+  a: { [key in K]: unknown },
+  b: { [key in K]: unknown },
+  orderBy: K,
+) {
+  if (b[orderBy] < a[orderBy]) {
+    return -1;
+  }
+  if (b[orderBy] > a[orderBy]) {
+    return 1;
+  }
+  return 0;
 }
