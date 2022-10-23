@@ -14,7 +14,6 @@ const formContainerSx: SxProps = {
   display: 'flex',
   justifyContent: 'center',
   padding: '0 8px',
-  flex: 1,
 };
 
 export const desktopFormContainerSx = {
@@ -31,11 +30,6 @@ export const formStepContainerSx = {
   height: 'auto',
   width: '100%',
   alignItems: 'center',
-  justifyContent: 'space-between',
-};
-
-export const alreadyRedeemedContainerSx = {
-  minHeight: `calc(100vh - 48px - ${theme.mixins.toolbar.minHeight}px)`,
   justifyContent: 'space-between',
 };
 
