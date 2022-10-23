@@ -18,14 +18,12 @@ const swiperSx = {
   flexDirection: 'column' as const,
   alignItems: 'center',
   justifyContent: 'center',
-  width: '90vw',
-  height: '80vh',
   '--swiper-navigation-color': '#FFFFFF',
 };
 
 export const desktopSwiperSx = {
   ...swiperSx,
-  width: '90vw',
+  width: '80vw',
   height: '80vh',
 };
 
@@ -43,7 +41,7 @@ export const slideContainerSx = {
   height: '100%',
 };
 
-export const slideSx: SxProps = {
+const slideSx: SxProps = {
   height: '90%',
   width: '80%',
   borderRadius: '20px',
@@ -51,6 +49,18 @@ export const slideSx: SxProps = {
   alignItems: 'center',
   justifyContent: 'space-between',
   backgroundColor: alpha('#FFFFFF', 0.25),
+};
+
+export const desktopSlideSx: SxProps = {
+  ...slideSx,
+  height: '90%',
+  width: '80%',
+};
+
+export const mobileSlideSx: SxProps = {
+  ...slideSx,
+  height: '80%',
+  width: '92%',
 };
 
 export const primaryDonorImageSx: SxProps = {
@@ -95,4 +105,16 @@ export const lineSx: SxProps = {
   height: '1px',
   backgroundColor: theme.palette.neutral.light,
   verticalAlign: 'middle',
+};
+
+export const buttonSx: SxProps = {
+  backgroundColor: 'transparent',
+  color: 'white',
+  borderColor: 'white',
+  border: '2px solid',
+  width: '90vw',
+  '&:hover': {
+    borderColor: 'white',
+    border: '4px solid',
+  },
 };

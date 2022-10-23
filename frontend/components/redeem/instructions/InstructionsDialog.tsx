@@ -1,13 +1,15 @@
-import { Dialog, Typography, useMediaQuery } from '@mui/material';
-import Button from '../../generic/Button';
+import { Button, Dialog, Typography, useMediaQuery } from '@mui/material';
 import {
-  containerSx, desktopScreenDisplaySx,
+  buttonSx,
+  containerSx,
+  desktopScreenDisplaySx,
+  desktopSlideSx,
   desktopSwiperSx,
   dialogPaperSx,
   mobileScreenDisplaySx,
+  mobileSlideSx,
   mobileSwiperSx,
   slideContainerSx,
-  slideSx,
 } from '../../../styles/components/redeem/InstructionDialogStyles';
 import { Box, Stack, useTheme } from '@mui/system';
 import { Navigation, Pagination } from 'swiper';
@@ -18,7 +20,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { ReactNode } from 'react';
 import { givingSgLogoSx } from '../../../styles/components/redeem/RedeemStyles';
-import MockScreen from './MockMobileScreen';
+import MockDevice from './MockDevice';
 import { PrimaryDonorData } from '../../../types/primaryDonor';
 import FirstSlideDisplay from './FirstSlideDisplay';
 import SecondSlideDisplay from './SecondSlideDisplay';
@@ -60,16 +62,16 @@ const Slide = ({ instructions, display }: SlideProps) => {
 
   return (
     <Box sx={slideContainerSx}>
-      <Stack sx={slideSx} component="div">
+      <Stack sx={isMobile ? mobileSlideSx : desktopSlideSx} component="div">
         <Stack component="div" spacing={2}>
           {instructions}
         </Stack>
 
-        <MockScreen>
+        <MockDevice>
           <Stack sx={isMobile ? mobileScreenDisplaySx : desktopScreenDisplaySx} component="div" spacing={1}>
             {display}
           </Stack>
-        </MockScreen>
+        </MockDevice>
       </Stack>
     </Box>
   );
@@ -155,7 +157,7 @@ const InstructionsDialog = ({ open, handleClose, primaryDonor, couponDenominatio
           ))}
         </Swiper>
 
-        <Button actionType="primary" onClick={handleClose}>
+        <Button sx={buttonSx} variant="outlined" onClick={handleClose}>
           Close Instructions
         </Button>
       </Stack>

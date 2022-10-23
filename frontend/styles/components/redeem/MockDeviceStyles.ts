@@ -1,12 +1,21 @@
 import { SxProps } from '@mui/system';
 
-export const containerSx: SxProps = {
+const containerSx: SxProps = {
   border: '2px solid white',
   borderTopLeftRadius: '20px',
   borderTopRightRadius: '20px',
   height: '68%',
-  width: '88%',
   alignItems: 'center',
+};
+
+export const desktopContainerSx: SxProps = {
+  ...containerSx,
+  width: '60%',
+};
+
+export const mobileContainerSx: SxProps = {
+  ...containerSx,
+  width: '88%',
 };
 
 export const headerSx: SxProps = {
