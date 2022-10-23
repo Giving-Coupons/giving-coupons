@@ -3,7 +3,6 @@ import { headerSx, imageSx, stackSx } from '../../styles/components/redeem/Recei
 import { CharityListData } from '../../types/charity';
 import { PrimaryDonorData } from '../../types/primaryDonor';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import React from 'react';
 
 interface Props {
   charity: CharityListData;
@@ -20,7 +19,7 @@ const Receipt = ({ charity, primaryDonor, primaryDonorAmount, secondaryDonorAmou
           Choice of Charity
         </Typography>
 
-        <VerifyRedemptionCard imageBaseUrl={charity.logoBase64} text={charity.name} />
+        <ReceiptItem imageBaseUrl={charity.logoBase64} text={charity.name} />
       </Stack>
 
       <Divider />
@@ -30,38 +29,32 @@ const Receipt = ({ charity, primaryDonor, primaryDonorAmount, secondaryDonorAmou
           Donation Amount
         </Typography>
 
-        <VerifyRedemptionCard
+        <ReceiptItem
           imageBaseUrl={primaryDonor.imageBase64}
           text={`$${primaryDonorAmount} from ${primaryDonor.name}`}
         />
 
-        <VerifyRedemptionCard text={`$${secondaryDonorAmount} from you`} />
+        <ReceiptItem text={`$${secondaryDonorAmount} from you`} />
       </Stack>
     </Stack>
   );
 };
 
-interface VerifyRedemptionCardProps {
+interface ReceiptItemProps {
   imageBaseUrl?: string;
   text: string;
 }
 
-const VerifyRedemptionCard = ({ imageBaseUrl, text }: VerifyRedemptionCardProps) => {
+const ReceiptItem = ({ imageBaseUrl, text }: ReceiptItemProps) => {
   return (
     <Grid container alignItems="center">
-      <Grid item xs={2}>
-        {imageBaseUrl ? (
-          <Avatar variant="rounded">
-            <Box sx={imageSx} component="img" src={imageBaseUrl} />
-          </Avatar>
-        ) : (
-          <Avatar variant="rounded">
-            <AccountBoxIcon />
-          </Avatar>
-        )}
+      <Grid item xs={1}>
+        <Avatar variant="rounded">
+          {imageBaseUrl ? <Box sx={imageSx} component="img" src={imageBaseUrl} /> : <AccountBoxIcon />}
+        </Avatar>
       </Grid>
 
-      <Grid item xs={10} padding={2}>
+      <Grid item xs={11} padding={2}>
         <Typography variant="h4">{text}</Typography>
       </Grid>
     </Grid>

@@ -87,7 +87,7 @@ const RedirectDialog = ({
 
                 <Stack component="div" alignItems="center" width="100%" spacing={2}>
                   <Stack component="div" sx={redirectAcknowledgementContainerSx}>
-                    <Typography align="center" variant="caption">
+                    <Typography align="center">
                       {primaryDonorName}&apos;s ${couponDenomination} will not be redeemed until you return, so please
                       come back afterwards!
                     </Typography>
@@ -95,7 +95,7 @@ const RedirectDialog = ({
                     <FormControlLabel
                       name="hasAcknowledged"
                       control={<Checkbox onChange={(e) => setFieldValue('hasAcknowledged', e.target.checked)} />}
-                      label={<Typography variant="caption">I acknowledge</Typography>}
+                      label="I acknowledge"
                       checked={values.hasAcknowledged}
                     />
 

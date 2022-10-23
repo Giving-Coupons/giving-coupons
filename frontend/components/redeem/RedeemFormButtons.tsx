@@ -4,10 +4,11 @@ import {
 } from '../../styles/components/redeem/RedeemStyles';
 import Button from '../generic/Button';
 import { Stack } from '@mui/system';
+import { Dispatch, SetStateAction } from 'react';
 
 interface Props {
   activeStep: number;
-  setActiveStep: (value: ((prevState: number) => number) | number) => void;
+  setActiveStep: Dispatch<SetStateAction<number>>;
   minStep: number;
   maxStep: number;
   handleClickBack?: () => void;
