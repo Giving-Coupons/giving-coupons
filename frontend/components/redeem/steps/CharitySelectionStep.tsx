@@ -40,12 +40,18 @@ const CharitySelectionStep = ({
   return (
     <Stack sx={formStepContainerSx} component="div" spacing={4}>
       <Stack spacing={2} width="100%">
-        <Typography variant="h2" align="center">
-          Select a charity to give {primaryDonorName}&apos;s ${couponDenomination}
-        </Typography>
+        <Stack>
+          <Typography variant="h2" align="center">
+            Select a charity to give {primaryDonorName}&apos;s ${couponDenomination}
+          </Typography>
+
+          <Typography variant="caption" align="center">
+            The charts show the donations raised so far.
+          </Typography>
+        </Stack>
 
         <RadioGroup name={name} value={value ?? null} onChange={selectCharity}>
-          <Stack spacing={4} width="100%">
+          <Stack spacing={4} width="100%" paddingRight={2}>
             {campaignCharities.map((campaignCharity, index) => (
               <Stack key={index} spacing={1} direction="row">
                 <Radio sx={radioSx} value={campaignCharity.id} />
