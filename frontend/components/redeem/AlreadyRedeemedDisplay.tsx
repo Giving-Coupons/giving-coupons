@@ -4,7 +4,6 @@ import { Stack } from '@mui/system';
 import Button from '../generic/Button';
 import { PrimaryDonorData } from '../../types/primaryDonor';
 import { Typography } from '@mui/material';
-import { alreadyRedeemedContainerSx } from '../../styles/components/redeem/RedeemStyles';
 
 interface Props {
   campaignCharity: CampaignCharityData;
@@ -15,19 +14,17 @@ interface Props {
 
 const AlreadyRedeemedDisplay = ({ campaignCharity, primaryDonor, primaryDonorAmount, secondaryDonorAmount }: Props) => {
   return (
-    <Stack sx={alreadyRedeemedContainerSx} component="div">
-      <Stack component="div" spacing={4}>
-        <Typography variant="h2" align="center">
-          This coupon has been redeemed
-        </Typography>
+    <Stack component="div" spacing={4}>
+      <Typography variant="h2" align="center">
+        This coupon has been redeemed
+      </Typography>
 
-        <Receipt
-          charity={campaignCharity.charity}
-          primaryDonor={primaryDonor}
-          primaryDonorAmount={primaryDonorAmount}
-          secondaryDonorAmount={secondaryDonorAmount}
-        />
-      </Stack>
+      <Receipt
+        charity={campaignCharity.charity}
+        primaryDonor={primaryDonor}
+        primaryDonorAmount={primaryDonorAmount}
+        secondaryDonorAmount={secondaryDonorAmount}
+      />
 
       <Button actionType="primary">Contribute directly</Button>
     </Stack>
