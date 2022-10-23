@@ -1,7 +1,7 @@
 import { Button, Dialog, Typography, useMediaQuery } from '@mui/material';
 import {
   buttonSx,
-  containerSx,
+  stackSx,
   desktopScreenDisplaySx,
   desktopSlideSx,
   desktopSwiperSx,
@@ -10,8 +10,9 @@ import {
   mobileSlideSx,
   mobileSwiperSx,
   slideContainerSx,
+  containerSx,
 } from '../../../styles/components/redeem/InstructionDialogStyles';
-import { Box, Stack, useTheme } from '@mui/system';
+import { Box, Container, Stack, useTheme } from '@mui/system';
 import { Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -137,29 +138,31 @@ const InstructionsDialog = ({ open, handleClose, primaryDonor, couponDenominatio
 
   return (
     <Dialog fullScreen open={open} onClose={handleClose} PaperProps={{ sx: dialogPaperSx }}>
-      <Stack sx={containerSx} component="div">
-        <Typography align="center" component="div" variant="h2">
-          Instructions
-        </Typography>
+      <Container sx={containerSx} component="div">
+        <Stack sx={stackSx} component="div">
+          <Typography align="center" component="div" variant="h2">
+            Instructions
+          </Typography>
 
-        <Swiper
-          style={isMobile ? mobileSwiperSx : desktopSwiperSx}
-          modules={[Navigation, Pagination]}
-          navigation={!isMobile}
-          pagination
-          slidesPerView={1}
-        >
-          {slideProps.map((slideProp, index) => (
-            <SwiperSlide key={index}>
-              <Slide instructions={slideProp.instructions} display={slideProp.display} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
+          <Swiper
+            style={isMobile ? mobileSwiperSx : desktopSwiperSx}
+            modules={[Navigation, Pagination]}
+            navigation={!isMobile}
+            pagination
+            slidesPerView={1}
+          >
+            {slideProps.map((slideProp, index) => (
+              <SwiperSlide key={index}>
+                <Slide instructions={slideProp.instructions} display={slideProp.display} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
 
-        <Button sx={buttonSx} variant="outlined" onClick={handleClose}>
-          Close Instructions
-        </Button>
-      </Stack>
+          <Button sx={buttonSx} variant="outlined" onClick={handleClose}>
+            Close Instructions
+          </Button>
+        </Stack>
+      </Container>
     </Dialog>
   );
 };

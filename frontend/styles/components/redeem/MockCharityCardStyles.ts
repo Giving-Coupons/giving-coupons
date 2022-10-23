@@ -4,7 +4,7 @@ import { theme } from '../../../utils/theme';
 export const cardSx: SxProps = {
   backgroundColor: 'white',
   width: '80%',
-  height: '6vh',
+  height: '30%',
   borderRadius: '10px',
   boxShadow: `0px 0px 10px 0px ${theme.palette.neutral.light}`,
   padding: '4px',

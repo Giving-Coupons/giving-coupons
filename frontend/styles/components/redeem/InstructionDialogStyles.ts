@@ -7,8 +7,15 @@ export const dialogPaperSx: SxProps = {
 };
 
 export const containerSx: SxProps = {
-  height: '100vh',
-  width: '100vw',
+  display: 'flex',
+  height: '100%',
+  alignItems: 'center',
+};
+
+export const stackSx: SxProps = {
+  height: '100%',
+  maxHeight: '560px',
+  width: '100%',
   justifyContent: 'space-evenly',
   alignItems: 'center',
 };
@@ -23,14 +30,14 @@ const swiperSx = {
 
 export const desktopSwiperSx = {
   ...swiperSx,
-  width: '80vw',
-  height: '80vh',
+  width: '80%',
+  height: '80%',
 };
 
 export const mobileSwiperSx = {
   ...swiperSx,
-  width: '100vw',
-  height: '80vh',
+  width: '100%',
+  height: '80%',
 };
 
 export const slideContainerSx = {
@@ -64,7 +71,7 @@ export const mobileSlideSx: SxProps = {
 };
 
 export const primaryDonorImageSx: SxProps = {
-  width: '10vw',
+  width: '30%',
   height: 'auto',
   objectFit: 'contain',
 };
@@ -112,7 +119,7 @@ export const buttonSx: SxProps = {
   color: 'white',
   borderColor: 'white',
   border: '2px solid',
-  width: '90vw',
+  width: '90%',
   '&:hover': {
     borderColor: 'white',
     border: '4px solid',

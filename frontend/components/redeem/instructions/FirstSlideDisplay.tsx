@@ -32,7 +32,7 @@ const FirstSlideDisplay = ({ couponDenomination, primaryDonor }: Props) => {
         <Box sx={lineSx} />
       </Stack>
 
-      <Stack component="div" direction="row" alignItems="center" spacing={1}>
+      <Stack component="div" direction="row" alignItems="center" justifyContent="center" spacing={1}>
         <Box sx={primaryDonorImageSx} component="img" src={primaryDonor.imageBase64} />
 
         <Typography variant="h4">{primaryDonor.name}</Typography>
