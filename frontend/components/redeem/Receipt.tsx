@@ -48,13 +48,13 @@ interface ReceiptItemProps {
 const ReceiptItem = ({ imageBaseUrl, text }: ReceiptItemProps) => {
   return (
     <Grid container alignItems="center">
-      <Grid item xs={1}>
+      <Grid item xs={2}>
         <Avatar variant="rounded">
           {imageBaseUrl ? <Box sx={imageSx} component="img" src={imageBaseUrl} /> : <AccountBoxIcon />}
         </Avatar>
       </Grid>
 
-      <Grid item xs={11} padding={2}>
+      <Grid item xs={10} padding={2}>
         <Typography variant="h4">{text}</Typography>
       </Grid>
     </Grid>
