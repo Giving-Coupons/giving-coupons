@@ -7,6 +7,8 @@ import {
   iconBoxSx,
   iconGridSx,
   stackSx,
+  textGridSx,
+  titleSx,
 } from '../../styles/components/redeem/CallToActionButtonStyles';
 import { ReactNode } from 'react';
 
@@ -20,20 +22,22 @@ interface Props {
 const CallToActionButton = ({ icon, title, description, onClick }: Props) => {
   return (
     <Grid container sx={gridContainerSx} onClick={onClick}>
-      <Grid item xs={10}>
+      <Grid item xs={11} sx={textGridSx}>
         <Stack sx={stackSx} spacing={1}>
           <Stack direction="row" spacing={1.5} sx={centerSx}>
             <Box sx={iconBoxSx}>{icon}</Box>
 
-            <Typography variant="h2">{title}</Typography>
+            <Typography variant="h2" sx={titleSx}>
+              {title}
+            </Typography>
           </Stack>
 
           <Typography sx={descriptionSx}>{description}</Typography>
         </Stack>
       </Grid>
 
-      <Grid item xs={2} container sx={iconGridSx}>
-        <ChevronRightIcon fontSize="large" />
+      <Grid item xs={1} sx={iconGridSx}>
+        <ChevronRightIcon />
       </Grid>
     </Grid>
   );
