@@ -19,7 +19,7 @@ import {
 } from '../../../styles/components/redeem/RedeemStyles';
 import PersonalContributionStep from '../../../components/redeem/steps/PersonalContributionStep';
 import VerifyStep from '../../../components/redeem/steps/VerifyStep';
-import AlreadyRedeemedPage from '../../../components/redeem/AlreadyRedeemedPage';
+import AlreadyRedeemedDisplay from '../../../components/redeem/AlreadyRedeemedDisplay';
 import RedeemLoading from '../../../components/redeem/RedeemLoading';
 import { messageContainerSx } from '../../../styles/campaigns/indexStyles';
 
@@ -154,7 +154,7 @@ const Redeem: NextPage = () => {
           )}
 
           {hasLoadedSuccessfully && coupon.campaignCharity && (
-            <AlreadyRedeemedPage
+            <AlreadyRedeemedDisplay
               campaignCharity={coupon.campaignCharity}
               primaryDonor={coupon.campaign.primaryDonor}
               primaryDonorAmount={coupon.denomination}

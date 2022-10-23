@@ -13,7 +13,7 @@ interface Props {
   secondaryDonorAmount: number;
 }
 
-const AlreadyRedeemedPage = ({ campaignCharity, primaryDonor, primaryDonorAmount, secondaryDonorAmount }: Props) => {
+const AlreadyRedeemedDisplay = ({ campaignCharity, primaryDonor, primaryDonorAmount, secondaryDonorAmount }: Props) => {
   return (
     <Stack sx={alreadyRedeemedContainerSx} component="div">
       <Stack component="div" spacing={4}>
@@ -34,4 +34,4 @@ const AlreadyRedeemedPage = ({ campaignCharity, primaryDonor, primaryDonorAmount
   );
 };
 
-export default AlreadyRedeemedPage;
+export default AlreadyRedeemedDisplay;
