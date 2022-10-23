@@ -1,16 +1,17 @@
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Box, Grid, Stack, Typography } from '@mui/material';
+import { ReactNode } from 'react';
 import {
   centerSx,
+  descriptionStackSx,
   descriptionSx,
   gridContainerSx,
+  headerStackSx,
   iconBoxSx,
   iconGridSx,
-  stackSx,
   textGridSx,
   titleSx,
 } from '../../styles/components/redeem/CallToActionButtonStyles';
-import { ReactNode } from 'react';
 
 interface Props {
   icon: ReactNode;
@@ -23,7 +24,7 @@ const CallToActionButton = ({ icon, title, description, onClick }: Props) => {
   return (
     <Grid container sx={gridContainerSx} onClick={onClick}>
       <Grid item xs={11} sx={textGridSx}>
-        <Stack sx={stackSx} spacing={1}>
+        <Stack sx={headerStackSx} spacing={1}>
           <Stack direction="row" spacing={1.5} sx={centerSx}>
             <Box sx={iconBoxSx}>{icon}</Box>
 
@@ -32,7 +33,9 @@ const CallToActionButton = ({ icon, title, description, onClick }: Props) => {
             </Typography>
           </Stack>
 
-          <Typography sx={descriptionSx}>{description}</Typography>
+          <Stack justifyContent="center" sx={descriptionStackSx}>
+            <Typography sx={descriptionSx}>{description}</Typography>
+          </Stack>
         </Stack>
       </Grid>
 

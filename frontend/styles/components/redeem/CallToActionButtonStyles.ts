@@ -21,10 +21,14 @@ export const textGridSx: SxProps = {
   height: '100%',
 };
 
-export const stackSx: SxProps = {
+export const headerStackSx: SxProps = {
   padding: '8px',
   borderRadius: '10px',
   backgroundColor: theme.palette.secondaryTranslucent.light,
+  height: '100%',
+};
+
+export const descriptionStackSx: SxProps = {
   height: '100%',
 };
 
