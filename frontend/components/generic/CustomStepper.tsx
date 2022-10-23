@@ -16,12 +16,10 @@ const CustomStepIcon = (props: StepIconProps) => {
   }>(({ theme, ownerState }) => ({
     backgroundColor: theme.palette.neutral.light,
     zIndex: 1,
-    color: '#FFFFFF',
+    color: 'white',
     display: 'flex',
     borderRadius: '50%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: '4px',
+    padding: '2px',
     ...(ownerState.active && {
       backgroundImage: `linear-gradient(45deg, ${theme.palette.primary.main} 30%, ${theme.palette.secondary.main} 90%)`,
     }),
@@ -46,7 +44,7 @@ const CustomStepConnector = styled(StepConnector)(({ theme }) => ({
   },
   [`& .${stepConnectorClasses.line}`]: {
     height: 3,
-    border: 0,
+    border: 'none',
     backgroundColor: theme.palette.neutral.light,
   },
 }));
