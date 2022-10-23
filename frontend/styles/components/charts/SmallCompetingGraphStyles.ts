@@ -7,7 +7,7 @@ export const graphLegendSx: SxProps = {
 };
 
 export const graphLabelSx: SxProps = {
-  fontSize: '0.6rem',
+  fontSize: '0.8rem',
 };
 
 export const leftBarSx: SxProps = {

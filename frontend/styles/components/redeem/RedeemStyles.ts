@@ -40,7 +40,6 @@ export const alreadyRedeemedContainerSx = {
 };
 
 export const radioSx: SxProps = {
-  paddingLeft: '0px',
   '&&:hover': {
     backgroundColor: 'transparent',
   },

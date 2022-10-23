@@ -1,4 +1,4 @@
-import { FormControl, Radio, RadioGroup, Stack, Typography } from '@mui/material';
+import { Radio, RadioGroup, Stack, Typography } from '@mui/material';
 import { formStepContainerSx, radioSx } from '../../../styles/components/redeem/RedeemStyles';
 import { CampaignCharityDonationPublicData } from '../../../types/campaignCharities';
 import CampaignCharityCard from '../../campaigns/campaignCharities/CampaignCharityCard';
@@ -39,33 +39,31 @@ const CharitySelectionStep = ({
 
   return (
     <Stack sx={formStepContainerSx} component="div" spacing={4}>
-      <Stack spacing={2}>
+      <Stack spacing={2} width="100%">
         <Typography variant="h2" align="center">
-          Select a charity to give {primaryDonorName}&apos;s ${couponDenomination} to
+          Select a charity to give {primaryDonorName}&apos;s ${couponDenomination}
         </Typography>
 
-        <FormControl fullWidth>
-          <RadioGroup name={name} value={value ?? null} onChange={selectCharity}>
-            <Stack spacing={4}>
-              {campaignCharities.map((campaignCharity, index) => (
-                <Stack key={index} direction="row">
-                  <Radio sx={radioSx} value={campaignCharity.id} />
+        <RadioGroup name={name} value={value ?? null} onChange={selectCharity}>
+          <Stack spacing={4} width="100%">
+            {campaignCharities.map((campaignCharity, index) => (
+              <Stack key={index} spacing={1} direction="row">
+                <Radio sx={radioSx} value={campaignCharity.id} />
 
-                  <CampaignCharityCard
-                    campaignCharity={campaignCharity}
-                    onClick={() => setOpenCharityDialogId(campaignCharity.id)}
-                  />
+                <CampaignCharityCard
+                  campaignCharity={campaignCharity}
+                  onClick={() => setOpenCharityDialogId(campaignCharity.id)}
+                />
 
-                  <CampaignCharityDialog
-                    campaignCharity={campaignCharity}
-                    open={openCharityDialogId === campaignCharity.id}
-                    handleClose={() => setOpenCharityDialogId(null)}
-                  />
-                </Stack>
-              ))}
-            </Stack>
-          </RadioGroup>
-        </FormControl>
+                <CampaignCharityDialog
+                  campaignCharity={campaignCharity}
+                  open={openCharityDialogId === campaignCharity.id}
+                  handleClose={() => setOpenCharityDialogId(null)}
+                />
+              </Stack>
+            ))}
+          </Stack>
+        </RadioGroup>
       </Stack>
 
       <RedeemFormButtons
