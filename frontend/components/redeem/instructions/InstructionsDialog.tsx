@@ -2,14 +2,9 @@ import { Dialog, Typography, useMediaQuery } from '@mui/material';
 import Button from '../../generic/Button';
 import {
   containerSx,
-  couponAmountSx,
-  couponReceivedLineContainerSx,
   desktopSwiperSx,
   dialogPaperSx,
-  lineSx,
   mobileSwiperSx,
-  primaryDonorImageSx,
-  screenDisplaySx,
   slideContainerSx,
   slideSx,
 } from '../../../styles/components/redeem/InstructionDialogStyles';
@@ -24,9 +19,11 @@ import { ReactNode } from 'react';
 import { givingSgLogoSx } from '../../../styles/components/redeem/RedeemStyles';
 import MobileScreen from './MobileScreen';
 import { PrimaryDonorData } from '../../../types/primaryDonor';
-import MockCharityCard from './MockCharityCard';
-import MockCharityDialog from './MockCharityDialog';
-import MockPersonalContribution from './MockPersonalContribution';
+import FirstSlideDisplay from './FirstSlideDisplay';
+import SecondSlideDisplay from './SecondSlideDisplay';
+import ThirdSlideDisplay from './ThirdSlideDisplay';
+import FourthSlideDisplay from './FourthSlideDisplay';
+import FifthSlideDisplay from './FifthSlideDisplay';
 
 interface Props {
   open: boolean;
@@ -40,6 +37,21 @@ interface SlideProps {
   instructions: ReactNode;
   display: ReactNode;
 }
+
+interface SlideInstructionProps {
+  children: ReactNode;
+}
+
+const SlideInstruction = ({ children }: SlideInstructionProps) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+  return (
+    <Typography variant={isMobile ? 'h4' : 'h3'} align="center">
+      {children}
+    </Typography>
+  );
+};
 
 const Slide = ({ instructions, display }: SlideProps) => {
   const theme = useTheme();
@@ -65,114 +77,55 @@ const InstructionsDialog = ({ open, handleClose, primaryDonor, couponDenominatio
     {
       instructions: (
         <>
-          <Typography variant={isMobile ? 'h4' : 'h3'} align="center">
-            Welcome to GIVING COUPONS!
-          </Typography>
+          <SlideInstruction>Welcome to GIVING COUPONS!</SlideInstruction>
 
-          <Typography variant={isMobile ? 'h4' : 'h3'} align="center">
+          <SlideInstruction>
             Our kind donor {primaryDonor.name} has sponsored you ${couponDenomination} to donate to a charity of your
             choice.
-          </Typography>
+          </SlideInstruction>
         </>
       ),
-      display: (
-        <Stack sx={screenDisplaySx} component="div">
-          <Typography>You have received</Typography>
-
-          <Typography sx={couponAmountSx}>${couponDenomination}</Typography>
-
-          <Stack sx={couponReceivedLineContainerSx} component="div" direction="row">
-            <Box sx={lineSx} />
-
-            <Typography variant="caption" color={theme.palette.grey[700]}>
-              From
-            </Typography>
-
-            <Box sx={lineSx} />
-          </Stack>
-
-          <Stack component="div" direction="row" alignItems="center" spacing={1}>
-            <Box sx={primaryDonorImageSx} component="img" src={primaryDonor.imageBase64} />
-
-            <Typography variant="h4">{primaryDonor.name}</Typography>
-          </Stack>
-        </Stack>
-      ),
+      display: <FirstSlideDisplay couponDenomination={couponDenomination} primaryDonor={primaryDonor} />,
     },
     {
       instructions: (
-        <Typography variant={isMobile ? 'h4' : 'h3'} align="center">
+        <SlideInstruction>
           You will see {charitiesCount} charities. You can only choose 1 of them to give the ${couponDenomination} to.
-        </Typography>
+        </SlideInstruction>
       ),
       display: (
-        <Stack sx={screenDisplaySx} component="div" spacing={1}>
-          <Typography variant="caption" fontWeight={700}>
-            Select a charity to give {primaryDonor.name}&apos;s ${couponDenomination}
-          </Typography>
-          {Array.from(Array(charitiesCount).keys()).map((index) => (
-            <MockCharityCard key={index} />
-          ))}
-        </Stack>
+        <SecondSlideDisplay
+          couponDenomination={couponDenomination}
+          charitiesCount={charitiesCount}
+          primaryDonor={primaryDonor}
+        />
       ),
     },
     {
       instructions: (
-        <Typography variant={isMobile ? 'h4' : 'h3'} align="center">
+        <SlideInstruction>
           Once this campaign ends, {primaryDonor.name} will transfer the ${couponDenomination} directly to your chosen
           charity through <Box sx={givingSgLogoSx} component="img" src="/giving-sg-logo.png" />.
-        </Typography>
+        </SlideInstruction>
       ),
-      display: (
-        <Stack sx={screenDisplaySx} component="div" spacing={1}>
-          <Typography>Bob will pay</Typography>
-
-          <Typography sx={couponAmountSx}>${couponDenomination}</Typography>
-
-          <Stack sx={couponReceivedLineContainerSx} component="div" direction="row">
-            <Box sx={lineSx} />
-
-            <Typography variant="caption" color={theme.palette.grey[700]}>
-              To
-            </Typography>
-
-            <Box sx={lineSx} />
-          </Stack>
-
-          <Stack component="div" alignItems="center" spacing={1} width="100%">
-            <MockCharityCard />
-
-            <Typography variant="caption" align="center">
-              through <Box sx={givingSgLogoSx} component="img" src="/giving-sg-logo.png" />.
-            </Typography>
-          </Stack>
-        </Stack>
-      ),
+      display: <ThirdSlideDisplay couponDenomination={couponDenomination} />,
     },
     {
       instructions: (
-        <Typography variant={isMobile ? 'h4' : 'h3'} align="center">
+        <SlideInstruction>
           You can click on the charity options to find out more about how your choice impacts someone&apos;s life!
-        </Typography>
+        </SlideInstruction>
       ),
-      display: (
-        <Stack sx={screenDisplaySx} component="div" spacing={1}>
-          <MockCharityDialog />
-        </Stack>
-      ),
+      display: <FourthSlideDisplay />,
     },
     {
       instructions: (
-        <Typography variant={isMobile ? 'h4' : 'h3'} align="center">
+        <SlideInstruction>
           You may also choose to add a personal contribution. All payments are handled securely through{' '}
           <Box sx={givingSgLogoSx} component="img" src="/giving-sg-logo.png" />.
-        </Typography>
+        </SlideInstruction>
       ),
-      display: (
-        <Stack sx={screenDisplaySx} component="div" spacing={1}>
-          <MockPersonalContribution />
-        </Stack>
-      ),
+      display: <FifthSlideDisplay />,
     },
   ];
 
