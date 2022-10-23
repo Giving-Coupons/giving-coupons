@@ -32,6 +32,7 @@ export const screenSx: SxProps = {
   flex: 1,
   backgroundColor: 'white',
   width: '96%',
+  overflow: 'hidden',
 };
 
 export const mockAppBarSx: SxProps = {

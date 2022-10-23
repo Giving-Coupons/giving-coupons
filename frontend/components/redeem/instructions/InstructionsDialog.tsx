@@ -121,7 +121,31 @@ const InstructionsDialog = ({ open, handleClose, primaryDonor, couponDenominatio
           charity through <Box sx={givingSgLogoSx} component="img" src="/giving-sg-logo.png" />.
         </Typography>
       ),
-      display: null,
+      display: (
+        <Stack sx={screenDisplaySx} component="div" spacing={1}>
+          <Typography>Bob will pay</Typography>
+
+          <Typography sx={couponAmountSx}>${couponDenomination}</Typography>
+
+          <Stack sx={couponReceivedLineContainerSx} component="div" direction="row">
+            <Box sx={lineSx} />
+
+            <Typography variant="caption" color={theme.palette.grey[700]}>
+              To
+            </Typography>
+
+            <Box sx={lineSx} />
+          </Stack>
+
+          <Stack component="div" alignItems="center" spacing={1} width="100%">
+            <MockCharityCard />
+
+            <Typography variant="caption" align="center">
+              through <Box sx={givingSgLogoSx} component="img" src="/giving-sg-logo.png" />.
+            </Typography>
+          </Stack>
+        </Stack>
+      ),
     },
     {
       instructions: (
