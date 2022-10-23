@@ -2,8 +2,9 @@ import { SxProps } from '@mui/system';
 import { theme } from '../../../utils/theme';
 
 export const gridSx: SxProps = {
-  boxShadow: `0px 0px 30px 10px ${theme.palette.neutral.light}`,
+  boxShadow: `0px 0px 20px 5px ${theme.palette.neutral.light}`,
   borderRadius: '10px',
+  cursor: 'pointer',
 };
 
 export const graphSx: SxProps = {

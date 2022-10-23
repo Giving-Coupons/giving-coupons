@@ -9,7 +9,7 @@ import { DEFAULT_COUPON_DENOMINATION, MAX_NUM_OF_CAMPAIGN_CHARITIES } from '../.
 import FormDatePicker from '../../forms/FormDatePicker';
 import { Nullable } from '../../../types/utils';
 import FormTextInput from '../../forms/FormTextInput';
-import InterestFormAmountButton from './InterestFormAmountButton';
+import FormAmountButton from '../../forms/FormAmountButton';
 import InterestFormCharitySelector from './InterestFormCharitySelector';
 import FormImageUpload from '../../forms/FormImageUpload';
 
@@ -138,7 +138,7 @@ export default function InterestForm({ onSubmit }: InterestFormProps) {
 
                   <Stack direction="row" spacing={2}>
                     {[500, 1000, 2500, 5000].map((value) => (
-                      <InterestFormAmountButton name="promisedAmount" value={value} key={value} />
+                      <FormAmountButton name="promisedAmount" value={value} key={value} />
                     ))}
                   </Stack>
                 </Stack>

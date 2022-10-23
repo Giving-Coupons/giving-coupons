@@ -1,5 +1,5 @@
 import { SxProps } from '@mui/material';
-import { theme } from '../../utils/theme';
+import { theme } from '../../../utils/theme';
 
 export const centerSx: SxProps = {
   alignItems: 'center',
@@ -13,10 +13,11 @@ export const gridContainerSx: SxProps = {
   padding: '15px',
   borderRadius: '20px',
   cursor: 'pointer',
+  height: '100%',
 };
 
 export const stackSx: SxProps = {
-  padding: '15px',
+  padding: '8px',
   borderRadius: '10px',
   backgroundColor: theme.palette.secondaryTranslucent.light,
 };

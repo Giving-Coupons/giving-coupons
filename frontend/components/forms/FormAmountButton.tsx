@@ -1,13 +1,12 @@
 import { useField } from 'formik';
-import { InterestFormData } from './InterestForm';
-import Button from '../../generic/Button';
+import Button from '../generic/Button';
 
 interface Props {
-  name: keyof InterestFormData;
+  name: string;
   value: number;
 }
 
-const InterestFormAmountButton = ({ name, value }: Props) => {
+const FormAmountButton = ({ name, value }: Props) => {
   const [, , { setValue }] = useField(name);
 
   return (
@@ -17,4 +16,4 @@ const InterestFormAmountButton = ({ name, value }: Props) => {
   );
 };
 
-export default InterestFormAmountButton;
+export default FormAmountButton;

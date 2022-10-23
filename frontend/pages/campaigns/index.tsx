@@ -6,7 +6,7 @@ import { Fab, Typography, useMediaQuery } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import React, { useState } from 'react';
 import CampaignSearch from '../../components/campaigns/search/CampaignSearch';
-import { containerSx, messageContainerSx, mobileSearchButtonSx } from '../../styles/pages/campaigns/indexStyles';
+import { containerSx, messageContainerSx, mobileSearchButtonSx } from '../../styles/campaigns/indexStyles';
 import useSWR from 'swr';
 import { Nullable } from '../../types/utils';
 import api from '../../frontendApis';
