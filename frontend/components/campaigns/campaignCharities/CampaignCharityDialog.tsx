@@ -1,4 +1,4 @@
-import CloseIcon from '@mui/icons-material/Close';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import LinkIcon from '@mui/icons-material/Link';
 import {
   Box,
@@ -6,7 +6,6 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  IconButton,
   Stack,
   Typography,
   useMediaQuery,
@@ -23,6 +22,7 @@ import {
 } from '../../../styles/components/charities/CampaignCharityDialogStyles';
 import { CampaignCharityDonationPublicData } from '../../../types/campaignCharities';
 import Button from '../../generic/Button';
+import IconButtonWithTooltip from '../../IconButtonWithTooltip';
 
 interface Props {
   campaignCharity: CampaignCharityDonationPublicData;
@@ -45,9 +45,7 @@ const CampaignCharityDialog = ({ campaignCharity, open, handleClose }: Props) =>
             <Typography variant="h2">{campaignCharity.charity.name}</Typography>
           </Stack>
 
-          <IconButton onClick={handleClose}>
-            <CloseIcon />
-          </IconButton>
+          <IconButtonWithTooltip icon={<HighlightOffIcon />} tooltip="Close" onClick={handleClose} />
         </Stack>
       </DialogTitle>
 
@@ -59,7 +57,7 @@ const CampaignCharityDialog = ({ campaignCharity, open, handleClose }: Props) =>
 
       <DialogActions>
         <Button
-          actionType="mutedWithoutOutline"
+          actionType="secondary"
           fullWidth
           startIcon={<LinkIcon />}
           onClick={() => router.push(campaignCharity.charity.websiteUrl)}
