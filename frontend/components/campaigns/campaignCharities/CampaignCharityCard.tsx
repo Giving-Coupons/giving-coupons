@@ -10,21 +10,22 @@ import SmallCompetingGraph from '../../charts/SmallCompetingGraph';
 
 interface Props {
   campaignCharity: CampaignCharityDonationPublicData;
+  onClick?: () => void;
 }
 
-const CampaignCharityCard = ({ campaignCharity }: Props) => {
+const CampaignCharityCard = ({ campaignCharity, onClick }: Props) => {
   const primaryDonorDonationData = campaignCharity.primaryDonation;
   const secondaryDonorDonationData = campaignCharity.secondaryDonation;
 
   return (
-    <Grid container justifyContent="center" alignItems="center" sx={gridSx}>
-      <Grid xs={2} sx={charityLogoContainerSx}>
+    <Grid container justifyContent="center" alignItems="center" sx={gridSx} onClick={onClick}>
+      <Grid item xs={2} sx={charityLogoContainerSx}>
         <Box sx={charityLogoSx} component="img" src={campaignCharity.charity.logoBase64} />
       </Grid>
 
-      <Grid xs={10}>
+      <Grid item xs={10}>
         <Stack paddingTop={1} paddingBottom={1} paddingRight={1}>
-          <Typography variant="h5">{campaignCharity.charity.name}</Typography>
+          <Typography variant="h4">{campaignCharity.charity.name}</Typography>
 
           <SmallCompetingGraph
             overrideGraphSx={graphSx}

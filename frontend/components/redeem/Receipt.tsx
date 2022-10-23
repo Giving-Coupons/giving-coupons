@@ -1,8 +1,8 @@
-import PersonIcon from '@mui/icons-material/Person';
-import { Box, Divider, Grid, Stack, Typography } from '@mui/material';
-import { headerSx, iconSx, imageSx, stackSx } from '../../styles/redeem/VerifyRedemptionStyles';
+import { Avatar, Box, Divider, Grid, Stack, Typography } from '@mui/material';
+import { headerSx, imageSx, stackSx } from '../../styles/components/redeem/ReceiptStyles';
 import { CharityListData } from '../../types/charity';
 import { PrimaryDonorData } from '../../types/primaryDonor';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
 interface Props {
   charity: CharityListData;
@@ -11,7 +11,7 @@ interface Props {
   secondaryDonorAmount: number;
 }
 
-const VerifyRedemption = ({ charity, primaryDonor, primaryDonorAmount, secondaryDonorAmount }: Props) => {
+const Receipt = ({ charity, primaryDonor, primaryDonorAmount, secondaryDonorAmount }: Props) => {
   return (
     <Stack component="div" sx={stackSx}>
       <Stack margin={2} spacing={1}>
@@ -19,7 +19,7 @@ const VerifyRedemption = ({ charity, primaryDonor, primaryDonorAmount, secondary
           Choice of Charity
         </Typography>
 
-        <VerifyRedemptionCard imageBaseUrl={charity.logoBase64} text={charity.name} />
+        <ReceiptItem imageBaseUrl={charity.logoBase64} text={charity.name} />
       </Stack>
 
       <Divider />
@@ -29,34 +29,36 @@ const VerifyRedemption = ({ charity, primaryDonor, primaryDonorAmount, secondary
           Donation Amount
         </Typography>
 
-        <VerifyRedemptionCard
-          imageBaseUrl={charity.logoBase64}
+        <ReceiptItem
+          imageBaseUrl={primaryDonor.imageBase64}
           text={`$${primaryDonorAmount} from ${primaryDonor.name}`}
         />
 
-        <VerifyRedemptionCard text={`$${secondaryDonorAmount} from you`} />
+        <ReceiptItem text={`$${secondaryDonorAmount} from you`} />
       </Stack>
     </Stack>
   );
 };
 
-interface VerifyRedemptionCardProps {
+interface ReceiptItemProps {
   imageBaseUrl?: string;
   text: string;
 }
 
-const VerifyRedemptionCard = ({ imageBaseUrl, text }: VerifyRedemptionCardProps) => {
+const ReceiptItem = ({ imageBaseUrl, text }: ReceiptItemProps) => {
   return (
     <Grid container alignItems="center">
-      <Grid item xs={2}>
-        {imageBaseUrl ? <Box sx={imageSx} component="img" src={imageBaseUrl} /> : <PersonIcon sx={iconSx} />}
+      <Grid item xs={1}>
+        <Avatar variant="rounded">
+          {imageBaseUrl ? <Box sx={imageSx} component="img" src={imageBaseUrl} /> : <AccountBoxIcon />}
+        </Avatar>
       </Grid>
 
-      <Grid item xs={10} padding={2}>
+      <Grid item xs={11} padding={2}>
         <Typography variant="h4">{text}</Typography>
       </Grid>
     </Grid>
   );
 };
 
-export default VerifyRedemption;
+export default Receipt;

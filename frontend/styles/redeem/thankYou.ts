@@ -1,7 +1,8 @@
 import { SxProps } from '@mui/material';
+import { theme } from '../../utils/theme';
 
 export const stackSx: SxProps = {
-  height: '90vh',
+  minHeight: `calc(100vh - ${theme.mixins.toolbar.minHeight}px)`,
   alignItems: 'center',
   justifyContent: 'center',
   margin: 'auto',
@@ -19,4 +20,8 @@ export const lottieFrameSx: SxProps = {
   marginTop: '-125px',
   marginLeft: '-125px',
   marginBottom: '-75px',
+};
+
+export const buttonSx: SxProps = {
+  height: '180px',
 };
