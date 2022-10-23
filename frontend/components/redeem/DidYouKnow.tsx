@@ -1,6 +1,6 @@
 import { Box, Stack, Typography } from '@mui/material';
 import { TextLoop } from 'react-text-loop-next';
-import { boxSx, stackSx, textSx } from '../../styles/redeem/DidYouKnowStyles';
+import { boxSx, stackSx, textSx } from '../../styles/components/redeem/DidYouKnowStyles';
 
 // TODO: Change this if needed
 const DID_YOU_KNOW_FACTS: string[] = [

@@ -21,7 +21,7 @@ import PersonalContributionStep from '../../../components/redeem/steps/PersonalC
 import VerifyStep from '../../../components/redeem/steps/VerifyStep';
 import AlreadyRedeemedPage from '../../../components/redeem/AlreadyRedeemedPage';
 import RedeemLoading from '../../../components/redeem/RedeemLoading';
-import { messageContainerSx } from '../../../styles/pages/campaigns/indexStyles';
+import { messageContainerSx } from '../../../styles/campaigns/indexStyles';
 
 const validationSchema = Yup.object().shape({
   campaignCharityId: Yup.number().required('Campaign charity is required'),

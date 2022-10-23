@@ -1,5 +1,5 @@
 import { Avatar, Box, Divider, Grid, Stack, Typography } from '@mui/material';
-import { headerSx, imageSx, stackSx } from '../../styles/redeem/VerifyRedemptionStyles';
+import { headerSx, imageSx, stackSx } from '../../styles/components/redeem/ReceiptStyles';
 import { CharityListData } from '../../types/charity';
 import { PrimaryDonorData } from '../../types/primaryDonor';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';

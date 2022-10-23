@@ -1,5 +1,5 @@
 import { SxProps } from '@mui/material';
-import { theme } from '../../utils/theme';
+import { theme } from '../../../utils/theme';
 
 export const centerSx: SxProps = {
   alignItems: 'center',

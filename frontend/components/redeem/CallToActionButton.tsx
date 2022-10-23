@@ -7,7 +7,7 @@ import {
   iconBoxSx,
   iconGridSx,
   stackSx,
-} from '../../styles/redeem/RedemtionCallToActionButtonStyles';
+} from '../../styles/components/redeem/CallToActionButtonStyles';
 import { ReactNode } from 'react';
 
 interface Props {

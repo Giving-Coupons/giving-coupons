@@ -4,7 +4,7 @@ import {
   donationBreakdownItemContainer,
   donationBreakdownLabelSx,
   rightBarSx,
-} from '../../../styles/pages/campaigns/detailStyles';
+} from '../../../styles/campaigns/detailStyles';
 import { CampaignCharityDonationPublicData } from '../../../types/campaignCharities';
 import HorizontalBarGraph from '../../charts/HorizontalBarGraph';
 import { graphSx } from '../../../styles/components/charities/CampaignCharityListStyles';
