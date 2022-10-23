@@ -17,7 +17,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { ReactNode } from 'react';
 import { givingSgLogoSx } from '../../../styles/components/redeem/RedeemStyles';
-import MobileScreen from './MobileScreen';
+import MockMobileScreen from './MockMobileScreen';
 import { PrimaryDonorData } from '../../../types/primaryDonor';
 import FirstSlideDisplay from './FirstSlideDisplay';
 import SecondSlideDisplay from './SecondSlideDisplay';
@@ -64,7 +64,7 @@ const Slide = ({ instructions, display }: SlideProps) => {
           {instructions}
         </Stack>
 
-        {isMobile ? <MobileScreen>{display}</MobileScreen> : null}
+        {isMobile ? <MockMobileScreen>{display}</MockMobileScreen> : null}
       </Stack>
     </Box>
   );

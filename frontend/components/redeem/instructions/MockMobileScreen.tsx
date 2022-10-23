@@ -17,7 +17,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-const MobileScreen = ({ children }: Props) => {
+const MockMobileScreen = ({ children }: Props) => {
   return (
     <Stack sx={containerSx} component="div">
       <Stack sx={headerSx} component="div" direction="row" spacing={1}>
@@ -39,4 +39,4 @@ const MobileScreen = ({ children }: Props) => {
   );
 };
 
-export default MobileScreen;
+export default MockMobileScreen;
