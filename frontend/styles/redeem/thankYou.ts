@@ -23,5 +23,7 @@ export const lottieFrameSx: SxProps = {
 };
 
 export const buttonSx: SxProps = {
-  height: '180px',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
 };

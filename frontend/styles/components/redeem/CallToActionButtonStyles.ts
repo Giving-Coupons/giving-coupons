@@ -6,35 +6,51 @@ export const centerSx: SxProps = {
 };
 
 export const gridContainerSx: SxProps = {
-  ...centerSx,
+  alignItems: 'center',
   justifyContent: 'space-between',
   maxWidth: '475px',
   backgroundColor: theme.palette.secondary.main,
-  padding: '15px',
+  padding: '10px',
   borderRadius: '20px',
   cursor: 'pointer',
   height: '100%',
+  minHeight: '110px',
 };
 
-export const stackSx: SxProps = {
+export const textGridSx: SxProps = {
+  height: '100%',
+};
+
+export const headerStackSx: SxProps = {
   padding: '8px',
   borderRadius: '10px',
   backgroundColor: theme.palette.secondaryTranslucent.light,
+  height: '100%',
+};
+
+export const descriptionStackSx: SxProps = {
+  height: '100%',
 };
 
 export const iconGridSx: SxProps = {
+  display: 'flex',
   justifyContent: 'flex-end',
   alighItems: 'flex-end',
 };
 
 export const iconBoxSx: SxProps = {
-  width: '40px',
-  height: '40px',
+  width: '30px',
+  height: '30px',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
 };
 
+export const titleSx: SxProps = {
+  fontSize: '1rem',
+};
+
 export const descriptionSx: SxProps = {
+  fontSize: '0.8rem',
   fontWeight: 600,
 };
