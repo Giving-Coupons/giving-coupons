@@ -26,6 +26,7 @@ import MobileScreen from './MobileScreen';
 import { PrimaryDonorData } from '../../../types/primaryDonor';
 import MockCharityCard from './MockCharityCard';
 import MockCharityDialog from './MockCharityDialog';
+import MockPersonalContribution from './MockPersonalContribution';
 
 interface Props {
   open: boolean;
@@ -167,7 +168,11 @@ const InstructionsDialog = ({ open, handleClose, primaryDonor, couponDenominatio
           <Box sx={givingSgLogoSx} component="img" src="/giving-sg-logo.png" />.
         </Typography>
       ),
-      display: null,
+      display: (
+        <Stack sx={screenDisplaySx} component="div" spacing={1}>
+          <MockPersonalContribution />
+        </Stack>
+      ),
     },
   ];
 
