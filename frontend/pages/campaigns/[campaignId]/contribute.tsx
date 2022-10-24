@@ -26,7 +26,7 @@ import ContributeStepper from '../../../components/campaigns/contribute/Contribu
 const validationSchema = Yup.object().shape({
   campaignCharityId: Yup.number().required('Campaign charity is required'),
   amount: Yup.number()
-    .nullable()
+    .typeError('Amount must be a number')
     .integer('Only dollar amounts are accepted')
     .min(10, 'The minimum donation is $10')
     .max(100000, 'The maximum donation is $100000'),

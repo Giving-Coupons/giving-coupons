@@ -65,6 +65,7 @@ const PersonalContributionStep = ({
           <FormTextInput
             name={fieldName}
             label="Amount"
+            placeholder="0"
             InputProps={{
               startAdornment: <InputAdornment position="start">$</InputAdornment>,
               endAdornment: (
