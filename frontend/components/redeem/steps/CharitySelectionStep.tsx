@@ -8,10 +8,10 @@ import CampaignCharityDialog from '../../campaigns/campaignCharities/CampaignCha
 import { CouponRedeemFormData } from '../../../types/coupons';
 import { useField } from 'formik';
 import FormNavigationButtons from '../FormNavigationButtons';
-import { CouponSponsorshipSummary } from '../../../types/primaryDonor';
+import { CouponSponsorship } from '../../../types/primaryDonor';
 
 interface Props {
-  couponSponsorship?: CouponSponsorshipSummary;
+  couponSponsorship?: CouponSponsorship;
   campaignCharities: CampaignCharityDonationPublicData[];
   name: keyof CouponRedeemFormData;
   activeStep: number;
@@ -42,7 +42,7 @@ const CharitySelectionStep = ({
         <Stack>
           <Typography variant="h2" align="center">
             {couponSponsorship
-              ? `Select a charity to give ${couponSponsorship.primaryDonorName}'s $${couponSponsorship.couponDenomination} to`
+              ? `Select a charity to give ${couponSponsorship.primaryDonor.name}'s $${couponSponsorship.couponDenomination} to`
               : 'Select a charity to contribute to'}
           </Typography>
 

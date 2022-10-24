@@ -32,7 +32,7 @@ const Receipt = ({ charity, couponSponsorship, secondaryDonorAmount }: Props) =>
           <>
             <ReceiptItem
               imageBaseUrl={couponSponsorship.primaryDonor.imageBase64}
-              text={`$${couponSponsorship.primaryDonorAmount} from ${couponSponsorship.primaryDonor.name}`}
+              text={`$${couponSponsorship.couponDenomination} from ${couponSponsorship.primaryDonor.name}`}
             />
 
             <ReceiptItem text={`$${secondaryDonorAmount} from you`} />

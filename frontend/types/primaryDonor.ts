@@ -13,10 +13,5 @@ export type PrimaryDonorPutData = WithoutId<PrimaryDonorData>;
 
 export type CouponSponsorship = {
   primaryDonor: PrimaryDonorData;
-  primaryDonorAmount: number;
-};
-
-export type CouponSponsorshipSummary = {
-  primaryDonorName: string;
   couponDenomination: number;
 };

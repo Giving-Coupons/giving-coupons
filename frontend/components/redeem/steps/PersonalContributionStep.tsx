@@ -12,10 +12,10 @@ import { useField } from 'formik';
 import { Dispatch, SetStateAction, useState } from 'react';
 import RedirectDialog from '../RedirectDialog';
 import { Nullable } from '../../../types/utils';
-import { CouponSponsorshipSummary } from '../../../types/primaryDonor';
+import { CouponSponsorship } from '../../../types/primaryDonor';
 
 type Props = {
-  couponSponsorship?: CouponSponsorshipSummary;
+  couponSponsorship?: CouponSponsorship;
   campaignCharity: CampaignCharityData;
   activeStep: number;
   setActiveStep: Dispatch<SetStateAction<number>>;
@@ -40,7 +40,7 @@ const PersonalContributionStep = ({
       <Stack spacing={4} width="100%" alignItems="center">
         <Typography variant="h2" align="center">
           {couponSponsorship
-            ? `${couponSponsorship.primaryDonorName} will be giving $${couponSponsorship.couponDenomination} to`
+            ? `${couponSponsorship.primaryDonor.name} will be giving $${couponSponsorship.couponDenomination} to`
             : 'You have chosen to contribute to'}
         </Typography>
 

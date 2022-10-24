@@ -2,25 +2,18 @@ import { CampaignCharityData } from '../../types/campaignCharities';
 import Receipt from './Receipt';
 import { Stack } from '@mui/system';
 import Button from '../generic/Button';
-import { PrimaryDonorData } from '../../types/primaryDonor';
+import { CouponSponsorship } from '../../types/primaryDonor';
 import { Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 
 interface Props {
   campaignId: number;
   campaignCharity: CampaignCharityData;
-  primaryDonor: PrimaryDonorData;
-  primaryDonorAmount: number;
+  couponSponsorship: CouponSponsorship;
   secondaryDonorAmount: number;
 }
 
-const AlreadyRedeemedDisplay = ({
-  campaignId,
-  campaignCharity,
-  primaryDonor,
-  primaryDonorAmount,
-  secondaryDonorAmount,
-}: Props) => {
+const AlreadyRedeemedDisplay = ({ campaignId, campaignCharity, couponSponsorship, secondaryDonorAmount }: Props) => {
   const router = useRouter();
 
   return (
@@ -31,7 +24,7 @@ const AlreadyRedeemedDisplay = ({
 
       <Receipt
         charity={campaignCharity.charity}
-        couponSponsorship={{ primaryDonor, primaryDonorAmount }}
+        couponSponsorship={couponSponsorship}
         secondaryDonorAmount={secondaryDonorAmount}
       />
 

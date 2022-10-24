@@ -27,6 +27,7 @@ import { messageContainerSx } from '../../../styles/campaigns/indexStyles';
 import IconButtonWithTooltip from '../../../components/IconButtonWithTooltip';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import InstructionsDialog from '../../../components/redeem/instructions/InstructionsDialog';
+import { CouponSponsorship } from '../../../types/primaryDonor';
 
 const validationSchema = Yup.object().shape({
   campaignCharityId: Yup.number().required('Campaign charity is required'),
@@ -81,15 +82,16 @@ const Redeem: NextPage = () => {
     }
 
     const campaignCharity = coupon.charities.find((charity) => charity.id === values.campaignCharityId);
+    const couponSponsorship: CouponSponsorship = {
+      primaryDonor: coupon.campaign.primaryDonor,
+      couponDenomination: coupon.campaign.couponDenomination,
+    };
 
     switch (activeStep) {
       case 0:
         return (
           <CharitySelectionStep
-            couponSponsorship={{
-              primaryDonorName: coupon.campaign.primaryDonor.name,
-              couponDenomination: coupon.campaign.couponDenomination,
-            }}
+            couponSponsorship={couponSponsorship}
             campaignCharities={coupon.charities}
             name="campaignCharityId"
             activeStep={activeStep}
@@ -106,10 +108,7 @@ const Redeem: NextPage = () => {
 
         return (
           <PersonalContributionStep
-            couponSponsorship={{
-              primaryDonorName: coupon.campaign.primaryDonor.name,
-              couponDenomination: coupon.denomination,
-            }}
+            couponSponsorship={couponSponsorship}
             campaignCharity={campaignCharity}
             activeStep={activeStep}
             setActiveStep={setActiveStep}
@@ -126,10 +125,7 @@ const Redeem: NextPage = () => {
         return (
           <VerifyStep
             charity={campaignCharity.charity}
-            couponSponsorship={{
-              primaryDonor: coupon.campaign.primaryDonor,
-              primaryDonorAmount: coupon.denomination,
-            }}
+            couponSponsorship={couponSponsorship}
             secondaryDonorAmount={values?.amount ?? 0}
             activeStep={activeStep}
             setActiveStep={setActiveStep}
@@ -179,8 +175,10 @@ const Redeem: NextPage = () => {
             <AlreadyRedeemedDisplay
               campaignId={coupon.campaign.id}
               campaignCharity={coupon.campaignCharity}
-              primaryDonor={coupon.campaign.primaryDonor}
-              primaryDonorAmount={coupon.denomination}
+              couponSponsorship={{
+                primaryDonor: coupon.campaign.primaryDonor,
+                couponDenomination: coupon.denomination,
+              }}
               secondaryDonorAmount={coupon.secondaryDonation?.amount ?? 0}
             />
           )}

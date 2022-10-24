@@ -14,12 +14,12 @@ import { Form, Formik } from 'formik';
 import Button from '../generic/Button';
 import LockIcon from '@mui/icons-material/Lock';
 import { CouponRedirectFormData } from '../../types/coupons';
-import { CouponSponsorshipSummary } from '../../types/primaryDonor';
+import { CouponSponsorship } from '../../types/primaryDonor';
 
 interface Props {
   open: boolean;
   handleClose: () => void;
-  couponSponsorship?: CouponSponsorshipSummary;
+  couponSponsorship?: CouponSponsorship;
   campaignCharity: CampaignCharityData;
   secondaryDonationAmount: number;
   goToNextStep: () => void;
@@ -88,7 +88,7 @@ const RedirectDialog = ({
                   <Stack component="div" sx={redirectAcknowledgementContainerSx}>
                     <Typography align="center">
                       {couponSponsorship
-                        ? `${couponSponsorship.primaryDonorName}'s ${couponSponsorship.couponDenomination} will not be redeemed until you return, so please
+                        ? `${couponSponsorship.primaryDonor.name}'s ${couponSponsorship.couponDenomination} will not be redeemed until you return, so please
                       come back afterwards!`
                         : 'Your contribution will not be counted towards this campaign until you return, so please come back afterwards!'}
                     </Typography>
