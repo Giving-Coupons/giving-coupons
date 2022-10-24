@@ -13,7 +13,8 @@ import {
 } from '@mui/material';
 import { charityLogoSx } from '../../../styles/components/charities/CampaignCharityCardStyles';
 import {
-  charityImageSx,
+  charityDesktopImageSx,
+  charityMobileImageSx,
   dialogContentSx,
   dialogContentTextSx,
   dialogPaperSx,
@@ -34,7 +35,13 @@ const CampaignCharityDialog = ({ campaignCharity, open, handleClose }: Props) =>
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
-    <Dialog fullScreen={isMobile} maxWidth="md" open={open} onClose={handleClose} PaperProps={{ sx: dialogPaperSx }}>
+    <Dialog
+      fullScreen={isMobile}
+      maxWidth="md"
+      open={open}
+      onClose={handleClose}
+      PaperProps={{ sx: !isMobile ? dialogPaperSx : {} }}
+    >
       <DialogTitle sx={dialogTitleSx}>
         <Stack component="div" direction="row" justifyContent="space-between">
           <Stack component="div" direction="row" spacing={2} alignItems="center">
@@ -48,7 +55,11 @@ const CampaignCharityDialog = ({ campaignCharity, open, handleClose }: Props) =>
       </DialogTitle>
 
       <DialogContent sx={dialogContentSx}>
-        <Box sx={charityImageSx} component="img" src={campaignCharity.charity.imageBase64} />
+        <Box
+          sx={!isMobile ? charityDesktopImageSx : charityMobileImageSx}
+          component="img"
+          src={campaignCharity.charity.imageBase64}
+        />
 
         <Typography sx={dialogContentTextSx}>{campaignCharity.charity.description}</Typography>
       </DialogContent>
