@@ -56,7 +56,7 @@ const CampaignListCard = ({ campaign }: Props) => {
 
   const actionButtons = (
     <Box key="actionButtons">
-      <Button sx={buttonSx} actionType="primary">
+      <Button sx={buttonSx} actionType="primary" onClick={() => router.push(`/campaigns/${campaign.id}/contribute`)}>
         Contribute
       </Button>
 

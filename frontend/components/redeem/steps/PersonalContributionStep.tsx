@@ -12,10 +12,10 @@ import { useField } from 'formik';
 import { Dispatch, SetStateAction, useState } from 'react';
 import RedirectDialog from '../RedirectDialog';
 import { Nullable } from '../../../types/utils';
+import { CouponSponsorship } from '../../../types/primaryDonor';
 
 type Props = {
-  primaryDonorName: string;
-  couponDenomination: number;
+  couponSponsorship?: CouponSponsorship;
   campaignCharity: CampaignCharityData;
   activeStep: number;
   setActiveStep: Dispatch<SetStateAction<number>>;
@@ -24,8 +24,7 @@ type Props = {
 };
 
 const PersonalContributionStep = ({
-  primaryDonorName,
-  couponDenomination,
+  couponSponsorship,
   campaignCharity,
   activeStep,
   setActiveStep,
@@ -40,7 +39,9 @@ const PersonalContributionStep = ({
     <Stack sx={formStepContainerSx} component="div" spacing={2}>
       <Stack spacing={4} width="100%" alignItems="center">
         <Typography variant="h2" align="center">
-          {primaryDonorName} will be giving ${couponDenomination} to
+          {couponSponsorship
+            ? `${couponSponsorship.primaryDonor.name} will be giving $${couponSponsorship.couponDenomination} to`
+            : 'You have chosen to contribute to'}
         </Typography>
 
         <Stack component="div" direction="row" spacing={2} alignItems="center">
@@ -51,7 +52,7 @@ const PersonalContributionStep = ({
 
         <Stack component="div" alignItems="center" spacing={1}>
           <Typography variant="h2" align="center">
-            Do you want to add a personal contribution too?
+            {couponSponsorship ? 'Do you want to add a personal contribution too?' : 'How much would you like to give?'}
           </Typography>
 
           <Typography variant="body2" align="center">
@@ -64,6 +65,7 @@ const PersonalContributionStep = ({
           <FormTextInput
             name={fieldName}
             label="Amount"
+            placeholder="0"
             InputProps={{
               startAdornment: <InputAdornment position="start">$</InputAdornment>,
               endAdornment: (
@@ -100,8 +102,7 @@ const PersonalContributionStep = ({
       <RedirectDialog
         open={openRedirectDialog}
         handleClose={() => setOpenRedirectDialog(false)}
-        primaryDonorName={primaryDonorName}
-        couponDenomination={couponDenomination}
+        couponSponsorship={couponSponsorship}
         secondaryDonationAmount={value ?? 0}
         campaignCharity={campaignCharity}
         goToNextStep={() => setActiveStep(activeStep + 1)}

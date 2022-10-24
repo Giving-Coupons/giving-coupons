@@ -1,5 +1,5 @@
 import { CharityListData } from '../../../types/charity';
-import { PrimaryDonorData } from '../../../types/primaryDonor';
+import { CouponSponsorship } from '../../../types/primaryDonor';
 import Receipt from '../Receipt';
 import { Stack } from '@mui/system';
 import FormNavigationButtons from '../FormNavigationButtons';
@@ -9,8 +9,7 @@ import { Dispatch, SetStateAction } from 'react';
 
 interface Props {
   charity: CharityListData;
-  primaryDonor: PrimaryDonorData;
-  primaryDonorAmount: number;
+  couponSponsorship?: CouponSponsorship;
   secondaryDonorAmount: number;
   activeStep: number;
   setActiveStep: Dispatch<SetStateAction<number>>;
@@ -20,8 +19,7 @@ interface Props {
 
 const VerifyStep = ({
   charity,
-  primaryDonor,
-  primaryDonorAmount,
+  couponSponsorship,
   secondaryDonorAmount,
   activeStep,
   setActiveStep,
@@ -32,15 +30,10 @@ const VerifyStep = ({
     <Stack sx={formStepContainerSx} component="div" spacing={2}>
       <Stack component="div" width="100%" spacing={4}>
         <Typography variant="h2" align="center">
-          Verify your redemption
+          Verify your {couponSponsorship ? 'redemption' : 'contribution'}
         </Typography>
 
-        <Receipt
-          charity={charity}
-          primaryDonor={primaryDonor}
-          primaryDonorAmount={primaryDonorAmount}
-          secondaryDonorAmount={secondaryDonorAmount}
-        />
+        <Receipt charity={charity} couponSponsorship={couponSponsorship} secondaryDonorAmount={secondaryDonorAmount} />
       </Stack>
 
       <FormNavigationButtons

@@ -1,17 +1,16 @@
 import { Avatar, Box, Divider, Stack, Typography } from '@mui/material';
 import { headerSx, imageSx, stackSx } from '../../styles/components/redeem/ReceiptStyles';
 import { CharityListData } from '../../types/charity';
-import { PrimaryDonorData } from '../../types/primaryDonor';
+import { CouponSponsorship } from '../../types/primaryDonor';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
 interface Props {
   charity: CharityListData;
-  primaryDonor: PrimaryDonorData;
-  primaryDonorAmount: number;
+  couponSponsorship?: CouponSponsorship;
   secondaryDonorAmount: number;
 }
 
-const Receipt = ({ charity, primaryDonor, primaryDonorAmount, secondaryDonorAmount }: Props) => {
+const Receipt = ({ charity, couponSponsorship, secondaryDonorAmount }: Props) => {
   return (
     <Stack component="div" sx={stackSx}>
       <Stack margin={2} spacing={1}>
@@ -29,12 +28,14 @@ const Receipt = ({ charity, primaryDonor, primaryDonorAmount, secondaryDonorAmou
           Donation Amount
         </Typography>
 
-        <ReceiptItem
-          imageBaseUrl={primaryDonor.imageBase64}
-          text={`$${primaryDonorAmount} from ${primaryDonor.name}`}
-        />
+        {couponSponsorship && (
+          <ReceiptItem
+            imageBaseUrl={couponSponsorship.primaryDonor.imageBase64}
+            text={`$${couponSponsorship.couponDenomination} from ${couponSponsorship.primaryDonor.name}`}
+          />
+        )}
 
-        <ReceiptItem text={`$${secondaryDonorAmount} from you`} />
+        <ReceiptItem text={couponSponsorship ? `$${secondaryDonorAmount} from you` : `$${secondaryDonorAmount}`} />
       </Stack>
     </Stack>
   );

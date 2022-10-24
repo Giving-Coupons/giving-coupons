@@ -14,12 +14,12 @@ import { Form, Formik } from 'formik';
 import Button from '../generic/Button';
 import LockIcon from '@mui/icons-material/Lock';
 import { CouponRedirectFormData } from '../../types/coupons';
+import { CouponSponsorship } from '../../types/primaryDonor';
 
 interface Props {
   open: boolean;
   handleClose: () => void;
-  primaryDonorName: string;
-  couponDenomination: number;
+  couponSponsorship?: CouponSponsorship;
   campaignCharity: CampaignCharityData;
   secondaryDonationAmount: number;
   goToNextStep: () => void;
@@ -32,8 +32,7 @@ const validationSchema = Yup.object().shape({
 const RedirectDialog = ({
   open,
   handleClose,
-  primaryDonorName,
-  couponDenomination,
+  couponSponsorship,
   secondaryDonationAmount,
   campaignCharity,
   goToNextStep,
@@ -88,8 +87,10 @@ const RedirectDialog = ({
                 <Stack component="div" alignItems="center" width="100%" spacing={2}>
                   <Stack component="div" sx={redirectAcknowledgementContainerSx}>
                     <Typography align="center">
-                      {primaryDonorName}&apos;s ${couponDenomination} will not be redeemed until you return, so please
-                      come back afterwards!
+                      {couponSponsorship
+                        ? `${couponSponsorship.primaryDonor.name}'s ${couponSponsorship.couponDenomination} will not be redeemed until you return, so please
+                      come back afterwards!`
+                        : 'Your contribution will not be counted towards this campaign until you return, so please come back afterwards!'}
                     </Typography>
 
                     <FormControlLabel

@@ -17,3 +17,5 @@ export type SecondaryDonationData = {
 };
 
 export type SecondaryDonationPostData = WithoutId<SecondaryDonationData>;
+
+export type SecondaryDonationFormData = Partial<SecondaryDonationPostData>;
