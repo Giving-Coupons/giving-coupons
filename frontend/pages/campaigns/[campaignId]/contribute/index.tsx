@@ -2,11 +2,11 @@ import { Box, Typography, useMediaQuery } from '@mui/material';
 import { NextPage } from 'next';
 import Head from 'next/head';
 import { Container, Stack, useTheme } from '@mui/system';
-import CharitySelectionStep from '../../../components/redeem/steps/CharitySelectionStep';
+import CharitySelectionStep from '../../../../components/redeem/steps/CharitySelectionStep';
 import useSWR from 'swr';
-import { Nullable } from '../../../types/utils';
+import { Nullable } from '../../../../types/utils';
 import { useRouter } from 'next/router';
-import api from '../../../frontendApis';
+import api from '../../../../frontendApis';
 import React, { useState } from 'react';
 import { Form, Formik, isInteger } from 'formik';
 import * as Yup from 'yup';
@@ -14,14 +14,14 @@ import {
   containerSx,
   desktopFormContainerSx,
   mobileFormContainerSx,
-} from '../../../styles/components/redeem/RedeemStyles';
-import PersonalContributionStep from '../../../components/redeem/steps/PersonalContributionStep';
-import VerifyStep from '../../../components/redeem/steps/VerifyStep';
-import RedeemLoading from '../../../components/redeem/RedeemLoading';
-import { messageContainerSx } from '../../../styles/campaigns/indexStyles';
-import { CampaignPublicData } from '../../../types/campaigns';
-import { SecondaryDonationFormData, SecondaryDonationPostData } from '../../../types/donations';
-import ContributeStepper from '../../../components/campaigns/contribute/ContributeStepper';
+} from '../../../../styles/components/redeem/RedeemStyles';
+import PersonalContributionStep from '../../../../components/redeem/steps/PersonalContributionStep';
+import VerifyStep from '../../../../components/redeem/steps/VerifyStep';
+import RedeemLoading from '../../../../components/redeem/RedeemLoading';
+import { messageContainerSx } from '../../../../styles/campaigns/indexStyles';
+import { CampaignPublicData } from '../../../../types/campaigns';
+import { SecondaryDonationFormData, SecondaryDonationPostData } from '../../../../types/donations';
+import ContributeStepper from '../../../../components/campaigns/contribute/ContributeStepper';
 
 const validationSchema = Yup.object().shape({
   campaignCharityId: Yup.number().required('Campaign charity is required'),
@@ -65,7 +65,7 @@ const Contribute: NextPage = () => {
 
         return api.secondaryDonations.addSecondaryDonation(secondaryDonationPostData);
       })
-      .then(() => router.push({ pathname: '/redeem/thank-you', query: { campaignId } }));
+      .then(() => router.push({ pathname: `/campaigns/${campaignId}/contribute/thank-you` }));
   };
 
   const renderFormPage = (activeStep: number, values: SecondaryDonationFormData) => {
