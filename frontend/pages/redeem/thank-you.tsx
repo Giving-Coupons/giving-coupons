@@ -55,7 +55,7 @@ const ThankYou: NextPage = () => {
 
       <Grid container spacing={1}>
         {buttonProps.map((props, index) => (
-          <Grid sx={buttonSx} key={index} item xs={12} md={4}>
+          <Grid sx={buttonSx} key={index} item xs={12} md={12 / buttonProps.length}>
             <CallToActionButton {...props} />
           </Grid>
         ))}
