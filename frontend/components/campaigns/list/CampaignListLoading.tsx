@@ -6,7 +6,7 @@ import CampaignListCardLoading from './CampaignListCardLoading';
 const CampaignListLoading = () => {
   return (
     <Container component="div">
-      <Grid container spacing={2}>
+      <Grid container spacing={2} marginLeft={2}>
         {[1, 2, 3].map((index) => (
           <Grid item sx={itemSx} xs={12} sm={6} md={4} key={index}>
             <CampaignListCardLoading />
