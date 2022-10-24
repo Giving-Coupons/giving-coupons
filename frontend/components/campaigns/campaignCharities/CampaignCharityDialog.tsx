@@ -35,13 +35,7 @@ const CampaignCharityDialog = ({ campaignCharity, open, handleClose }: Props) =>
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
-    <Dialog
-      fullScreen={isMobile}
-      maxWidth="md"
-      open={open}
-      onClose={handleClose}
-      PaperProps={{ sx: !isMobile ? dialogPaperSx : {} }}
-    >
+    <Dialog fullScreen={isMobile} open={open} onClose={handleClose} PaperProps={{ sx: !isMobile ? dialogPaperSx : {} }}>
       <DialogTitle sx={dialogTitleSx}>
         <Stack component="div" direction="row" justifyContent="space-between">
           <Stack component="div" direction="row" spacing={2} alignItems="center">

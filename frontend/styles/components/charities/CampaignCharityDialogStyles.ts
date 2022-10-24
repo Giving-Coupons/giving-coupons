@@ -3,7 +3,6 @@ import { SxProps } from '@mui/material';
 export const dialogPaperSx: SxProps = {
   height: '60vh',
   width: '100%',
-  maxWidth: '1000px',
 };
 
 export const dialogTitleSx: SxProps = {
@@ -26,7 +25,8 @@ export const charityLogoSx: SxProps = {
 };
 
 export const charityDesktopImageSx: SxProps = {
-  height: '70%',
+  height: '60%',
+  width: '100%',
 };
 
 export const charityMobileImageSx: SxProps = {
