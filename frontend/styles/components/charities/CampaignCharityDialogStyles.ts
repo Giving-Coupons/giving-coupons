@@ -1,14 +1,22 @@
 import { SxProps } from '@mui/material';
 
+export const dialogPaperSx: SxProps = {
+  height: '60vh',
+  width: '100%',
+};
+
 export const dialogTitleSx: SxProps = {
   padding: '10px',
 };
 
-export const dialogContentSx: SxProps = { padding: 0 };
+export const dialogContentSx: SxProps = {
+  padding: 0,
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+};
 
-export const dialogContentTextSx: SxProps = { padding: '10px' };
-
-export const dialogActionsSx: SxProps = { justifyContent: 'space-between' };
+export const dialogContentTextSx: SxProps = { margin: '20px' };
 
 export const charityLogoSx: SxProps = {
   maxHeight: '40px',
@@ -16,6 +24,11 @@ export const charityLogoSx: SxProps = {
   height: '40px',
 };
 
-export const charityImageSx: SxProps = {
+export const charityDesktopImageSx: SxProps = {
+  height: '60%',
+  width: '100%',
+};
+
+export const charityMobileImageSx: SxProps = {
   width: '100%',
 };
