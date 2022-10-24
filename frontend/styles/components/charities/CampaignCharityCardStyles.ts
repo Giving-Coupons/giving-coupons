@@ -23,4 +23,7 @@ export const charityLogoSx: SxProps = {
   maxHeight: '40px',
   minHeight: '40px',
   height: '40px',
+  maxWidth: '40px',
+  minWidth: '40px',
+  width: '40px',
 };
