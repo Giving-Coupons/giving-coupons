@@ -1,6 +1,5 @@
 import { Box, Grid, Stack, Typography } from '@mui/material';
 import Lottie from 'lottie-react';
-import { NextPage } from 'next';
 import orangeThankYou from '../../assets/orangeThankYouLottie.json';
 import { buttonSx, lottieContainerSx, lottieFrameSx, stackSx } from '../../styles/redeem/thankYou';
 import CallToActionButton from './CallToActionButton';
@@ -8,7 +7,6 @@ import CampaignIcon from '../icons/CampaignIcon';
 import { useRouter } from 'next/router';
 import ContributeIcon from '../icons/ContributeIcon';
 import ExploreIcon from '../icons/ExploreIcon';
-import { isInteger } from 'formik';
 
 type Props = {
   campaignId?: number;
