@@ -28,18 +28,14 @@ const Receipt = ({ charity, couponSponsorship, secondaryDonorAmount }: Props) =>
           Donation Amount
         </Typography>
 
-        {couponSponsorship ? (
-          <>
-            <ReceiptItem
-              imageBaseUrl={couponSponsorship.primaryDonor.imageBase64}
-              text={`$${couponSponsorship.couponDenomination} from ${couponSponsorship.primaryDonor.name}`}
-            />
-
-            <ReceiptItem text={`$${secondaryDonorAmount} from you`} />
-          </>
-        ) : (
-          <Typography variant="h4">${secondaryDonorAmount}</Typography>
+        {couponSponsorship && (
+          <ReceiptItem
+            imageBaseUrl={couponSponsorship.primaryDonor.imageBase64}
+            text={`$${couponSponsorship.couponDenomination} from ${couponSponsorship.primaryDonor.name}`}
+          />
         )}
+
+        <ReceiptItem text={couponSponsorship ? `$${secondaryDonorAmount} from you` : `$${secondaryDonorAmount}`} />
       </Stack>
     </Stack>
   );
