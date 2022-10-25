@@ -1,5 +1,5 @@
 import { ApiPromise } from '../types/api';
-import { CouponBaseData, CouponRedeemData, CouponRedeemPostData } from '../types/coupons';
+import { CouponBaseData, CouponProgressData, CouponRedeemData, CouponRedeemPostData } from '../types/coupons';
 import { SecondaryDonationPostData } from '../types/donations';
 import { Nullable } from '../types/utils';
 import BaseAPI from './base';
@@ -15,7 +15,7 @@ class CouponsAPI extends BaseAPI {
     return this.get(`${CouponsAPI.COUPONS_URL}/${urlToken}`);
   }
 
-  public getProgress(urlToken: string): ApiPromise<Nullable<string>> {
+  public getProgress(urlToken: string): ApiPromise<CouponProgressData> {
     return this.get(`${CouponsAPI.COUPONS_URL}/${urlToken}/progress`);
   }
 

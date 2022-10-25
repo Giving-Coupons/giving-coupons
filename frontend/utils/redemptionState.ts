@@ -15,7 +15,7 @@ function parseRedemptionStateFromCookie(json: string) {
  * @throws Can throw a JSON.parse related error if the saved value is invalid.
  */
 export async function getRedemptionStateCookie(urlToken: string) {
-  const jsonState = (await api.coupons.getProgress(urlToken)).payload;
+  const jsonState = (await api.coupons.getProgress(urlToken)).payload?.progress;
   if (!jsonState) {
     return null;
   }

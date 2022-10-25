@@ -46,7 +46,7 @@ export default function useRedemptionState(
     return [redemptionState, updateRedemptionStep];
   }
 
-  Promise.resolve(async () => {
+  Promise.resolve().then(async () => {
     try {
       let currentState = await getRedemptionStateCookie(urlToken);
       // If no cookie found or cookie from another coupon's session, reset for current coupon.
