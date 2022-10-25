@@ -14,7 +14,11 @@ interface Props {
 const InterestFormCharitySelector = ({ name, label, placeholder }: Props) => {
   const { data: charityOptions } = useSWR<CharityListData[]>(
     `${CharitiesAPI.CHARITIES_URL}/listCharityMinimalData`,
-    () => api.charities.list().then((r) => r.payload ?? []),
+    () =>
+      api.charities
+        .list()
+        .then((r) => r.payload ?? [])
+        .then((arr) => arr.sort((a, b) => a.name.localeCompare(b.name))),
   );
 
   return (
