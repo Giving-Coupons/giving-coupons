@@ -1,10 +1,10 @@
-import { CampaignCharityData } from '../../types/campaignCharities';
-import Receipt from './Receipt';
-import { Stack } from '@mui/system';
-import Button from '../generic/Button';
-import { CouponSponsorship } from '../../types/primaryDonor';
 import { Typography } from '@mui/material';
+import { Stack } from '@mui/system';
 import { useRouter } from 'next/router';
+import { CampaignCharityData } from '../../types/campaignCharities';
+import { CouponSponsorship } from '../../types/primaryDonor';
+import Button from '../generic/Button';
+import Receipt from './Receipt';
 
 interface Props {
   campaignId: number;

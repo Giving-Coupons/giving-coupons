@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import useAdminLoginCheck from '../../hooks/useAdminLogInCheck';
 import { useEffect } from 'react';
+import useAdminLoginCheck from '../../hooks/useAdminLogInCheck';
 
 const AdminDashboard: NextPage = () => {
   useAdminLoginCheck();

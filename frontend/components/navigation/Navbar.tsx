@@ -1,29 +1,29 @@
+import LogoutIcon from '@mui/icons-material/Logout';
+import MenuIcon from '@mui/icons-material/Menu';
 import { AppBar, Toolbar, Typography, useMediaQuery } from '@mui/material';
 import { Box, Stack, useTheme } from '@mui/system';
 import Link from 'next/link';
-import MenuIcon from '@mui/icons-material/Menu';
-import { useState } from 'react';
-import NavDrawer from './NavDrawer';
-import {
-  isTabForCurrentPage,
-  defaultNavigationTextPathMap,
-  adminNavigationTextPathMap,
-  adminPathPrefix,
-} from '../../utils/routes';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
+import { unsetAuthHeaders } from '../../frontendApis/helpers/authHeaders';
 import {
   activeTabSx,
+  adminCaptionSx,
   inactiveTabSx,
-  toolbarLogoIconSx,
+  toolbarHamburgerSx,
   toolbarLeftContainerSx,
+  toolbarLogoIconSx,
   toolbarLogoSx,
   toolbarSx,
-  toolbarHamburgerSx,
-  adminCaptionSx,
 } from '../../styles/components/navigation/NavbarStyles';
+import {
+  adminNavigationTextPathMap,
+  adminPathPrefix,
+  defaultNavigationTextPathMap,
+  isTabForCurrentPage,
+} from '../../utils/routes';
 import Button from '../generic/Button';
-import LogoutIcon from '@mui/icons-material/Logout';
-import { unsetAuthHeaders } from '../../frontendApis/helpers/authHeaders';
+import NavDrawer from './NavDrawer';
 
 const NavBar = () => {
   const theme = useTheme();

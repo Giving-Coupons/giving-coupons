@@ -1,8 +1,8 @@
-import { Stack } from '@mui/system';
 import { Typography } from '@mui/material';
-import { CouponBaseData } from '../../types/coupons';
-import { couponContainerSx, leftSectionSx, rightSectionSx } from '../../styles/components/coupons/couponStyles';
+import { Stack } from '@mui/system';
 import { QRCodeSVG } from 'qrcode.react';
+import { couponContainerSx, leftSectionSx, rightSectionSx } from '../../styles/components/coupons/couponStyles';
+import { CouponBaseData } from '../../types/coupons';
 
 interface Props {
   coupon: CouponBaseData;

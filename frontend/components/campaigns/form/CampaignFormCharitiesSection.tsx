@@ -1,17 +1,16 @@
-import { FieldArray } from 'formik';
-import { Stack } from '@mui/system';
-import { sectionSx } from '../../../styles/components/campaigns/form/CampaignFormStyles';
+import AddIcon from '@mui/icons-material/Add';
 import { Typography } from '@mui/material';
-import CampaignFormCharitySection from './CampaignFormCharitySection';
-import Button from '../../generic/Button';
+import { Stack } from '@mui/system';
+import { FieldArray } from 'formik';
+import useSWR from 'swr';
+import api from '../../../frontendApis';
+import CharitiesAPI from '../../../frontendApis/charities';
+import { sectionSx } from '../../../styles/components/campaigns/form/CampaignFormStyles';
 import { CampaignCharityBaseData } from '../../../types/campaignCharities';
 import { CharityListData } from '../../../types/charity';
 import { MAX_NUM_OF_CAMPAIGN_CHARITIES } from '../../../utils/constants';
-import AddIcon from '@mui/icons-material/Add';
-import React from 'react';
-import useSWR from 'swr';
-import CharitiesAPI from '../../../frontendApis/charities';
-import api from '../../../frontendApis';
+import Button from '../../generic/Button';
+import CampaignFormCharitySection from './CampaignFormCharitySection';
 
 interface Props {
   values: Partial<CampaignCharityBaseData>[];

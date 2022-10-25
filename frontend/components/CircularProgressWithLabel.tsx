@@ -1,6 +1,6 @@
-import React from 'react';
-import CircularProgress, { CircularProgressProps } from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import CircularProgress, { CircularProgressProps } from '@mui/material/CircularProgress';
+import React from 'react';
 
 type CircularProgressWithLabelProps = CircularProgressProps & {
   value: number;

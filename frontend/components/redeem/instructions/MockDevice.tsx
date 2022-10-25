@@ -1,19 +1,19 @@
-import { Box, Stack, useTheme } from '@mui/system';
-import {
-  topCameraSx,
-  topAudioSx,
-  headerSx,
-  screenSx,
-  mockTypographySx,
-  mockAppBarSx,
-  contentSx,
-  toolbarLogoIconSx,
-  mobileContainerSx,
-  desktopContainerSx,
-} from '../../../styles/components/redeem/MockDeviceStyles';
-import { Typography, useMediaQuery } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import React, { ReactNode } from 'react';
+import { Typography, useMediaQuery } from '@mui/material';
+import { Box, Stack, useTheme } from '@mui/system';
+import { ReactNode } from 'react';
+import {
+  contentSx,
+  desktopContainerSx,
+  headerSx,
+  mobileContainerSx,
+  mockAppBarSx,
+  mockTypographySx,
+  screenSx,
+  toolbarLogoIconSx,
+  topAudioSx,
+  topCameraSx,
+} from '../../../styles/components/redeem/MockDeviceStyles';
 
 interface Props {
   children: ReactNode;

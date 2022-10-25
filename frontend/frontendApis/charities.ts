@@ -1,5 +1,5 @@
-import { CharityData, CharityListData, CharityPostData, CharityPutData } from '../types/charity';
 import { ApiPromise } from '../types/api';
+import { CharityData, CharityListData, CharityPostData, CharityPutData } from '../types/charity';
 import BaseAPI from './base';
 
 class CharitiesAPI extends BaseAPI {

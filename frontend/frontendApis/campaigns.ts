@@ -3,9 +3,9 @@ import {
   CampaignAdminData,
   CampaignAdminListData,
   CampaignListData,
-  CampaignPublicData,
   CampaignListQueryParams,
   CampaignPostData,
+  CampaignPublicData,
   CampaignPutData,
 } from '../types/campaigns';
 import BaseAPI from './base';

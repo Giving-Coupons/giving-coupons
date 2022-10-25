@@ -1,12 +1,12 @@
+import { Typography } from '@mui/material';
+import { Box, Stack, useTheme } from '@mui/system';
 import {
   couponAmountSx,
   couponReceivedLineContainerSx,
   lineSx,
 } from '../../../styles/components/redeem/InstructionDialogStyles';
-import { Typography } from '@mui/material';
-import { Box, Stack, useTheme } from '@mui/system';
-import MockCharityCard from './MockCharityCard';
 import { givingSgLogoSx } from '../../../styles/components/redeem/RedeemStyles';
+import MockCharityCard from './MockCharityCard';
 
 interface Props {
   couponDenomination: number;

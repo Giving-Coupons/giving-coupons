@@ -1,7 +1,7 @@
 import { Autocomplete, Box, Stack, TextField, Typography } from '@mui/material';
 import { useField } from 'formik';
-import { SelectOptionData } from '../../types/utils';
 import { logoSx } from '../../styles/components/interests/InterestFormStyles';
+import { SelectOptionData } from '../../types/utils';
 
 interface Props<T> {
   name: string;

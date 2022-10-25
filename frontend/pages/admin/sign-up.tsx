@@ -1,16 +1,15 @@
-import { Stack } from '@mui/material';
-import * as Yup from 'yup';
-import { Box, Container, Grid, Typography } from '@mui/material';
+import { Box, Container, Grid, Stack, Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
 import { NextPage } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import api from '../../frontendApis';
-import useAdminLoginCheck from '../../hooks/useAdminLogInCheck';
-import { AdminPostData } from '../../types/admin';
-import { boxSx, h1Sx, mainSx, submitButtonSx } from '../../styles/admin/sign-up';
+import * as Yup from 'yup';
 import FormTextInput from '../../components/forms/FormTextInput';
 import Button from '../../components/generic/Button';
+import api from '../../frontendApis';
+import useAdminLoginCheck from '../../hooks/useAdminLogInCheck';
+import { boxSx, h1Sx, mainSx, submitButtonSx } from '../../styles/admin/sign-up';
+import { AdminPostData } from '../../types/admin';
 
 const adminApi = api.admins;
 

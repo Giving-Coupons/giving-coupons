@@ -1,8 +1,8 @@
-import { RedemptionState, RedemptionStep } from '../types/redemptionState';
 import moment from 'moment';
+import api from '../frontendApis';
+import { RedemptionState, RedemptionStep } from '../types/redemptionState';
 import { Nullable } from '../types/utils';
 import { DEFAULT_SECONDARY_DONATION_VALUE } from './constants';
-import api from '../frontendApis';
 
 function parseRedemptionStateFromCookie(json: string) {
   return JSON.parse(json) as RedemptionState;

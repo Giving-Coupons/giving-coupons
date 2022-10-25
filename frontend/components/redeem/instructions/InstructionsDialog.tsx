@@ -1,7 +1,14 @@
 import { Button, Dialog, Typography, useMediaQuery } from '@mui/material';
+import { Box, Container, Stack, useTheme } from '@mui/system';
+import { ReactNode } from 'react';
+import { Navigation, Pagination } from 'swiper';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import {
   buttonSx,
-  stackSx,
+  containerSx,
   desktopScreenDisplaySx,
   desktopSlideSx,
   desktopSwiperSx,
@@ -10,23 +17,16 @@ import {
   mobileSlideSx,
   mobileSwiperSx,
   slideContainerSx,
-  containerSx,
+  stackSx,
 } from '../../../styles/components/redeem/InstructionDialogStyles';
-import { Box, Container, Stack, useTheme } from '@mui/system';
-import { Navigation, Pagination } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import { ReactNode } from 'react';
 import { givingSgLogoSx } from '../../../styles/components/redeem/RedeemStyles';
-import MockDevice from './MockDevice';
 import { PrimaryDonorData } from '../../../types/primaryDonor';
 import FirstSlideDisplay from './FirstSlideDisplay';
+import MockCharityDialog from './MockCharityDialog';
+import MockDevice from './MockDevice';
+import MockPersonalContribution from './MockPersonalContribution';
 import SecondSlideDisplay from './SecondSlideDisplay';
 import ThirdSlideDisplay from './ThirdSlideDisplay';
-import MockPersonalContribution from './MockPersonalContribution';
-import MockCharityDialog from './MockCharityDialog';
 
 interface Props {
   open: boolean;

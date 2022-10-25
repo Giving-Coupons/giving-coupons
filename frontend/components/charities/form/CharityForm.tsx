@@ -1,12 +1,12 @@
-import { Form, Formik } from 'formik';
-import { CharityFormData } from '../../../types/charity';
-import { Stack } from '@mui/system';
 import { Typography } from '@mui/material';
-import FormTextInput from '../../forms/FormTextInput';
-import FormImageUpload from '../../forms/FormImageUpload';
-import Button from '../../generic/Button';
+import { Stack } from '@mui/system';
+import { Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
 import * as Yup from 'yup';
+import { CharityFormData } from '../../../types/charity';
+import FormImageUpload from '../../forms/FormImageUpload';
+import FormTextInput from '../../forms/FormTextInput';
+import Button from '../../generic/Button';
 
 interface Props {
   title: string;

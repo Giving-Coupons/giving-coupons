@@ -1,17 +1,17 @@
-import * as Yup from 'yup';
-import Container from '@mui/material/Container';
-import { InterestData } from '../../../types/interest';
 import { Button, InputAdornment, Stack, Typography } from '@mui/material';
-import { submitButtonSx } from '../../../styles/components/interests/InterestFormStyles';
+import Container from '@mui/material/Container';
 import { Form, Formik } from 'formik';
 import moment, { Moment } from 'moment';
-import { DEFAULT_COUPON_DENOMINATION, MAX_NUM_OF_CAMPAIGN_CHARITIES } from '../../../utils/constants';
-import FormDatePicker from '../../forms/FormDatePicker';
+import * as Yup from 'yup';
+import { submitButtonSx } from '../../../styles/components/interests/InterestFormStyles';
+import { InterestData } from '../../../types/interest';
 import { Nullable } from '../../../types/utils';
-import FormTextInput from '../../forms/FormTextInput';
+import { DEFAULT_COUPON_DENOMINATION, MAX_NUM_OF_CAMPAIGN_CHARITIES } from '../../../utils/constants';
 import FormAmountButton from '../../forms/FormAmountButton';
-import InterestFormCharitySelector from './InterestFormCharitySelector';
+import FormDatePicker from '../../forms/FormDatePicker';
 import FormImageUpload from '../../forms/FormImageUpload';
+import FormTextInput from '../../forms/FormTextInput';
+import InterestFormCharitySelector from './InterestFormCharitySelector';
 
 export type InterestFormData = Partial<
   Omit<InterestData, 'id' | 'status' | 'couponDenomination' | 'start' | 'end' | 'charities'>

@@ -1,5 +1,5 @@
-import { SxProps } from '@mui/system';
 import { alpha } from '@mui/material';
+import { SxProps } from '@mui/system';
 import { theme } from '../../../utils/theme';
 
 export const dialogPaperSx: SxProps = {

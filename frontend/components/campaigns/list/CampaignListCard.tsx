@@ -1,17 +1,17 @@
+import { Grid, Typography } from '@mui/material';
 import { Box, Container, Stack } from '@mui/system';
-import { Typography, Grid } from '@mui/material';
-import Button from '../../generic/Button';
-import CompetingGraph from '../../charts/CompetingGraph';
-import { CampaignListData } from '../../../types/campaigns';
-import CardWithImage from '../../generic/CardWithImage';
+import { useRouter } from 'next/router';
 import {
+  buttonSx,
   charityLogoSx,
   descriptionContainerSx,
   graphContainerSx,
   graphSx,
-  buttonSx,
 } from '../../../styles/components/campaigns/list/CampaignListCardStyles';
-import { useRouter } from 'next/router';
+import { CampaignListData } from '../../../types/campaigns';
+import CompetingGraph from '../../charts/CompetingGraph';
+import Button from '../../generic/Button';
+import CardWithImage from '../../generic/CardWithImage';
 
 interface Props {
   campaign: CampaignListData;

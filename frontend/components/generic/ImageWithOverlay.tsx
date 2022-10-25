@@ -1,11 +1,11 @@
 import { Box } from '@mui/system';
+import React from 'react';
 import {
   aboveImageOverlayContainerSx,
   imageContainerSx,
   imageOverlaySx,
   imageSx,
 } from '../../styles/components/generic/ImageWithOverlayStyles';
-import React from 'react';
 
 interface Props {
   children?: React.ReactNode;

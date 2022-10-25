@@ -1,32 +1,31 @@
+import { Grid, Typography } from '@mui/material';
+import { Box, Stack } from '@mui/system';
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import Button from '../components/generic/Button';
-import { Box, Stack } from '@mui/system';
-import { Grid } from '@mui/material';
-import { Typography } from '@mui/material';
 import ButtonCard from '../components/ButtonCard';
+import Button from '../components/generic/Button';
 import {
-  largeImpactTextSx,
   buttonSx,
-  headlineSectionBoxResponsiveSx,
-  orgDescriptionSx,
-  headlineImageSx,
-  howItWorksSectionSx,
-  givingCouponsNoticeSx,
-  callToActionStackSx,
-  headlineTextGridSx,
-  headlineTextStackSx,
-  statsSectionSx,
-  statsSectionGridSx,
-  statsSectionGridItemSx,
-  statsSectionImageSx,
-  statsSectionGridItemStackSx,
-  howItWorksHeaderSx,
-  howItWorksStackSx,
   callToActionSectionGridItemSx,
+  callToActionStackSx,
   charityImageBlobResponsiveSx,
   charityImageLargeResponsiveSx,
+  givingCouponsNoticeSx,
+  headlineImageSx,
+  headlineSectionBoxResponsiveSx,
+  headlineTextGridSx,
+  headlineTextStackSx,
+  howItWorksHeaderSx,
   howItWorksImageSx,
+  howItWorksSectionSx,
+  howItWorksStackSx,
+  largeImpactTextSx,
+  orgDescriptionSx,
+  statsSectionGridItemStackSx,
+  statsSectionGridItemSx,
+  statsSectionGridSx,
+  statsSectionImageSx,
+  statsSectionSx,
 } from '../styles/indexStyles';
 
 const Home: NextPage = () => {

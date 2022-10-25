@@ -1,11 +1,3 @@
-import { DonationBreakdownData } from '../../../types/donations';
-import { CampaignCharityData, CampaignCharityDonationData } from '../../../types/campaignCharities';
-import {
-  charityContainerSx,
-  charityItemSx,
-  donationTableHeaderSx,
-  logoSx,
-} from '../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
 import {
   Avatar,
   Link as MuiLink,
@@ -18,10 +10,18 @@ import {
   Typography,
 } from '@mui/material';
 import { Stack } from '@mui/system';
-import React, { ReactNode } from 'react';
+import Link from 'next/link';
+import { ReactNode } from 'react';
+import {
+  charityContainerSx,
+  charityItemSx,
+  donationTableHeaderSx,
+  logoSx,
+} from '../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
+import { CampaignCharityData, CampaignCharityDonationData } from '../../../types/campaignCharities';
+import { DonationBreakdownData } from '../../../types/donations';
 import CompetingGraph from '../../charts/CompetingGraph';
 import CampaignCard from './CampaignCard';
-import Link from 'next/link';
 
 interface Props {
   totalDonationBreakdown: DonationBreakdownData;

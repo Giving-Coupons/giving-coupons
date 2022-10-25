@@ -1,11 +1,11 @@
+import { Typography } from '@mui/material';
+import { Box, Stack, useTheme } from '@mui/system';
 import {
   couponAmountSx,
   couponReceivedLineContainerSx,
   lineSx,
   primaryDonorImageSx,
 } from '../../../styles/components/redeem/InstructionDialogStyles';
-import { Typography } from '@mui/material';
-import { Box, Stack, useTheme } from '@mui/system';
 import { PrimaryDonorData } from '../../../types/primaryDonor';
 
 interface Props {

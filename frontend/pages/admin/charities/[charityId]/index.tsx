@@ -1,10 +1,18 @@
+import { List } from '@mui/icons-material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import { Skeleton, Stack, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import Head from 'next/head';
-import useSWR from 'swr';
-import { CharityData } from '../../../../types/charity';
-import api from '../../../../frontendApis';
 import { useRouter } from 'next/router';
-import { Skeleton, Stack, Typography } from '@mui/material';
+import { useState } from 'react';
+import useSWR from 'swr';
+import Button from '../../../../components/generic/Button';
+import DeletionDialog from '../../../../components/generic/DeletionDialog';
+import ImageWithOverlay from '../../../../components/generic/ImageWithOverlay';
+import IconButtonWithTooltip from '../../../../components/IconButtonWithTooltip';
+import api from '../../../../frontendApis';
+import useAdminLoginCheck from '../../../../hooks/useAdminLogInCheck';
 import {
   headerSx,
   imageContainerSx,
@@ -12,16 +20,8 @@ import {
   rootSx,
   sadPathStackSx,
 } from '../../../../styles/admin/charities/viewStyles';
-import useAdminLoginCheck from '../../../../hooks/useAdminLogInCheck';
+import { CharityData } from '../../../../types/charity';
 import { Nullable } from '../../../../types/utils';
-import IconButtonWithTooltip from '../../../../components/IconButtonWithTooltip';
-import ImageWithOverlay from '../../../../components/generic/ImageWithOverlay';
-import Button from '../../../../components/generic/Button';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import React, { useState } from 'react';
-import DeletionDialog from '../../../../components/generic/DeletionDialog';
-import { List } from '@mui/icons-material';
 
 const CharityView = () => {
   useAdminLoginCheck();

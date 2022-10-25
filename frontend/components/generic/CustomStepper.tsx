@@ -1,7 +1,7 @@
-import { Step, StepConnector, stepConnectorClasses, StepIconProps, StepLabel, Stepper } from '@mui/material';
-import { styled } from '@mui/system';
 import CheckIcon from '@mui/icons-material/Check';
 import CircleIcon from '@mui/icons-material/Circle';
+import { Step, StepConnector, stepConnectorClasses, StepIconProps, StepLabel, Stepper } from '@mui/material';
+import { styled } from '@mui/system';
 
 interface Props {
   activeStep?: number;

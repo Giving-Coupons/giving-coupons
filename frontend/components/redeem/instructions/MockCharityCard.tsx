@@ -2,9 +2,9 @@ import { Box, Stack } from '@mui/system';
 import {
   cardSx,
   imageSx,
-  textContainerSx,
-  shorterTextSx,
   longerTextSx,
+  shorterTextSx,
+  textContainerSx,
 } from '../../../styles/components/redeem/MockCharityCardStyles';
 
 const MockCharityCard = () => {

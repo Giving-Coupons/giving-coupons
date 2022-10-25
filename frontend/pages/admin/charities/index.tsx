@@ -1,22 +1,22 @@
+import { Delete, Edit, Info } from '@mui/icons-material';
+import AddIcon from '@mui/icons-material/Add';
+import { Typography } from '@mui/material';
 import { Box, Stack } from '@mui/system';
 import Head from 'next/head';
-import { Typography } from '@mui/material';
-import Button from '../../../components/generic/Button';
-import AddIcon from '@mui/icons-material/Add';
-import { headerSx, logoSx, rootSx } from '../../../styles/admin/charities/indexStyles';
 import { useRouter } from 'next/router';
-import useAdminLoginCheck from '../../../hooks/useAdminLogInCheck';
+import { useState } from 'react';
 import useSWR from 'swr';
-import api from '../../../frontendApis';
-import { CharityListData } from '../../../types/charity';
-import SimpleTable from '../../../components/generic/SimpleTable';
-import CharitiesAPI from '../../../frontendApis/charities';
-import IconButtonWithTooltip from '../../../components/IconButtonWithTooltip';
-import { Edit, Delete, Info } from '@mui/icons-material';
-import React, { useState } from 'react';
-import { Nullable } from '../../../types/utils';
-import { Base64String } from '../../../types/base64';
+import Button from '../../../components/generic/Button';
 import DeletionDialog from '../../../components/generic/DeletionDialog';
+import SimpleTable from '../../../components/generic/SimpleTable';
+import IconButtonWithTooltip from '../../../components/IconButtonWithTooltip';
+import api from '../../../frontendApis';
+import CharitiesAPI from '../../../frontendApis/charities';
+import useAdminLoginCheck from '../../../hooks/useAdminLogInCheck';
+import { headerSx, logoSx, rootSx } from '../../../styles/admin/charities/indexStyles';
+import { Base64String } from '../../../types/base64';
+import { CharityListData } from '../../../types/charity';
+import { Nullable } from '../../../types/utils';
 
 const AdminCharities = () => {
   const router = useRouter();

@@ -1,15 +1,14 @@
-import CampaignCard from './CampaignCard';
 import { Typography } from '@mui/material';
-import React from 'react';
-import SimpleTable from '../../generic/SimpleTable';
-import { CouponListData } from '../../../types/coupons';
 import { Stack } from '@mui/system';
+import { useRouter } from 'next/router';
 import {
   couponsTableContainerSx,
   couponsTableHeaderSx,
 } from '../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
+import { CouponListData } from '../../../types/coupons';
 import Button from '../../generic/Button';
-import { useRouter } from 'next/router';
+import SimpleTable from '../../generic/SimpleTable';
+import CampaignCard from './CampaignCard';
 
 interface Props {
   campaignId: number;

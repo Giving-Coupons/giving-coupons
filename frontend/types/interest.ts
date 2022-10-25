@@ -1,5 +1,5 @@
-import { CharityMinimalData } from './charity';
 import { Moment } from 'moment';
+import { CharityMinimalData } from './charity';
 
 export enum InterestStatus {
   PENDING = 'pending',

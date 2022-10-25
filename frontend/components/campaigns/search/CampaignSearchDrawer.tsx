@@ -1,7 +1,7 @@
 import { Drawer } from '@mui/material';
+import { Container } from '@mui/system';
 import { Dispatch, SetStateAction } from 'react';
 import { drawerPaperSx } from '../../../styles/components/campaigns/search/CampaignSearchDrawerStyles';
-import { Container } from '@mui/system';
 
 interface Props {
   isOpen: boolean;
