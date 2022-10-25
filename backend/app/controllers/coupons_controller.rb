@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CouponsController < ApplicationController
-  before_action :authenticate_admin!, except: %i[show redeem]
+  before_action :authenticate_admin!, except: %i[show redeem progress update_progress]
 
   def index
     @coupons = Coupon.all.includes({ secondary_donation: { campaign_charity: :charity } })
@@ -43,6 +43,17 @@ class CouponsController < ApplicationController
 
     @coupon.save!
     render 'show', status: :created
+  end
+
+  def progress
+    @coupon = Coupon.find_by!(url_token: params[:url_token])
+  end
+
+  def update_progress
+    @coupon = Coupon.find_by!(url_token: params[:url_token])
+    @coupon.update!(progress: params[:progress])
+
+    render 'progress', status: :ok
   end
 
   private
