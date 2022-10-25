@@ -13,11 +13,12 @@ export default function useRedemptionState(
   const { enqueueSnackbar } = useSnackbar();
   const [redemptionState, setRedemptionState] = useState<Nullable<RedemptionState>>(null);
 
-  function updateStateAndCookie(
+  // Updates state and cookie simultaneously.
+  const updateRedemptionStep = (
     current: RedemptionStep,
     charityId?: Nullable<number>,
     personalContribution?: Nullable<number>,
-  ) {
+  ) => {
     if (!urlToken) {
       // currentUrlToken has not been provided (likely due to initial render not providing query parameters).
       // Return an update function that will appropriately show error message to user.
@@ -39,10 +40,10 @@ export default function useRedemptionState(
 
     const state = setRedemptionStateCookie(urlToken, current, charityId, personalContribution);
     setRedemptionState(state);
-  }
+  };
 
   if (!urlToken) {
-    return [redemptionState, updateStateAndCookie];
+    return [redemptionState, updateRedemptionStep];
   }
 
   try {
@@ -59,5 +60,5 @@ export default function useRedemptionState(
     enqueueSnackbar('Unable to retrieve your past coupon history.', { variant: 'error' });
   }
 
-  return [redemptionState, updateStateAndCookie];
+  return [redemptionState, updateRedemptionStep];
 }

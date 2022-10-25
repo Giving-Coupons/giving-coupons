@@ -270,17 +270,4 @@ const Redeem: NextPage = () => {
   );
 };
 
-function convertRedemptionStepToActiveStep(r?: RedemptionStep) {
-  switch (r) {
-    case undefined:
-    //Fallthrough.
-    case RedemptionStep.SelectCharity:
-      return 0;
-    case RedemptionStep.SelectAmount:
-      return 1;
-    case RedemptionStep.VerifyRedemption:
-      return 2;
-  }
-}
-
 export default Redeem;
