@@ -50,7 +50,7 @@ export default function useRedemptionState(
     let currentState = getRedemptionStateCookie();
     // If no cookie found or cookie from another coupon's session, reset for current coupon.
     if (!currentState || currentState.urlToken !== urlToken) {
-      currentState = setRedemptionStateCookie(urlToken, RedemptionStep.SelectCharity);
+      currentState = setRedemptionStateCookie(urlToken, RedemptionStep.SelectCharity, null, null);
     }
 
     if (JSON.stringify(currentState) !== JSON.stringify(redemptionState)) {
