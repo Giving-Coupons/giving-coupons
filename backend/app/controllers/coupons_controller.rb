@@ -42,8 +42,6 @@ class CouponsController < ApplicationController
     end
 
     @coupon.save!
-
-    add_success_message('Thank you for your donation!')
     render 'show', status: :created
   end
 
