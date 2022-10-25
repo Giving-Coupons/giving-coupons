@@ -24,9 +24,13 @@ export type CouponRedeemData = CouponBaseData & {
   secondaryDonation: Nullable<SecondaryDonationData>;
 };
 
+export type CouponProgressData = {
+  progress: Nullable<string>;
+};
+
 export type CouponRedeemPostData = {
   urlToken: string;
-  amount: number;
+  amount: Nullable<number>;
   campaignCharityId: number;
 };
 

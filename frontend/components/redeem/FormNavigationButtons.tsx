@@ -1,14 +1,13 @@
+import { Stack } from '@mui/system';
 import {
   progressButtonContainerSx,
   progressButtonFirstStepContainerSx,
 } from '../../styles/components/redeem/RedeemStyles';
 import Button from '../generic/Button';
-import { Stack } from '@mui/system';
-import { Dispatch, SetStateAction } from 'react';
 
 interface Props {
   activeStep: number;
-  setActiveStep: Dispatch<SetStateAction<number>>;
+  setActiveStep: (step: number) => void;
   minStep: number;
   maxStep: number;
   handleClickBack?: () => void;

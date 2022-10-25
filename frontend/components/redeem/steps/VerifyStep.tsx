@@ -1,18 +1,17 @@
+import { Typography } from '@mui/material';
+import { Stack } from '@mui/system';
+import { formStepContainerSx } from '../../../styles/components/redeem/RedeemStyles';
 import { CharityListData } from '../../../types/charity';
 import { CouponSponsorship } from '../../../types/primaryDonor';
-import Receipt from '../Receipt';
-import { Stack } from '@mui/system';
 import FormNavigationButtons from '../FormNavigationButtons';
-import { Typography } from '@mui/material';
-import { formStepContainerSx } from '../../../styles/components/redeem/RedeemStyles';
-import { Dispatch, SetStateAction } from 'react';
+import Receipt from '../Receipt';
 
 interface Props {
   charity: CharityListData;
   couponSponsorship?: CouponSponsorship;
   secondaryDonorAmount: number;
   activeStep: number;
-  setActiveStep: Dispatch<SetStateAction<number>>;
+  setActiveStep: (step: number) => void;
   minStep: number;
   maxStep: number;
 }
