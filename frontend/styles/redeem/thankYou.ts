@@ -7,6 +7,7 @@ export const stackSx: SxProps = {
   justifyContent: 'center',
   margin: 'auto',
   padding: '0 20px',
+  overflow: 'hidden',
 };
 
 export const lottieContainerSx: SxProps = {
