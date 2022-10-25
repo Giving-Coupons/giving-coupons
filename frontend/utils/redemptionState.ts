@@ -28,9 +28,17 @@ export function getRedemptionStateCookie() {
 export function setRedemptionStateCookie(
   urlToken: string,
   current: RedemptionStep,
-  charityId?: number,
+  charityId?: Nullable<number>,
   personalContribution?: Nullable<number>,
 ) {
+  const previous = getRedemptionStateCookie();
+  if (charityId === undefined) {
+    charityId = previous?.charityId ?? null;
+  }
+  if (personalContribution === undefined) {
+    personalContribution = previous?.personalContribution ?? null;
+  }
+
   const state: RedemptionState = {
     urlToken,
     stateLastUpdatedAt: moment().toISOString(),

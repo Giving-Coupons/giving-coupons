@@ -9,7 +9,7 @@ import { Nullable } from '../../../types/utils';
 import { CouponRedeemData, CouponRedeemFormData, CouponRedeemPostData } from '../../../types/coupons';
 import { useRouter } from 'next/router';
 import api from '../../../frontendApis';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import {
@@ -30,7 +30,7 @@ import InstructionsDialog from '../../../components/redeem/instructions/Instruct
 import { CouponSponsorship } from '../../../types/primaryDonor';
 import useRedemptionState from '../../../hooks/useRedemptionState';
 import { RedemptionState, RedemptionStep } from '../../../types/redemptionState';
-import { dir } from 'console';
+import FormikValuesListener from '../../../components/forms/FormikValuesListener';
 
 const validationSchema = Yup.object().shape({
   campaignCharityId: Yup.number().required('Campaign charity is required'),
@@ -55,43 +55,26 @@ const Redeem: NextPage = () => {
 
   const minStep = 0;
   const maxStep = 2;
-  const [redeemFormValues] = useState<CouponRedeemFormData>({ amount: 10 });
+  const [redeemFormValues, setRedeemFormValues] = useState<CouponRedeemFormData>({ amount: 10 });
   const [openInstructions, setOpenInstructions] = useState<boolean>(true);
+  const [hasReadCookie, setHasReadCookie] = useState<boolean>(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
-  const keepStateInSyncWithFormik = (
-    formikValues: Partial<CouponRedeemFormData>,
-    dirty: boolean,
-    setFieldValue: <K extends keyof CouponRedeemFormData>(
-      field: K,
-      value: CouponRedeemFormData[K],
-      shouldValidate?: boolean | undefined,
-    ) => void,
-    setFieldTouched: (field: keyof CouponRedeemFormData, value: boolean, shouldValidate?: boolean | undefined) => void,
-  ) => {
-    if (!dirty && redemptionState && redemptionState.urlToken === urlToken) {
-      // If form has not been touched, fill in the values from the redemption state.
-      if (redemptionState.charityId !== undefined) {
-        setFieldValue('campaignCharityId', redemptionState.charityId, true);
-        setFieldTouched('campaignCharityId', true, true);
-      }
-      if (redemptionState.personalContribution !== undefined) {
-        setFieldValue('amount', redemptionState.personalContribution, true);
-        setFieldTouched('amount', true, true);
-      }
-    } else if (dirty) {
-      // If the form has been touched, replace the redemption state with the latest values on each Formik rerender
-      // (triggered by changes to Formik vars touched / values / error / etc.).
-      updateRedemptionStep(
-        redemptionState?.current ?? RedemptionStep.SelectCharity,
-        formikValues.campaignCharityId,
-        formikValues.amount,
-      );
-    } else {
-      // If form has not been touched and there is no matching redemption state in cookie, do nothing.
+  useEffect(() => {
+    if (!redemptionState || hasReadCookie) {
+      return;
     }
-  };
+
+    const { charityId, personalContribution: amount } = redemptionState;
+
+    // Skip instructions if charityId is set.
+    if (charityId) {
+      setOpenInstructions(false);
+    }
+
+    setRedeemFormValues({ campaignCharityId: charityId ?? undefined, amount });
+    setHasReadCookie(true);
+  }, [redemptionState]);
 
   const handleSubmit = (values: CouponRedeemFormData) => {
     if (urlToken === null) {
@@ -114,11 +97,12 @@ const Redeem: NextPage = () => {
   };
 
   const renderFormPage = (redemptionState: Nullable<RedemptionState>, values: CouponRedeemFormData) => {
-    if (!coupon) {
+    // Do not render if either of:
+    // * The useRedemptionState has not found an existing state stored in a cookie and has not initialized a new state.
+    // * Coupon has not been found by useSWR.
+    if (!coupon || !redemptionState) {
       return null;
     }
-
-    const activeStep = convertRedemptionStepToActiveStep(redemptionState?.current);
 
     const setActiveStep = (i: number) => {
       switch (i) {
@@ -137,20 +121,21 @@ const Redeem: NextPage = () => {
       couponDenomination: coupon.campaign.couponDenomination,
     };
 
-    switch (activeStep) {
-      case 0:
+    switch (redemptionState.current) {
+      case RedemptionStep.SelectCharity:
         return (
           <CharitySelectionStep
             couponSponsorship={couponSponsorship}
             campaignCharities={coupon.charities}
             name="campaignCharityId"
-            activeStep={activeStep}
+            activeStep={0}
             setActiveStep={setActiveStep}
             minStep={minStep}
             maxStep={maxStep}
           />
         );
-      case 1:
+
+      case RedemptionStep.SelectAmount:
         if (!campaignCharity) {
           setActiveStep(0);
           return null;
@@ -160,13 +145,14 @@ const Redeem: NextPage = () => {
           <PersonalContributionStep
             couponSponsorship={couponSponsorship}
             campaignCharity={campaignCharity}
-            activeStep={activeStep}
+            activeStep={1}
             setActiveStep={setActiveStep}
             minStep={minStep}
             maxStep={maxStep}
           />
         );
-      case 2:
+
+      case RedemptionStep.VerifyRedemption:
         if (!campaignCharity) {
           setActiveStep(0);
           return null;
@@ -177,14 +163,12 @@ const Redeem: NextPage = () => {
             charity={campaignCharity.charity}
             couponSponsorship={couponSponsorship}
             secondaryDonorAmount={values?.amount ?? 0}
-            activeStep={activeStep}
+            activeStep={2}
             setActiveStep={setActiveStep}
             minStep={minStep}
             maxStep={maxStep}
           />
         );
-      default:
-        return null;
     }
   };
 
@@ -195,14 +179,6 @@ const Redeem: NextPage = () => {
       </Head>
 
       <Container component="main" maxWidth="md">
-        {/* <Typography variant="h2">Cookie:</Typography>
-        {JSON.stringify(getRedemptionStateCookie(), null, '. . ')
-          .split('\n')
-          .map((k, i) => (
-            <p key={i}>{k}</p>
-          ))}
-        <br /> */}
-
         {isCouponNotRedeemed && (
           <IconButtonWithTooltip
             sx={isMobile ? mobileHelpButtonSx : desktopHelpButtonSx}
@@ -215,7 +191,7 @@ const Redeem: NextPage = () => {
         <Stack sx={containerSx} component="div" spacing={4}>
           {isLoading && (
             <>
-              <RedeemStepper activeStep={convertRedemptionStepToActiveStep(redemptionState?.current)} />
+              <RedeemStepper redemptionState={redemptionState} />
 
               <RedeemLoading />
             </>
@@ -243,22 +219,38 @@ const Redeem: NextPage = () => {
 
           {isCouponNotRedeemed && (
             <>
-              <RedeemStepper activeStep={convertRedemptionStepToActiveStep(redemptionState?.current)} />
+              <RedeemStepper redemptionState={redemptionState} />
 
-              <Formik initialValues={redeemFormValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
-                {({ values, dirty, setFieldValue, setFieldTouched, touched, errors }) => {
-                  keepStateInSyncWithFormik(values, dirty, setFieldValue, setFieldTouched);
-                  console.dir(redemptionState);
-                  console.dir(values);
-                  console.dir(touched);
-                  console.dir(errors);
-
-                  return (
-                    <Form style={isMobile ? mobileFormContainerSx : desktopFormContainerSx}>
-                      {renderFormPage(redemptionState, values)}
-                    </Form>
-                  );
+              <Formik
+                initialValues={redeemFormValues}
+                initialTouched={{
+                  campaignCharityId: redeemFormValues.campaignCharityId !== undefined,
+                  amount: redeemFormValues.amount !== undefined,
                 }}
+                validationSchema={validationSchema}
+                onSubmit={handleSubmit}
+                enableReinitialize={true}
+              >
+                {({ values, dirty }) => (
+                  <Form style={isMobile ? mobileFormContainerSx : desktopFormContainerSx}>
+                    <FormikValuesListener
+                      handleChange={(formikValues) => {
+                        if (dirty) {
+                          // If the form has been touched, replace the redemption state with the latest values on each Formik rerender
+                          // (triggered by changes to Formik vars touched / values / error / etc.).
+                          updateRedemptionStep(
+                            redemptionState?.current ?? RedemptionStep.SelectCharity,
+                            formikValues.campaignCharityId,
+                            formikValues.amount,
+                          );
+                        } else {
+                          // If form has not been touched and there is no matching redemption state in cookie, do nothing.
+                        }
+                      }}
+                    />
+                    {renderFormPage(redemptionState, values)}
+                  </Form>
+                )}
               </Formik>
             </>
           )}

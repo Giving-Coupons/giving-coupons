@@ -13,7 +13,11 @@ export default function useRedemptionState(
   const { enqueueSnackbar } = useSnackbar();
   const [redemptionState, setRedemptionState] = useState<Nullable<RedemptionState>>(null);
 
-  function updateStateAndCookie(current: RedemptionStep, charityId?: number, personalContribution?: Nullable<number>) {
+  function updateStateAndCookie(
+    current: RedemptionStep,
+    charityId?: Nullable<number>,
+    personalContribution?: Nullable<number>,
+  ) {
     if (!urlToken) {
       // currentUrlToken has not been provided (likely due to initial render not providing query parameters).
       // Return an update function that will appropriately show error message to user.
