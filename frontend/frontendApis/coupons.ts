@@ -1,7 +1,6 @@
 import { ApiPromise } from '../types/api';
 import { CouponBaseData, CouponProgressData, CouponRedeemData, CouponRedeemPostData } from '../types/coupons';
 import { SecondaryDonationPostData } from '../types/donations';
-import { Nullable } from '../types/utils';
 import BaseAPI from './base';
 
 class CouponsAPI extends BaseAPI {
