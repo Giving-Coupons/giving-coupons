@@ -31,6 +31,7 @@ import { CouponSponsorship } from '../../../types/primaryDonor';
 import useRedemptionState from '../../../hooks/useRedemptionState';
 import { RedemptionState, RedemptionStep } from '../../../types/redemptionState';
 import FormikValuesListener from '../../../components/forms/FormikValuesListener';
+import { DEFAULT_SECONDARY_DONATION_VALUE } from '../../../utils/constants';
 
 const validationSchema = Yup.object().shape({
   campaignCharityId: Yup.number().required('Campaign charity is required'),
@@ -55,7 +56,9 @@ const Redeem: NextPage = () => {
 
   const minStep = 0;
   const maxStep = 2;
-  const [redeemFormValues, setRedeemFormValues] = useState<CouponRedeemFormData>({ amount: 10 });
+  const [redeemFormValues, setRedeemFormValues] = useState<CouponRedeemFormData>({
+    amount: DEFAULT_SECONDARY_DONATION_VALUE,
+  });
   const [openInstructions, setOpenInstructions] = useState<boolean>(true);
   const [hasReadCookie, setHasReadCookie] = useState<boolean>(false);
   const theme = useTheme();
@@ -72,7 +75,10 @@ const Redeem: NextPage = () => {
       setOpenInstructions(false);
     }
 
-    setRedeemFormValues({ campaignCharityId: charityId ?? undefined, amount });
+    setRedeemFormValues({
+      campaignCharityId: charityId ?? undefined,
+      amount: amount === undefined ? DEFAULT_SECONDARY_DONATION_VALUE : amount,
+    });
     setHasReadCookie(true);
   }, [redemptionState]);
 

@@ -2,6 +2,7 @@ import { RedemptionState, RedemptionStep } from '../types/redemptionState';
 import Cookies from 'js-cookie';
 import moment from 'moment';
 import { Nullable } from '../types/utils';
+import { DEFAULT_SECONDARY_DONATION_VALUE } from './constants';
 
 const cookieKey = 'redemptionState';
 
@@ -36,7 +37,8 @@ export function setRedemptionStateCookie(
     charityId = previous?.charityId ?? null;
   }
   if (personalContribution === undefined) {
-    personalContribution = previous?.personalContribution ?? null;
+    personalContribution =
+      previous?.personalContribution === undefined ? DEFAULT_SECONDARY_DONATION_VALUE : previous?.personalContribution;
   }
 
   const state: RedemptionState = {
