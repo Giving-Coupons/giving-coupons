@@ -1,9 +1,9 @@
 import { Nullable } from './utils';
 
 export enum RedemptionStep {
-  SelectCharity = 'SelectCharity',
-  SelectAmount = 'SelectAmount',
-  VerifyRedemption = 'VerifyRedemption',
+  SelectCharity = 'SELECT_CHARITY',
+  SelectAmount = 'SELECT_AMOUNT',
+  VerifyRedemption = 'VERIFY_REDEMPTION',
 }
 
 export type RedemptionState = {
