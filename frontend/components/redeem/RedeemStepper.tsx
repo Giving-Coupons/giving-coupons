@@ -21,11 +21,11 @@ const getActiveStep = (redemptionState: Nullable<RedemptionState>): number => {
   switch (redemptionState?.current) {
     case undefined:
     // Fallthrough.
-    case RedemptionStep.SelectCharity:
+    case RedemptionStep.SELECT_CHARITY:
       return 0;
-    case RedemptionStep.SelectAmount:
+    case RedemptionStep.SELECT_AMOUNT:
       return 1;
-    case RedemptionStep.VerifyRedemption:
+    case RedemptionStep.VERIFY_REDEMPTION:
       return 2;
   }
 };

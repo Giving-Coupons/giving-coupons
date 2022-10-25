@@ -1,17 +1,25 @@
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { Box, Typography, useMediaQuery } from '@mui/material';
+import { Container, Stack, useTheme } from '@mui/system';
+import { Form, Formik } from 'formik';
 import { NextPage } from 'next';
 import Head from 'next/head';
-import { Container, Stack, useTheme } from '@mui/system';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import useSWR from 'swr';
+import * as Yup from 'yup';
+import FormikValuesListener from '../../../components/forms/FormikValuesListener';
+import IconButtonWithTooltip from '../../../components/IconButtonWithTooltip';
+import AlreadyRedeemedDisplay from '../../../components/redeem/AlreadyRedeemedDisplay';
+import InstructionsDialog from '../../../components/redeem/instructions/InstructionsDialog';
+import RedeemLoading from '../../../components/redeem/RedeemLoading';
 import RedeemStepper from '../../../components/redeem/RedeemStepper';
 import CharitySelectionStep from '../../../components/redeem/steps/CharitySelectionStep';
-import useSWR from 'swr';
-import { Nullable } from '../../../types/utils';
-import { CouponRedeemData, CouponRedeemFormData, CouponRedeemPostData } from '../../../types/coupons';
-import { useRouter } from 'next/router';
+import PersonalContributionStep from '../../../components/redeem/steps/PersonalContributionStep';
+import VerifyStep from '../../../components/redeem/steps/VerifyStep';
 import api from '../../../frontendApis';
-import React, { useEffect, useState } from 'react';
-import { Form, Formik } from 'formik';
-import * as Yup from 'yup';
+import useRedemptionState from '../../../hooks/useRedemptionState';
+import { messageContainerSx } from '../../../styles/campaigns/indexStyles';
 import {
   containerSx,
   desktopFormContainerSx,
@@ -19,18 +27,10 @@ import {
   mobileFormContainerSx,
   mobileHelpButtonSx,
 } from '../../../styles/components/redeem/RedeemStyles';
-import PersonalContributionStep from '../../../components/redeem/steps/PersonalContributionStep';
-import VerifyStep from '../../../components/redeem/steps/VerifyStep';
-import AlreadyRedeemedDisplay from '../../../components/redeem/AlreadyRedeemedDisplay';
-import RedeemLoading from '../../../components/redeem/RedeemLoading';
-import { messageContainerSx } from '../../../styles/campaigns/indexStyles';
-import IconButtonWithTooltip from '../../../components/IconButtonWithTooltip';
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import InstructionsDialog from '../../../components/redeem/instructions/InstructionsDialog';
+import { CouponRedeemData, CouponRedeemFormData, CouponRedeemPostData } from '../../../types/coupons';
 import { CouponSponsorship } from '../../../types/primaryDonor';
-import useRedemptionState from '../../../hooks/useRedemptionState';
 import { RedemptionState, RedemptionStep } from '../../../types/redemptionState';
-import FormikValuesListener from '../../../components/forms/FormikValuesListener';
+import { Nullable } from '../../../types/utils';
 import { DEFAULT_SECONDARY_DONATION_VALUE } from '../../../utils/constants';
 
 const validationSchema = Yup.object().shape({
@@ -113,11 +113,11 @@ const Redeem: NextPage = () => {
     const setActiveStep = (i: number) => {
       switch (i) {
         case 0:
-          return updateRedemptionStep(RedemptionStep.SelectCharity);
+          return updateRedemptionStep(RedemptionStep.SELECT_CHARITY);
         case 1:
-          return updateRedemptionStep(RedemptionStep.SelectAmount);
+          return updateRedemptionStep(RedemptionStep.SELECT_AMOUNT);
         case 2:
-          return updateRedemptionStep(RedemptionStep.VerifyRedemption);
+          return updateRedemptionStep(RedemptionStep.VERIFY_REDEMPTION);
       }
     };
 
@@ -128,7 +128,7 @@ const Redeem: NextPage = () => {
     };
 
     switch (redemptionState.current) {
-      case RedemptionStep.SelectCharity:
+      case RedemptionStep.SELECT_CHARITY:
         return (
           <CharitySelectionStep
             couponSponsorship={couponSponsorship}
@@ -141,7 +141,7 @@ const Redeem: NextPage = () => {
           />
         );
 
-      case RedemptionStep.SelectAmount:
+      case RedemptionStep.SELECT_AMOUNT:
         if (!campaignCharity) {
           setActiveStep(0);
           return null;
@@ -158,7 +158,7 @@ const Redeem: NextPage = () => {
           />
         );
 
-      case RedemptionStep.VerifyRedemption:
+      case RedemptionStep.VERIFY_REDEMPTION:
         if (!campaignCharity) {
           setActiveStep(0);
           return null;
@@ -245,7 +245,7 @@ const Redeem: NextPage = () => {
                           // If the form has been touched, replace the redemption state with the latest values on each Formik rerender
                           // (triggered by changes to Formik vars touched / values / error / etc.).
                           updateRedemptionStep(
-                            redemptionState?.current ?? RedemptionStep.SelectCharity,
+                            redemptionState?.current ?? RedemptionStep.SELECT_CHARITY,
                             formikValues.campaignCharityId,
                             formikValues.amount,
                           );
