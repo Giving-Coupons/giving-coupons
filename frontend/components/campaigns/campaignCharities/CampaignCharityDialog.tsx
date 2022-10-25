@@ -21,6 +21,7 @@ import {
   dialogTitleSx,
 } from '../../../styles/components/charities/CampaignCharityDialogStyles';
 import { CampaignCharityDonationPublicData } from '../../../types/campaignCharities';
+import { log } from '../../../utils/analytics';
 import Button from '../../generic/Button';
 import IconButtonWithTooltip from '../../IconButtonWithTooltip';
 
@@ -63,7 +64,13 @@ const CampaignCharityDialog = ({ campaignCharity, open, handleClose }: Props) =>
           actionType="secondary"
           fullWidth
           startIcon={<LinkIcon />}
-          onClick={() => window.open(campaignCharity.charity.websiteUrl, '_blank')}
+          onClick={() => {
+            log('[CampaignCharityDialog] Visit charity', {
+              campaignCharityId: campaignCharity.id,
+              charity: campaignCharity.charity.name,
+            });
+            window.open(campaignCharity.charity.websiteUrl, '_blank');
+          }}
         >
           Vist Page
         </Button>

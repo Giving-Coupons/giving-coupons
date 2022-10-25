@@ -3,6 +3,7 @@ import Lottie from 'lottie-react';
 import { useRouter } from 'next/router';
 import orangeThankYou from '../../assets/orangeThankYouLottie.json';
 import { buttonSx, lottieContainerSx, lottieFrameSx, stackSx } from '../../styles/redeem/thankYou';
+import { log } from '../../utils/analytics';
 import CampaignIcon from '../icons/CampaignIcon';
 import ContributeIcon from '../icons/ContributeIcon';
 import ExploreIcon from '../icons/ExploreIcon';
@@ -22,7 +23,10 @@ const ThankYou = ({ campaignId }: Props) => {
             icon: <ContributeIcon />,
             title: 'Contribute more',
             description: 'Have another charity in mind? Contribute more to this campaign.',
-            onClick: () => router.push(`/campaigns/${campaignId}/contribute`),
+            onClick: () => {
+              log('[ThankYou] Click "Contribute..."');
+              router.push(`/campaigns/${campaignId}/contribute`);
+            },
           },
         ]
       : []),
@@ -30,13 +34,19 @@ const ThankYou = ({ campaignId }: Props) => {
       icon: <ExploreIcon />,
       title: 'Explore other campaigns',
       description: 'Feel strongly about any causes? Contribute directly to other campaigns.',
-      onClick: () => router.push('/campaigns'),
+      onClick: () => {
+        log('[ThankYou] Click "Explore..."');
+        router.push('/campaigns');
+      },
     },
     {
       icon: <CampaignIcon />,
       title: 'Start a campaign',
       description: 'Pay it forward by sponsoring others. Empower your loved ones to improve the lives of others..',
-      onClick: () => router.push('/interest'),
+      onClick: () => {
+        log('[ThankYou] Click "Start a campaign"');
+        router.push('/interest');
+      },
     },
   ];
 

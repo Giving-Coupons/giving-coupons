@@ -12,6 +12,7 @@ export type PrimaryDonorPostData = WithoutId<PrimaryDonorData>;
 export type PrimaryDonorPutData = WithoutId<PrimaryDonorData>;
 
 export type CouponSponsorship = {
+  couponId: number;
   primaryDonor: PrimaryDonorData;
   couponDenomination: number;
 };

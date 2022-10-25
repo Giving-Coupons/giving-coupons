@@ -9,6 +9,7 @@ import {
   graphSx,
 } from '../../../styles/components/campaigns/list/CampaignListCardStyles';
 import { CampaignListData } from '../../../types/campaigns';
+import { log } from '../../../utils/analytics';
 import CompetingGraph from '../../charts/CompetingGraph';
 import Button from '../../generic/Button';
 import CardWithImage from '../../generic/CardWithImage';
@@ -56,11 +57,25 @@ const CampaignListCard = ({ campaign }: Props) => {
 
   const actionButtons = (
     <Box key="actionButtons">
-      <Button sx={buttonSx} actionType="primary" onClick={() => router.push(`/campaigns/${campaign.id}/contribute`)}>
+      <Button
+        sx={buttonSx}
+        actionType="primary"
+        onClick={() => {
+          log('[CampaignListCard] Click "Contribute"', { campaignId: campaign.id });
+          router.push(`/campaigns/${campaign.id}/contribute`);
+        }}
+      >
         Contribute
       </Button>
 
-      <Button sx={buttonSx} actionType="tertiary" onClick={() => router.push(`/campaigns/${campaign.id}`)}>
+      <Button
+        sx={buttonSx}
+        actionType="tertiary"
+        onClick={() => {
+          log(`[CampaignListCard] Click 'Learn more'`, { campaignId: campaign.id });
+          router.push(`/campaigns/${campaign.id}`);
+        }}
+      >
         Learn more
       </Button>
     </Box>
