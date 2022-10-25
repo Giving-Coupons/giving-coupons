@@ -1,6 +1,7 @@
 import { ApiPromise } from '../types/api';
 import { CouponBaseData, CouponRedeemData, CouponRedeemPostData } from '../types/coupons';
 import { SecondaryDonationPostData } from '../types/donations';
+import { Nullable } from '../types/utils';
 import BaseAPI from './base';
 
 class CouponsAPI extends BaseAPI {
@@ -14,12 +15,12 @@ class CouponsAPI extends BaseAPI {
     return this.get(`${CouponsAPI.COUPONS_URL}/${urlToken}`);
   }
 
-  public getProgress(urlToken: string): ApiPromise<string> {
-    return this.get(`${CouponsAPI.COUPONS_URL}/progress`);
+  public getProgress(urlToken: string): ApiPromise<Nullable<string>> {
+    return this.get(`${CouponsAPI.COUPONS_URL}/${urlToken}/progress`);
   }
 
   public setProgress(urlToken: string, jsonProgress: string): ApiPromise<string> {
-    return this.put(`${CouponsAPI.COUPONS_URL}/progress`, { jsonProgress });
+    return this.put(`${CouponsAPI.COUPONS_URL}/${urlToken}/progress`, { jsonProgress });
   }
 
   public redeemCoupon(redeemPostData: CouponRedeemPostData): ApiPromise<SecondaryDonationPostData> {
