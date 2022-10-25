@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 import React from 'react';
 import SimpleTable from '../../generic/SimpleTable';
 import { CouponListData } from '../../../types/coupons';
-import { Box, Stack } from '@mui/system';
+import { Stack } from '@mui/system';
 import {
   couponsTableContainerSx,
   couponsTableHeaderSx,
