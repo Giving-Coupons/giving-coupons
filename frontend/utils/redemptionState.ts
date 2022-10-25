@@ -1,6 +1,7 @@
-import { RedemptionState, RedemptionStepData } from '../types/redemptionState';
+import { RedemptionState, RedemptionStep } from '../types/redemptionState';
 import Cookies from 'js-cookie';
 import moment from 'moment';
+import { Nullable } from '../types/utils';
 
 const cookieKey = 'redemptionState';
 
@@ -24,10 +25,18 @@ export function getRedemptionStateCookie() {
 }
 
 /** Save the latest step of the coupon redemption process as a cookie.. */
-export function setRedemptionStateCookie(urlToken: string, completed: RedemptionStepData) {
+export function setRedemptionStateCookie(
+  urlToken: string,
+  current: RedemptionStep,
+  charityId?: number,
+  personalContribution?: Nullable<number>,
+) {
   const state: RedemptionState = {
-    session: { urlToken, stateLastUpdatedAt: moment().toISOString() },
-    lastCompleted: completed,
+    urlToken,
+    stateLastUpdatedAt: moment().toISOString(),
+    current,
+    charityId,
+    personalContribution,
   };
 
   Cookies.set(cookieKey, JSON.stringify(state));

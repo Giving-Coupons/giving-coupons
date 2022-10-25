@@ -9,7 +9,7 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import IconButtonWithTooltip from '../../IconButtonWithTooltip';
 import DidYouKnow from '../DidYouKnow';
 import { useField } from 'formik';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { useState } from 'react';
 import RedirectDialog from '../RedirectDialog';
 import { Nullable } from '../../../types/utils';
 import { CouponSponsorship } from '../../../types/primaryDonor';
@@ -18,7 +18,7 @@ type Props = {
   couponSponsorship?: CouponSponsorship;
   campaignCharity: CampaignCharityData;
   activeStep: number;
-  setActiveStep: Dispatch<SetStateAction<number>>;
+  setActiveStep: (arg: number) => void;
   minStep: number;
   maxStep: number;
 };

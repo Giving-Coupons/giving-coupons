@@ -5,14 +5,13 @@ import { Stack } from '@mui/system';
 import FormNavigationButtons from '../FormNavigationButtons';
 import { Typography } from '@mui/material';
 import { formStepContainerSx } from '../../../styles/components/redeem/RedeemStyles';
-import { Dispatch, SetStateAction } from 'react';
 
 interface Props {
   charity: CharityListData;
   couponSponsorship?: CouponSponsorship;
   secondaryDonorAmount: number;
   activeStep: number;
-  setActiveStep: Dispatch<SetStateAction<number>>;
+  setActiveStep: (arg: number) => void;
   minStep: number;
   maxStep: number;
 }

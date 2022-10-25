@@ -1,16 +1,19 @@
 import { useSnackbar } from 'notistack';
 import { useState } from 'react';
-import { RedemptionState, RedemptionStep, RedemptionStepData } from '../types/redemptionState';
+import { RedemptionState, RedemptionStep } from '../types/redemptionState';
 import { Nullable } from '../types/utils';
 import { getRedemptionStateCookie, setRedemptionStateCookie } from '../utils/redemptionState';
 
 export default function useRedemptionState(
   urlToken: Nullable<string>,
-): [redemptionState: Nullable<RedemptionState>, updateRedemptionStep: (a: RedemptionStepData) => void] {
+): [
+  redemptionState: Nullable<RedemptionState>,
+  updateRedemptionStep: (current: RedemptionStep, charityId?: number, personalContribution?: Nullable<number>) => void,
+] {
   const { enqueueSnackbar } = useSnackbar();
   const [redemptionState, setRedemptionState] = useState<Nullable<RedemptionState>>(null);
 
-  function updateStateAndCookie(stepData: RedemptionStepData) {
+  function updateStateAndCookie(current: RedemptionStep, charityId?: number, personalContribution?: Nullable<number>) {
     if (!urlToken) {
       // currentUrlToken has not been provided (likely due to initial render not providing query parameters).
       // Return an update function that will appropriately show error message to user.
@@ -21,7 +24,16 @@ export default function useRedemptionState(
       return;
     }
 
-    const state = setRedemptionStateCookie(urlToken, stepData);
+    // Skip if no change.
+    if (
+      redemptionState?.current === current &&
+      redemptionState?.charityId === charityId &&
+      redemptionState?.personalContribution === personalContribution
+    ) {
+      return;
+    }
+
+    const state = setRedemptionStateCookie(urlToken, current, charityId, personalContribution);
     setRedemptionState(state);
   }
 
@@ -32,8 +44,8 @@ export default function useRedemptionState(
   try {
     let currentState = getRedemptionStateCookie();
     // If no cookie found or cookie from another coupon's session, reset for current coupon.
-    if (!currentState || currentState.session.urlToken !== urlToken) {
-      currentState = setRedemptionStateCookie(urlToken, { step: RedemptionStep.Initial });
+    if (!currentState || currentState.urlToken !== urlToken) {
+      currentState = setRedemptionStateCookie(urlToken, RedemptionStep.SelectCharity);
     }
 
     if (JSON.stringify(currentState) !== JSON.stringify(redemptionState)) {
