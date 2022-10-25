@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 import React from 'react';
 import SimpleTable from '../../generic/SimpleTable';
 import { CouponListData } from '../../../types/coupons';
-import { Box, Stack } from '@mui/system';
+import { Stack } from '@mui/system';
 import {
   couponsTableContainerSx,
   couponsTableHeaderSx,
@@ -29,31 +29,30 @@ const CampaignCouponsCard = ({ campaignId, coupons }: Props) => {
         </Button>
       </Stack>
 
-      <Box sx={couponsTableContainerSx}>
-        <SimpleTable
-          columns={[
-            { title: 'ID', key: 'id' },
-            { title: 'Url Token', key: 'urlToken' },
-            {
-              title: 'Denomination',
-              key: 'denomination',
-              transformValue: (denomination: number) => `$${denomination}`,
-            },
-            {
-              title: 'Charity',
-              key: 'charity',
-              transformValue: (charity) => charity?.name ?? 'Not redeemed yet',
-            },
-            {
-              title: 'Secondary donation',
-              key: 'secondaryDonation',
-              transformValue: (secondaryDonation) => (secondaryDonation?.amount ? `$${secondaryDonation.amount}` : '-'),
-            },
-          ]}
-          rows={coupons}
-          shouldUsePaper={false}
-        />
-      </Box>
+      <SimpleTable
+        sx={couponsTableContainerSx}
+        columns={[
+          { title: 'ID', key: 'id' },
+          { title: 'Url Token', key: 'urlToken' },
+          {
+            title: 'Denomination',
+            key: 'denomination',
+            transformValue: (denomination: number) => `$${denomination}`,
+          },
+          {
+            title: 'Charity',
+            key: 'charity',
+            transformValue: (charity) => charity?.name ?? 'Not redeemed yet',
+          },
+          {
+            title: 'Secondary donation',
+            key: 'secondaryDonation',
+            transformValue: (secondaryDonation) => (secondaryDonation?.amount ? `$${secondaryDonation.amount}` : '-'),
+          },
+        ]}
+        rows={coupons}
+        shouldUsePaper={false}
+      />
     </CampaignCard>
   );
 };
