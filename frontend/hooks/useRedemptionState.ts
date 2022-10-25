@@ -14,9 +14,10 @@ export default function useRedemptionState(
   const [redemptionState, setRedemptionState] = useState<Nullable<RedemptionState>>(null);
 
   // Updates state and cookie simultaneously.
+  // Like the setRedemptionStateCookie function, use undefined to make no changes to campaignCharityId and personalContribution.
   const updateRedemptionStep = (
     current: RedemptionStep,
-    charityId?: Nullable<number>,
+    campaignCharityId?: Nullable<number>,
     personalContribution?: Nullable<number>,
   ) => {
     if (!urlToken) {
@@ -32,13 +33,13 @@ export default function useRedemptionState(
     // Skip if no change.
     if (
       redemptionState?.current === current &&
-      redemptionState?.charityId === charityId &&
+      redemptionState?.campaignCharityId === campaignCharityId &&
       redemptionState?.personalContribution === personalContribution
     ) {
       return;
     }
 
-    const state = setRedemptionStateCookie(urlToken, current, charityId, personalContribution);
+    const state = setRedemptionStateCookie(urlToken, current, campaignCharityId, personalContribution);
     setRedemptionState(state);
   };
 

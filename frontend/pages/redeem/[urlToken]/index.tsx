@@ -68,15 +68,15 @@ const Redeem: NextPage = () => {
       return;
     }
 
-    const { charityId, personalContribution: amount } = redemptionState;
+    const { campaignCharityId, personalContribution: amount } = redemptionState;
 
     // Skip instructions if charityId is set.
-    if (charityId) {
+    if (campaignCharityId) {
       setOpenInstructions(false);
     }
 
     setRedeemFormValues({
-      campaignCharityId: charityId ?? undefined,
+      campaignCharityId: campaignCharityId ?? undefined,
       amount: amount === undefined ? DEFAULT_SECONDARY_DONATION_VALUE : amount,
     });
     setHasReadCookie(true);

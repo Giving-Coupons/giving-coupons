@@ -11,6 +11,6 @@ export type RedemptionState = {
   stateLastUpdatedAt: string; // ISO8601 date time
   current: RedemptionStep;
 
-  charityId: Nullable<number>;
+  campaignCharityId: Nullable<number>;
   personalContribution: Nullable<number>;
 };

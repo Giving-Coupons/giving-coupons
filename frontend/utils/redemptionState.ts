@@ -32,12 +32,12 @@ export function getRedemptionStateCookie() {
 export function setRedemptionStateCookie(
   urlToken: string,
   current: RedemptionStep,
-  charityId?: Nullable<number>,
+  campaignCharityId?: Nullable<number>,
   personalContribution?: Nullable<number>,
 ) {
   const previous = getRedemptionStateCookie();
-  if (charityId === undefined) {
-    charityId = previous?.charityId ?? null;
+  if (campaignCharityId === undefined) {
+    campaignCharityId = previous?.campaignCharityId ?? null;
   }
   if (personalContribution === undefined) {
     personalContribution =
@@ -48,7 +48,7 @@ export function setRedemptionStateCookie(
     urlToken,
     stateLastUpdatedAt: moment().toISOString(),
     current,
-    charityId,
+    campaignCharityId,
     personalContribution,
   };
 
