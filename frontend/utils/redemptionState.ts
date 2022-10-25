@@ -25,7 +25,10 @@ export function getRedemptionStateCookie() {
   return parseRedemptionStateFromCookie(jsonState);
 }
 
-/** Save the latest step of the coupon redemption process as a cookie.. */
+/**
+ * Save the latest step of the coupon redemption process as a cookie.
+ * If charityId or personalContribution is set as undefined, no change will be made to that property.
+ */
 export function setRedemptionStateCookie(
   urlToken: string,
   current: RedemptionStep,
