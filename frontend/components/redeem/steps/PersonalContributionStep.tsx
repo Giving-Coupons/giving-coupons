@@ -1,24 +1,24 @@
-import { Stack } from '@mui/system';
-import { charityLogoSx, formStepContainerSx, givingSgLogoSx } from '../../../styles/components/redeem/RedeemStyles';
-import { Box, InputAdornment, Typography } from '@mui/material';
-import FormNavigationButtons from '../FormNavigationButtons';
-import { CampaignCharityData } from '../../../types/campaignCharities';
-import FormTextInput from '../../forms/FormTextInput';
-import FormAmountButton from '../../forms/FormAmountButton';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import IconButtonWithTooltip from '../../IconButtonWithTooltip';
-import DidYouKnow from '../DidYouKnow';
+import { Box, InputAdornment, Typography } from '@mui/material';
+import { Stack } from '@mui/system';
 import { useField } from 'formik';
 import { useState } from 'react';
-import RedirectDialog from '../RedirectDialog';
-import { Nullable } from '../../../types/utils';
+import { charityLogoSx, formStepContainerSx, givingSgLogoSx } from '../../../styles/components/redeem/RedeemStyles';
+import { CampaignCharityData } from '../../../types/campaignCharities';
 import { CouponSponsorship } from '../../../types/primaryDonor';
+import { Nullable } from '../../../types/utils';
+import FormAmountButton from '../../forms/FormAmountButton';
+import FormTextInput from '../../forms/FormTextInput';
+import IconButtonWithTooltip from '../../IconButtonWithTooltip';
+import DidYouKnow from '../DidYouKnow';
+import FormNavigationButtons from '../FormNavigationButtons';
+import RedirectDialog from '../RedirectDialog';
 
 type Props = {
   couponSponsorship?: CouponSponsorship;
   campaignCharity: CampaignCharityData;
   activeStep: number;
-  setActiveStep: (arg: number) => void;
+  setActiveStep: (step: number) => void;
   minStep: number;
   maxStep: number;
 };

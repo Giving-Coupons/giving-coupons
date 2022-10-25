@@ -1,13 +1,13 @@
+import { Stack } from '@mui/system';
 import {
   progressButtonContainerSx,
   progressButtonFirstStepContainerSx,
 } from '../../styles/components/redeem/RedeemStyles';
 import Button from '../generic/Button';
-import { Stack } from '@mui/system';
 
 interface Props {
   activeStep: number;
-  setActiveStep: (arg: number) => void;
+  setActiveStep: (step: number) => void;
   minStep: number;
   maxStep: number;
   handleClickBack?: () => void;

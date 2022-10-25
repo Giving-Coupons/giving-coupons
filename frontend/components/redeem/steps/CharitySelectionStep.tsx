@@ -1,21 +1,21 @@
 import { Radio, RadioGroup, Stack, Typography } from '@mui/material';
+import { useField } from 'formik';
+import { ChangeEvent, useState } from 'react';
 import { formStepContainerSx, radioSx } from '../../../styles/components/redeem/RedeemStyles';
 import { CampaignCharityDonationPublicData } from '../../../types/campaignCharities';
-import CampaignCharityCard from '../../campaigns/campaignCharities/CampaignCharityCard';
-import { Nullable } from '../../../types/utils';
-import { ChangeEvent, useState } from 'react';
-import CampaignCharityDialog from '../../campaigns/campaignCharities/CampaignCharityDialog';
 import { CouponRedeemFormData } from '../../../types/coupons';
-import { useField } from 'formik';
-import FormNavigationButtons from '../FormNavigationButtons';
 import { CouponSponsorship } from '../../../types/primaryDonor';
+import { Nullable } from '../../../types/utils';
+import CampaignCharityCard from '../../campaigns/campaignCharities/CampaignCharityCard';
+import CampaignCharityDialog from '../../campaigns/campaignCharities/CampaignCharityDialog';
+import FormNavigationButtons from '../FormNavigationButtons';
 
 interface Props {
   couponSponsorship?: CouponSponsorship;
   campaignCharities: CampaignCharityDonationPublicData[];
   name: keyof CouponRedeemFormData;
   activeStep: number;
-  setActiveStep: (arg: number) => void;
+  setActiveStep: (step: number) => void;
   minStep: number;
   maxStep: number;
 }
