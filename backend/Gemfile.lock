@@ -48,7 +48,7 @@ GEM
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
     active_storage_base64 (2.0.0)
       rails (>= 7.0)
-    active_storage_validations (1.0.1)
+    active_storage_validations (1.0.2)
       activejob (>= 5.2.0)
       activemodel (>= 5.2.0)
       activestorage (>= 5.2.0)
