@@ -4,6 +4,7 @@ import {
   CircularProgress,
   Grid,
   Paper,
+  SxProps,
   Table,
   TableBody,
   TableCell,
@@ -12,6 +13,7 @@ import {
   TableRow,
   TableSortLabel,
 } from '@mui/material';
+import { combineSxProps } from '../../utils/types';
 
 type TableColumn<D, K> = K extends keyof D
   ? D[K] extends React.ReactNode
@@ -57,6 +59,7 @@ type Props<D> = {
   isLoading?: boolean;
   shouldUsePaper?: boolean;
   initialOrder?: OrderingData<D>;
+  sx?: SxProps | undefined;
 };
 
 export default function SimpleTable<D>({
@@ -66,6 +69,7 @@ export default function SimpleTable<D>({
   isLoading,
   shouldUsePaper = true,
   initialOrder,
+  sx = {},
 }: Props<D>) {
   const hasActions = actions.length > 0;
   const numColumns = columns.length + (hasActions ? 1 : 0);
@@ -87,7 +91,7 @@ export default function SimpleTable<D>({
   };
 
   return (
-    <TableContainer component={shouldUsePaper ? Paper : 'div'} sx={simpleTableStyles}>
+    <TableContainer component={shouldUsePaper ? Paper : 'div'} sx={combineSxProps(simpleTableStyles, sx)}>
       <Table stickyHeader>
         <TableHead>
           <TableRow>
