@@ -19,8 +19,8 @@ class CouponsAPI extends BaseAPI {
     return this.get(`${CouponsAPI.COUPONS_URL}/${urlToken}/progress`);
   }
 
-  public setProgress(urlToken: string, jsonProgress: string): ApiPromise<string> {
-    return this.put(`${CouponsAPI.COUPONS_URL}/${urlToken}/progress`, { jsonProgress });
+  public setProgress(urlToken: string, progress: string): ApiPromise<string> {
+    return this.put(`${CouponsAPI.COUPONS_URL}/${urlToken}/progress`, { progress });
   }
 
   public redeemCoupon(redeemPostData: CouponRedeemPostData): ApiPromise<SecondaryDonationPostData> {
