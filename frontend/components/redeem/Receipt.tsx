@@ -1,8 +1,8 @@
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import { Avatar, Box, Divider, Stack, Typography } from '@mui/material';
 import { headerSx, imageSx, stackSx } from '../../styles/components/redeem/ReceiptStyles';
 import { CharityListData } from '../../types/charity';
 import { CouponSponsorship } from '../../types/primaryDonor';
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
 interface Props {
   charity: CharityListData;

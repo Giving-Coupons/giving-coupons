@@ -1,11 +1,11 @@
 import { TextField, useMediaQuery } from '@mui/material';
-import { DesktopDatePicker, MobileDatePicker } from '@mui/x-date-pickers';
-import { Nullable } from '../../../types/utils';
-import { Moment } from 'moment';
 import { useTheme } from '@mui/system';
-import React from 'react';
-import { DATE_FORMAT } from '../../../utils/constants';
+import { DesktopDatePicker, MobileDatePicker } from '@mui/x-date-pickers';
 import { MuiTextFieldProps } from '@mui/x-date-pickers/internals';
+import { Moment } from 'moment';
+import React from 'react';
+import { Nullable } from '../../../types/utils';
+import { DATE_FORMAT } from '../../../utils/constants';
 
 interface Props {
   name: string;

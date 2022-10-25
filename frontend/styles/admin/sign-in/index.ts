@@ -1,1 +1,1 @@
-export { mainSx, h1Sx, boxSx, submitButtonSx } from '../sign-up';
+export { boxSx, h1Sx, mainSx, submitButtonSx } from '../sign-up';

@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material';
-import { itemSx } from '../../../styles/components/campaigns/list/CampaignListStyles';
 import { Container } from '@mui/system';
+import { itemSx } from '../../../styles/components/campaigns/list/CampaignListStyles';
 import CampaignListCardLoading from './CampaignListCardLoading';
 
 const CampaignListLoading = () => {

@@ -1,17 +1,17 @@
-import { Box, Container, Stack, useTheme } from '@mui/system';
-import { CampaignListData, CampaignListQueryParams } from '../../types/campaigns';
-import Head from 'next/head';
-import CampaignList from '../../components/campaigns/list/CampaignList';
-import { Fab, Typography, useMediaQuery } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import React, { useState } from 'react';
-import CampaignSearch from '../../components/campaigns/search/CampaignSearch';
-import { containerSx, messageContainerSx, mobileSearchButtonSx } from '../../styles/campaigns/indexStyles';
+import { Fab, Typography, useMediaQuery } from '@mui/material';
+import { Box, Container, Stack, useTheme } from '@mui/system';
+import Head from 'next/head';
+import { useState } from 'react';
 import useSWR from 'swr';
-import { Nullable } from '../../types/utils';
+import CampaignList from '../../components/campaigns/list/CampaignList';
+import CampaignListLoading from '../../components/campaigns/list/CampaignListLoading';
+import CampaignSearch from '../../components/campaigns/search/CampaignSearch';
 import api from '../../frontendApis';
 import CampaignsAPI from '../../frontendApis/campaigns';
-import CampaignListLoading from '../../components/campaigns/list/CampaignListLoading';
+import { containerSx, messageContainerSx, mobileSearchButtonSx } from '../../styles/campaigns/indexStyles';
+import { CampaignListData, CampaignListQueryParams } from '../../types/campaigns';
+import { Nullable } from '../../types/utils';
 
 const Campaigns = () => {
   const defaultQueryParams = {

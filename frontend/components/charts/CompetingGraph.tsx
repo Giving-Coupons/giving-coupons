@@ -1,14 +1,14 @@
-import { Box, Stack, SxProps } from '@mui/system';
 import { Typography } from '@mui/material';
-import HorizontalBarGraph from './HorizontalBarGraph';
+import { Box, Stack, SxProps } from '@mui/system';
 import {
-  topGraphLegendSx,
   bottomGraphLegendSx,
   graphLabelSx,
   leftBarSx,
   rightBarSx,
+  topGraphLegendSx,
 } from '../../styles/components/charts/CompetingGraphStyles';
 import { Nullable } from '../../types/utils';
+import HorizontalBarGraph from './HorizontalBarGraph';
 
 interface Props {
   topLabelTitle?: string;

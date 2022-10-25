@@ -1,8 +1,8 @@
 import { Grid } from '@mui/material';
-import CampaignListCard from './CampaignListCard';
-import { CampaignListData } from '../../../types/campaigns';
 import { Container } from '@mui/system';
 import { itemSx } from '../../../styles/components/campaigns/list/CampaignListStyles';
+import { CampaignListData } from '../../../types/campaigns';
+import CampaignListCard from './CampaignListCard';
 
 interface Props {
   campaigns: CampaignListData[];

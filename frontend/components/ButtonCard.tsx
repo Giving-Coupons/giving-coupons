@@ -1,11 +1,9 @@
-import * as React from 'react';
+import { Box, CardActionArea, Stack } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { Box, Stack } from '@mui/material';
-import { CardActionArea } from '@mui/material';
-import { buttonCard } from '../styles/indexStyles';
 import Link from 'next/link';
+import { buttonCard } from '../styles/indexStyles';
 
 interface Props {
   title: string;

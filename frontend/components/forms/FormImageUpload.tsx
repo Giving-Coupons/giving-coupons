@@ -1,15 +1,15 @@
-import ImageWithOverlay from '../generic/ImageWithOverlay';
-import Button from '../generic/Button';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-import { useField } from 'formik';
-import { ChangeEvent, useState } from 'react';
-import { Box, Stack } from '@mui/system';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Typography } from '@mui/material';
-import { compressImageThenConvertToBase64String } from '../../utils/image';
+import { Box, Stack } from '@mui/system';
+import { useField } from 'formik';
+import { ChangeEvent, useState } from 'react';
 import { imageContainerSx } from '../../styles/components/forms/FormImageUploadStyles';
 import { Nullable } from '../../types/utils';
 import { MAX_IMAGE_SIZE_MB } from '../../utils/constants';
+import { compressImageThenConvertToBase64String } from '../../utils/image';
+import Button from '../generic/Button';
+import ImageWithOverlay from '../generic/ImageWithOverlay';
 
 interface Props {
   name: string;

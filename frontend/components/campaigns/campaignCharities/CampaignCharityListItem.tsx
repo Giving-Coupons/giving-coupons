@@ -5,9 +5,9 @@ import {
   donationBreakdownLabelSx,
   rightBarSx,
 } from '../../../styles/campaigns/detailStyles';
+import { graphSx } from '../../../styles/components/charities/CampaignCharityListStyles';
 import { CampaignCharityDonationPublicData } from '../../../types/campaignCharities';
 import HorizontalBarGraph from '../../charts/HorizontalBarGraph';
-import { graphSx } from '../../../styles/components/charities/CampaignCharityListStyles';
 
 type Props = {
   width: number;

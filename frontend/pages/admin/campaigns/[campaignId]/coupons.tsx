@@ -1,14 +1,14 @@
 import { Box } from '@mui/system';
-import Coupon from '../../../../components/coupons/Coupon';
-import { CouponBaseData } from '../../../../types/coupons';
-import useAdminLoginCheck from '../../../../hooks/useAdminLogInCheck';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
-import { Nullable } from '../../../../types/utils';
-import CouponsAPI from '../../../../frontendApis/coupons';
-import { canBecomeInteger } from '../../../../utils/numbers';
+import Coupon from '../../../../components/coupons/Coupon';
 import api from '../../../../frontendApis';
-import Head from 'next/head';
+import CouponsAPI from '../../../../frontendApis/coupons';
+import useAdminLoginCheck from '../../../../hooks/useAdminLogInCheck';
+import { CouponBaseData } from '../../../../types/coupons';
+import { Nullable } from '../../../../types/utils';
+import { canBecomeInteger } from '../../../../utils/numbers';
 
 const CampaignCoupons = () => {
   useAdminLoginCheck();

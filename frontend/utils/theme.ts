@@ -1,7 +1,7 @@
-import { createTheme } from '@mui/material/styles';
 import { alpha } from '@mui/material';
-import React from 'react';
+import { createTheme } from '@mui/material/styles';
 import { createBreakpoints } from '@mui/system';
+import React from 'react';
 
 declare module '@mui/material/styles' {
   interface Palette {

@@ -1,9 +1,8 @@
-import { avatarSx, primaryDonorItemSx } from '../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
-import { Avatar, Typography } from '@mui/material';
-import { Stack } from '@mui/system';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import EmailIcon from '@mui/icons-material/Email';
-import React from 'react';
+import { Avatar, Typography } from '@mui/material';
+import { Stack } from '@mui/system';
+import { avatarSx, primaryDonorItemSx } from '../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
 import { PrimaryDonorData } from '../../../types/primaryDonor';
 import CampaignCard from './CampaignCard';
 

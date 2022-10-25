@@ -1,9 +1,13 @@
-import { Drawer, List, ListItem, ListItemButton, ListItemText, Typography } from '@mui/material';
-import { adminPathPrefix, isTabForCurrentPage } from '../../utils/routes';
-import { Dispatch, SetStateAction } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { Drawer, List, ListItem, ListItemButton, ListItemText, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
+import { Stack } from '@mui/system';
+import { OrderedMap } from 'immutable';
 import { useRouter } from 'next/router';
+import { Dispatch, SetStateAction } from 'react';
+import api from '../../frontendApis';
+import { unsetAuthHeaders } from '../../frontendApis/helpers/authHeaders';
 import {
   activeTabSx,
   closeButtonSx,
@@ -14,11 +18,7 @@ import {
   logoutButtonSx,
   tabListItemSx,
 } from '../../styles/components/navigation/NavDrawerStyles';
-import { OrderedMap } from 'immutable';
-import LogoutIcon from '@mui/icons-material/Logout';
-import { unsetAuthHeaders } from '../../frontendApis/helpers/authHeaders';
-import { Stack } from '@mui/system';
-import api from '../../frontendApis';
+import { adminPathPrefix, isTabForCurrentPage } from '../../utils/routes';
 
 interface Props {
   isOpen: boolean;

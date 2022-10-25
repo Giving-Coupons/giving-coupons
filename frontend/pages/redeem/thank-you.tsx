@@ -1,6 +1,6 @@
+import { isInteger } from 'formik';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { isInteger } from 'formik';
 import ThankYou from '../../components/redeem/ThankYou';
 
 const RedeemThankYouPage: NextPage = () => {

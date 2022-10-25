@@ -1,4 +1,3 @@
-import React from 'react';
 import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
 import { SxProps } from '@mui/material';
 import { combineSxProps } from '../../utils/types';

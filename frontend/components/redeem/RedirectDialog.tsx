@@ -1,4 +1,8 @@
+import LockIcon from '@mui/icons-material/Lock';
 import { Box, Checkbox, Dialog, DialogContent, DialogTitle, FormControlLabel, Typography } from '@mui/material';
+import { Stack, useTheme } from '@mui/system';
+import { Form, Formik } from 'formik';
+import * as Yup from 'yup';
 import {
   charityLogoSx,
   givingSgLogoSx,
@@ -7,14 +11,10 @@ import {
   redirectAmountSx,
   redirectLineContainerSx,
 } from '../../styles/components/redeem/RedeemStyles';
-import { Stack, useTheme } from '@mui/system';
 import { CampaignCharityData } from '../../types/campaignCharities';
-import * as Yup from 'yup';
-import { Form, Formik } from 'formik';
-import Button from '../generic/Button';
-import LockIcon from '@mui/icons-material/Lock';
 import { CouponRedirectFormData } from '../../types/coupons';
 import { CouponSponsorship } from '../../types/primaryDonor';
+import Button from '../generic/Button';
 
 interface Props {
   open: boolean;

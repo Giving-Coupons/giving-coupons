@@ -1,7 +1,7 @@
-import { Stack } from '@mui/system';
 import { Box, InputAdornment, TextField, Typography } from '@mui/material';
-import { givingSgLogoSx } from '../../../styles/components/redeem/RedeemStyles';
+import { Stack } from '@mui/system';
 import { mockTextFieldSx } from '../../../styles/components/redeem/MockPersonalContributionStyles';
+import { givingSgLogoSx } from '../../../styles/components/redeem/RedeemStyles';
 
 const MockPersonalContribution = () => {
   return (

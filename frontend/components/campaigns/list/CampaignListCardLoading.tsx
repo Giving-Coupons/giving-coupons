@@ -1,11 +1,10 @@
-import { containerSx } from '../../../styles/components/generic/CardWithImageStyles';
-import { Stack } from '@mui/system';
 import { Skeleton } from '@mui/material';
-import React from 'react';
+import { Stack } from '@mui/system';
 import {
   descriptionContainerSx,
   imageContainerSx,
 } from '../../../styles/components/campaigns/list/CampaignListLoadingStyles';
+import { containerSx } from '../../../styles/components/generic/CardWithImageStyles';
 
 const CampaignListCardLoading = () => {
   return (

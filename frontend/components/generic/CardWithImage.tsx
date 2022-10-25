@@ -1,11 +1,11 @@
 import { Box, Stack } from '@mui/system';
+import React from 'react';
 import {
-  descriptionContainerSx,
   containerSx,
+  descriptionContainerSx,
   imageContainerSx,
 } from '../../styles/components/generic/CardWithImageStyles';
 import ImageWithOverlay from './ImageWithOverlay';
-import React from 'react';
 
 interface Props {
   imageUrl: string;

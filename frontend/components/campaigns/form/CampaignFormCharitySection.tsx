@@ -1,12 +1,12 @@
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import { Stack } from '@mui/system';
 import {
   containerSx,
   fieldsContainerSx,
 } from '../../../styles/components/campaigns/form/CampaignFormCharitySectionStyles';
 import { CharityListData } from '../../../types/charity';
-import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
-import FormTextInput from '../../forms/FormTextInput';
 import FormAutocomplete from '../../forms/FormAutocomplete';
+import FormTextInput from '../../forms/FormTextInput';
 import IconButtonWithTooltip from '../../IconButtonWithTooltip';
 
 interface Props {

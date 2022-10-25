@@ -1,5 +1,3 @@
-import { simpleTableStyles } from '../../styles/components/SimpleTable/simpleTableStyles';
-import * as React from 'react';
 import {
   CircularProgress,
   Grid,
@@ -13,6 +11,8 @@ import {
   TableRow,
   TableSortLabel,
 } from '@mui/material';
+import * as React from 'react';
+import { simpleTableStyles } from '../../styles/components/SimpleTable/simpleTableStyles';
 import { combineSxProps } from '../../utils/types';
 
 type TableColumn<D, K> = K extends keyof D

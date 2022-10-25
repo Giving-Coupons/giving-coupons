@@ -1,6 +1,6 @@
-import { cardSx } from '../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
 import { Stack } from '@mui/system';
 import React from 'react';
+import { cardSx } from '../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
 
 interface Props {
   children: React.ReactNode;

@@ -1,9 +1,9 @@
-import { CharityListData } from '../../../types/charity';
-import { InterestFormData } from './InterestForm';
-import api from '../../../frontendApis';
-import FormAutocomplete from '../../forms/FormAutocomplete';
 import useSWR from 'swr';
+import api from '../../../frontendApis';
 import CharitiesAPI from '../../../frontendApis/charities';
+import { CharityListData } from '../../../types/charity';
+import FormAutocomplete from '../../forms/FormAutocomplete';
+import { InterestFormData } from './InterestForm';
 
 interface Props {
   name: keyof InterestFormData;

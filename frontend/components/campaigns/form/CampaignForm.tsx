@@ -1,15 +1,15 @@
-import { Form, Formik } from 'formik';
-import { Stack } from '@mui/system';
 import { InputAdornment, Typography } from '@mui/material';
-import { CampaignFormData } from '../../../types/campaigns';
+import { Stack } from '@mui/system';
+import { Form, Formik } from 'formik';
+import { useRouter } from 'next/router';
+import * as Yup from 'yup';
 import { containerSx, sectionSx } from '../../../styles/components/campaigns/form/CampaignFormStyles';
+import { CampaignFormData } from '../../../types/campaigns';
+import FormDatePicker from '../../forms/FormDatePicker';
+import FormImageUpload from '../../forms/FormImageUpload';
+import FormTextInput from '../../forms/FormTextInput';
 import Button from '../../generic/Button';
 import CampaignFormCharitiesSection from './CampaignFormCharitiesSection';
-import FormDatePicker from '../../forms/FormDatePicker';
-import FormTextInput from '../../forms/FormTextInput';
-import * as Yup from 'yup';
-import { useRouter } from 'next/router';
-import FormImageUpload from '../../forms/FormImageUpload';
 
 interface Props {
   title: string;

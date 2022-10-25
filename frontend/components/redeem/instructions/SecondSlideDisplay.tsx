@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material';
-import MockCharityCard from './MockCharityCard';
 import { PrimaryDonorData } from '../../../types/primaryDonor';
+import MockCharityCard from './MockCharityCard';
 
 interface Props {
   couponDenomination: number;
