@@ -12,5 +12,5 @@ export type RedemptionState = {
   current: RedemptionStep;
 
   campaignCharityId: Nullable<number>;
-  personalContribution: Nullable<number>;
+  personalContribution?: Nullable<number>;
 };

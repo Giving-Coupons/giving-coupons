@@ -1,10 +1,8 @@
 import { RedemptionState, RedemptionStep } from '../types/redemptionState';
-import Cookies from 'js-cookie';
 import moment from 'moment';
 import { Nullable } from '../types/utils';
 import { DEFAULT_SECONDARY_DONATION_VALUE } from './constants';
-
-const cookieKey = 'redemptionState';
+import api from '../frontendApis';
 
 function parseRedemptionStateFromCookie(json: string) {
   return JSON.parse(json) as RedemptionState;
@@ -16,8 +14,8 @@ function parseRedemptionStateFromCookie(json: string) {
  * @returns RedemptionState object representing last saved step of a coupon redemption process.
  * @throws Can throw a JSON.parse related error if the saved value is invalid.
  */
-export function getRedemptionStateCookie() {
-  const jsonState = Cookies.get(cookieKey);
+export async function getRedemptionStateCookie(urlToken: string) {
+  const jsonState = (await api.coupons.getProgress(urlToken)).payload;
   if (!jsonState) {
     return null;
   }
@@ -29,13 +27,13 @@ export function getRedemptionStateCookie() {
  * Save the latest step of the coupon redemption process as a cookie.
  * If charityId or personalContribution is set as undefined, no change will be made to that property.
  */
-export function setRedemptionStateCookie(
+export async function setRedemptionStateCookie(
   urlToken: string,
   current: RedemptionStep,
   campaignCharityId?: Nullable<number>,
   personalContribution?: Nullable<number>,
 ) {
-  const previous = getRedemptionStateCookie();
+  const previous = await getRedemptionStateCookie(urlToken);
   if (campaignCharityId === undefined) {
     campaignCharityId = previous?.campaignCharityId ?? null;
   }
@@ -52,6 +50,6 @@ export function setRedemptionStateCookie(
     personalContribution,
   };
 
-  Cookies.set(cookieKey, JSON.stringify(state));
+  api.coupons.setProgress(urlToken, JSON.stringify(state));
   return state;
 }

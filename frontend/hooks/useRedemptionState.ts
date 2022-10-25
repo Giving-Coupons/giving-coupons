@@ -39,27 +39,28 @@ export default function useRedemptionState(
       return;
     }
 
-    const state = setRedemptionStateCookie(urlToken, current, campaignCharityId, personalContribution);
-    setRedemptionState(state);
+    setRedemptionStateCookie(urlToken, current, campaignCharityId, personalContribution).then(setRedemptionState);
   };
 
   if (!urlToken) {
     return [redemptionState, updateRedemptionStep];
   }
 
-  try {
-    let currentState = getRedemptionStateCookie();
-    // If no cookie found or cookie from another coupon's session, reset for current coupon.
-    if (!currentState || currentState.urlToken !== urlToken) {
-      currentState = setRedemptionStateCookie(urlToken, RedemptionStep.SelectCharity, null, null);
-    }
+  Promise.resolve(async () => {
+    try {
+      let currentState = await getRedemptionStateCookie(urlToken);
+      // If no cookie found or cookie from another coupon's session, reset for current coupon.
+      if (!currentState || currentState.urlToken !== urlToken) {
+        currentState = await setRedemptionStateCookie(urlToken, RedemptionStep.SelectCharity, null, null);
+      }
 
-    if (JSON.stringify(currentState) !== JSON.stringify(redemptionState)) {
-      setRedemptionState(currentState);
+      if (JSON.stringify(currentState) !== JSON.stringify(redemptionState)) {
+        setRedemptionState(currentState);
+      }
+    } catch (err) {
+      enqueueSnackbar('Unable to retrieve your past coupon history.', { variant: 'error' });
     }
-  } catch (err) {
-    enqueueSnackbar('Unable to retrieve your past coupon history.', { variant: 'error' });
-  }
+  });
 
   return [redemptionState, updateRedemptionStep];
 }
