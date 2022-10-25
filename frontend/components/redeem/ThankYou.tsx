@@ -50,8 +50,6 @@ const ThankYou = ({ campaignId }: Props) => {
 
       <Typography variant="h3" textAlign="center">
         Your gift will not just improve lives, it will transform futures.
-        <br />
-        Thank you for your generosity.
       </Typography>
 
       <Grid container spacing={1}>
