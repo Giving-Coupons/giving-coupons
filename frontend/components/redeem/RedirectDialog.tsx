@@ -71,7 +71,7 @@ const RedirectDialog = ({
           validationSchema={validationSchema}
           onSubmit={handleRedirect}
         >
-          {({ values, errors, setFieldValue }) => (
+          {({ values, errors, isValid, dirty, setFieldValue }) => (
             <Form>
               <Stack component="div" alignItems="center" spacing={4}>
                 <Stack component="div" alignItems="center" width="100%">
