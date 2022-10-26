@@ -16,7 +16,7 @@ export const dialogContentSx: SxProps = {
   alignItems: 'center',
 };
 
-export const dialogContentTextSx: SxProps = { margin: '20px' };
+export const dialogContentTextSx: SxProps = { margin: '20px', height: '20%' };
 
 export const charityLogoSx: SxProps = {
   maxHeight: '40px',
@@ -25,8 +25,7 @@ export const charityLogoSx: SxProps = {
 };
 
 export const charityDesktopImageSx: SxProps = {
-  height: '60%',
-  width: '100%',
+  height: '80%',
 };
 
 export const charityMobileImageSx: SxProps = {
