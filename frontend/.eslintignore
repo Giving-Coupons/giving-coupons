@@ -2,6 +2,7 @@
 *.lock
 *.log
 *.scss
+*.css
 public/**
 .next/
 out/
