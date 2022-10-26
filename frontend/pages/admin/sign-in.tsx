@@ -1,7 +1,6 @@
 import { Box, Container, Grid, Stack, Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
 import { NextPage } from 'next';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import * as Yup from 'yup';
 import FormTextInput from '../../components/forms/FormTextInput';
@@ -61,11 +60,11 @@ const SignIn: NextPage = () => {
                 Sign In
               </Button>
 
-              <Grid container justifyContent="center">
+              {/* <Grid container justifyContent="center">
                 <Grid item>
                   <Link href="/admin/sign-up">{`Don't have an account? Sign up`}</Link>
                 </Grid>
-              </Grid>
+              </Grid> */}
             </Form>
           )}
         </Formik>
