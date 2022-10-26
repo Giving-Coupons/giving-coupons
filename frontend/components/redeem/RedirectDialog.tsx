@@ -42,6 +42,8 @@ const RedirectDialog = ({
   goToNextStep,
 }: Props) => {
   const theme = useTheme();
+  const [shouldShowLearnMore, setShouldShowLearnMore] = useState<boolean>(false);
+
   const handleRedirect = (values: CouponRedirectFormData) => {
     log('[RedirectDialog] Redirect to Giving.sg', {
       campaignCharityId: campaignCharity.id,
@@ -54,8 +56,6 @@ const RedirectDialog = ({
       goToNextStep();
     });
   };
-
-  const [shouldShowLearnMore, setShouldShowLearnMore] = useState<boolean>(false);
 
   return (
     <Dialog open={open} onClose={handleClose}>
