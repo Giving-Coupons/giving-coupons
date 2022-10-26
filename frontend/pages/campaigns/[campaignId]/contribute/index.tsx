@@ -22,6 +22,7 @@ import {
 import { CampaignPublicData } from '../../../../types/campaigns';
 import { SecondaryDonationFormData, SecondaryDonationPostData } from '../../../../types/donations';
 import { Nullable } from '../../../../types/utils';
+import { log } from '../../../../utils/analytics';
 
 const validationSchema = Yup.object().shape({
   campaignCharityId: Yup.number().required('Campaign charity is required'),
@@ -54,6 +55,11 @@ const Contribute: NextPage = () => {
       // This should never be available as useSWR will set error / loading and form will not be visible. (Defensive)
       return Promise.reject('campaignId is invalid.');
     }
+
+    log('[Contribute] Submit', {
+      campaignCharityId: values.campaignCharityId,
+      amount: values.amount,
+    });
 
     validationSchema
       .validate(values)

@@ -3,6 +3,7 @@ import { Stack } from '@mui/system';
 import { useRouter } from 'next/router';
 import { CampaignCharityData } from '../../types/campaignCharities';
 import { CouponSponsorship } from '../../types/primaryDonor';
+import { log } from '../../utils/analytics';
 import Button from '../generic/Button';
 import Receipt from './Receipt';
 
@@ -28,7 +29,13 @@ const AlreadyRedeemedDisplay = ({ campaignId, campaignCharity, couponSponsorship
         secondaryDonorAmount={secondaryDonorAmount}
       />
 
-      <Button actionType="primary" onClick={() => router.push(`/campaigns/${campaignId}/contribute`)}>
+      <Button
+        actionType="primary"
+        onClick={() => {
+          log("[AlreadyRedeemedDisplay] Click 'Contribute directly'");
+          router.push(`/campaigns/${campaignId}/contribute`);
+        }}
+      >
         Contribute directly
       </Button>
     </Stack>

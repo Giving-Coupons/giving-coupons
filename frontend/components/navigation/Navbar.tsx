@@ -16,6 +16,7 @@ import {
   toolbarLogoSx,
   toolbarSx,
 } from '../../styles/components/navigation/NavbarStyles';
+import { log } from '../../utils/analytics';
 import {
   adminNavigationTextPathMap,
   adminPathPrefix,
@@ -68,7 +69,10 @@ const NavBar = () => {
           <Stack component="div" direction="row">
             {navigationTextPathMap.entrySeq().map(([label, path]) => (
               <Link key={label} href={path}>
-                <Box sx={isTabForCurrentPage(path, router.pathname) ? activeTabSx : inactiveTabSx}>
+                <Box
+                  sx={isTabForCurrentPage(path, router.pathname) ? activeTabSx : inactiveTabSx}
+                  onClick={() => log(`[Navbar] Click "${label}"`)}
+                >
                   <Typography variant="h4">{label}</Typography>
                 </Box>
               </Link>

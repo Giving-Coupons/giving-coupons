@@ -11,6 +11,7 @@ import InterestForm, { InterestFormSubmitHandler } from '../../components/intere
 import api from '../../frontendApis';
 import { formStackSx, mailIconSx } from '../../styles/interest';
 import { InterestPostData, InterestStatus } from '../../types/interest';
+import { log } from '../../utils/analytics';
 import { DEFAULT_COUPON_DENOMINATION } from '../../utils/constants';
 
 const interestsApi = api.interests;
@@ -18,6 +19,8 @@ const interestsApi = api.interests;
 const InterestFormPage: NextPage = () => {
   const router = useRouter();
   const onSubmit: InterestFormSubmitHandler = (formData) => {
+    log('[InterestFormPage] Submit');
+
     const { lengthOfCampaign, ...data } = formData;
     const interestPostData: InterestPostData = {
       ...data,

@@ -5,6 +5,7 @@ import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import { titleSx } from '../../../styles/components/campaigns/search/CampaignSearchFormStyles';
 import { CampaignSearchFormData } from '../../../types/campaigns';
+import { log } from '../../../utils/analytics';
 import { isValidDate } from '../../../utils/dates';
 import Button from '../../generic/Button';
 import CampaignSearchCheckbox from './CampaignSearchCheckbox';
@@ -66,6 +67,8 @@ export const campaignSearchFormSchema = Yup.object().shape(
 
 const CampaignSearchForm = ({ initialValues, search, handleReset }: Props) => {
   const handleSubmit = (values: CampaignSearchFormData) => {
+    log('[CampaignSearchForm] Submit search');
+
     campaignSearchFormSchema
       .validate(values)
       .then(search)
@@ -167,6 +170,7 @@ const CampaignSearchForm = ({ initialValues, search, handleReset }: Props) => {
                 fullWidth
                 actionType="secondary"
                 onClick={() => {
+                  log('[CampaignSearchForm] Reset search filters');
                   handleReset();
                   resetForm();
                 }}

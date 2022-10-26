@@ -31,6 +31,7 @@ import { CouponRedeemData, CouponRedeemFormData, CouponRedeemPostData } from '..
 import { CouponSponsorship } from '../../../types/primaryDonor';
 import { RedemptionState, RedemptionStep } from '../../../types/redemptionState';
 import { Nullable } from '../../../types/utils';
+import { log } from '../../../utils/analytics';
 import { DEFAULT_SECONDARY_DONATION_VALUE } from '../../../utils/constants';
 
 const validationSchema = Yup.object().shape({
@@ -88,6 +89,12 @@ const Redeem: NextPage = () => {
       return Promise.reject('urlToken is invalid.');
     }
 
+    log('[Redeem] Submit', {
+      campaignCharityId: values.campaignCharityId,
+      couponId: coupon?.id,
+      amount: values.amount,
+    });
+
     validationSchema
       .validate(values)
       .then((values) => {
@@ -123,6 +130,7 @@ const Redeem: NextPage = () => {
 
     const campaignCharity = coupon.charities.find((charity) => charity.id === values.campaignCharityId);
     const couponSponsorship: CouponSponsorship = {
+      couponId: coupon.id,
       primaryDonor: coupon.campaign.primaryDonor,
       couponDenomination: coupon.campaign.couponDenomination,
     };
@@ -190,7 +198,10 @@ const Redeem: NextPage = () => {
             sx={isMobile ? mobileHelpButtonSx : desktopHelpButtonSx}
             icon={<HelpOutlineIcon />}
             tooltip="Instructions"
-            onClick={() => setOpenInstructions(true)}
+            onClick={() => {
+              log('[Redeem] Open instructions');
+              setOpenInstructions(true);
+            }}
           />
         )}
 
@@ -216,6 +227,7 @@ const Redeem: NextPage = () => {
               campaignId={coupon.campaign.id}
               campaignCharity={coupon.campaignCharity}
               couponSponsorship={{
+                couponId: coupon.id,
                 primaryDonor: coupon.campaign.primaryDonor,
                 couponDenomination: coupon.denomination,
               }}
