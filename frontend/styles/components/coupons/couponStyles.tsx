@@ -72,7 +72,8 @@ export const instructionsItemSx = {
 };
 
 export const instructionsLogoSx = {
-  width: '60px',
+  width: '40px',
+  margin: '10px',
 };
 
 export const sugarFontSx = {
