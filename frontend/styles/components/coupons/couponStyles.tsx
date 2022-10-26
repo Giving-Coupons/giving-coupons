@@ -28,7 +28,7 @@ export const logoSx = {
 };
 
 export const sponsorLogoSx = {
-  width: '50mm',
+  width: '40mm',
   marginTop: '8px',
 };
 

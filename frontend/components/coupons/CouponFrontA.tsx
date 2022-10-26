@@ -28,7 +28,7 @@ const CouponFrontA = ({ coupon }: Props) => {
           Kindly Sponsored By:
         </Typography>
 
-        <Box sx={sponsorLogoSx} component="img" src="/logo-soc.png" />
+        <Box sx={sponsorLogoSx} component="img" src="/anon-donor.png" />
       </Stack>
 
       <Stack sx={rightSectionSx} component="div" spacing={1}>

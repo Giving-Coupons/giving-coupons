@@ -32,7 +32,7 @@ const CouponFrontB = ({ coupon }: Props) => {
           Kindly Sponsored By:
         </Typography>
 
-        <Box component="img" src="/logo-soc.png" width="40mm" marginBottom="8px" />
+        <Box component="img" src="/anon-donor.png" width="40mm" marginBottom="8px" />
       </Stack>
     </Stack>
   );
