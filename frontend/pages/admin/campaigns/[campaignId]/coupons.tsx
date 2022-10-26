@@ -1,8 +1,12 @@
 import { Box } from '@mui/system';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import * as React from 'react';
 import useSWR from 'swr';
-import Coupon from '../../../../components/coupons/Coupon';
+import CouponBackA from '../../../../components/coupons/CouponBackA';
+import CouponBackB from '../../../../components/coupons/CouponBackB';
+import CouponFrontA from '../../../../components/coupons/CouponFrontA';
+import CouponFrontB from '../../../../components/coupons/CouponFrontB';
 import api from '../../../../frontendApis';
 import CouponsAPI from '../../../../frontendApis/coupons';
 import useAdminLoginCheck from '../../../../hooks/useAdminLogInCheck';
@@ -19,15 +23,37 @@ const CampaignCoupons = () => {
       : null,
   );
 
+  const ref = React.useRef() as React.MutableRefObject<HTMLDivElement>;
+
   return (
     <Box>
       <Head>
         <title>Coupons</title>
       </Head>
 
-      {coupons?.map((coupon, index) => (
-        <Coupon key={index} coupon={coupon} />
-      ))}
+      <Box component="div" ref={ref}>
+        {coupons?.map((coupon, index) => (
+          <CouponFrontA key={index} coupon={coupon} />
+        ))}
+      </Box>
+
+      <Box component="div" ref={ref}>
+        {coupons?.map((coupon, index) => (
+          <CouponBackA key={index} coupon={coupon} />
+        ))}
+      </Box>
+
+      <Box component="div" ref={ref}>
+        {coupons?.map((coupon, index) => (
+          <CouponFrontB key={index} coupon={coupon} />
+        ))}
+      </Box>
+
+      <Box component="div" ref={ref}>
+        {coupons?.map((coupon, index) => (
+          <CouponBackB key={index} coupon={coupon} />
+        ))}
+      </Box>
     </Box>
   );
 };

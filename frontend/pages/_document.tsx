@@ -22,8 +22,10 @@ export default function Document() {
         <meta property="og:site_name" content="Giving Coupons" />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
+
       <body>
         <Main />
+
         <NextScript />
       </body>
     </Html>

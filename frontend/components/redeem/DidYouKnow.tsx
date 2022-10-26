@@ -1,6 +1,6 @@
-import { Box, Stack, Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { boxSx, stackSx, textSx } from '../../styles/components/redeem/DidYouKnowStyles';
+import { stackSx } from '../../styles/components/redeem/DidYouKnowStyles';
 
 // TODO: Change this if needed
 const DID_YOU_KNOW_FACTS: string[] = [
@@ -12,23 +12,23 @@ const DID_YOU_KNOW_FACTS: string[] = [
 ];
 
 const DidYouKnow = () => {
-  const [factIndex, setfactIndex] = useState<number>(0);
+  const [factIndex, setFactIndex] = useState<number>(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setfactIndex((prevIndex) => (prevIndex + 1) % DID_YOU_KNOW_FACTS.length);
+      setFactIndex((prevIndex) => (prevIndex + 1) % DID_YOU_KNOW_FACTS.length);
     }, 5000);
 
     return () => clearInterval(interval);
   }, [factIndex]);
 
   return (
-    <Stack component="div" sx={stackSx}>
+    <Stack component="div" sx={stackSx} spacing={1}>
       <Typography variant="h4">Did you know?</Typography>
 
-      <Box sx={boxSx}>
-        <Typography sx={textSx}>{DID_YOU_KNOW_FACTS[factIndex]}</Typography>
-      </Box>
+      <Typography align="center" variant="h5">
+        {DID_YOU_KNOW_FACTS[factIndex]}
+      </Typography>
     </Stack>
   );
 };
