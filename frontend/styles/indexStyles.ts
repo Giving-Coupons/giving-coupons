@@ -189,3 +189,15 @@ export const givingCouponsNoticeSx: SxProps = {
   alignItems: 'flex-start',
   padding: '10px',
 };
+
+export const logoIconTextSx: SxProps = {
+  maxHeight: '1.6em',
+  minHeight: '1.6em',
+  height: '1.6em',
+  verticalAlign: 'middle',
+  padding: '0 2px',
+};
+
+export const logoTextSx: SxProps = {
+  verticalAlign: 'middle',
+};

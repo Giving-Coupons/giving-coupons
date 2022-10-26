@@ -21,6 +21,8 @@ import {
   howItWorksSectionSx,
   howItWorksStackSx,
   largeImpactTextSx,
+  logoIconTextSx,
+  logoTextSx,
   orgDescriptionSx,
   statsSectionGridItemStackSx,
   statsSectionGridItemSx,
@@ -29,6 +31,7 @@ import {
   statsSectionSx,
 } from '../styles/indexStyles';
 import { log } from '../utils/analytics';
+import { ReactNode } from 'react';
 
 const Home: NextPage = () => {
   return (
@@ -136,7 +139,7 @@ const ResponsiveCharityImage = () => (
 );
 
 const HowItWorksSection = () => {
-  const GridItem = (props: { imgSrc: string; text: string; alignTo: 'start' | 'end' }) => (
+  const GridItem = (props: { imgSrc: string; content: ReactNode; alignTo: 'start' | 'end' }) => (
     <Grid item xs={12}>
       <Stack sx={howItWorksStackSx} alignItems={props.alignTo === 'start' ? 'flex-start' : 'flex-end'} spacing={2}>
         <Stack
@@ -146,12 +149,16 @@ const HowItWorksSection = () => {
         >
           <Box sx={howItWorksImageSx} component="img" src={props.imgSrc} />
 
-          <Typography sx={{ margin: '2rem' }} variant="h3">
-            {props.text}
-          </Typography>
+          {props.content}
         </Stack>
       </Stack>
     </Grid>
+  );
+
+  const GridItemText = (props: { children: ReactNode }) => (
+    <Typography sx={{ margin: '2rem' }} variant="h3">
+      {props.children}
+    </Typography>
   );
 
   return (
@@ -164,21 +171,39 @@ const HowItWorksSection = () => {
 
       <GridItem
         imgSrc="/public-relation.png"
-        text="Donors start a campaign by committing a sum to one or more charities"
+        content={<GridItemText>Donors start a campaign by committing a sum to one or more charities</GridItemText>}
         alignTo="start"
       />
 
-      <GridItem text="Giving Coupons generates and prints out coupons" imgSrc="/icon-voucher.png" alignTo="end" />
+      <GridItem
+        content={
+          <GridItemText>
+            <Box sx={logoIconTextSx} component="img" src="/logo-icon.png" />{' '}
+            <Typography sx={logoTextSx} component="span" color="primary" variant="h4">
+              GIVING COUPONS
+            </Typography>{' '}
+            generates and prints out coupons
+          </GridItemText>
+        }
+        imgSrc="/icon-voucher.png"
+        alignTo="end"
+      />
 
       <GridItem
         imgSrc="/icon-charity.png"
-        text="Coupon recipients choose which charities gets the donation, and can add their own contributions"
+        content={
+          <GridItemText>
+            Coupon recipients choose which charities gets the donation, and can add their own contributions
+          </GridItemText>
+        }
         alignTo="start"
       />
 
       <GridItem
         imgSrc="/icon-love.png"
-        text="The selected charities directly receive the funds from the donor or via Giving.SG"
+        content={
+          <GridItemText>The selected charities directly receive the funds from the donor or via Giving.SG</GridItemText>
+        }
         alignTo="end"
       />
     </Grid>

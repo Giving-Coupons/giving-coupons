@@ -91,6 +91,7 @@ const CampaignDonationBreakdownCard = ({ totalDonationBreakdown, charitiesDonati
                 <Typography variant="caption">
                   From {charitiesDonations[0]?.primaryDonor?.name || 'the campaign organizer'}
                 </Typography>
+
                 <Typography variant="caption">From the public</Typography>
               </Stack>
             </TableCell>
