@@ -12,6 +12,7 @@ import CampaignsAPI from '../../frontendApis/campaigns';
 import { containerSx, messageContainerSx, mobileSearchButtonSx } from '../../styles/campaigns/indexStyles';
 import { CampaignListData, CampaignListQueryParams } from '../../types/campaigns';
 import { Nullable } from '../../types/utils';
+import { log } from '../../utils/analytics';
 
 const Campaigns = () => {
   const defaultQueryParams = {
@@ -67,7 +68,13 @@ const Campaigns = () => {
         )}
 
         {isMobile && (
-          <Fab sx={mobileSearchButtonSx} onClick={() => setSearchDrawerIsOpen(true)}>
+          <Fab
+            sx={mobileSearchButtonSx}
+            onClick={() => {
+              log('[CampaignList] Click Search FAB');
+              setSearchDrawerIsOpen(true);
+            }}
+          >
             <SearchIcon fontSize="large" />
           </Fab>
         )}

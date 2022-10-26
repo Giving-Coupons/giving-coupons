@@ -2,6 +2,7 @@ import { Grid, Typography } from '@mui/material';
 import { Box, Stack } from '@mui/system';
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import ButtonCard from '../components/ButtonCard';
 import Button from '../components/generic/Button';
 import {
@@ -27,6 +28,7 @@ import {
   statsSectionImageSx,
   statsSectionSx,
 } from '../styles/indexStyles';
+import { log } from '../utils/analytics';
 
 const Home: NextPage = () => {
   return (
@@ -76,7 +78,14 @@ const HeadlineSection = () => (
           Giving Coupons is an initiative to raise money for charities through public gift matching
         </Typography>
 
-        <Button sx={buttonSx} actionType="primary" href="/campaigns">
+        <Button
+          sx={buttonSx}
+          actionType="primary"
+          href="/campaigns"
+          onClick={() => {
+            log('[Home] Click "Explore our campaigns"');
+          }}
+        >
           Explore Our Campaigns
         </Button>
       </Stack>
@@ -164,8 +173,9 @@ const HowItWorksSection = () => {
     </Grid>
   );
 };
-
 const CallToActionSection = () => {
+  const router = useRouter();
+
   return (
     <Stack sx={callToActionStackSx} spacing={2}>
       <Typography variant="h1" align="center">
@@ -177,7 +187,10 @@ const CallToActionSection = () => {
           <ButtonCard
             title="Create a Campaign"
             content="Commit a sum and generate coupons to spread the gift of giving"
-            link="/interest"
+            onClick={() => {
+              log('[Home] Click "Create a Campaign"');
+              router.push('/interest');
+            }}
           />
         </Grid>
 
@@ -185,7 +198,10 @@ const CallToActionSection = () => {
           <ButtonCard
             title="Contribute to a campaign"
             content="Learn more about existing campaigns and contribute directly"
-            link="/campaigns"
+            onClick={() => {
+              log('[Home] Click "Contribute to a campaign"');
+              router.push('/campaigns');
+            }}
           />
         </Grid>
       </Grid>

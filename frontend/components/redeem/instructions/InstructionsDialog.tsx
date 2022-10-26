@@ -1,6 +1,6 @@
 import { Button, Dialog, Typography, useMediaQuery } from '@mui/material';
 import { Box, Container, Stack, useTheme } from '@mui/system';
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import { Navigation, Pagination } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -21,6 +21,7 @@ import {
 } from '../../../styles/components/redeem/InstructionDialogStyles';
 import { givingSgLogoSx } from '../../../styles/components/redeem/RedeemStyles';
 import { PrimaryDonorData } from '../../../types/primaryDonor';
+import { log } from '../../../utils/analytics';
 import FirstSlideDisplay from './FirstSlideDisplay';
 import MockCharityDialog from './MockCharityDialog';
 import MockDevice from './MockDevice';
@@ -80,6 +81,7 @@ const Slide = ({ instructions, display }: SlideProps) => {
 const InstructionsDialog = ({ open, handleClose, primaryDonor, couponDenomination, charitiesCount }: Props) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const [slideIndex, setSlideIndex] = React.useState<number>(0);
   const slideProps: SlideProps[] = [
     {
       instructions: (
@@ -137,7 +139,15 @@ const InstructionsDialog = ({ open, handleClose, primaryDonor, couponDenominatio
   ];
 
   return (
-    <Dialog fullScreen open={open} onClose={handleClose} PaperProps={{ sx: dialogPaperSx }}>
+    <Dialog
+      fullScreen
+      open={open}
+      onClose={() => {
+        log('[InstructionsDialog] Close instructions', { slideNumber: slideIndex + 1 });
+        handleClose();
+      }}
+      PaperProps={{ sx: dialogPaperSx }}
+    >
       <Container sx={containerSx} component="div">
         <Stack sx={stackSx} component="div">
           <Typography align="center" component="div" variant="h2">
@@ -150,6 +160,9 @@ const InstructionsDialog = ({ open, handleClose, primaryDonor, couponDenominatio
             navigation={!isMobile}
             pagination
             slidesPerView={1}
+            onActiveIndexChange={(swiper) => {
+              setSlideIndex(swiper.activeIndex);
+            }}
           >
             {slideProps.map((slideProp, index) => (
               <SwiperSlide key={index}>
