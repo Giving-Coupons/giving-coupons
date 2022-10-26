@@ -2,6 +2,7 @@ import { Typography } from '@mui/material';
 import { Box, Stack, SxProps } from '@mui/system';
 import {
   bottomGraphLegendSx,
+  emptyBarSx,
   graphLabelSx,
   leftBarSx,
   rightBarSx,
@@ -27,6 +28,8 @@ const CompetingGraph = ({
   barFractions,
   overrideGraphSx = [],
 }: Props) => {
+  const fakeOffsetFraction = 1 / 25;
+
   return (
     <Stack component="div" spacing={0.5}>
       <Box sx={topGraphLegendSx}>
@@ -43,15 +46,35 @@ const CompetingGraph = ({
         ))}
       </Box>
 
-      {barFractions[0] !== null && barFractions[1] !== null ? (
+      {barFractions[0] === null && barFractions[1] === null && (
+        <HorizontalBarGraph bars={[{ fraction: 1 }]} overrideGraphSx={overrideGraphSx} />
+      )}
+
+      {barFractions[0] === 0 && barFractions[1] !== null && (
+        <HorizontalBarGraph
+          bars={[{ fraction: fakeOffsetFraction }, { fraction: barFractions[1] - fakeOffsetFraction }]}
+          overrideFirstBarSx={emptyBarSx}
+          overrideLastBarSx={rightBarSx}
+          overrideGraphSx={overrideGraphSx}
+        />
+      )}
+
+      {barFractions[1] === 0 && barFractions[0] !== null && (
+        <HorizontalBarGraph
+          bars={[{ fraction: barFractions[0] - fakeOffsetFraction }, { fraction: fakeOffsetFraction }]}
+          overrideFirstBarSx={leftBarSx}
+          overrideLastBarSx={emptyBarSx}
+          overrideGraphSx={overrideGraphSx}
+        />
+      )}
+
+      {barFractions[0] !== 0 && barFractions[0] !== null && barFractions[1] !== 0 && barFractions[1] !== null && (
         <HorizontalBarGraph
           bars={[{ fraction: barFractions[0] }, { fraction: barFractions[1] }]}
           overrideFirstBarSx={leftBarSx}
           overrideLastBarSx={rightBarSx}
           overrideGraphSx={overrideGraphSx}
         />
-      ) : (
-        <HorizontalBarGraph bars={[{ fraction: 1 }]} overrideGraphSx={overrideGraphSx} />
       )}
 
       <Box sx={bottomGraphLegendSx}>

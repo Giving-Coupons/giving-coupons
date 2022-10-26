@@ -17,3 +17,7 @@ export const leftBarSx: SxProps = {
 export const rightBarSx: SxProps = {
   backgroundColor: theme.palette.secondaryTranslucent.main,
 };
+
+export const emptyBarSx: SxProps = {
+  backgroundColor: theme.palette.neutral.light,
+};
