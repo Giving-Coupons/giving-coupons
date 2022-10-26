@@ -1,3 +1,4 @@
+import InfoIcon from '@mui/icons-material/Info';
 import LockIcon from '@mui/icons-material/Lock';
 import { Box, Checkbox, Dialog, DialogContent, DialogTitle, FormControlLabel, Typography } from '@mui/material';
 import { Stack, useTheme } from '@mui/system';
@@ -17,7 +18,6 @@ import { CouponRedirectFormData } from '../../types/coupons';
 import { CouponSponsorship } from '../../types/primaryDonor';
 import { log } from '../../utils/analytics';
 import Button from '../generic/Button';
-import InfoIcon from '@mui/icons-material/Info';
 import IconButtonWithTooltip from '../IconButtonWithTooltip';
 
 interface Props {
