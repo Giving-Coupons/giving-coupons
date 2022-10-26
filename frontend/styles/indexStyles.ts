@@ -124,7 +124,7 @@ export const charityImageLargeResponsiveSx: SxProps = {
 };
 
 export const howItWorksSectionSx: SxProps = {
-  height: { xs: '95vh', sm: '90vh' },
+  minHeight: { xs: '100vh', sm: '100vh' },
   width: '90%',
   maxWidth: '800px',
   margin: 'auto',
@@ -158,12 +158,6 @@ export const largeImpactTextSx: SxProps = {
   fontWeight: 'bold',
 };
 
-export const buttonSecondary: SxProps = {
-  minWidth: '50%',
-  margin: '10px 0px',
-  color: 'blue',
-};
-
 export const buttonCard: SxProps = {
   backgroundImage: 'linear-gradient(to right, #FFF428 , #FF3200)',
   maxWidth: 345,
@@ -173,7 +167,7 @@ export const callToActionStackSx: SxProps = {
   height: '30vh',
   justifyContent: 'center',
   alignItems: 'center',
-  paddingTop: '2rem',
+  paddingTop: '56px',
 };
 
 export const callToActionSectionGridItemSx: SxProps = {
