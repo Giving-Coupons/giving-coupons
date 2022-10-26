@@ -4,6 +4,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { getAnalytics, isSupported } from 'firebase/analytics';
 import { initializeApp } from 'firebase/app';
 import type { AppProps } from 'next/app';
+import Head from 'next/head';
 import { SnackbarProvider } from 'notistack';
 import { useCallback } from 'react';
 import NavBar from '../components/navigation/Navbar';
@@ -36,6 +37,10 @@ function MyApp({ Component, pageProps }: AppProps) {
       <LocalizationProvider dateAdapter={AdapterMoment}>
         <SnackbarProvider maxSnack={3}>
           <AxiosInterceptor>
+            <Head>
+              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            </Head>
+
             <NavBar />
 
             <Component {...pageProps} />
