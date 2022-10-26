@@ -30,7 +30,6 @@ const CampaignCoupons = () => {
 
   const ref = React.useRef() as React.MutableRefObject<HTMLDivElement>;
 
-
   return (
     <Box>
       <Head>
