@@ -56,7 +56,7 @@
     "typescript": "4.8.4"
   },
   "next-unused": {
-    "include": [
+    "entrypoints": [
       "assets",
       "components",
       "frontendApis",
@@ -64,9 +64,6 @@
       "styles",
       "types",
       "utils"
-    ],
-    "entrypoints": [
-      "components"
     ]
   }
 }
