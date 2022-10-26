@@ -18,6 +18,7 @@ export type CampaignListData = {
   name: string;
   description: string;
   imageBase64: string;
+  primaryDonorName: string;
   charities: CharityListData[];
   donations: DonationBreakdownData;
   couponsRedeemedCount: number;

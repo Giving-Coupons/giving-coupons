@@ -21,6 +21,8 @@ import {
   howItWorksSectionSx,
   howItWorksStackSx,
   largeImpactTextSx,
+  logoIconTextSx,
+  logoTextSx,
   orgDescriptionSx,
   statsSectionGridItemStackSx,
   statsSectionGridItemSx,
@@ -29,6 +31,7 @@ import {
   statsSectionSx,
 } from '../styles/indexStyles';
 import { log } from '../utils/analytics';
+import { ReactNode } from 'react';
 
 const Home: NextPage = () => {
   return (
@@ -64,7 +67,7 @@ const HeadlineSection = () => (
     <Grid item xs={12} sm={12} md={6} lg={6} sx={headlineTextGridSx}>
       <Stack sx={headlineTextStackSx}>
         <Typography variant="hero" align="center" textAlign="left" fontWeight="900">
-          Together, we are more
+          Share the gift of giving
         </Typography>
 
         <Typography
@@ -75,7 +78,8 @@ const HeadlineSection = () => (
           textAlign="left"
           fontWeight="500"
         >
-          Giving Coupons is an initiative to raise money for charities through public gift matching
+          Giving Coupons is an initiative to raise awareness and money for charities by empowering more people to
+          donate.
         </Typography>
 
         <Button
@@ -114,11 +118,11 @@ const StatsSection = () => {
 
       <Box width="80%">
         <Grid sx={statsSectionGridSx} container spacing={2}>
-          <StatItem imgSrc="/icon-charity.png" stat="$4,500" subtitle="Additional funds raised for charity" />
+          <StatItem imgSrc="/icon-charity.png" stat="$1,600" subtitle="Additional funds raised for charity" />
 
-          <StatItem imgSrc="/icon-voucher.png" stat="632" subtitle="Coupons issued" />
+          <StatItem imgSrc="/icon-voucher.png" stat="160" subtitle="Coupons issued" />
 
-          <StatItem imgSrc="/icon-love.png" stat="20972" subtitle="Lives impacted" />
+          <StatItem imgSrc="/icon-love.png" stat="8" subtitle="Charities supported" />
         </Grid>
       </Box>
     </Stack>
@@ -135,7 +139,7 @@ const ResponsiveCharityImage = () => (
 );
 
 const HowItWorksSection = () => {
-  const GridItem = (props: { imgSrc: string; text: string; alignTo: 'start' | 'end' }) => (
+  const GridItem = (props: { imgSrc: string; content: ReactNode; alignTo: 'start' | 'end' }) => (
     <Grid item xs={12}>
       <Stack sx={howItWorksStackSx} alignItems={props.alignTo === 'start' ? 'flex-start' : 'flex-end'} spacing={2}>
         <Stack
@@ -145,12 +149,16 @@ const HowItWorksSection = () => {
         >
           <Box sx={howItWorksImageSx} component="img" src={props.imgSrc} />
 
-          <Typography sx={{ margin: '2rem' }} variant="h3">
-            {props.text}
-          </Typography>
+          {props.content}
         </Stack>
       </Stack>
     </Grid>
+  );
+
+  const GridItemText = (props: { children: ReactNode }) => (
+    <Typography sx={{ margin: '2rem' }} variant="h3">
+      {props.children}
+    </Typography>
   );
 
   return (
@@ -161,14 +169,42 @@ const HowItWorksSection = () => {
         </Typography>
       </Grid>
 
-      <GridItem imgSrc="/public-relation.png" text="Donors commit a sum to one or more charities" alignTo="start" />
+      <GridItem
+        imgSrc="/public-relation.png"
+        content={<GridItemText>Donors start a campaign by committing a sum to one or more charities</GridItemText>}
+        alignTo="start"
+      />
 
-      <GridItem text="Giving Coupons generates coupons" imgSrc="/icon-voucher.png" alignTo="end" />
+      <GridItem
+        content={
+          <GridItemText>
+            <Box sx={logoIconTextSx} component="img" src="/logo-icon.png" />{' '}
+            <Typography sx={logoTextSx} component="span" color="primary" variant="h4">
+              GIVING COUPONS
+            </Typography>{' '}
+            generates and prints out coupons
+          </GridItemText>
+        }
+        imgSrc="/icon-voucher.png"
+        alignTo="end"
+      />
 
       <GridItem
         imgSrc="/icon-charity.png"
-        text="Coupon recipients choose which charities gets the donation"
+        content={
+          <GridItemText>
+            Coupon recipients choose which charities gets the donation, and can add their own contributions
+          </GridItemText>
+        }
         alignTo="start"
+      />
+
+      <GridItem
+        imgSrc="/icon-love.png"
+        content={
+          <GridItemText>The selected charities directly receive the funds from the donor or via Giving.SG</GridItemText>
+        }
+        alignTo="end"
       />
     </Grid>
   );

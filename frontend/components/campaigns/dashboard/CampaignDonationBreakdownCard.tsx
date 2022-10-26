@@ -88,9 +88,11 @@ const CampaignDonationBreakdownCard = ({ totalDonationBreakdown, charitiesDonati
 
             <TableCell align="center">
               <Stack sx={donationTableHeaderSx} component="div" direction="row">
-                <Typography variant="caption">Primary</Typography>
+                <Typography variant="caption">
+                  From {charitiesDonations[0]?.primaryDonor?.name || 'the campaign organizer'}
+                </Typography>
 
-                <Typography variant="caption">Secondary</Typography>
+                <Typography variant="caption">From the public</Typography>
               </Stack>
             </TableCell>
           </TableRow>
