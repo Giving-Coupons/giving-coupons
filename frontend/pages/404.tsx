@@ -2,6 +2,7 @@ import { Stack, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import Button from '../components/generic/Button';
 import RandomKawaii from '../components/notFound/RandomKawaii';
+import { log } from '../utils/analytics';
 
 interface Props {
   entity?: string;
@@ -23,7 +24,13 @@ function NotFound({ entity = 'page', message }: Props) {
         </Typography>
       )}
 
-      <Button actionType="secondary" onClick={() => router.back()}>
+      <Button
+        actionType="secondary"
+        onClick={() => {
+          log("[404] Click 'Go back' button");
+          router.back();
+        }}
+      >
         Go back
       </Button>
     </Stack>

@@ -14,6 +14,7 @@ import {
 import { CampaignCharityData } from '../../types/campaignCharities';
 import { CouponRedirectFormData } from '../../types/coupons';
 import { CouponSponsorship } from '../../types/primaryDonor';
+import { log } from '../../utils/analytics';
 import Button from '../generic/Button';
 
 interface Props {
@@ -39,6 +40,12 @@ const RedirectDialog = ({
 }: Props) => {
   const theme = useTheme();
   const handleRedirect = (values: CouponRedirectFormData) => {
+    log('[RedirectDialog] Redirect to Giving.sg', {
+      campaignCharityId: campaignCharity.id,
+      couponId: couponSponsorship?.couponId,
+      amount: secondaryDonationAmount,
+    });
+
     validationSchema.validate(values).then(() => {
       window.open(campaignCharity.givingSgUrl, '_blank');
       goToNextStep();
@@ -111,7 +118,14 @@ const RedirectDialog = ({
                     Pay through giving.sg
                   </Button>
 
-                  <Button actionType="muted" onClick={handleClose} fullWidth>
+                  <Button
+                    actionType="muted"
+                    onClick={() => {
+                      log('[RedirectDialog] Click cancel');
+                      handleClose();
+                    }}
+                    fullWidth
+                  >
                     Cancel
                   </Button>
                 </Stack>

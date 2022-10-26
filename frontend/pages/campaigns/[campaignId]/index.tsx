@@ -12,6 +12,7 @@ import SwiperWrapper from '../../../components/swiper/SwiperWrapper';
 import api from '../../../frontendApis';
 import { CampaignPublicData } from '../../../types/campaigns';
 import { Nullable } from '../../../types/utils';
+import { log } from '../../../utils/analytics';
 import { theme } from '../../../utils/theme';
 import NotFound from '../../404';
 
@@ -76,7 +77,13 @@ export default function CampaignDetail() {
             <Stack alignItems="center" spacing={2}>
               <Typography variant="h2">{numCouponsRedeemed}</Typography>
               <Typography variant="h4">{`of ${numTotalCoupons} coupons redeemed.`}</Typography>
-              <Button variant="contained" onClick={() => router.push(`/campaigns/${campaignId}/contribute`)}>
+              <Button
+                variant="contained"
+                onClick={() => {
+                  log("[CampaignDetail] Click 'Contribute' button", { campaignId });
+                  router.push(`/campaigns/${campaignId}/contribute`);
+                }}
+              >
                 Contribute
               </Button>
             </Stack>

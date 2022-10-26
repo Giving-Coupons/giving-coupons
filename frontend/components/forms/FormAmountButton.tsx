@@ -1,4 +1,5 @@
 import { useField } from 'formik';
+import { log } from '../../utils/analytics';
 import Button from '../generic/Button';
 
 interface Props {
@@ -10,7 +11,14 @@ const FormAmountButton = ({ name, value }: Props) => {
   const [, , { setValue }] = useField(name);
 
   return (
-    <Button key={value} actionType="secondary" onClick={() => setValue(value, true)}>
+    <Button
+      key={value}
+      actionType="secondary"
+      onClick={() => {
+        log('[FormAmountButton] Select', { value });
+        setValue(value, true);
+      }}
+    >
       ${value}
     </Button>
   );

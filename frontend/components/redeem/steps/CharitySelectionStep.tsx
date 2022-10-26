@@ -6,6 +6,7 @@ import { CampaignCharityDonationPublicData } from '../../../types/campaignCharit
 import { CouponRedeemFormData } from '../../../types/coupons';
 import { CouponSponsorship } from '../../../types/primaryDonor';
 import { Nullable } from '../../../types/utils';
+import { log } from '../../../utils/analytics';
 import CampaignCharityCard from '../../campaigns/campaignCharities/CampaignCharityCard';
 import CampaignCharityDialog from '../../campaigns/campaignCharities/CampaignCharityDialog';
 import FormNavigationButtons from '../FormNavigationButtons';
@@ -59,13 +60,25 @@ const CharitySelectionStep = ({
 
                 <CampaignCharityCard
                   campaignCharity={campaignCharity}
-                  onClick={() => setOpenCharityDialogId(campaignCharity.id)}
+                  onClick={() => {
+                    log('[CharitySelectionStep] Click card', {
+                      campaignCharityId: campaignCharity.id,
+                      charity: campaignCharity.charity.name,
+                    });
+                    setOpenCharityDialogId(campaignCharity.id);
+                  }}
                 />
 
                 <CampaignCharityDialog
                   campaignCharity={campaignCharity}
                   open={openCharityDialogId === campaignCharity.id}
-                  handleClose={() => setOpenCharityDialogId(null)}
+                  handleClose={() => {
+                    log('[CharitySelectionStep] Close card', {
+                      campaignCharityId: campaignCharity.id,
+                      charity: campaignCharity.charity.name,
+                    });
+                    setOpenCharityDialogId(null);
+                  }}
                 />
               </Stack>
             ))}

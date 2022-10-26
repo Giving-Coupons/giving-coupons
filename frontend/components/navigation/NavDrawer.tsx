@@ -18,6 +18,7 @@ import {
   logoutButtonSx,
   tabListItemSx,
 } from '../../styles/components/navigation/NavDrawerStyles';
+import { log } from '../../utils/analytics';
 import { adminPathPrefix, isTabForCurrentPage } from '../../utils/routes';
 
 interface Props {
@@ -52,8 +53,11 @@ const NavDrawer = ({ isOpen, setIsOpen, navigationTextPathMap }: Props) => {
           <ListItem key={label} sx={tabListItemSx}>
             <ListItemButton
               sx={isTabForCurrentPage(path, router.pathname) ? activeTabSx : inactiveTabSx}
-              component="a"
-              href={path}
+              onClick={() => {
+                log(`[NavDrawer] Click "${label}"`);
+                console.log(`[NavDrawer] Click "${label}"`);
+                router.push(path);
+              }}
             >
               <ListItemText>
                 <Typography variant="h4">{label}</Typography>
