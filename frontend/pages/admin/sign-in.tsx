@@ -61,11 +61,11 @@ const SignIn: NextPage = () => {
                 Sign In
               </Button>
 
-              <Grid container justifyContent="center">
+              {/* <Grid container justifyContent="center">
                 <Grid item>
                   <Link href="/admin/sign-up">{`Don't have an account? Sign up`}</Link>
                 </Grid>
-              </Grid>
+              </Grid> */}
             </Form>
           )}
         </Formik>
