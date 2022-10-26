@@ -2,6 +2,7 @@ import LockIcon from '@mui/icons-material/Lock';
 import { Box, Checkbox, Dialog, DialogContent, DialogTitle, FormControlLabel, Typography } from '@mui/material';
 import { Stack, useTheme } from '@mui/system';
 import { Form, Formik } from 'formik';
+import { useState } from 'react';
 import * as Yup from 'yup';
 import {
   charityLogoSx,
@@ -16,6 +17,8 @@ import { CouponRedirectFormData } from '../../types/coupons';
 import { CouponSponsorship } from '../../types/primaryDonor';
 import { log } from '../../utils/analytics';
 import Button from '../generic/Button';
+import InfoIcon from '@mui/icons-material/Info';
+import IconButtonWithTooltip from '../IconButtonWithTooltip';
 
 interface Props {
   open: boolean;
@@ -51,6 +54,8 @@ const RedirectDialog = ({
       goToNextStep();
     });
   };
+
+  const [shouldShowLearnMore, setShouldShowLearnMore] = useState<boolean>(false);
 
   return (
     <Dialog open={open} onClose={handleClose}>
@@ -95,10 +100,31 @@ const RedirectDialog = ({
                   <Stack component="div" sx={redirectAcknowledgementContainerSx}>
                     <Typography align="center">
                       {couponSponsorship
-                        ? `${couponSponsorship.primaryDonor.name}'s ${couponSponsorship.couponDenomination} will not be redeemed until you return, so please
-                      come back afterwards!`
-                        : 'Your contribution will not be counted towards this campaign until you return, so please come back afterwards!'}
+                        ? `We will not be able to transfer ${couponSponsorship.primaryDonor.name}'s $${couponSponsorship.couponDenomination} to ${campaignCharity.charity.name} unless you return and verify your donation.`
+                        : 'Your contribution will not be counted towards this campaign unless you return and verify your donation.'}
+
+                      {couponSponsorship && (
+                        <IconButtonWithTooltip
+                          tooltip="Learn More"
+                          size="small"
+                          icon={<InfoIcon fontSize="small" />}
+                          onClick={() => setShouldShowLearnMore((prev) => !prev)}
+                        />
+                      )}
                     </Typography>
+
+                    {shouldShowLearnMore && couponSponsorship && (
+                      <Typography align="center" variant="subtitle2">
+                        Donations made through <Box sx={givingSgLogoSx} component="img" src="/giving-sg-logo.png" />{' '}
+                        cannot be tracked by us. We strongly encourage you to verify your redemption by returning to
+                        back to this link after donating.{' '}
+                        <strong>
+                          We will only transfer {couponSponsorship.primaryDonor.name}
+                          &apos;s ${couponSponsorship.couponDenomination} to {campaignCharity.charity.name} after you
+                          have verified your donation.
+                        </strong>
+                      </Typography>
+                    )}
 
                     <FormControlLabel
                       name="hasAcknowledged"
@@ -114,7 +140,13 @@ const RedirectDialog = ({
                     )}
                   </Stack>
 
-                  <Button type="submit" actionType="primary" startIcon={<LockIcon />} fullWidth>
+                  <Button
+                    type="submit"
+                    disabled={!values.hasAcknowledged}
+                    actionType="primary"
+                    startIcon={<LockIcon />}
+                    fullWidth
+                  >
                     Pay through giving.sg
                   </Button>
 
