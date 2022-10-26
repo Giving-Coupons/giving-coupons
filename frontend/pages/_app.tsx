@@ -8,7 +8,6 @@ import NavBar from '../components/navigation/Navbar';
 import { AxiosInterceptor } from '../frontendApis/interceptor';
 import '../styles/globals.scss';
 import { theme } from '../utils/theme';
-import '../styles/fonts.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const PUBLIC_URL = process.env.NEXT_PUBLIC_BASE_CLIENT_URL;
