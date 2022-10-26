@@ -142,7 +142,7 @@ const RedirectDialog = ({
 
                   <Button
                     type="submit"
-                    disabled={!values.hasAcknowledged}
+                    disabled={!isValid || !dirty}
                     actionType="primary"
                     startIcon={<LockIcon />}
                     fullWidth
