@@ -12,7 +12,7 @@ interface Props {
 
 const CampaignPrimaryDonorCard = ({ primaryDonor }: Props) => (
   <CampaignCard>
-    <Typography variant="h3">Organised by</Typography>
+    <Typography variant="h3">Initiated by</Typography>
 
     <Avatar variant="rounded" sx={avatarSx} src={primaryDonor.imageBase64} />
 
