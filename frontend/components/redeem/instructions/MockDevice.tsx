@@ -36,7 +36,7 @@ const MockDevice = ({ children }: Props) => {
           {isMobile ? (
             <MenuIcon fontSize="small" color="primary" />
           ) : (
-            <Box sx={toolbarLogoIconSx} component="img" src="/logo.png" />
+            <Box sx={toolbarLogoIconSx} component="img" src="/logo-icon.png" />
           )}
 
           <Typography sx={mockTypographySx}>Giving Coupons</Typography>
