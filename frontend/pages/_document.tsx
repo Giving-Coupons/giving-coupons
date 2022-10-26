@@ -12,7 +12,7 @@ export default function Document() {
         <meta property="og:title" content="Giving Coupons" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={PUBLIC_URL} />
-        <meta property="og:image" content={`${PUBLIC_URL}/logo-full.png`} />
+        <meta property="og:image" content={`${PUBLIC_URL}/og-giving-coupons.png`} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta
