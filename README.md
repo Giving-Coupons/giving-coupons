@@ -1,4 +1,4 @@
-<p align="center"><img src="assets/logo-horizontal.png"/></p>
+<p align="center"><img src="assets/logo-full.png"/></p>
 
 <h1 align="center">Giving Coupons</h1>
 
