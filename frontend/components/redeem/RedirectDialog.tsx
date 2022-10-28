@@ -101,8 +101,8 @@ const RedirectDialog = ({
                     <Typography align="center">
                       {couponSponsorship
                         ? `We will not be able to transfer ${couponSponsorship.primaryDonor.name}'s $${couponSponsorship.couponDenomination} to ${campaignCharity.charity.name} unless you return and verify your donation.`
-                        : 'Your contribution will not be counted towards this campaign unless you return and verify your donation.'}
-
+                        : 'Your contribution will not be counted towards this campaign unless you return and verify your donation.'}{' '}
+                      You can return to this page by scanning the coupon QR code again.
                       {couponSponsorship && (
                         <IconButtonWithTooltip
                           tooltip="Learn More"
