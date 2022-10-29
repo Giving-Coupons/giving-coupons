@@ -55,7 +55,6 @@ const NavDrawer = ({ isOpen, setIsOpen, navigationTextPathMap }: Props) => {
               sx={isTabForCurrentPage(path, router.pathname) ? activeTabSx : inactiveTabSx}
               onClick={() => {
                 log(`[NavDrawer] Click "${label}"`);
-                console.log(`[NavDrawer] Click "${label}"`);
                 router.push(path);
                 setIsOpen(false);
               }}
