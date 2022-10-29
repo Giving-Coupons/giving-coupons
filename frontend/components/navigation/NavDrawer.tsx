@@ -57,6 +57,7 @@ const NavDrawer = ({ isOpen, setIsOpen, navigationTextPathMap }: Props) => {
                 log(`[NavDrawer] Click "${label}"`);
                 console.log(`[NavDrawer] Click "${label}"`);
                 router.push(path);
+                setIsOpen(false);
               }}
             >
               <ListItemText>

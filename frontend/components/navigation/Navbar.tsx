@@ -10,10 +10,11 @@ import {
   activeTabSx,
   adminCaptionSx,
   inactiveTabSx,
+  toolbarDesktopLogoIconSx,
   toolbarHamburgerSx,
   toolbarLeftContainerSx,
-  toolbarLogoIconSx,
   toolbarLogoSx,
+  toolbarMobileLogoIconSx,
   toolbarSx,
 } from '../../styles/components/navigation/NavbarStyles';
 import { log } from '../../utils/analytics';
@@ -52,7 +53,11 @@ const NavBar = () => {
 
           <Link href={isAdminSignedInPage ? adminPathPrefix : '/'}>
             <Stack sx={toolbarLogoSx} component="div" direction="row" spacing={1}>
-              {!isMobile && <Box sx={toolbarLogoIconSx} component="img" src="/logo-icon.png" />}
+              {isMobile ? (
+                <Box sx={toolbarMobileLogoIconSx} component="img" src="/logo-icon.png" />
+              ) : (
+                <Box sx={toolbarDesktopLogoIconSx} component="img" src="/logo-icon.png" />
+              )}
 
               <Typography variant={isMobile ? 'h4' : 'h3'}>Giving Coupons</Typography>
 

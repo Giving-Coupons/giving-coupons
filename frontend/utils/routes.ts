@@ -9,8 +9,8 @@ export const defaultNavigationTextPathMap = OrderedMap({
 });
 
 export const adminNavigationTextPathMap = OrderedMap({
-  'Manage interests': '/admin/interests',
   'Manage campaigns': '/admin/campaigns',
+  'Manage interests': '/admin/interests',
   'Manage charities': '/admin/charities',
 });
 
