@@ -3,6 +3,7 @@ import LayoutDefault from './layouts/LayoutDefault';
 import AppRoute from './utils/AppRoute';
 import ScrollReveal from './utils/ScrollReveal';
 import Home from './views/Home';
+import '../landing-page/assets/scss/style.module.scss';
 
 const App = () => {
   const childRef = useRef();
