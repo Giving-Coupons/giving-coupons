@@ -1,38 +1,31 @@
-import React from 'react';
 import classNames from 'classnames';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
-const FooterNav = ({
-  className,
-  ...props
-}) => {
-
-  const classes = classNames(
-    'footer-nav',
-    className
-  );
+const FooterNav = ({ className, ...props }) => {
+  const classes = classNames('footer-nav', className);
 
   return (
-    <nav
-      {...props}
-      className={classes}
-    >
+    <nav {...props} className={classes}>
       <ul className="list-reset">
         <li>
-          <Link to="#0">Contact</Link>
+          {/* TODO: Replaced React Link with Next link, verify that it works */}
+          <Link href="/">Contact</Link>
         </li>
         <li>
-          <Link to="#0">About us</Link>
+          {/* TODO: Replaced React Link with Next link, verify that it works */}
+          <Link href="/">About us</Link>
         </li>
         <li>
-          <Link to="#0">FAQ's</Link>
+          {/* TODO: Replaced React Link with Next link, verify that it works */}
+          <Link href="/">FAQ's</Link>
         </li>
         <li>
-          <Link to="#0">Support</Link>
+          {/* TODO: Replaced React Link with Next link, verify that it works */}
+          <Link href="/">Support</Link>
         </li>
       </ul>
     </nav>
   );
-}
+};
 
 export default FooterNav;

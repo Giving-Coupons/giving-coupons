@@ -9,6 +9,7 @@ import { SnackbarProvider } from 'notistack';
 import { useCallback } from 'react';
 import NavBar from '../components/navigation/Navbar';
 import { AxiosInterceptor } from '../frontendApis/interceptor';
+import '../landing-page/assets/scss/style.scss';
 import '../styles/globals.scss';
 import { theme } from '../utils/theme';
 
