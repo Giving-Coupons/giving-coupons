@@ -1,6 +1,6 @@
 .testimonial {
   .tiles-item-inner {
-    background: get-color(dark, 2);
+    background: get-color(ddrk, 2);
   }
 }
 
@@ -28,7 +28,7 @@
 
   &.has-top-divider {
     &::before {
-      background: get-color(dark, 3);
+      background: get-color(ddrk, 3);
     }
   }
 }
