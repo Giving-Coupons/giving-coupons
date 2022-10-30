@@ -7,33 +7,33 @@ $button-form--group-padding: 12px; // padding separating input from button in a 
 
 // Buttons: text color
 $button--color: (
-  button-llght: get-color(ddrk, 2),
-  button-ddrk: get-color(llght, 1),
-  button-primary: get-color(llght, 1),
-  button-secondary: get-color(llght, 1),
-  button-disabled: get-color(ddrk, 3),
+  button-dark: get-color(light, 2),
+  button-light: get-color(dark, 1),
+  button-primary: get-color(dark, 1),
+  button-secondary: get-color(dark, 1),
+  button-disabled: get-color(light, 3),
 );
 
 // Buttons: background color
 $button--bg: (
-  button-llght: get-color(llght, 1),
-  button-llght-hover: darken(get-color(llght, 1), 5%),
-  button-ddrk: get-color(ddrk, 2),
-  button-ddrk-hover: lighten(get-color(ddrk, 2), 2%),
+  button-dark: get-color(dark, 1),
+  button-dark-hover: darken(get-color(dark, 1), 5%),
+  button-light: get-color(light, 2),
+  button-light-hover: lighten(get-color(light, 2), 2%),
   button-primary: get-color(primary, 1),
   button-primary-hover: lighten(get-color(primary, 1), 2%),
   button-secondary: get-color(secondary, 1),
   button-secondary-hover: lighten(get-color(secondary, 1), 2%),
-  button-disabled: get-color(llght, 3),
+  button-disabled: get-color(dark, 3),
 );
 
 // Buttons: border color
 $button--border: (
-  button-llght: transparent,
-  // button-llght is default (.button), so if it's transparent you can set all other values to null
-  button-llght-hover: null,
-  button-ddrk: null,
-  button-ddrk-hover: null,
+  button-dark: transparent,
+  // button-dark is default (.button), so if it's transparent you can set all other values to null
+  button-dark-hover: null,
+  button-light: null,
+  button-light-hover: null,
   button-primary: null,
   button-primary-hover: null,
   button-secondary: null,
@@ -64,31 +64,31 @@ $button-loading--thickness: 2px; // button loading spinner, stroke width (.butto
 
 // Forms: color
 $form--color: (
-  input: get-color(ddrk, 1),
-  input-placeholder: get-color(llght, 2),
-  label: get-color(llght, 3),
-  check-radio: get-color(llght, 2),
+  input: get-color(light, 1),
+  input-placeholder: get-color(dark, 2),
+  label: get-color(dark, 3),
+  check-radio: get-color(dark, 2),
   // ↓ Inverted colors
-  input-inverse: get-color(ddrk, 3),
+  input-inverse: get-color(light, 3),
   input-placeholder-inverse: null,
-  label-inverse: get-color(ddrk, 3),
-  check-radio-inverse: get-color(ddrk, 3),
+  label-inverse: get-color(light, 3),
+  check-radio-inverse: get-color(light, 3),
 );
 
 // Forms: background color
 $form--bg: (
-  input: get-color(llght, 1),
+  input: get-color(dark, 1),
   input-focus: null,
-  input-disabled: get-color(ddrk, 3),
+  input-disabled: get-color(light, 3),
   check-radio-checked: get-color(primary, 1),
-  switch: get-color(ddrk, 3),
+  switch: get-color(light, 3),
   switch-checked: get-color(primary, 1),
-  range-track: get-color(llght, 2),
+  range-track: get-color(dark, 2),
   range-thumb: get-color(primary, 1),
   // ↓ Inverted colors
   input-inverse: null,
   input-focus-inverse: null,
-  input-disabled-inverse: darken(get-color(llght, 1), 4%),
+  input-disabled-inverse: darken(get-color(dark, 1), 4%),
   check-radio-checked-inverse: null,
   switch-inverse: null,
   switch-checked-inverse: null,
@@ -98,12 +98,12 @@ $form--bg: (
 
 // Forms: border color
 $form--border: (
-  input: get-color(ddrk, 1),
-  input-hover: get-color(llght, 3),
+  input: get-color(light, 1),
+  input-hover: get-color(dark, 3),
   input-focus: get-color(primary, 1),
-  input-disabled: get-color(ddrk, 2),
+  input-disabled: get-color(light, 2),
   // ↓ Inverted colors
-  input-inverse: darken(get-color(llght, 1), 4%),
+  input-inverse: darken(get-color(dark, 1), 4%),
   input-hover-inverse: null,
   input-focus-inverse: get-color(primary, 1),
   input-disabled-inverse: null,
@@ -111,11 +111,11 @@ $form--border: (
 
 // Forms: background color
 $form--icon: (
-  select-arrow: get-color(llght, 1),
-  range: get-color(llght, 1),
+  select-arrow: get-color(dark, 1),
+  range: get-color(dark, 1),
   // ↓ Inverted colors
-  select-arrow-inverse: get-color(ddrk, 3),
-  range-inverse: get-color(llght, 1),
+  select-arrow-inverse: get-color(light, 3),
+  range-inverse: get-color(dark, 1),
 );
 
 // Forms: font size
