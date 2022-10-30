@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useImperativeHandle } from 'react';
-import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
+import PropTypes from 'prop-types';
+import React, { useEffect, useImperativeHandle, useState } from 'react';
 
 const ScrollReveal = React.forwardRef((props, ref) => {
-
-  const [viewportHeight, setViewportheight] = useState(window.innerHeight); 
+  const [viewportHeight, setViewportheight] = useState(window.innerHeight);
   const [revealEl, setRevealel] = useState([]);
 
   const checkComplete = () => {
@@ -12,7 +11,7 @@ const ScrollReveal = React.forwardRef((props, ref) => {
   };
 
   const elementIsVisible = (el, offset) => {
-    return (el.getBoundingClientRect().top <= viewportHeight - offset);
+    return el.getBoundingClientRect().top <= viewportHeight - offset;
   };
 
   const revealElements = () => {
@@ -20,8 +19,10 @@ const ScrollReveal = React.forwardRef((props, ref) => {
     for (let i = 0; i < revealEl.length; i++) {
       let el = revealEl[i];
       let revealDelay = el.getAttribute('data-reveal-delay');
-      let revealOffset = (el.getAttribute('data-reveal-offset') ? el.getAttribute('data-reveal-offset') : '200');
-      let listenedEl = (el.getAttribute('data-reveal-container') ? el.closest(el.getAttribute('data-reveal-container')) : el);
+      let revealOffset = el.getAttribute('data-reveal-offset') ? el.getAttribute('data-reveal-offset') : '200';
+      let listenedEl = el.getAttribute('data-reveal-container')
+        ? el.closest(el.getAttribute('data-reveal-container'))
+        : el;
       if (elementIsVisible(listenedEl, revealOffset) && !el.classList.contains('is-revealed')) {
         if (revealDelay && revealDelay !== 0) {
           setTimeout(function () {
@@ -37,8 +38,8 @@ const ScrollReveal = React.forwardRef((props, ref) => {
   useImperativeHandle(ref, () => ({
     init() {
       setRevealel(document.querySelectorAll('[class*=reveal-]'));
-    }
-  }));  
+    },
+  }));
 
   useEffect(() => {
     if (typeof revealEl !== 'undefined' && revealEl.length > 0) {
@@ -48,7 +49,7 @@ const ScrollReveal = React.forwardRef((props, ref) => {
       }
       revealElements();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [revealEl]);
 
   const handleListeners = () => {
@@ -70,17 +71,13 @@ const ScrollReveal = React.forwardRef((props, ref) => {
     handleListeners();
     revealElements();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [viewportHeight]);  
+  }, [viewportHeight]);
 
-  return (
-    <>
-      {props.children()}
-    </>
-  );
+  return <>{props.children()}</>;
 });
 
 ScrollReveal.propTypes = {
-  children: PropTypes.func.isRequired
+  children: PropTypes.func.isRequired,
 };
 
 export default ScrollReveal;

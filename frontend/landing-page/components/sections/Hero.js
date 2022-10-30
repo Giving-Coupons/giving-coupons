@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
 import classNames from 'classnames';
+import { useState } from 'react';
 import { SectionProps } from '../../utils/SectionProps';
-import ButtonGroup from '../elements/ButtonGroup';
 import Button from '../elements/Button';
+import ButtonGroup from '../elements/ButtonGroup';
 import Image from '../elements/Image';
 import Modal from '../elements/Modal';
 
 const propTypes = {
-  ...SectionProps.types
-}
+  ...SectionProps.types,
+};
 
 const defaultProps = {
-  ...SectionProps.defaults
-}
+  ...SectionProps.defaults,
+};
 
 const Hero = ({
   className,
@@ -24,18 +24,17 @@ const Hero = ({
   invertColor,
   ...props
 }) => {
-
   const [videoModalActive, setVideomodalactive] = useState(false);
 
   const openModal = (e) => {
     e.preventDefault();
     setVideomodalactive(true);
-  }
+  };
 
   const closeModal = (e) => {
     e.preventDefault();
     setVideomodalactive(false);
-  }   
+  };
 
   const outerClasses = classNames(
     'hero section center-content',
@@ -43,20 +42,17 @@ const Hero = ({
     bottomOuterDivider && 'has-bottom-divider',
     hasBgColor && 'has-bg-color',
     invertColor && 'invert-color',
-    className
+    className,
   );
 
   const innerClasses = classNames(
     'hero-inner section-inner',
     topDivider && 'has-top-divider',
-    bottomDivider && 'has-bottom-divider'
+    bottomDivider && 'has-bottom-divider',
   );
 
   return (
-    <section
-      {...props}
-      className={outerClasses}
-    >
+    <section {...props} className={outerClasses}>
       <div className="container-sm">
         <div className={innerClasses}>
           <div className="hero-content">
@@ -65,21 +61,26 @@ const Hero = ({
             </h1>
             <div className="container-xs">
               <p className="m-0 mb-32 reveal-from-bottom" data-reveal-delay="400">
-                Our landing page template works on all devices, so you only have to set it up once, and get beautiful results forever.
-                </p>
+                Our landing page template works on all devices, so you only have to set it up once, and get beautiful
+                results forever.
+              </p>
               <div className="reveal-from-bottom" data-reveal-delay="600">
                 <ButtonGroup>
                   <Button tag="a" color="primary" wideMobile href="https://cruip.com/">
                     Get started
-                    </Button>
+                  </Button>
                   <Button tag="a" color="dark" wideMobile href="https://github.com/cruip/open-react-template/">
                     View on Github
-                    </Button>
+                  </Button>
                 </ButtonGroup>
               </div>
             </div>
           </div>
-          <div className="hero-figure reveal-from-bottom illustration-element-01" data-reveal-value="20px" data-reveal-delay="800">
+          <div
+            className="hero-figure reveal-from-bottom illustration-element-01"
+            data-reveal-value="20px"
+            data-reveal-delay="800"
+          >
             <a
               data-video="https://player.vimeo.com/video/174002812"
               href="#0"
@@ -91,7 +92,8 @@ const Hero = ({
                 src={require('./../../assets/images/video-placeholder.jpg')}
                 alt="Hero"
                 width={896}
-                height={504} />
+                height={504}
+              />
             </a>
           </div>
           <Modal
@@ -99,12 +101,13 @@ const Hero = ({
             show={videoModalActive}
             handleClose={closeModal}
             video="https://player.vimeo.com/video/174002812"
-            videoTag="iframe" />
+            videoTag="iframe"
+          />
         </div>
       </div>
     </section>
   );
-}
+};
 
 Hero.propTypes = propTypes;
 Hero.defaultProps = defaultProps;

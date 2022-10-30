@@ -1,25 +1,17 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 const propTypes = {
   children: PropTypes.node,
   to: PropTypes.string.isRequired,
   duration: PropTypes.number,
-  onLinkClick: PropTypes.func
-}
+  onLinkClick: PropTypes.func,
+};
 
-const SmoothScroll = ({
-  className,
-  children,
-  to,
-  duration,
-  onLinkClick,
-  ...props
-}) => {
-
+const SmoothScroll = ({ className, children, to, duration, onLinkClick, ...props }) => {
   const easeInOutQuad = (t) => {
-    return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t
+    return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
   };
 
   const scrollToEl = (startTime, currentTime, duration, scrollEndElemTop, startScrollOffset) => {
@@ -30,7 +22,7 @@ const SmoothScroll = ({
 
     const ease = easeInOutQuad(progress);
 
-    window.scroll(0, startScrollOffset + (scrollEndElemTop * ease));
+    window.scroll(0, startScrollOffset + scrollEndElemTop * ease);
     if (runtime < duration) {
       window.requestAnimationFrame((timestamp) => {
         const currentTime = timestamp || new Date().getTime();
@@ -58,23 +50,17 @@ const SmoothScroll = ({
       const scrollEndElemTop = target.getBoundingClientRect().top;
 
       scrollToEl(start, stamp, timing, scrollEndElemTop, startScrollOffset);
-    })
+    });
   };
 
-  const classes = classNames(
-    className
-  );
+  const classes = classNames(className);
 
   return (
-    <a
-      {...props}
-      className={classes}
-      href={'#' + to}
-      onClick={smoothScroll}>
+    <a {...props} className={classes} href={'#' + to} onClick={smoothScroll}>
       {children}
     </a>
-  )
-}
+  );
+};
 
 SmoothScroll.propTypes = propTypes;
 

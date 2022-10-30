@@ -1,4 +1,3 @@
-import React from 'react';
 import Cta from '../components/sections/Cta';
 import FeaturesSplit from '../components/sections/FeaturesSplit';
 import FeaturesTiles from '../components/sections/FeaturesTiles';
