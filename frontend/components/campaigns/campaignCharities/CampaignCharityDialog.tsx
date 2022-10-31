@@ -1,5 +1,3 @@
-import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import LinkIcon from '@mui/icons-material/Link';
 import {
   Box,
   Dialog,
@@ -15,6 +13,7 @@ import { charityLogoSx } from '../../../styles/components/charities/CampaignChar
 import {
   charityDesktopImageSx,
   charityMobileImageSx,
+  dialogActionStackSx,
   dialogContentSx,
   dialogContentTextSx,
   dialogPaperSx,
@@ -23,7 +22,6 @@ import {
 import { CampaignCharityDonationPublicData } from '../../../types/campaignCharities';
 import { log } from '../../../utils/analytics';
 import Button from '../../generic/Button';
-import IconButtonWithTooltip from '../../IconButtonWithTooltip';
 
 interface Props {
   campaignCharity: CampaignCharityDonationPublicData;
@@ -44,8 +42,6 @@ const CampaignCharityDialog = ({ campaignCharity, open, handleClose }: Props) =>
 
             <Typography variant="h2">{campaignCharity.charity.name}</Typography>
           </Stack>
-
-          <IconButtonWithTooltip icon={<HighlightOffIcon />} tooltip="Close" onClick={handleClose} />
         </Stack>
       </DialogTitle>
 
@@ -60,20 +56,25 @@ const CampaignCharityDialog = ({ campaignCharity, open, handleClose }: Props) =>
       </DialogContent>
 
       <DialogActions>
-        <Button
-          actionType="secondary"
-          fullWidth
-          startIcon={<LinkIcon />}
-          onClick={() => {
-            log('[CampaignCharityDialog] Visit charity', {
-              campaignCharityId: campaignCharity.id,
-              charity: campaignCharity.charity.name,
-            });
-            window.open(campaignCharity.charity.websiteUrl, '_blank');
-          }}
-        >
-          Vist Page
-        </Button>
+        <Stack direction="column" spacing={1} sx={dialogActionStackSx}>
+          <Button actionType="primary" fullWidth onClick={handleClose}>
+            Done
+          </Button>
+
+          <Button
+            actionType="secondary"
+            fullWidth
+            onClick={() => {
+              log('[CampaignCharityDialog] Visit charity', {
+                campaignCharityId: campaignCharity.id,
+                charity: campaignCharity.charity.name,
+              });
+              window.open(campaignCharity.charity.websiteUrl, '_blank');
+            }}
+          >
+            Visit Charity Website
+          </Button>
+        </Stack>
       </DialogActions>
     </Dialog>
   );
