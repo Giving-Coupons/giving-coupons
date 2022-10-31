@@ -121,7 +121,8 @@ export const buttonSx: SxProps = {
   border: '2px solid',
   width: '90%',
   '&:hover': {
+    boxShadow: `0px 0px 10px 2px white`,
     borderColor: 'white',
-    border: '4px solid',
+    border: '2px solid',
   },
 };
