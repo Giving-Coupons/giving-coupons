@@ -21,16 +21,20 @@ type TableColumn<D, K> = K extends keyof D
     : TableColumnWithDefinedTransform<D, K>
   : never;
 
+type Comparable = number | string;
+
 type TableColumnWithOptionalTransform<D, K extends keyof D> = D[K] extends React.ReactNode
   ?
       | {
           title: string;
           key: K;
+          getSortValue?: (a: D) => Comparable;
         }
       | {
           title: string;
           key: K;
           transformValue: (arg: D[K]) => React.ReactNode;
+          getSortValue?: (a: D) => Comparable;
         }
   : never;
 
@@ -38,6 +42,7 @@ type TableColumnWithDefinedTransform<D, K extends keyof D> = {
   title: string;
   key: K;
   transformValue: (arg: D[K]) => React.ReactNode;
+  getSortValue?: (a: D) => Comparable;
 };
 
 type Action<D> = {
@@ -50,6 +55,7 @@ type Order = 'asc' | 'desc';
 type OrderingData<D> = {
   order: 'asc' | 'desc';
   orderBy: keyof D;
+  getSortValue?: (input: D) => Comparable;
 };
 
 type Props<D> = {
@@ -76,17 +82,19 @@ export default function SimpleTable<D>({
   const [orderingData, setOrderingData] = React.useState<OrderingData<D> | undefined>(initialOrder);
   const sorter = !orderingData
     ? (rows: D[]) => rows
-    : (rows: D[]) => rows.sort(getComparator<D, keyof D>(orderingData.order, orderingData.orderBy));
+    : (rows: D[]) =>
+        rows.sort(getComparator<D, keyof D>(orderingData.order, orderingData.orderBy, orderingData.getSortValue));
 
   const createSortHandler = (property: keyof D) => () => {
+    const getSortValue = columns.find((c) => c.key === property)?.getSortValue;
     if (!orderingData) {
-      return setOrderingData({ order: 'asc', orderBy: property });
+      return setOrderingData({ order: 'asc', orderBy: property, getSortValue });
     }
     const { order, orderBy } = orderingData;
     if (orderBy !== property) {
-      return setOrderingData({ order: 'asc', orderBy: property });
+      return setOrderingData({ order: 'asc', orderBy: property, getSortValue });
     } else {
-      return setOrderingData({ order: 'asc' === order ? 'desc' : 'asc', orderBy: property });
+      return setOrderingData({ order: 'asc' === order ? 'desc' : 'asc', orderBy: property, getSortValue });
     }
   };
 
@@ -164,10 +172,21 @@ function defineTransformOnTableColumn<D, K extends keyof D>(
 function getComparator<D, K extends keyof D>(
   order: Order,
   orderBy: K,
+  getSortValue?: (arg: D) => Comparable,
 ): (a: { [key in K]: unknown }, b: { [key in K]: unknown }) => number {
-  return order === 'desc'
-    ? (a, b) => descendingComparator<D, K>(a, b, orderBy)
-    : (a, b) => -descendingComparator<D, K>(a, b, orderBy);
+  if (!getSortValue) {
+    return order === 'desc'
+      ? (a, b) => descendingComparator<D, K>(a, b, orderBy)
+      : (a, b) => -descendingComparator<D, K>(a, b, orderBy);
+  }
+
+  return (a, b) => {
+    const aVal = getSortValue(a as D);
+    const bVal = getSortValue(b as D);
+
+    const compareResult = bVal < aVal ? -1 : bVal > aVal ? 1 : 0;
+    return order === 'desc' ? compareResult : -compareResult;
+  };
 }
 
 function descendingComparator<D, K extends keyof D>(
