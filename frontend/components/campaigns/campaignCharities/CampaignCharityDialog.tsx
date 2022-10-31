@@ -1,5 +1,3 @@
-import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import LinkIcon from '@mui/icons-material/Link';
 import {
   Box,
   Dialog,
@@ -58,11 +56,14 @@ const CampaignCharityDialog = ({ campaignCharity, open, handleClose }: Props) =>
       </DialogContent>
 
       <DialogActions>
-        <Stack direction="row" spacing={4} sx={dialogActionStackSx}>
+        <Stack direction="column" spacing={1} sx={dialogActionStackSx}>
+          <Button actionType="primary" fullWidth onClick={handleClose}>
+            Done
+          </Button>
+
           <Button
             actionType="secondary"
             fullWidth
-            startIcon={<LinkIcon />}
             onClick={() => {
               log('[CampaignCharityDialog] Visit charity', {
                 campaignCharityId: campaignCharity.id,
@@ -71,11 +72,7 @@ const CampaignCharityDialog = ({ campaignCharity, open, handleClose }: Props) =>
               window.open(campaignCharity.charity.websiteUrl, '_blank');
             }}
           >
-            Visit Page
-          </Button>
-
-          <Button actionType="primary" fullWidth startIcon={<HighlightOffIcon />} onClick={handleClose}>
-            Close
+            Visit Charity Website
           </Button>
         </Stack>
       </DialogActions>
