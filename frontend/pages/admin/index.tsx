@@ -9,7 +9,7 @@ const AdminDashboard: NextPage = () => {
 
   useEffect(() => {
     if (router.pathname == '/admin') {
-      router.push('/admin/interests');
+      router.push('/admin/campaigns');
     }
   });
 

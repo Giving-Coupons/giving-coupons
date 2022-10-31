@@ -82,12 +82,12 @@ const AdminCampaigns = () => {
         <Tabbed
           tabs={[
             {
-              label: 'Upcoming',
-              content: makeCampaignsTable(upcomingCampaigns),
-            },
-            {
               label: 'Active',
               content: makeCampaignsTable(activeCampaigns),
+            },
+            {
+              label: 'Upcoming',
+              content: makeCampaignsTable(upcomingCampaigns),
             },
             {
               label: 'Completed',

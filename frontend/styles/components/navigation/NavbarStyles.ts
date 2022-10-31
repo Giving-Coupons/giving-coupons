@@ -31,8 +31,12 @@ export const toolbarLogoSx: SxProps = {
   },
 };
 
-export const toolbarLogoIconSx: SxProps = {
+export const toolbarDesktopLogoIconSx: SxProps = {
   height: '1.8em',
+};
+
+export const toolbarMobileLogoIconSx: SxProps = {
+  height: '1.4em',
 };
 
 export const inactiveTabSx: SxProps = {
