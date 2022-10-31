@@ -259,7 +259,8 @@ const Redeem: NextPage = () => {
                           updateRedemptionStep(
                             redemptionState?.current ?? RedemptionStep.SELECT_CHARITY,
                             formikValues.campaignCharityId,
-                            formikValues.amount,
+                            // Empty string check as the FormTextInput component will return '' in some circumstances.
+                            formikValues.amount === '' ? 0 : formikValues.amount,
                           );
                         } else {
                           // If form has not been touched and there is no matching redemption state in cookie, do nothing.
