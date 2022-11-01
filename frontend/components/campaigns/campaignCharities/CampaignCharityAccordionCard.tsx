@@ -12,6 +12,7 @@ import {
   charityMobileDescriptionSx,
   charityMobileImageSx,
   graphSx,
+  stackSx,
 } from '../../../styles/components/charities/CampaignCharityAccordianCard';
 import { CampaignCharityDonationPublicData } from '../../../types/campaignCharities';
 import SmallCompetingGraph from '../../charts/SmallCompetingGraph';
@@ -30,7 +31,7 @@ const CampaignCharityAccordionCard = ({ campaignCharity }: Props) => {
   return (
     <Accordion sx={accordianSx}>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-        <Stack direction="row" justifyContent="center" alignItems="center" sx={{ width: '100%' }}>
+        <Stack direction="row" justifyContent="center" alignItems="center" sx={stackSx}>
           <Box sx={charityLogoSx} component="img" src={campaignCharity.charity.logoBase64} />
 
           <Stack sx={charityGraphStackSx}>

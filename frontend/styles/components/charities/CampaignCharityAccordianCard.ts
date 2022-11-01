@@ -11,6 +11,10 @@ export const accordianSx: SxProps = {
   },
 };
 
+export const stackSx: SxProps = {
+  width: '100%',
+};
+
 export const charityGraphStackSx: SxProps = {
   margin: '10px',
   width: '90%',
