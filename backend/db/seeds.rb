@@ -98,7 +98,7 @@ campaigns.each do |c|
   c.save!
 end
 
-# Required before filtering for active campaigns the image attach is not synchronous.
+# Required before filtering for active campaigns as something before this line is not synchronous.
 sleep 1
 
 active_campaigns = Campaign.where('start <= :now AND campaigns.end >= :now', { now: DateTime.now })
