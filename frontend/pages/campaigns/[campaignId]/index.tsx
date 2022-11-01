@@ -48,7 +48,7 @@ export default function CampaignDetail() {
       title: `$${campaign.promisedAmount}`,
       children: (
         <Typography variant="h4">
-          will be donated to <strong>{campaign.charities.length} charaties</strong> when the campaign ends. This was
+          will be donated to <strong>{campaign.charities.length} charities</strong> when the campaign ends. This was
           sponsored by {campaign.primaryDonor.name}.
         </Typography>
       ),
