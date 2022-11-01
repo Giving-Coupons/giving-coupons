@@ -20,10 +20,6 @@ export const dialogContentTextSx: SxProps = { margin: '20px', height: '20%' };
 
 export const dialogActionStackSx: SxProps = {
   width: '100%',
-  paddingTop: 2,
-  paddingBottom: 2,
-  paddingRight: 4,
-  paddingLeft: 4,
 };
 
 export const charityLogoSx: SxProps = {
@@ -33,7 +29,8 @@ export const charityLogoSx: SxProps = {
 };
 
 export const charityDesktopImageSx: SxProps = {
-  height: '80%',
+  maxHeight: '80%',
+  width: '100%',
 };
 
 export const charityMobileImageSx: SxProps = {
