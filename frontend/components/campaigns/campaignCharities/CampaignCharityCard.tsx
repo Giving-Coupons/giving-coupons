@@ -35,14 +35,9 @@ const CampaignCharityCard = ({ campaignCharity, onClick, handleOpenInfoCard }: P
         />
       </Stack>
 
-      <IconButtonWithTooltip
-        icon={<InfoOutlined />}
-        tooltip="More Info"
-        onClick={(e) => {
-          e.stopPropagation();
-          if (handleOpenInfoCard) handleOpenInfoCard();
-        }}
-      />
+      {handleOpenInfoCard && (
+        <IconButtonWithTooltip icon={<InfoOutlined />} tooltip="More Info" onClick={handleOpenInfoCard} />
+      )}
     </Stack>
   );
 };

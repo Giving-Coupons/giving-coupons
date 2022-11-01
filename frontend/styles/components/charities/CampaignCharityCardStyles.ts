@@ -9,8 +9,7 @@ export const stackSx: SxProps = {
 };
 
 export const charityGraphStackSx: SxProps = {
-  paddingTop: 1,
-  paddingBottom: 1,
+  margin: '10px',
   width: '90%',
 };
 
