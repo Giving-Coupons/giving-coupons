@@ -98,13 +98,18 @@ campaigns.each do |c|
   c.save!
 end
 
+# Required before filtering for active campaigns the image attach is not synchronous.
+sleep 1
+
 active_campaigns = Campaign.where('start <= :now AND campaigns.end >= :now', { now: DateTime.now })
 
 # Redeem 30% of coupons with additional contributions
 coupons_to_redeem = active_campaigns.flat_map(&:coupons).sample(Coupon.count * 0.30)
 coupons_to_redeem.each do |c|
+  c.campaign_charity = c.campaign.campaign_charities.sample
+  c.save!
   SecondaryDonation.create!(coupon: c, amount: Random.rand(10..30),
-                            campaign_charity: c.campaign.campaign_charities.sample)
+                            campaign_charity: c.campaign_charity)
 end
 
 # Some donations without coupons
