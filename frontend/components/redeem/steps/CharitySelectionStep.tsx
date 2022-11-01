@@ -61,6 +61,10 @@ const CharitySelectionStep = ({
                 <CampaignCharityCard
                   campaignCharity={campaignCharity}
                   onClick={() => {
+                    setTouched(true);
+                    setValue(campaignCharity.id, true);
+                  }}
+                  handleOpenInfoCard={() => {
                     log('[CharitySelectionStep] Click card', {
                       campaignCharityId: campaignCharity.id,
                       charity: campaignCharity.charity.name,

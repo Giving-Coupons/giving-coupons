@@ -4,6 +4,7 @@ import { theme } from '../../../utils/theme';
 export const graphLegendSx: SxProps = {
   display: 'flex',
   justifyContent: 'space-between',
+  userSelect: 'none',
 };
 
 export const graphLabelSx: SxProps = {
