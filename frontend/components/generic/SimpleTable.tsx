@@ -21,20 +21,26 @@ type TableColumn<D, K> = K extends keyof D
     : TableColumnWithDefinedTransform<D, K>
   : never;
 
-type Comparable = number | string;
+type Comparable = number | string | null | undefined;
+
+// Treat null or undefined options as a specified Comparable value or always keep first or last.
+// Default value is 'last'.
+type NotPresentOptions = 'first' | 'last' | NonNullable<Comparable>;
 
 type TableColumnWithOptionalTransform<D, K extends keyof D> = D[K] extends React.ReactNode
   ?
       | {
           title: string;
           key: K;
-          getSortValue?: (a: D[K]) => Comparable;
+          getSortValue?: (arg: NonNullable<D[K]>) => Comparable;
+          notPresentIs?: NotPresentOptions;
         }
       | {
           title: string;
           key: K;
           transformValue: (arg: D[K]) => React.ReactNode;
-          getSortValue?: (a: D[K]) => Comparable;
+          getSortValue?: (arg: NonNullable<D[K]>) => Comparable;
+          notPresentIs?: NotPresentOptions;
         }
   : never;
 
@@ -42,7 +48,8 @@ type TableColumnWithDefinedTransform<D, K extends keyof D> = {
   title: string;
   key: K;
   transformValue: (arg: D[K]) => React.ReactNode;
-  getSortValue?: (a: D[K]) => Comparable;
+  getSortValue?: (arg: NonNullable<D[K]>) => Comparable;
+  notPresentIs?: NotPresentOptions;
 };
 
 type Action<D> = {
@@ -56,6 +63,7 @@ type OrderingData<D> = {
   order: 'asc' | 'desc';
   orderBy: keyof D;
   getSortValueFromRow?: (input: D) => Comparable;
+  notPresentIs?: NotPresentOptions;
 };
 
 type Props<D> = {
@@ -84,22 +92,33 @@ export default function SimpleTable<D>({
     ? (rows: D[]) => rows
     : (rows: D[]) =>
         rows.sort(
-          getComparator<D, keyof D>(orderingData.order, orderingData.orderBy, orderingData.getSortValueFromRow),
+          getComparator<D, keyof D>(
+            orderingData.order,
+            orderingData.orderBy,
+            orderingData.getSortValueFromRow,
+            orderingData.notPresentIs,
+          ),
         );
 
   const createSortHandler = (property: keyof D) => () => {
+    const notPresentIs = columns.find((c) => c.key === property)?.notPresentIs;
     const getSortValue = columns.find((c) => c.key === property)?.getSortValue as
       | ((rowProperty: unknown) => Comparable)
       | undefined;
     const getSortValueFromRow = !getSortValue ? getSortValue : (row: D) => getSortValue(row[property]);
     if (!orderingData) {
-      return setOrderingData({ order: 'asc', orderBy: property, getSortValueFromRow });
+      return setOrderingData({ order: 'asc', orderBy: property, getSortValueFromRow, notPresentIs });
     }
     const { order, orderBy } = orderingData;
     if (orderBy !== property) {
-      return setOrderingData({ order: 'asc', orderBy: property, getSortValueFromRow });
+      return setOrderingData({ order: 'asc', orderBy: property, getSortValueFromRow, notPresentIs });
     } else {
-      return setOrderingData({ order: 'asc' === order ? 'desc' : 'asc', orderBy: property, getSortValueFromRow });
+      return setOrderingData({
+        order: 'asc' === order ? 'desc' : 'asc',
+        orderBy: property,
+        getSortValueFromRow,
+        notPresentIs,
+      });
     }
   };
 
@@ -177,32 +196,52 @@ function defineTransformOnTableColumn<D, K extends keyof D>(
 function getComparator<D, K extends keyof D>(
   order: Order,
   orderBy: K,
-  getSortValueFromRow?: (arg: D) => Comparable,
+  getSortValueFromRow: ((arg: D) => Comparable) | undefined,
+  notPresentIs: NotPresentOptions = 'last',
 ): (a: { [key in K]: unknown }, b: { [key in K]: unknown }) => number {
-  if (!getSortValueFromRow) {
-    return order === 'desc'
-      ? (a, b) => descendingComparator<D, K>(a, b, orderBy)
-      : (a, b) => -descendingComparator<D, K>(a, b, orderBy);
-  }
-
   return (a, b) => {
-    const aVal = getSortValueFromRow(a as D);
-    const bVal = getSortValueFromRow(b as D);
+    let aVal, bVal: Comparable;
 
-    const compareResult = bVal < aVal ? -1 : bVal > aVal ? 1 : 0;
-    return order === 'desc' ? compareResult : -compareResult;
+    if (!getSortValueFromRow) {
+      // If no sort fn is provided, assume the object can be sorted.
+      aVal = a[orderBy] as Comparable;
+      bVal = b[orderBy] as Comparable;
+    } else {
+      aVal = getSortValueFromRow(a as D);
+      bVal = getSortValueFromRow(b as D);
+    }
+
+    // Both values are present.
+    if (aVal !== null && aVal !== undefined && bVal !== null && bVal !== undefined) {
+      return order === 'desc' ? descendingComparator(aVal, bVal) : -descendingComparator(aVal, bVal);
+    }
+
+    // A notPresentIs value is provided (not set to 'first' or 'last'), and at least one value is absent.
+    if (notPresentIs !== 'first' && notPresentIs !== 'last') {
+      return order === 'desc'
+        ? descendingComparator(aVal ?? notPresentIs, bVal ?? notPresentIs)
+        : -descendingComparator(aVal ?? notPresentIs, bVal ?? notPresentIs);
+    }
+
+    // A notPresentIs is 'first' or 'last', and at least one value is absent.
+    if ((aVal === null || aVal === undefined) && (bVal === null || bVal === undefined)) {
+      // Both values are absent.
+      return 0;
+    } else if (aVal === null || aVal === undefined) {
+      // First value is absent.
+      return notPresentIs === 'last' ? 1 : -1;
+    } else {
+      // Second value is absent.
+      return notPresentIs === 'last' ? -1 : 1;
+    }
   };
 }
 
-function descendingComparator<D, K extends keyof D>(
-  a: { [key in K]: unknown },
-  b: { [key in K]: unknown },
-  orderBy: K,
-) {
-  if (b[orderBy] < a[orderBy]) {
+function descendingComparator(aVal: NonNullable<Comparable>, bVal: NonNullable<Comparable>) {
+  if (bVal < aVal) {
     return -1;
   }
-  if (b[orderBy] > a[orderBy]) {
+  if (bVal > aVal) {
     return 1;
   }
   return 0;
