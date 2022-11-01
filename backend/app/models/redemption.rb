@@ -8,6 +8,7 @@ class Redemption < ApplicationRecord
   validates :redeemed_at, presence: true
   validate :coupon_from_same_campaign
   validate :donation_for_same_campaign_charity
+  validate :coupon_not_expired
 
   private
 
@@ -29,5 +30,13 @@ class Redemption < ApplicationRecord
     return if donation_campaign_charity == campaign_charity
 
     errors.add(:coupon, 'must be redeemed for the same campaign charity as donation')
+  end
+
+  def coupon_not_expired
+    return if coupon.nil? || redeemed_at.nil?
+
+    return if redeemed_at <= coupon.expires_at
+
+    errors.add(:coupon, 'has already expired')
   end
 end

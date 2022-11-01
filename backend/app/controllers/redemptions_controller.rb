@@ -12,7 +12,7 @@ class RedemptionsController < ApplicationController
 
     @redemption = Redemption.new(campaign_charity_id: params[:campaign_charity_id],
                                  coupon: @coupon,
-                                 redeemed_at: DateTime.now)
+                                 redeemed_at: DateTime.current)
 
     if params[:amount].positive?
       @redemption.build_secondary_donation(campaign_charity_id: params[:campaign_charity_id],

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_01_063209) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_01_093303) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -111,6 +111,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_01_063209) do
     t.datetime "updated_at", null: false
     t.string "progress"
     t.bigint "redemption_id"
+    t.datetime "expires_at", null: false
     t.index ["campaign_id"], name: "index_coupons_on_campaign_id"
     t.index ["redemption_id"], name: "index_coupons_on_redemption_id", unique: true
     t.index ["url_token"], name: "index_coupons_on_url_token", unique: true
