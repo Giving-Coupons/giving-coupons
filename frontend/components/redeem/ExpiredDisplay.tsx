@@ -1,6 +1,7 @@
 import { Stack, Typography } from '@mui/material';
 import { Moment } from 'moment';
 import router from 'next/router';
+import { rootSx } from '../../styles/components/redeem/ExpiredDisplayStyles';
 import { log } from '../../utils/analytics';
 import { DATE_FORMAT } from '../../utils/constants';
 import Button from '../generic/Button';
@@ -14,7 +15,7 @@ type Props = {
 
 export default function ExpiredDisplay({ couponExpiry, primaryDonorName, campaignId }: Props) {
   return (
-    <Stack component="div" spacing={2} justifyContent="center" alignItems="center">
+    <Stack component="div" spacing={2} sx={rootSx}>
       <RandomKawaii isHappy={false} />
       <Typography variant="h1">Uh-oh, the coupon has expired.</Typography>
       <Typography variant="subtitle1">{`Unfortunately, the coupon was only valid until ${couponExpiry.format(

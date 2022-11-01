@@ -55,6 +55,7 @@ const Redeem: NextPage = () => {
   const isLoading = !coupon && !error;
   const hasLoadedSuccessfully = !error && coupon;
   const hasCouponExpired = hasLoadedSuccessfully && coupon.expiresAt.isBefore();
+  const hasBeenRedeemed = hasLoadedSuccessfully && coupon.campaignCharity;
   const canCouponBeRedeemed = hasLoadedSuccessfully && !coupon.campaignCharity && !hasCouponExpired;
 
   const minStep = 0;
@@ -237,7 +238,7 @@ const Redeem: NextPage = () => {
             />
           )}
 
-          {hasLoadedSuccessfully && hasCouponExpired && (
+          {hasLoadedSuccessfully && hasCouponExpired && !hasBeenRedeemed && (
             <ExpiredDisplay
               couponExpiry={coupon.expiresAt}
               primaryDonorName={coupon.campaign.primaryDonor.name}
