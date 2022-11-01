@@ -1,4 +1,4 @@
-import { Grid, Typography, useMediaQuery } from '@mui/material';
+import { Avatar, Grid, Typography, useMediaQuery } from '@mui/material';
 import { Box, Stack, useTheme } from '@mui/system';
 import type { NextPage } from 'next';
 import Head from 'next/head';
@@ -15,11 +15,54 @@ import {
   desktopHeadlineScreenImageSx,
   mobileHeadlineScreenImageSx,
   mobileHeadlineImageContainerSx,
+  statisticsContainerSx,
+  statisticsSectionSx,
+  statisticsItemSx,
+  statisticsIconSx,
+  statisticsItemCardSx,
+  statisticsIconAvatarSx,
 } from '../styles/indexStyles';
 import { combineSxProps } from '../utils/types';
 import Typed from 'react-typed';
 import Button from '../components/generic/Button';
 import { useRouter } from 'next/router';
+import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
+import LocalActivityIcon from '@mui/icons-material/LocalActivity';
+import Diversity1Icon from '@mui/icons-material/Diversity1';
+import { ReactNode } from 'react';
+import { theme } from '../utils/theme';
+
+interface StatisticItemProps {
+  statistic: string;
+  icon: ReactNode;
+  description: string;
+}
+
+const StatisticItem = ({ statistic, icon, description }: StatisticItemProps) => {
+  return (
+    <Grid sx={statisticsItemSx} item xs={12} md={4}>
+      <Stack sx={statisticsItemCardSx} component="div" spacing={1}>
+        <Avatar sx={statisticsIconAvatarSx}>{icon}</Avatar>
+
+        <Typography fontSize={40} fontWeight={700} color="primary">
+          {statistic}
+        </Typography>
+
+        <Typography color={theme.palette.grey[800]}>{description}</Typography>
+      </Stack>
+    </Grid>
+  );
+};
+
+const statistics: StatisticItemProps[] = [
+  {
+    statistic: '$1600',
+    icon: <VolunteerActivismIcon sx={statisticsIconSx} />,
+    description: 'Additional funds raised for charities',
+  },
+  { statistic: '160', icon: <LocalActivityIcon sx={statisticsIconSx} />, description: 'Coupons distributed' },
+  { statistic: '8', icon: <Diversity1Icon sx={statisticsIconSx} />, description: 'Charities supported' },
+];
 
 const Home: NextPage = () => {
   const theme = useTheme();
@@ -76,6 +119,21 @@ const Home: NextPage = () => {
             <Box sx={headlineScreenImageSx} component="img" src="/landing-page/redeem-screen.png" />
           </Grid>
         </Grid>
+
+        <Stack sx={combineSxProps(sectionSx, statisticsSectionSx)} component="div">
+          <Typography variant="h1">Our impact</Typography>
+
+          <Grid sx={statisticsContainerSx} spacing={2} container>
+            {statistics.map((statisticData, index) => (
+              <StatisticItem
+                key={index}
+                statistic={statisticData.statistic}
+                icon={statisticData.icon}
+                description={statisticData.description}
+              />
+            ))}
+          </Grid>
+        </Stack>
       </Stack>
     </Box>
   );

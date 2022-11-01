@@ -5,14 +5,16 @@ export const sectionSx: SxProps = {
   minHeight: `calc(100vh - ${theme.spacing(2)} - ${theme.mixins.toolbar.minHeight}px)`,
   display: 'flex',
   alignItems: 'center',
+  width: '100%',
   maxWidth: '1200px',
+  paddingTop: 2,
+  paddingBottom: 2,
 };
 
 export const headlineBackgroundSx: SxProps = {
   position: 'absolute',
   top: '0',
-  height: '100vh',
-  width: '100vw',
+  width: '100%',
   objectFit: 'cover',
   zIndex: '-1',
 };
@@ -73,4 +75,38 @@ export const mobileHeadlineScreenImageSx: SxProps = {
 export const mobileHeadlineImageContainerSx: SxProps = {
   display: 'flex',
   justifyContent: 'center',
+};
+
+export const statisticsSectionSx: SxProps = {
+  justifyContent: 'space-evenly',
+  minHeight: '50vh',
+};
+
+export const statisticsContainerSx: SxProps = {
+  width: '100%',
+  padding: 4,
+};
+
+export const statisticsItemSx: SxProps = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  backgroundColor: 'white',
+};
+
+export const statisticsItemCardSx: SxProps = {
+  boxShadow: `0px 0px 30px 0px ${theme.palette.neutral.light}`,
+  padding: 2,
+  margin: 2,
+  width: '90%',
+  borderRadius: '20px',
+  alignItems: 'center',
+};
+
+export const statisticsIconAvatarSx: SxProps = {
+  backgroundColor: theme.palette.primary.light,
+};
+
+export const statisticsIconSx: SxProps = {
+  color: theme.palette.primary.main,
 };
