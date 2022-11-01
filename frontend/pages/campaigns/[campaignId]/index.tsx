@@ -67,7 +67,7 @@ export default function CampaignDetail() {
       title: `${numCouponsRedeemed} of ${numTotalCoupons}`,
       children: (
         <Typography variant="h4">
-          coupons were redeemed! This means <strong>${numCouponsRedeemed} more people are aware</strong> about the{' '}
+          coupons were redeemed! This means <strong>{numCouponsRedeemed} more people are aware</strong> about the{' '}
           {campaign.charities.length} charaties and their causes!
         </Typography>
       ),
