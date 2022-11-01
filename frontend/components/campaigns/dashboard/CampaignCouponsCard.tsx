@@ -47,7 +47,7 @@ const CampaignCouponsCard = ({ campaignId, coupons }: Props) => {
             title: 'Secondary donation',
             key: 'secondaryDonation',
             transformValue: (secondaryDonation) => (secondaryDonation?.amount ? `$${secondaryDonation.amount}` : '-'),
-            getSortValue: (couponDenomination) => couponDenomination.secondaryDonation?.amount ?? 0,
+            getSortValue: (secondaryDonation) => secondaryDonation?.amount ?? 0,
           },
         ]}
         rows={coupons}
