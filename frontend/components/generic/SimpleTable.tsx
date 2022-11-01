@@ -60,6 +60,7 @@ type Props<D> = {
   shouldUsePaper?: boolean;
   initialOrder?: OrderingData<D>;
   sx?: SxProps | undefined;
+  rowSxSelector?: (row: D) => SxProps;
 };
 
 export default function SimpleTable<D>({
@@ -70,6 +71,7 @@ export default function SimpleTable<D>({
   shouldUsePaper = true,
   initialOrder,
   sx = {},
+  rowSxSelector = (row: D) => ({}),
 }: Props<D>) {
   const hasActions = actions.length > 0;
   const numColumns = columns.length + (hasActions ? 1 : 0);
@@ -139,7 +141,11 @@ export default function SimpleTable<D>({
               ));
               const cells = [...dataCells, ...actionCells];
 
-              return <TableRow key={index}>{cells}</TableRow>;
+              return (
+                <TableRow key={index} sx={rowSxSelector(row)}>
+                  {cells}
+                </TableRow>
+              );
             })
           )}
         </TableBody>

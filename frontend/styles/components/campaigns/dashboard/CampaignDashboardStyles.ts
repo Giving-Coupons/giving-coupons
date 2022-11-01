@@ -93,3 +93,7 @@ export const campaignMoneyIconSx: SxProps = {
 export const campaignDateIconSx: SxProps = {
   alignItems: 'center',
 };
+
+export const expiredCouponSx: SxProps = {
+  backgroundColor: '#FCCFCF',
+};

@@ -4,8 +4,10 @@ import { useRouter } from 'next/router';
 import {
   couponsTableContainerSx,
   couponsTableHeaderSx,
+  expiredCouponSx,
 } from '../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
 import { CouponListData } from '../../../types/coupons';
+import { DATE_FORMAT } from '../../../utils/constants';
 import Button from '../../generic/Button';
 import SimpleTable from '../../generic/SimpleTable';
 import CampaignCard from './CampaignCard';
@@ -48,9 +50,15 @@ const CampaignCouponsCard = ({ campaignId, coupons }: Props) => {
             key: 'secondaryDonation',
             transformValue: (secondaryDonation) => (secondaryDonation?.amount ? `$${secondaryDonation.amount}` : '-'),
           },
+          {
+            title: 'Expires At',
+            key: 'expiresAt',
+            transformValue: (expiresAt) => expiresAt.format(DATE_FORMAT),
+          },
         ]}
         rows={coupons}
         shouldUsePaper={false}
+        rowSxSelector={({ expiresAt, charity }) => (expiresAt.isBefore() && !charity ? expiredCouponSx : {})}
       />
     </CampaignCard>
   );

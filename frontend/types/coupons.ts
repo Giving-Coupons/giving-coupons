@@ -1,3 +1,4 @@
+import { Moment } from 'moment';
 import { CampaignCharityData, CampaignCharityDonationPublicData } from './campaignCharities';
 import { CampaignBaseData } from './campaigns';
 import { CharityMinimalData } from './charity';
@@ -10,6 +11,7 @@ export type CouponBaseData = {
   denomination: number;
   campaignId: number;
   campaignCharityId: Nullable<number>;
+  expiresAt: Moment;
 };
 
 export type CouponListData = CouponBaseData & {
