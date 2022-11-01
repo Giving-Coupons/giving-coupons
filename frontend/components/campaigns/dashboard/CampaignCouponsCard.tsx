@@ -68,13 +68,14 @@ const CampaignCouponsCard = ({ campaign, coupons }: Props) => {
           },
           {
             title: 'Charity',
-            key: 'charity',
-            transformValue: (charity) => charity?.name ?? 'Not redeemed yet',
+            key: 'redemption',
+            transformValue: (redemption) => redemption?.charity.name ?? 'Not redeemed yet',
           },
           {
             title: 'Secondary donation',
-            key: 'secondaryDonation',
-            transformValue: (secondaryDonation) => (secondaryDonation?.amount ? `$${secondaryDonation.amount}` : '-'),
+            key: 'redemption',
+            transformValue: (redemption) =>
+              redemption?.secondaryDonation?.amount ? `$${redemption?.secondaryDonation.amount}` : '-',
           },
           {
             title: 'Expires At',
@@ -84,7 +85,7 @@ const CampaignCouponsCard = ({ campaign, coupons }: Props) => {
         ]}
         rows={coupons}
         shouldUsePaper={false}
-        rowSxSelector={({ expiresAt, charity }) => (expiresAt.isBefore() && !charity ? expiredCouponSx : {})}
+        rowSxSelector={({ expiresAt, redemption }) => (expiresAt.isBefore() && !redemption ? expiredCouponSx : {})}
       />
     </CampaignCard>
   );

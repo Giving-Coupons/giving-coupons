@@ -6,20 +6,12 @@ json.campaign do
   json.partial! 'campaigns/base', campaign: @coupon.campaign
 end
 
-if @coupon.campaign_charity.present?
-  json.campaignCharity do
-    json.partial! 'campaign_charities/campaign_charity', campaign_charity: @coupon.campaign_charity
+if @coupon.redemption.present?
+  json.redemption do
+    json.partial! 'redemptions/redemption', redemption: @coupon.redemption
   end
 else
-  json.campaignCharity nil
-end
-
-if @coupon.secondary_donation.present?
-  json.secondaryDonation do
-    json.partial! 'secondary_donations/secondary_donation', secondary_donation: @coupon.secondary_donation
-  end
-else
-  json.secondaryDonation nil
+  json.redemption nil
 end
 
 json.charities do

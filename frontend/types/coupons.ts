@@ -1,8 +1,7 @@
 import { Moment } from 'moment';
-import { CampaignCharityData, CampaignCharityDonationPublicData } from './campaignCharities';
+import { CampaignCharityDonationPublicData } from './campaignCharities';
 import { CampaignBaseData } from './campaigns';
-import { CharityMinimalData } from './charity';
-import { SecondaryDonationData } from './donations';
+import { RedemptionData, RedemptionMinimalData } from './redemptions';
 import { Nullable } from './utils';
 
 export type CouponBaseData = {
@@ -10,20 +9,18 @@ export type CouponBaseData = {
   urlToken: string;
   denomination: number;
   campaignId: number;
-  campaignCharityId: Nullable<number>;
+  redemptionId: Nullable<number>;
   expiresAt: Moment;
 };
 
 export type CouponListData = CouponBaseData & {
-  secondaryDonation: Nullable<SecondaryDonationData>;
-  charity: Nullable<CharityMinimalData>;
+  redemption: Nullable<RedemptionMinimalData>;
 };
 
 export type CouponRedeemData = CouponBaseData & {
   campaign: CampaignBaseData;
   charities: CampaignCharityDonationPublicData[];
-  campaignCharity: Nullable<CampaignCharityData>;
-  secondaryDonation: Nullable<SecondaryDonationData>;
+  redemption: Nullable<RedemptionData>;
 };
 
 export type CouponProgressData = {
