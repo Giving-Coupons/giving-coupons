@@ -3,7 +3,12 @@ import { Box, InputAdornment, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
 import { useField } from 'formik';
 import { useState } from 'react';
-import { charityLogoSx, formStepContainerSx, givingSgLogoSx } from '../../../styles/components/redeem/RedeemStyles';
+import {
+  charityLogoSx,
+  emojiSx,
+  formStepContainerSx,
+  givingSgLogoSx,
+} from '../../../styles/components/redeem/RedeemStyles';
 import { CampaignCharityData } from '../../../types/campaignCharities';
 import { CouponSponsorship } from '../../../types/primaryDonor';
 import { Nullable } from '../../../types/utils';
@@ -21,6 +26,21 @@ type Props = {
   setActiveStep: (step: number) => void;
   minStep: number;
   maxStep: number;
+};
+
+const getEmoji = (amount: Nullable<number>) => {
+  const numericAmount = Number(amount);
+  if (isNaN(numericAmount) || numericAmount < 10) {
+    return '🥺';
+  } else if (numericAmount < 15) {
+    return '😊';
+  } else if (numericAmount < 20) {
+    return '🥰';
+  } else if (numericAmount < 25) {
+    return '😍';
+  } else {
+    return '🧡';
+  }
 };
 
 const PersonalContributionStep = ({
@@ -62,19 +82,25 @@ const PersonalContributionStep = ({
         </Stack>
 
         <Stack component="div" alignItems="center">
-          <FormTextInput
-            name={fieldName}
-            label="Amount"
-            placeholder="0"
-            InputProps={{
-              startAdornment: <InputAdornment position="start">$</InputAdornment>,
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButtonWithTooltip icon={<HighlightOffIcon />} tooltip="Clear" onClick={() => setValue(null)} />
-                </InputAdornment>
-              ),
-            }}
-          />
+          <Stack component="div" direction="row" spacing={2}>
+            <FormTextInput
+              name={fieldName}
+              label="Amount"
+              placeholder="0"
+              InputProps={{
+                startAdornment: <InputAdornment position="start">$</InputAdornment>,
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButtonWithTooltip icon={<HighlightOffIcon />} tooltip="Clear" onClick={() => setValue(null)} />
+                  </InputAdornment>
+                ),
+              }}
+            />
+
+            <Typography variant="h1" sx={emojiSx}>
+              {getEmoji(value)}
+            </Typography>
+          </Stack>
 
           <Stack component="div" spacing={1}>
             <Typography variant="caption">Can&apos;t decide? Choose an amount:</Typography>
