@@ -22,7 +22,7 @@ class CampaignsController < ApplicationController
       :secondary_donations,
       image_attachment: :blob,
       primary_donor: { image_attachment: :blob },
-      coupons: { secondary_donation: { campaign_charity: :charity } },
+      coupons: { redemption: [secondary_donation: { campaign_charity: :charity }] },
       campaign_charities: [:secondary_donations,
                            :coupons,
                            { charity: [logo_attachment: :blob, image_attachment: :blob] }]
@@ -77,8 +77,7 @@ class CampaignsController < ApplicationController
     @campaign = Campaign.includes(:coupons, :secondary_donations,
                                   image_attachment: :blob,
                                   primary_donor: [image_attachment: :blob],
-                                  campaign_charities: [:coupons,
-                                                       { secondary_donations: [:coupon] },
+                                  campaign_charities: [:coupons, :secondary_donations,
                                                        { charity: [logo_attachment: :blob,
                                                                    image_attachment: :blob] }]).find(params[:id])
   end

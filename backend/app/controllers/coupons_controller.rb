@@ -8,20 +8,19 @@ class CouponsController < ApplicationController
   end
 
   def campaign_unredeemed
-    @coupons = Coupon.all.includes(:secondary_donation)
+    @coupons = Coupon.all
                      .where(campaign_id: params[:campaign_id])
-                     .where(secondary_donations: { id: nil })
+                     .where(redemption_id: nil)
   end
 
   def show
-    @coupon = Coupon.includes([:secondary_donation,
+    @coupon = Coupon.includes([{ redemption: { campaign_charity: [charity: { logo_attachment: :blob,
+                                                                             image_attachment: :blob }] } },
                                { campaign: [{ campaign_charities: [:secondary_donations, :coupons,
                                                                    { charity: { logo_attachment: :blob,
                                                                                 image_attachment: :blob } }] },
                                             { primary_donor: [image_attachment: :blob] },
-                                            { image_attachment: :blob }] },
-                               { campaign_charity: [charity: { logo_attachment: :blob,
-                                                               image_attachment: :blob }] }])
+                                            { image_attachment: :blob }] }])
                     .find_by(url_token: params[:id])
   end
 

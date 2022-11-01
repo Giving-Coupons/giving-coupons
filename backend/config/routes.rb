@@ -24,7 +24,7 @@ Rails.application.routes.draw do
       resources :coupons, only: %i[index show] do
         collection do
           get 'campaign/:campaign_id/unredeemed', to: 'coupons#campaign_unredeemed'
-          post 'redeem'
+          post 'redeem', to: 'redemptions#create'
 
           get ':url_token/progress', to: 'coupons#progress'
           put ':url_token/progress', to: 'coupons#update_progress'
@@ -38,6 +38,8 @@ Rails.application.routes.draw do
       end
 
       resources :primary_donors
+
+      resources :redemptions, only: %i[create]
 
       resources :secondary_donations, only: %i[index create]
     end
