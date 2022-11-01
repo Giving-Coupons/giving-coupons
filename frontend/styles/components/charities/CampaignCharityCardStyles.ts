@@ -7,6 +7,16 @@ export const gridSx: SxProps = {
   cursor: 'pointer',
 };
 
+export const charityGraphInfoStackSx: SxProps = {
+  width: '100%',
+};
+
+export const charityGraphStackSx: SxProps = {
+  paddingTop: 1,
+  paddingBottom: 1,
+  width: '90%',
+};
+
 export const graphSx: SxProps = {
   height: '0.7em',
   width: '100%',
