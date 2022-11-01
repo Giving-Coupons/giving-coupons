@@ -21,6 +21,18 @@ import {
   statisticsIconSx,
   statisticsItemCardSx,
   statisticsIconAvatarSx,
+  mobileTextContainerSx,
+  desktopRightTextContainerSx,
+  mobileInstructionsTitleTextSx,
+  desktopInstructionsTitleTextSx,
+  mobileInstructionsDescriptionTextSx,
+  desktopRightInstructionsDescriptionTextSx,
+  mobileInstructionsImageSx,
+  desktopInstructionsImageSx,
+  startCampaignImageSx,
+  desktopLeftTextContainerSx,
+  desktopLeftInstructionsDescriptionTextSx,
+  instructionsImageContainerSx,
 } from '../styles/indexStyles';
 import { combineSxProps } from '../utils/types';
 import Typed from 'react-typed';
@@ -73,6 +85,16 @@ const Home: NextPage = () => {
   const headlineTextSx = isMobile ? mobileHeadlineTextSx : desktopHeadlineTextSx;
   const descriptionTextSx = isMobile ? mobileDescriptionTextSx : desktopDescriptionTextSx;
   const headlineScreenImageSx = isMobile ? mobileHeadlineScreenImageSx : desktopHeadlineScreenImageSx;
+  const rightTextContainerSx = isMobile ? mobileTextContainerSx : desktopRightTextContainerSx;
+  const instructionsTitleTextSx = isMobile ? mobileInstructionsTitleTextSx : desktopInstructionsTitleTextSx;
+  const rightInstructionsDescriptionTextSx = isMobile
+    ? mobileInstructionsDescriptionTextSx
+    : desktopRightInstructionsDescriptionTextSx;
+  const instructionsImageSx = isMobile ? mobileInstructionsImageSx : desktopInstructionsImageSx;
+  const leftTextContainerSx = isMobile ? mobileTextContainerSx : desktopLeftTextContainerSx;
+  const leftInstructionsDescriptionTextSx = isMobile
+    ? mobileInstructionsDescriptionTextSx
+    : desktopLeftInstructionsDescriptionTextSx;
 
   return (
     <Box>
@@ -118,6 +140,107 @@ const Home: NextPage = () => {
           <Grid item xs={12} md={4} sx={isMobile ? mobileHeadlineImageContainerSx : {}}>
             <Box sx={headlineScreenImageSx} component="img" src="/landing-page/redeem-screen.png" />
           </Grid>
+        </Grid>
+
+        <Grid sx={sectionSx} container>
+          {!isMobile && (
+            <Grid item xs={12} md={6} sx={instructionsImageContainerSx}>
+              <Box
+                sx={combineSxProps(instructionsImageSx, startCampaignImageSx)}
+                component="img"
+                src="/landing-page/start-campaign-screen.png"
+              />
+            </Grid>
+          )}
+
+          <Grid sx={rightTextContainerSx} item xs={12} md={6}>
+            <Typography sx={combineSxProps(instructionsTitleTextSx, highlightedTextSx)}>Empower</Typography>
+
+            <Typography sx={instructionsTitleTextSx}>others to give</Typography>
+
+            <Typography sx={rightInstructionsDescriptionTextSx}>
+              Commit a donation amount to one or more charities by starting a campaign on our site. The amount will be
+              split into coupons. Give the coupons to the people around you. Empower them to choose the donation
+              beneficiaries through the coupons.
+            </Typography>
+
+            <br />
+
+            <Button actionType="primary" onClick={() => router.push('/interest')}>
+              Start a campaign
+            </Button>
+          </Grid>
+
+          {isMobile && (
+            <Grid item xs={12} md={6} sx={instructionsImageContainerSx}>
+              <Box
+                sx={combineSxProps(instructionsImageSx, startCampaignImageSx)}
+                component="img"
+                src="/landing-page/start-campaign-screen.png"
+              />
+            </Grid>
+          )}
+        </Grid>
+
+        <Grid sx={sectionSx} container>
+          <Grid sx={leftTextContainerSx} item xs={12} md={6}>
+            <Typography sx={combineSxProps(instructionsTitleTextSx, highlightedTextSx)}>Direct</Typography>
+
+            <Typography sx={instructionsTitleTextSx}>donations to help charities</Typography>
+
+            <Typography sx={leftInstructionsDescriptionTextSx}>
+              If you received a coupon, scan the QR code to choose which charity benefits from the coupon. Learn about
+              their cause and impact along the way. Add a personal contribution to make a greater impact.
+            </Typography>
+
+            <br />
+
+            <Button actionType="primary" onClick={() => router.push('/campaigns')}>
+              Explore the impact by coupon recipients
+            </Button>
+          </Grid>
+
+          <Grid item xs={12} md={6} sx={instructionsImageContainerSx}>
+            <Box sx={instructionsImageSx} component="img" src="/landing-page/coupons.png" />
+          </Grid>
+        </Grid>
+
+        <Grid sx={sectionSx} container>
+          {!isMobile && (
+            <Grid item xs={12} md={6} sx={instructionsImageContainerSx}>
+              <Box
+                sx={combineSxProps(instructionsImageSx, startCampaignImageSx)}
+                component="img"
+                src="/landing-page/contribute.png"
+              />
+            </Grid>
+          )}
+
+          <Grid sx={rightTextContainerSx} item xs={12} md={6}>
+            <Typography sx={combineSxProps(instructionsTitleTextSx, highlightedTextSx)}>Contribute</Typography>
+
+            <Typography sx={instructionsTitleTextSx}>directly</Typography>
+
+            <Typography sx={rightInstructionsDescriptionTextSx}>
+              Donate directly to charities through our campaigns. Make a difference in someone&apos;s life today.
+            </Typography>
+
+            <br />
+
+            <Button actionType="primary" onClick={() => router.push('/campaigns')}>
+              Explore our campaigns
+            </Button>
+          </Grid>
+
+          {isMobile && (
+            <Grid item xs={12} md={6} sx={instructionsImageContainerSx}>
+              <Box
+                sx={combineSxProps(instructionsImageSx, startCampaignImageSx)}
+                component="img"
+                src="/landing-page/contribute.png"
+              />
+            </Grid>
+          )}
         </Grid>
 
         <Stack sx={combineSxProps(sectionSx, statisticsSectionSx)} component="div">

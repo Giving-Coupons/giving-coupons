@@ -33,6 +33,26 @@ export const mobileHeadlineTextContainerSx: SxProps = {
   height: '100%',
 };
 
+const desktopTextContainerSx: SxProps = {
+  padding: 8,
+  height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+};
+
+export const desktopLeftTextContainerSx: SxProps = {
+  ...desktopTextContainerSx,
+  alignItems: 'start',
+};
+
+export const desktopRightTextContainerSx: SxProps = {
+  ...desktopTextContainerSx,
+  alignItems: 'end',
+};
+
+export const mobileTextContainerSx: SxProps = mobileHeadlineTextContainerSx;
+
 export const desktopHeadlineTextSx: SxProps = {
   fontSize: 80,
   fontWeight: 700,
@@ -41,6 +61,19 @@ export const desktopHeadlineTextSx: SxProps = {
 
 export const mobileHeadlineTextSx: SxProps = {
   fontSize: 50,
+  fontWeight: 700,
+  textAlign: 'center',
+  lineHeight: 'normal',
+};
+
+export const desktopInstructionsTitleTextSx: SxProps = {
+  fontSize: 60,
+  fontWeight: 700,
+  lineHeight: 'normal',
+};
+
+export const mobileInstructionsTitleTextSx: SxProps = {
+  fontSize: 40,
   fontWeight: 700,
   textAlign: 'center',
   lineHeight: 'normal',
@@ -62,6 +95,27 @@ export const mobileDescriptionTextSx = {
   color: theme.palette.grey[800],
 };
 
+const desktopInstructionsDescriptionTextSx: SxProps = {
+  fontSize: 16,
+  color: theme.palette.grey[800],
+};
+
+export const desktopRightInstructionsDescriptionTextSx: SxProps = {
+  ...desktopInstructionsDescriptionTextSx,
+  textAlign: 'end',
+};
+
+export const desktopLeftInstructionsDescriptionTextSx: SxProps = {
+  ...desktopInstructionsDescriptionTextSx,
+  textAlign: 'start',
+};
+
+export const mobileInstructionsDescriptionTextSx: SxProps = {
+  fontSize: 12,
+  color: theme.palette.grey[800],
+  textAlign: 'center',
+};
+
 export const desktopHeadlineScreenImageSx: SxProps = {
   height: '80vh',
   width: 'auto',
@@ -72,7 +126,27 @@ export const mobileHeadlineScreenImageSx: SxProps = {
   height: 'auto',
 };
 
+export const desktopInstructionsImageSx: SxProps = {
+  width: '60%',
+  height: 'auto',
+};
+
+export const mobileInstructionsImageSx: SxProps = {
+  width: '60%',
+  height: 'auto',
+};
+
+export const startCampaignImageSx: SxProps = {
+  borderRadius: '20px',
+  boxShadow: `0px 0px 30px 0px ${theme.palette.neutral.light}`,
+};
+
 export const mobileHeadlineImageContainerSx: SxProps = {
+  display: 'flex',
+  justifyContent: 'center',
+};
+
+export const instructionsImageContainerSx: SxProps = {
   display: 'flex',
   justifyContent: 'center',
 };
