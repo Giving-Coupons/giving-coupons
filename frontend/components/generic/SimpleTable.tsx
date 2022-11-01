@@ -71,7 +71,7 @@ export default function SimpleTable<D>({
   shouldUsePaper = true,
   initialOrder,
   sx = {},
-  rowSxSelector = (row: D) => ({}),
+  rowSxSelector = () => ({}),
 }: Props<D>) {
   const hasActions = actions.length > 0;
   const numColumns = columns.length + (hasActions ? 1 : 0);
