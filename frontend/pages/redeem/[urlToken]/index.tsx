@@ -11,6 +11,7 @@ import * as Yup from 'yup';
 import FormikValuesListener from '../../../components/forms/FormikValuesListener';
 import IconButtonWithTooltip from '../../../components/IconButtonWithTooltip';
 import AlreadyRedeemedDisplay from '../../../components/redeem/AlreadyRedeemedDisplay';
+import ExpiredDisplay from '../../../components/redeem/ExpiredDisplay';
 import InstructionsDialog from '../../../components/redeem/instructions/InstructionsDialog';
 import RedeemLoading from '../../../components/redeem/RedeemLoading';
 import RedeemStepper from '../../../components/redeem/RedeemStepper';
@@ -53,7 +54,8 @@ const Redeem: NextPage = () => {
   );
   const isLoading = !coupon && !error;
   const hasLoadedSuccessfully = !error && coupon;
-  const isCouponNotRedeemed = hasLoadedSuccessfully && !coupon.campaignCharity;
+  const hasCouponExpired = hasLoadedSuccessfully && coupon.expiresAt.isBefore();
+  const canCouponBeRedeemed = hasLoadedSuccessfully && !coupon.campaignCharity && !hasCouponExpired;
 
   const minStep = 0;
   const maxStep = 2;
@@ -193,7 +195,7 @@ const Redeem: NextPage = () => {
       </Head>
 
       <Container component="main" maxWidth="md">
-        {isCouponNotRedeemed && (
+        {canCouponBeRedeemed && (
           <IconButtonWithTooltip
             sx={isMobile ? mobileHelpButtonSx : desktopHelpButtonSx}
             icon={<HelpOutlineIcon />}
@@ -235,7 +237,15 @@ const Redeem: NextPage = () => {
             />
           )}
 
-          {isCouponNotRedeemed && (
+          {hasLoadedSuccessfully && hasCouponExpired && (
+            <ExpiredDisplay
+              couponExpiry={coupon.expiresAt}
+              primaryDonorName={coupon.campaign.primaryDonor.name}
+              campaignId={coupon.campaignId}
+            />
+          )}
+
+          {canCouponBeRedeemed && (
             <>
               <RedeemStepper redemptionState={redemptionState} />
 
@@ -274,7 +284,7 @@ const Redeem: NextPage = () => {
           )}
         </Stack>
 
-        {isCouponNotRedeemed && (
+        {canCouponBeRedeemed && (
           <InstructionsDialog
             open={openInstructions}
             handleClose={() => setOpenInstructions(false)}
