@@ -11,9 +11,10 @@ interface Props {
   name: string;
   label: string;
   minDate?: Moment | undefined;
+  maxDate?: Moment | undefined;
 }
 
-const FormDatePicker = ({ name, label, minDate }: Props) => {
+const FormDatePicker = ({ name, label, minDate, maxDate }: Props) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [, { error, touched, value }, { setTouched, setValue }] = useField(name);
@@ -22,6 +23,7 @@ const FormDatePicker = ({ name, label, minDate }: Props) => {
     label,
     value,
     minDate,
+    maxDate,
     inputFormat: DATE_FORMAT,
     onChange: (value: Nullable<Moment>) => {
       const corrected = value === null ? value : value.startOf('day');

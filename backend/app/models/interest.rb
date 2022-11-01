@@ -19,6 +19,7 @@ class Interest < ApplicationRecord
   validates :start, presence: true
   validates :end, comparison: { greater_than: :start }
   validates :interest_charities, length: { minimum: 1, maximum: 5 }
+  validates :initial_coupon_validity, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validate :must_be_pending, on: :create
 
   def approve

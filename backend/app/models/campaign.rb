@@ -13,7 +13,6 @@ class Campaign < ApplicationRecord
   has_many :secondary_donations, through: :campaign_charities
 
   after_create :approve_associated_interest
-  after_create_commit :queue_generate_coupons_job
 
   validates :name, presence: true, allow_blank: false
   validates :description, presence: true, allow_blank: false
@@ -64,16 +63,32 @@ class Campaign < ApplicationRecord
       secondary_donors_fraction: secondary_donors_fraction }
   end
 
-  def generate_coupons
-    num_coupons.times do
-      coupons.new(denomination: coupon_denomination, url_token: Coupon.generate_unique_url_token)
+  def generate_coupons(new_expiry_date)
+    num_coupons_to_generate.times do
+      coupons.new(denomination: coupon_denomination, url_token: Coupon.generate_unique_url_token, expires_at: new_expiry_date)
     end
 
     save!
   end
 
+  def num_coupons_allowed
+    promised_amount / coupon_denomination
+  end
+
   def num_redeemed_coupons
     coupons.count(&:redeemed?)
+  end
+
+  def num_unredeemed_and_unexpired_coupons
+    coupons.count { |c| !c.redeemed? && !c.expired? }
+  end
+
+  def num_coupons_to_generate
+    num_coupons_allowed - num_redeemed_coupons - num_unredeemed_and_unexpired_coupons
+  end
+
+  def queue_generate_coupons_job(new_expiry_date)
+    GenerateCouponsForCampaignJob.perform_later(self, new_expiry_date)
   end
 
   private
@@ -84,11 +99,4 @@ class Campaign < ApplicationRecord
     interest.approve
   end
 
-  def num_coupons
-    promised_amount / coupon_denomination
-  end
-
-  def queue_generate_coupons_job
-    GenerateCouponsForCampaignJob.perform_later self
-  end
 end

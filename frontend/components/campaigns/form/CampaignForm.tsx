@@ -71,6 +71,8 @@ const CampaignForm = ({
                     label="Coupon Denomination"
                     InputProps={{ startAdornment: <InputAdornment position="start">$</InputAdornment> }}
                   />
+
+                  <FormTextInput name="initialCouponValidityDays" label="Initial Coupon Validity (days)" />
                 </>
               )}
 

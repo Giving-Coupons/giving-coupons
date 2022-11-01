@@ -7,6 +7,7 @@ import {
   CampaignPostData,
   CampaignPublicData,
   CampaignPutData,
+  CouponRegenerationFormData,
 } from '../types/campaigns';
 import BaseAPI from './base';
 
@@ -39,6 +40,13 @@ class CampaignsAPI extends BaseAPI {
 
   public deleteCampaign(id: number): ApiPromise<CampaignAdminData> {
     return this.delete(`${CampaignsAPI.CAMPAIGNS_URL}/${id}`);
+  }
+
+  public regenerateExpiredCoupons(
+    id: number,
+    couponRegenerationPostData: CouponRegenerationFormData,
+  ): ApiPromise<CampaignAdminData> {
+    return this.post(`${CampaignsAPI.CAMPAIGNS_URL}/${id}/regenerate_expired_coupons`, couponRegenerationPostData);
   }
 }
 

@@ -18,6 +18,10 @@ class Coupon < ApplicationRecord
     redemption_id.present?
   end
 
+  def expired?
+    expires_at < DateTime.current
+  end
+
   def self.generate_unique_url_token
     token = SecureRandom.alphanumeric(NUM_ALPHANUMERIC_CHARS_IN_TOKEN)
     Coupon.exists?(url_token: token) ? generate_unique_url_token : token

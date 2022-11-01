@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
         member do
           get 'admin_show'
+          post 'regenerate_expired_coupons'
         end
       end
 

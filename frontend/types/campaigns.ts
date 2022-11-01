@@ -42,11 +42,16 @@ export type CampaignFormData = {
   description?: string;
   promisedAmount?: number;
   couponDenomination?: number;
+  initialCouponValidity?: number;
   start: Nullable<Moment>;
   end: Nullable<Moment>;
   imageBase64?: string;
   charities: Partial<CampaignCharityBaseData>[];
   primaryDonor?: Partial<PrimaryDonorData>;
+};
+
+export type CouponRegenerationFormData = {
+  expiryDate: Moment;
 };
 
 export type CampaignListQueryParams = {
@@ -95,6 +100,7 @@ export type CampaignBaseData = {
 export type CampaignPostData = Omit<WithoutId<CampaignBaseData>, 'charities' | 'primaryDonor'> & {
   charities: CampaignCharityPostData[];
   primaryDonor: PrimaryDonorPostData;
+  initialCouponValidity: number;
 };
 
 export type CampaignPutData = Omit<
