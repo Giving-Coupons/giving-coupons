@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import {
   campaignImageSx,
   campaignInfoCardHeaderSx,
-  campaignInfoItemSx
+  campaignInfoItemSx,
 } from '../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
 import { CampaignPublicData } from '../../../types/campaigns';
 import { getCampaignStatus } from '../../../utils/campaigns';
