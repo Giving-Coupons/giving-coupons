@@ -76,7 +76,7 @@ class CampaignsController < ApplicationController
   end
 
   def regenerate_expired_coupons
-    if @campaign.num_coupons_to_generate == 0
+    if @campaign.num_coupons_to_generate.zero?
       add_error_message 'There are no coupons to regenerate!'
       render 'layouts/empty', status: :unprocessable_entity
       return
@@ -84,7 +84,7 @@ class CampaignsController < ApplicationController
 
     @campaign.queue_generate_coupons_job(params[:expiry_date])
 
-    add_success_message "The coupons are being regenerated. This may take a while."
+    add_success_message 'The coupons are being regenerated. This may take a while.'
     render 'layouts/empty', status: :ok
   end
 

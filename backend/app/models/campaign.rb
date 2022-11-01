@@ -65,7 +65,8 @@ class Campaign < ApplicationRecord
 
   def generate_coupons(new_expiry_date)
     num_coupons_to_generate.times do
-      coupons.new(denomination: coupon_denomination, url_token: Coupon.generate_unique_url_token, expires_at: new_expiry_date)
+      coupons.new(denomination: coupon_denomination, url_token: Coupon.generate_unique_url_token,
+                  expires_at: new_expiry_date)
     end
 
     save!
@@ -98,5 +99,4 @@ class Campaign < ApplicationRecord
 
     interest.approve
   end
-
 end

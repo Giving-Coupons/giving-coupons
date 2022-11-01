@@ -28,9 +28,7 @@ const CampaignCouponsCard = ({ campaign, coupons }: Props) => {
   const handleClose = () => setIsDialogOpen(false);
 
   const onSubmitForm = (values: CouponRegenerationFormData) => {
-    api.campaigns.regenerateExpiredCoupons(campaign.id, values).then((r) => {
-      console.log(r);
-    });
+    api.campaigns.regenerateExpiredCoupons(campaign.id, values);
     handleClose();
   };
 
