@@ -40,7 +40,7 @@ const CampaignCharityAccordionCard = ({ campaignCharity }: Props) => {
             <SmallCompetingGraph
               overrideGraphSx={graphSx}
               leftLabel={`$${primaryDonorDonationData.amount} from ${campaignCharity.primaryDonor.name}`}
-              rightLabel={`$${secondaryDonorDonationData.amount} from people like you`}
+              rightLabel={`$${secondaryDonorDonationData.amount} from coupon recipients`}
               barFractions={[primaryDonorDonationData.fraction, secondaryDonorDonationData.fraction]}
             />
           </Stack>
