@@ -18,6 +18,14 @@ export const dialogContentSx: SxProps = {
 
 export const dialogContentTextSx: SxProps = { margin: '20px', height: '20%' };
 
+export const dialogActionStackSx: SxProps = {
+  width: '100%',
+  paddingTop: 2,
+  paddingBottom: 2,
+  paddingRight: 4,
+  paddingLeft: 4,
+};
+
 export const charityLogoSx: SxProps = {
   maxHeight: '40px',
   minHeight: '40px',
