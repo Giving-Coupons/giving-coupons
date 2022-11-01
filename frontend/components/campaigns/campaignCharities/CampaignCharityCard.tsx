@@ -3,7 +3,6 @@ import { Box, Grid, Stack, Typography } from '@mui/material';
 import {
   charityGraphInfoStackSx,
   charityGraphStackSx,
-  charityInfoBoxSx,
   charityLogoContainerSx,
   charityLogoSx,
   graphSx,
@@ -30,7 +29,7 @@ const CampaignCharityCard = ({ campaignCharity, onClick, handleOpenInfoCard }: P
       </Grid>
 
       <Grid item xs={10}>
-        <Stack direction="row" spacing={-1} sx={charityGraphInfoStackSx}>
+        <Stack direction="row" sx={charityGraphInfoStackSx}>
           <Stack sx={charityGraphStackSx}>
             <Typography variant="h4">{campaignCharity.charity.name}</Typography>
 
@@ -42,7 +41,7 @@ const CampaignCharityCard = ({ campaignCharity, onClick, handleOpenInfoCard }: P
             />
           </Stack>
 
-          <Box sx={charityInfoBoxSx}>
+          <Box>
             <IconButtonWithTooltip
               icon={<InfoOutlined />}
               tooltip="More Info"

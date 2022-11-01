@@ -14,15 +14,7 @@ export const charityGraphInfoStackSx: SxProps = {
 export const charityGraphStackSx: SxProps = {
   paddingTop: 1,
   paddingBottom: 1,
-  paddingRight: 1,
-  flexGrow: 1,
-};
-
-export const charityInfoBoxSx: SxProps = {
-  marginTop: '1px',
-  marginRight: '1px',
-  marginBottom: 'auto',
-  marginLeft: '-1px',
+  width: '90%',
 };
 
 export const graphSx: SxProps = {
