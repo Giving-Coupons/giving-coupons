@@ -6,15 +6,15 @@ import { campaignMoneyIconSx } from '../../../styles/components/campaigns/dashbo
 interface CampaignMoneyInfoProps {
   tooltipTitle: string;
   icon: React.ReactNode;
-  amount: number;
+  text: string;
 }
 
-const CampaignMoneyInfoIcon = ({ tooltipTitle, icon, amount }: CampaignMoneyInfoProps) => (
+const CampaignMoneyInfoIcon = ({ tooltipTitle, icon, text }: CampaignMoneyInfoProps) => (
   <Tooltip title={tooltipTitle}>
     <Stack sx={campaignMoneyIconSx} direction="row" component="div" spacing={1}>
       {icon}
 
-      <Typography variant="h4">{amount}</Typography>
+      <Typography variant="h4">{text}</Typography>
     </Stack>
   </Tooltip>
 );

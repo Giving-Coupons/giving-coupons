@@ -82,13 +82,13 @@ const CampaignInfoCard = ({ campaign }: Props) => {
               <CampaignMoneyInfoIcon
                 tooltipTitle="Promised Amount"
                 icon={<PaidIcon fontSize="large" />}
-                amount={campaign.promisedAmount}
+                text={`$${campaign.promisedAmount} in total`}
               />
 
               <CampaignMoneyInfoIcon
                 tooltipTitle="Coupon Denomination"
                 icon={<LocalActivityIcon fontSize="large" />}
-                amount={campaign.couponDenomination}
+                text={`$${campaign.couponDenomination} each`}
               />
             </Stack>
           </Stack>
