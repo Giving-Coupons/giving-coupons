@@ -1,5 +1,6 @@
 import { SxProps } from '@mui/system';
 import { theme } from '../utils/theme';
+import { alpha } from '@mui/material';
 
 export const sectionSx: SxProps = {
   minHeight: `calc(100vh - ${theme.spacing(2)} - ${theme.mixins.toolbar.minHeight}px)`,
@@ -9,6 +10,12 @@ export const sectionSx: SxProps = {
   maxWidth: '1200px',
   paddingTop: 2,
   paddingBottom: 2,
+};
+
+export const instructionsContainerSx: SxProps = {
+  backgroundColor: alpha('#F1EAE6', 0.4),
+  width: '100%',
+  alignItems: 'center',
 };
 
 export const headlineBackgroundSx: SxProps = {
@@ -151,12 +158,25 @@ export const instructionsImageContainerSx: SxProps = {
   justifyContent: 'center',
 };
 
+export const statisticsContainerSx: SxProps = {
+  display: 'flex',
+  background: `linear-gradient(45deg, ${theme.palette.primary.main} 10%, ${theme.palette.secondary.main} 90%)`,
+  width: '100%',
+  justifyContent: 'center',
+};
+
+export const statisticsMainTextSx: SxProps = {
+  fontSize: 40,
+  fontWeight: 700,
+  color: theme.palette.primary.main,
+};
+
 export const statisticsSectionSx: SxProps = {
   justifyContent: 'space-evenly',
   minHeight: '50vh',
 };
 
-export const statisticsContainerSx: SxProps = {
+export const statisticsItemsContainerSx: SxProps = {
   width: '100%',
   padding: 4,
 };
@@ -165,16 +185,16 @@ export const statisticsItemSx: SxProps = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  backgroundColor: 'white',
 };
 
 export const statisticsItemCardSx: SxProps = {
-  boxShadow: `0px 0px 30px 0px ${theme.palette.neutral.light}`,
+  boxShadow: `0px 0px 30px 0px #FFFFFF`,
   padding: 2,
   margin: 2,
-  width: '90%',
+  width: '80%',
   borderRadius: '20px',
   alignItems: 'center',
+  backgroundColor: 'white',
 };
 
 export const statisticsIconAvatarSx: SxProps = {

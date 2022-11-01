@@ -15,7 +15,7 @@ import {
   desktopHeadlineScreenImageSx,
   mobileHeadlineScreenImageSx,
   mobileHeadlineImageContainerSx,
-  statisticsContainerSx,
+  statisticsItemsContainerSx,
   statisticsSectionSx,
   statisticsItemSx,
   statisticsIconSx,
@@ -33,6 +33,9 @@ import {
   desktopLeftTextContainerSx,
   desktopLeftInstructionsDescriptionTextSx,
   instructionsImageContainerSx,
+  instructionsContainerSx,
+  statisticsContainerSx,
+  statisticsMainTextSx,
 } from '../styles/indexStyles';
 import { combineSxProps } from '../utils/types';
 import Typed from 'react-typed';
@@ -56,9 +59,7 @@ const StatisticItem = ({ statistic, icon, description }: StatisticItemProps) => 
       <Stack sx={statisticsItemCardSx} component="div" spacing={1}>
         <Avatar sx={statisticsIconAvatarSx}>{icon}</Avatar>
 
-        <Typography fontSize={40} fontWeight={700} color="primary">
-          {statistic}
-        </Typography>
+        <Typography sx={statisticsMainTextSx}>{statistic}</Typography>
 
         <Typography color={theme.palette.grey[800]}>{description}</Typography>
       </Stack>
@@ -70,7 +71,7 @@ const statistics: StatisticItemProps[] = [
   {
     statistic: '$1600',
     icon: <VolunteerActivismIcon sx={statisticsIconSx} />,
-    description: 'Additional funds raised for charities',
+    description: 'Raised for charities',
   },
   { statistic: '160', icon: <LocalActivityIcon sx={statisticsIconSx} />, description: 'Coupons distributed' },
   { statistic: '8', icon: <Diversity1Icon sx={statisticsIconSx} />, description: 'Charities supported' },
@@ -142,121 +143,127 @@ const Home: NextPage = () => {
           </Grid>
         </Grid>
 
-        <Grid sx={sectionSx} container>
-          {!isMobile && (
-            <Grid item xs={12} md={6} sx={instructionsImageContainerSx}>
-              <Box
-                sx={combineSxProps(instructionsImageSx, startCampaignImageSx)}
-                component="img"
-                src="/landing-page/start-campaign-screen.png"
-              />
+        <Stack sx={instructionsContainerSx} component="div">
+          <Grid sx={sectionSx} container>
+            {!isMobile && (
+              <Grid item xs={12} md={6} sx={instructionsImageContainerSx}>
+                <Box
+                  sx={combineSxProps(instructionsImageSx, startCampaignImageSx)}
+                  component="img"
+                  src="/landing-page/start-campaign-screen.png"
+                />
+              </Grid>
+            )}
+
+            <Grid sx={rightTextContainerSx} item xs={12} md={6}>
+              <Typography sx={combineSxProps(instructionsTitleTextSx, highlightedTextSx)}>Empower</Typography>
+
+              <Typography sx={instructionsTitleTextSx}>others to give</Typography>
+
+              <Typography sx={rightInstructionsDescriptionTextSx}>
+                Commit a donation amount to one or more charities by starting a campaign on our site. The amount will be
+                split into coupons. Give the coupons to the people around you. Empower them to choose the donation
+                beneficiaries through the coupons.
+              </Typography>
+
+              <br />
+
+              <Button actionType="primary" onClick={() => router.push('/interest')}>
+                Start a campaign
+              </Button>
             </Grid>
-          )}
 
-          <Grid sx={rightTextContainerSx} item xs={12} md={6}>
-            <Typography sx={combineSxProps(instructionsTitleTextSx, highlightedTextSx)}>Empower</Typography>
-
-            <Typography sx={instructionsTitleTextSx}>others to give</Typography>
-
-            <Typography sx={rightInstructionsDescriptionTextSx}>
-              Commit a donation amount to one or more charities by starting a campaign on our site. The amount will be
-              split into coupons. Give the coupons to the people around you. Empower them to choose the donation
-              beneficiaries through the coupons.
-            </Typography>
-
-            <br />
-
-            <Button actionType="primary" onClick={() => router.push('/interest')}>
-              Start a campaign
-            </Button>
+            {isMobile && (
+              <Grid item xs={12} md={6} sx={instructionsImageContainerSx}>
+                <Box
+                  sx={combineSxProps(instructionsImageSx, startCampaignImageSx)}
+                  component="img"
+                  src="/landing-page/start-campaign-screen.png"
+                />
+              </Grid>
+            )}
           </Grid>
 
-          {isMobile && (
-            <Grid item xs={12} md={6} sx={instructionsImageContainerSx}>
-              <Box
-                sx={combineSxProps(instructionsImageSx, startCampaignImageSx)}
-                component="img"
-                src="/landing-page/start-campaign-screen.png"
-              />
+          <Grid sx={sectionSx} container>
+            <Grid sx={leftTextContainerSx} item xs={12} md={6}>
+              <Typography sx={combineSxProps(instructionsTitleTextSx, highlightedTextSx)}>Direct</Typography>
+
+              <Typography sx={instructionsTitleTextSx}>donations to help charities</Typography>
+
+              <Typography sx={leftInstructionsDescriptionTextSx}>
+                If you received a coupon, scan the QR code to choose which charity benefits from the coupon. Learn about
+                their cause and impact along the way. Add a personal contribution to make a greater impact.
+              </Typography>
+
+              <br />
+
+              <Button actionType="primary" onClick={() => router.push('/campaigns')}>
+                Explore the impact by coupon recipients
+              </Button>
             </Grid>
-          )}
-        </Grid>
 
-        <Grid sx={sectionSx} container>
-          <Grid sx={leftTextContainerSx} item xs={12} md={6}>
-            <Typography sx={combineSxProps(instructionsTitleTextSx, highlightedTextSx)}>Direct</Typography>
-
-            <Typography sx={instructionsTitleTextSx}>donations to help charities</Typography>
-
-            <Typography sx={leftInstructionsDescriptionTextSx}>
-              If you received a coupon, scan the QR code to choose which charity benefits from the coupon. Learn about
-              their cause and impact along the way. Add a personal contribution to make a greater impact.
-            </Typography>
-
-            <br />
-
-            <Button actionType="primary" onClick={() => router.push('/campaigns')}>
-              Explore the impact by coupon recipients
-            </Button>
+            <Grid item xs={12} md={6} sx={instructionsImageContainerSx}>
+              <Box sx={instructionsImageSx} component="img" src="/landing-page/coupons.png" />
+            </Grid>
           </Grid>
 
-          <Grid item xs={12} md={6} sx={instructionsImageContainerSx}>
-            <Box sx={instructionsImageSx} component="img" src="/landing-page/coupons.png" />
-          </Grid>
-        </Grid>
+          <Grid sx={sectionSx} container>
+            {!isMobile && (
+              <Grid item xs={12} md={6} sx={instructionsImageContainerSx}>
+                <Box
+                  sx={combineSxProps(instructionsImageSx, startCampaignImageSx)}
+                  component="img"
+                  src="/landing-page/contribute.png"
+                />
+              </Grid>
+            )}
 
-        <Grid sx={sectionSx} container>
-          {!isMobile && (
-            <Grid item xs={12} md={6} sx={instructionsImageContainerSx}>
-              <Box
-                sx={combineSxProps(instructionsImageSx, startCampaignImageSx)}
-                component="img"
-                src="/landing-page/contribute.png"
-              />
+            <Grid sx={rightTextContainerSx} item xs={12} md={6}>
+              <Typography sx={combineSxProps(instructionsTitleTextSx, highlightedTextSx)}>Contribute</Typography>
+
+              <Typography sx={instructionsTitleTextSx}>directly</Typography>
+
+              <Typography sx={rightInstructionsDescriptionTextSx}>
+                Donate directly to charities through our campaigns. Make a difference in someone&apos;s life today.
+              </Typography>
+
+              <br />
+
+              <Button actionType="primary" onClick={() => router.push('/campaigns')}>
+                Explore our campaigns
+              </Button>
             </Grid>
-          )}
 
-          <Grid sx={rightTextContainerSx} item xs={12} md={6}>
-            <Typography sx={combineSxProps(instructionsTitleTextSx, highlightedTextSx)}>Contribute</Typography>
-
-            <Typography sx={instructionsTitleTextSx}>directly</Typography>
-
-            <Typography sx={rightInstructionsDescriptionTextSx}>
-              Donate directly to charities through our campaigns. Make a difference in someone&apos;s life today.
-            </Typography>
-
-            <br />
-
-            <Button actionType="primary" onClick={() => router.push('/campaigns')}>
-              Explore our campaigns
-            </Button>
-          </Grid>
-
-          {isMobile && (
-            <Grid item xs={12} md={6} sx={instructionsImageContainerSx}>
-              <Box
-                sx={combineSxProps(instructionsImageSx, startCampaignImageSx)}
-                component="img"
-                src="/landing-page/contribute.png"
-              />
-            </Grid>
-          )}
-        </Grid>
-
-        <Stack sx={combineSxProps(sectionSx, statisticsSectionSx)} component="div">
-          <Typography variant="h1">Our impact</Typography>
-
-          <Grid sx={statisticsContainerSx} spacing={2} container>
-            {statistics.map((statisticData, index) => (
-              <StatisticItem
-                key={index}
-                statistic={statisticData.statistic}
-                icon={statisticData.icon}
-                description={statisticData.description}
-              />
-            ))}
+            {isMobile && (
+              <Grid item xs={12} md={6} sx={instructionsImageContainerSx}>
+                <Box
+                  sx={combineSxProps(instructionsImageSx, startCampaignImageSx)}
+                  component="img"
+                  src="/landing-page/contribute.png"
+                />
+              </Grid>
+            )}
           </Grid>
         </Stack>
+
+        <Box sx={statisticsContainerSx}>
+          <Stack sx={combineSxProps(sectionSx, statisticsSectionSx)} component="div">
+            <Typography variant="h1" color="#FFFFFF">
+              Our impact
+            </Typography>
+
+            <Grid sx={statisticsItemsContainerSx} spacing={2} container>
+              {statistics.map((statisticData, index) => (
+                <StatisticItem
+                  key={index}
+                  statistic={statisticData.statistic}
+                  icon={statisticData.icon}
+                  description={statisticData.description}
+                />
+              ))}
+            </Grid>
+          </Stack>
+        </Box>
       </Stack>
     </Box>
   );
