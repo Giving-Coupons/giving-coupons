@@ -59,11 +59,9 @@ const CharityDonationLabel = (campaignCharity: CampaignCharityData) => (
       <Typography variant="h4">{campaignCharity.charity.name}</Typography>
 
       <MuiLink component={Link} href={campaignCharity.givingSgUrl}>
-        <a>
-          <Typography variant="caption" color="info.main">
-            GivingSg Campaign
-          </Typography>
-        </a>
+        <Typography variant="caption" color="info.main">
+          GivingSg Campaign
+        </Typography>
       </MuiLink>
     </Stack>
   </Stack>
