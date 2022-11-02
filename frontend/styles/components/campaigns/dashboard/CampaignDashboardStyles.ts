@@ -82,7 +82,7 @@ export const campaignInfoItemSx: SxProps = {
   justifyContent: 'center',
   alignItems: 'center',
   borderRadius: '20px',
-  padding: '4%',
+  padding: '5px',
   backgroundColor: '#F4F4F4',
 };
 
