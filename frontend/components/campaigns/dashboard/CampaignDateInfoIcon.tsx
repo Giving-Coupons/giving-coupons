@@ -6,12 +6,15 @@ import { campaignDateIconSx } from '../../../styles/components/campaigns/dashboa
 import { DATE_FORMAT } from '../../../utils/constants';
 
 interface CampaignDateInfoProps {
+  label?: string;
   date: Moment;
 }
 
-const CampaignDateInfoIcon = ({ date }: CampaignDateInfoProps) => (
+const CampaignDateInfoIcon = ({ date, label }: CampaignDateInfoProps) => (
   <Stack sx={campaignDateIconSx}>
     <CalendarTodayIcon fontSize="large" />
+
+    {label ?? <Typography>{label}</Typography>}
 
     <Typography>{date.format(DATE_FORMAT)}</Typography>
   </Stack>

@@ -41,7 +41,7 @@ const CampaignInfoCard = ({ campaign }: Props) => {
         <Box sx={campaignImageSx} component="img" src={campaign.imageBase64} />
       </Grid>
 
-      <Grid item xs={12} md={6}>
+      <Grid item xs={12} md={6} marginTop={1}>
         <Stack component="div" spacing={2}>
           <Stack sx={campaignInfoCardHeaderSx} component="div" direction="row">
             <Typography variant="h3">{campaign.name}</Typography>

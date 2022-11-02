@@ -3,6 +3,7 @@ import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 import PaidIcon from '@mui/icons-material/Paid';
 import { Grid, Typography } from '@mui/material';
 import { Box, Stack } from '@mui/system';
+import moment from 'moment';
 import { useRouter } from 'next/router';
 import {
   campaignImageSx,
@@ -23,6 +24,7 @@ const CampaignPublicInfoCard = ({ campaign }: Props) => {
   const router = useRouter();
 
   const numTotalCoupons = campaign.promisedAmount / campaign.couponDenomination;
+  const numOfDaysTillEnd = campaign.end.diff(moment(), 'days');
 
   return (
     <Grid container columnSpacing={2}>
@@ -30,7 +32,7 @@ const CampaignPublicInfoCard = ({ campaign }: Props) => {
         <Box sx={campaignImageSx} component="img" src={campaign.imageBase64} />
       </Grid>
 
-      <Grid item xs={12} md={6}>
+      <Grid item xs={12} md={6} marginTop={1}>
         <Stack component="div" spacing={1}>
           <Stack sx={campaignInfoCardHeaderSx} component="div" direction="row">
             <Typography variant="h1">{campaign.name}</Typography>
@@ -42,12 +44,16 @@ const CampaignPublicInfoCard = ({ campaign }: Props) => {
             <Typography variant="h4">Status: {getCampaignStatus(campaign.start, campaign.end)}</Typography>
 
             <Stack component="div" direction="row" spacing={2}>
-              <CampaignDateInfoIcon date={campaign.start} />
+              <CampaignDateInfoIcon label="Start" date={campaign.start} />
 
               <LinearScaleIcon fontSize="large" />
 
-              <CampaignDateInfoIcon date={campaign.end} />
+              <CampaignDateInfoIcon label="End" date={campaign.end} />
             </Stack>
+
+            <Typography variant="h4">
+              Campaign ends in {numOfDaysTillEnd} {numOfDaysTillEnd === 1 ? 'day' : 'days'}!
+            </Typography>
           </Stack>
 
           <Stack sx={campaignInfoItemSx} component="div" spacing={1}>
