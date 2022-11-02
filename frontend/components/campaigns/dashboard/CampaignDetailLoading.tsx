@@ -14,6 +14,16 @@ const CampaignDetailLoading = () => {
             <Grid container columnSpacing={2}>
               <Grid item xs={12} md={6}>
                 <Skeleton variant="rectangular" height="50vh" />
+
+                {!isMobile && (
+                  <Grid item xs={12} marginTop={2}>
+                    <Stack direction="row" spacing={4}>
+                      <Skeleton variant="rectangular" width="100%" height="20vh" />
+                      <Skeleton variant="rectangular" width="100%" height="20vh" />
+                      <Skeleton variant="rectangular" width="100%" height="20vh" />
+                    </Stack>
+                  </Grid>
+                )}
               </Grid>
 
               <Grid item xs={12} md={6}>
@@ -29,16 +39,6 @@ const CampaignDetailLoading = () => {
           </Stack>
         </Grid>
 
-        {!isMobile && (
-          <Grid item xs={12}>
-            <Stack direction="row" spacing={4}>
-              <Skeleton variant="rectangular" width="100%" height="25vh" />
-              <Skeleton variant="rectangular" width="100%" height="25vh" />
-              <Skeleton variant="rectangular" width="100%" height="25vh" />
-            </Stack>
-          </Grid>
-        )}
-
         {isMobile && (
           <Grid item xs={12}>
             <Stack direction="row" spacing={4}>
@@ -46,21 +46,6 @@ const CampaignDetailLoading = () => {
             </Stack>
           </Grid>
         )}
-
-        <Grid item xs={12}>
-          <Stack spacing={1}>
-            <Stack spacing={1}>
-              <Skeleton variant="rectangular" width="100%" height="8vh" />
-              <Skeleton variant="rectangular" width="100%" height="5vh" />
-            </Stack>
-
-            <Stack spacing={1.5}>
-              <Skeleton variant="rectangular" width="100%" height="10vh" />
-              <Skeleton variant="rectangular" width="100%" height="10vh" />
-              <Skeleton variant="rectangular" width="100%" height="10vh" />
-            </Stack>
-          </Stack>
-        </Grid>
       </Grid>
     </Container>
   );
