@@ -54,6 +54,7 @@ import {
   mobileInstructionsImageContainerSx,
   givingCouponsInlineLogoSx,
   sectionSeparationLineSx,
+  statisticsContainerSx,
 } from '../styles/indexStyles';
 import { combineSxProps } from '../utils/types';
 import Typed from 'react-typed';
@@ -403,8 +404,8 @@ const Home: NextPage = () => {
 
         <Box sx={sectionSeparationLineSx} />
 
-        <Stack sx={sectionSx} component="div">
-          <Stack sx={statisticsSectionSx} spacing={4}>
+        <Stack sx={statisticsContainerSx} component="div">
+          <Stack sx={combineSxProps(sectionSx, statisticsSectionSx)} spacing={4}>
             <SectionHeader title="Our impact" />
 
             <Grid sx={statisticsItemsContainerSx} spacing={2} container>
@@ -422,26 +423,24 @@ const Home: NextPage = () => {
 
         <Box sx={sectionSeparationLineSx} />
 
-        <Stack sx={sectionSx} component="div">
-          <Stack sx={callToActionSectionSx} spacing={4} component="div">
-            <SectionHeader
-              title="Join Our Mission"
-              subtitle={['Feeling inspired? Join our mission through one of these ways.']}
-            />
+        <Stack sx={combineSxProps(sectionSx, callToActionSectionSx)} spacing={4} component="div">
+          <SectionHeader
+            title="Join Our Mission"
+            subtitle={['Feeling inspired? Join our mission through one of these ways.']}
+          />
 
-            <Grid container rowSpacing={2}>
-              {buttonProps.map((buttonProp, index) => (
-                <ActionButtonItem
-                  key={index}
-                  icon={buttonProp.icon}
-                  title={buttonProp.title}
-                  description={buttonProp.description}
-                  actionText={buttonProp.actionText}
-                  link={buttonProp.link}
-                />
-              ))}
-            </Grid>
-          </Stack>
+          <Grid container rowSpacing={2}>
+            {buttonProps.map((buttonProp, index) => (
+              <ActionButtonItem
+                key={index}
+                icon={buttonProp.icon}
+                title={buttonProp.title}
+                description={buttonProp.description}
+                actionText={buttonProp.actionText}
+                link={buttonProp.link}
+              />
+            ))}
+          </Grid>
         </Stack>
 
         <Stack

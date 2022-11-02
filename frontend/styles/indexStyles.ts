@@ -1,6 +1,7 @@
 import { maxWidth, SxProps } from '@mui/system';
 import { theme } from '../utils/theme';
 import DesktopHeaderImage from '../public/landing-page/desktop-header-background.png';
+import StatisticsBackground from '../public/landing-page/statistics-background.png';
 import MobileHeaderImage from '../public/landing-page/mobile-header-background.png';
 import InstructionsImageBackground from '../public/landing-page/instructions-image-background.png';
 
@@ -228,12 +229,25 @@ export const statisticsMainTextSx: SxProps = {
   color: theme.palette.primary.main,
 };
 
+export const statisticsContainerSx: SxProps = {
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '100%',
+  backgroundImage: `url(${StatisticsBackground.src})`,
+  backgroundSize: 'cover',
+};
+
 export const statisticsSectionSx: SxProps = {
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
   width: '100%',
+  backgroundImage: `url(${StatisticsBackground.src})`,
+  backgroundSize: 'cover',
+  backgroundRepeat: 'no-repeat',
 };
 
 export const statisticsItemsContainerSx: SxProps = {
