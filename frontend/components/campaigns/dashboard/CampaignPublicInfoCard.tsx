@@ -1,3 +1,4 @@
+import HelpIcon from '@mui/icons-material/Help';
 import LinearScaleIcon from '@mui/icons-material/LinearScale';
 import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 import PaidIcon from '@mui/icons-material/Paid';
@@ -5,6 +6,7 @@ import { Grid, Typography } from '@mui/material';
 import { Box, Stack } from '@mui/system';
 import moment from 'moment';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import {
   campaignImageSx,
   campaignInfoCardHeaderSx,
@@ -13,8 +15,10 @@ import {
 import { CampaignPublicData } from '../../../types/campaigns';
 import { getCampaignStatus } from '../../../utils/campaigns';
 import Button from '../../generic/Button';
+import IconButtonWithTooltip from '../../IconButtonWithTooltip';
 import CampaignDateInfoIcon from './CampaignDateInfoIcon';
 import CampaignMoneyInfoIcon from './CampaignMoneyInfoIcon';
+import CouponHelpDialog from './CouponHelpDialog';
 
 interface Props {
   campaign: CampaignPublicData;
@@ -22,6 +26,7 @@ interface Props {
 
 const CampaignPublicInfoCard = ({ campaign }: Props) => {
   const router = useRouter();
+  const [isCouponHelpOpen, setIsCouponHelpOpen] = useState<boolean>(false);
 
   const numTotalCoupons = campaign.promisedAmount / campaign.couponDenomination;
   const numOfDaysTillEnd = campaign.end.diff(moment(), 'days');
@@ -57,7 +62,17 @@ const CampaignPublicInfoCard = ({ campaign }: Props) => {
           </Stack>
 
           <Stack sx={campaignInfoItemSx} component="div" spacing={1}>
-            <Typography variant="h4">{`${numTotalCoupons} coupons in total`}</Typography>
+            <Stack direction="row" justifyContent="center" alignItems="center">
+              <Typography variant="h4">{`${numTotalCoupons} coupons in total`}</Typography>
+
+              <IconButtonWithTooltip
+                icon={<HelpIcon />}
+                tooltip="Learn more about coupon distribution"
+                onClick={() => setIsCouponHelpOpen(true)}
+              />
+
+              {isCouponHelpOpen && <CouponHelpDialog campaign={campaign} setIsCouponHelpOpen={setIsCouponHelpOpen} />}
+            </Stack>
 
             <Stack component="div" direction="row" spacing={2}>
               <CampaignMoneyInfoIcon
