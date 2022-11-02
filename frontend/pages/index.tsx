@@ -397,9 +397,7 @@ const Home: NextPage = () => {
 
         <Box sx={statisticsContainerSx}>
           <Stack sx={combineSxProps(sectionSx, statisticsSectionSx)} component="div">
-            <Typography variant="h1" color="#FFFFFF">
-              Our impact
-            </Typography>
+            <Typography variant="h1">Our impact</Typography>
 
             <Grid sx={statisticsItemsContainerSx} spacing={2} container>
               {statistics.map((statisticData, index) => (

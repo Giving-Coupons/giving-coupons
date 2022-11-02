@@ -216,7 +216,6 @@ export const mobileInstructionsImageContainerSx: SxProps = {
 
 export const statisticsContainerSx: SxProps = {
   display: 'flex',
-  background: `linear-gradient(45deg, ${theme.palette.primary.main} 10%, ${theme.palette.secondary.main} 90%)`,
   width: '100%',
   justifyContent: 'center',
 };
@@ -246,13 +245,11 @@ export const statisticsItemSx: SxProps = {
 };
 
 export const statisticsItemCardSx: SxProps = {
-  boxShadow: `0px 0px 30px 0px #FFFFFF`,
   padding: 2,
   margin: 2,
   width: '80%',
   borderRadius: '20px',
   alignItems: 'center',
-  backgroundColor: 'white',
 };
 
 export const statisticsIconAvatarSx: SxProps = {
