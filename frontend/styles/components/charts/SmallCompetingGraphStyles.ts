@@ -11,6 +11,16 @@ export const graphLabelSx: SxProps = {
   fontSize: '0.8rem',
 };
 
+export const graphLeftLabelSx: SxProps = {
+  ...graphLabelSx,
+  textAlign: 'left',
+};
+
+export const graphRightLabelSx: SxProps = {
+  ...graphLabelSx,
+  textAlign: 'right',
+};
+
 export const leftBarSx: SxProps = {
   backgroundColor: theme.palette.primaryTranslucent.main,
 };

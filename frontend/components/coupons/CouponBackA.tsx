@@ -1,17 +1,18 @@
+import { Box, Divider, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
-import { Typography, Box } from '@mui/material';
+import { QRCodeSVG } from 'qrcode.react';
 import {
   couponContainerSx,
-  instructionsSx,
-  instructionsTitleSx,
-  instructionsLogoSx,
   instructionsItemSx,
   instructionsListSx,
-  sugarFontSx,
+  instructionsLogoSx,
+  instructionsSx,
+  instructionsTitleSx,
   qrCodeSx,
+  sugarFontSx,
 } from '../../styles/components/coupons/couponStyles';
-import { QRCodeSVG } from 'qrcode.react';
 import { CouponBaseData } from '../../types/coupons';
+import { DATE_FORMAT } from '../../utils/constants';
 
 interface Props {
   coupon: CouponBaseData;
@@ -59,6 +60,12 @@ const CouponBackA = ({ coupon }: Props) => {
         <Stack component="div">
           <Typography align="center" color="black" variant="caption" fontWeight={600}>
             {redeemUrl}
+          </Typography>
+
+          <Divider />
+
+          <Typography align="center" color="gray" variant="caption" fontWeight={600}>
+            {`Valid Till: ${coupon.expiresAt.format(DATE_FORMAT)}`}
           </Typography>
         </Stack>
       </Stack>

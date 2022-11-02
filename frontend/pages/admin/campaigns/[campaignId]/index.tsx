@@ -48,7 +48,7 @@ const AdminCampaign = () => {
               <Stack sx={sectionSx} component="div" spacing={4}>
                 <CampaignInfoCard campaign={campaign} />
 
-                <CampaignCouponsCard campaignId={campaign.id} coupons={campaign.coupons} />
+                <CampaignCouponsCard campaign={campaign} coupons={campaign.coupons} />
               </Stack>
             </Grid>
 

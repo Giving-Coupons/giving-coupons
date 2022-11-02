@@ -10,5 +10,6 @@ json.start interest.start
 json.end interest.end
 json.status interest.status
 json.couponDenomination interest.coupon_denomination
+json.initialCouponValidity interest.initial_coupon_validity
 
 json.charities interest.charities, partial: 'charities/charity', as: :charity

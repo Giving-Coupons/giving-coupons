@@ -101,3 +101,7 @@ export const mobileHelpButtonSx: SxProps = {
   top: `calc(${theme.mixins.toolbar.minHeight}px + ${theme.spacing(1)})`,
   zIndex: 1,
 };
+
+export const emojiSx: SxProps = {
+  fontSize: 50,
+};

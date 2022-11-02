@@ -11,6 +11,7 @@ import * as Yup from 'yup';
 import FormikValuesListener from '../../../components/forms/FormikValuesListener';
 import IconButtonWithTooltip from '../../../components/IconButtonWithTooltip';
 import AlreadyRedeemedDisplay from '../../../components/redeem/AlreadyRedeemedDisplay';
+import ExpiredDisplay from '../../../components/redeem/ExpiredDisplay';
 import InstructionsDialog from '../../../components/redeem/instructions/InstructionsDialog';
 import RedeemLoading from '../../../components/redeem/RedeemLoading';
 import RedeemStepper from '../../../components/redeem/RedeemStepper';
@@ -27,8 +28,9 @@ import {
   mobileFormContainerSx,
   mobileHelpButtonSx,
 } from '../../../styles/components/redeem/RedeemStyles';
-import { CouponRedeemData, CouponRedeemFormData, CouponRedeemPostData } from '../../../types/coupons';
+import { CouponRedeemData } from '../../../types/coupons';
 import { CouponSponsorship } from '../../../types/primaryDonor';
+import { RedemptionFormData, RedemptionPostData } from '../../../types/redemptions';
 import { RedemptionState, RedemptionStep } from '../../../types/redemptionState';
 import { Nullable } from '../../../types/utils';
 import { log } from '../../../utils/analytics';
@@ -37,6 +39,9 @@ import { DEFAULT_SECONDARY_DONATION_VALUE } from '../../../utils/constants';
 const validationSchema = Yup.object().shape({
   campaignCharityId: Yup.number().required('Campaign charity is required'),
   amount: Yup.number()
+    // Ensure falsey values like 0 and empty string are set to null.
+    // This is necessary for the min check and because text input can return "".
+    .transform((newValue) => newValue || null)
     .nullable()
     .typeError('Amount must be a number')
     .integer('Only dollar amounts are accepted')
@@ -53,11 +58,13 @@ const Redeem: NextPage = () => {
   );
   const isLoading = !coupon && !error;
   const hasLoadedSuccessfully = !error && coupon;
-  const isCouponNotRedeemed = hasLoadedSuccessfully && !coupon.campaignCharity;
+  const hasCouponExpired = hasLoadedSuccessfully && coupon.expiresAt.isBefore();
+  const hasBeenRedeemed = hasLoadedSuccessfully && coupon.redemption;
+  const canCouponBeRedeemed = hasLoadedSuccessfully && !coupon.redemption && !hasCouponExpired;
 
   const minStep = 0;
   const maxStep = 2;
-  const [redeemFormValues, setRedeemFormValues] = useState<CouponRedeemFormData>({
+  const [redeemFormValues, setRedeemFormValues] = useState<RedemptionFormData>({
     amount: DEFAULT_SECONDARY_DONATION_VALUE,
   });
   const [openInstructions, setOpenInstructions] = useState<boolean>(true);
@@ -83,7 +90,7 @@ const Redeem: NextPage = () => {
     setHasReadCookie(true);
   }, [redemptionState]);
 
-  const handleSubmit = (values: CouponRedeemFormData) => {
+  const handleSubmit = (values: RedemptionFormData) => {
     if (urlToken === null) {
       // This should never be available as useSWR will set error / loading and form will not be visible. (Defensive)
       return Promise.reject('urlToken is invalid.');
@@ -98,18 +105,18 @@ const Redeem: NextPage = () => {
     validationSchema
       .validate(values)
       .then((values) => {
-        const couponRedeemPostData: CouponRedeemPostData = {
+        const couponRedeemPostData: RedemptionPostData = {
           urlToken: urlToken,
           campaignCharityId: values.campaignCharityId,
           amount: values.amount ?? 0,
         };
 
-        return api.coupons.redeemCoupon(couponRedeemPostData);
+        return api.redemptions.addRedemption(couponRedeemPostData);
       })
       .then(() => router.push({ pathname: '/redeem/thank-you', query: { campaignId: coupon?.campaign.id } }));
   };
 
-  const renderFormPage = (redemptionState: Nullable<RedemptionState>, values: CouponRedeemFormData) => {
+  const renderFormPage = (redemptionState: Nullable<RedemptionState>, values: RedemptionFormData) => {
     // Do not render if either of:
     // * The useRedemptionState has not found an existing state stored in a cookie and has not initialized a new state.
     // * Coupon has not been found by useSWR.
@@ -193,7 +200,7 @@ const Redeem: NextPage = () => {
       </Head>
 
       <Container component="main" maxWidth="md">
-        {isCouponNotRedeemed && (
+        {canCouponBeRedeemed && (
           <IconButtonWithTooltip
             sx={isMobile ? mobileHelpButtonSx : desktopHelpButtonSx}
             icon={<HelpOutlineIcon />}
@@ -222,20 +229,28 @@ const Redeem: NextPage = () => {
             </Stack>
           )}
 
-          {hasLoadedSuccessfully && coupon.campaignCharity && (
+          {hasLoadedSuccessfully && coupon.redemption && (
             <AlreadyRedeemedDisplay
               campaignId={coupon.campaign.id}
-              campaignCharity={coupon.campaignCharity}
+              campaignCharity={coupon.redemption.campaignCharity}
               couponSponsorship={{
                 couponId: coupon.id,
                 primaryDonor: coupon.campaign.primaryDonor,
                 couponDenomination: coupon.denomination,
               }}
-              secondaryDonorAmount={coupon.secondaryDonation?.amount ?? 0}
+              secondaryDonorAmount={coupon.redemption.secondaryDonation?.amount ?? 0}
             />
           )}
 
-          {isCouponNotRedeemed && (
+          {hasLoadedSuccessfully && hasCouponExpired && !hasBeenRedeemed && (
+            <ExpiredDisplay
+              couponExpiry={coupon.expiresAt}
+              primaryDonorName={coupon.campaign.primaryDonor.name}
+              campaignId={coupon.campaignId}
+            />
+          )}
+
+          {canCouponBeRedeemed && (
             <>
               <RedeemStepper redemptionState={redemptionState} />
 
@@ -274,7 +289,7 @@ const Redeem: NextPage = () => {
           )}
         </Stack>
 
-        {isCouponNotRedeemed && (
+        {canCouponBeRedeemed && (
           <InstructionsDialog
             open={openInstructions}
             handleClose={() => setOpenInstructions(false)}

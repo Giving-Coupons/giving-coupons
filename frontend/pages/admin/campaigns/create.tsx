@@ -52,6 +52,10 @@ const createCampaignSchema = Yup.object().shape(
           message: `Coupon denomination must be a factor of $${promisedAmount}.`,
         });
       }),
+    initialCouponValidity: Yup.number()
+      .required('Initial coupon validity is required.')
+      .integer('Initial coupon validity must be an integer.')
+      .typeError('Initial coupon validity must be a number.'),
     start: Yup.date()
       .required('Start date is required.')
       .typeError('Start date must be a date.')
@@ -113,6 +117,7 @@ const CampaignCreate = () => {
         description: interest.campaignDescription,
         promisedAmount: interest.promisedAmount,
         couponDenomination: campaignDefaultInitialValues.couponDenomination,
+        initialCouponValidity: interest.initialCouponValidity,
         start: interest.start,
         end: interest.end,
         charities: interest.charities.map((interestCharity) => ({

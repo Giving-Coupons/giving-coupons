@@ -3,7 +3,7 @@
 # rubocop:disable Metrics/ClassLength
 class CampaignsController < ApplicationController
   before_action :authenticate_admin!, except: %i[index show]
-  before_action :set_campaign, only: %i[show update destroy]
+  before_action :set_campaign, only: %i[show update destroy regenerate_expired_coupons]
 
   def index
     scope = Campaign.includes(:primary_donor, :coupons, :secondary_donations, image_attachment: :blob,
@@ -22,7 +22,7 @@ class CampaignsController < ApplicationController
       :secondary_donations,
       image_attachment: :blob,
       primary_donor: { image_attachment: :blob },
-      coupons: { secondary_donation: { campaign_charity: :charity } },
+      coupons: { redemption: [secondary_donation: { campaign_charity: :charity }] },
       campaign_charities: [:secondary_donations,
                            :coupons,
                            { charity: [logo_attachment: :blob, image_attachment: :blob] }]
@@ -40,6 +40,10 @@ class CampaignsController < ApplicationController
     @campaign.image.attach(data: params[:image_base64]) if params[:image_base64].present?
 
     @campaign.save!
+
+    initial_coupon_expiry = [@campaign.start, Date.current].max + params[:initial_coupon_validity].days
+    initial_coupon_expiry = [initial_coupon_expiry, @campaign.end].min
+    @campaign.queue_generate_coupons_job(initial_coupon_expiry)
 
     add_success_message "Campaign \"#{@campaign.name}\" successfully created!"
     render :response, status: :created, location: @campaign
@@ -71,14 +75,26 @@ class CampaignsController < ApplicationController
     render :response, status: :ok, location: @campaign
   end
 
+  def regenerate_expired_coupons
+    if @campaign.num_coupons_to_generate.zero?
+      add_error_message 'There are no coupons to regenerate!'
+      render 'layouts/empty', status: :unprocessable_entity
+      return
+    end
+
+    @campaign.queue_generate_coupons_job(params[:expiry_date])
+
+    add_success_message 'The coupons are being regenerated. This may take a while.'
+    render 'layouts/empty', status: :ok
+  end
+
   private
 
   def set_campaign
     @campaign = Campaign.includes(:coupons, :secondary_donations,
                                   image_attachment: :blob,
                                   primary_donor: [image_attachment: :blob],
-                                  campaign_charities: [:coupons,
-                                                       { secondary_donations: [:coupon] },
+                                  campaign_charities: [:coupons, :secondary_donations,
                                                        { charity: [logo_attachment: :blob,
                                                                    image_attachment: :blob] }]).find(params[:id])
   end

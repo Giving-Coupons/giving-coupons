@@ -37,6 +37,10 @@ export const interestFormSchema = Yup.object({
       test: (promisedAmount) => (promisedAmount ?? 0) % DEFAULT_COUPON_DENOMINATION === 0,
       message: `Promised amount must be a multiple of $${DEFAULT_COUPON_DENOMINATION}.`,
     }),
+  initialCouponValidity: Yup.number()
+    .required('Initial coupon validity is required.')
+    .typeError('Initial coupon validity must be a number.')
+    .integer('Initial coupon validity must be an integer.'),
   campaignImageBase64: Yup.string().required('Campaign image is required.'),
   start: Yup.date()
     .required('Start date is required.')
@@ -113,6 +117,8 @@ export default function InterestForm({ onSubmit }: InterestFormProps) {
                   label="Length of Campaign"
                   InputProps={{ endAdornment: <InputAdornment position="end">day(s)</InputAdornment> }}
                 />
+
+                <FormTextInput name="initialCouponValidity" label="Initial Coupon Validity (days)" />
 
                 <FormImageUpload name="campaignImageBase64" label="Upload Campaign Image" />
               </Stack>

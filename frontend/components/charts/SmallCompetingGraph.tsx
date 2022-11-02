@@ -1,11 +1,12 @@
 import { Typography } from '@mui/material';
 import { Box, Stack, SxProps } from '@mui/system';
 import {
-  graphLabelSx,
+  emptyBarSx,
+  graphLeftLabelSx,
   graphLegendSx,
+  graphRightLabelSx,
   leftBarSx,
   rightBarSx,
-  emptyBarSx,
 } from '../../styles/components/charts/SmallCompetingGraphStyles';
 import { Nullable } from '../../types/utils';
 import HorizontalBarGraph from './HorizontalBarGraph';
@@ -54,9 +55,9 @@ const SmallCompetingGraph = ({ leftLabel, rightLabel, barFractions, overrideGrap
       )}
 
       <Box sx={graphLegendSx}>
-        {leftLabel && <Typography sx={graphLabelSx}>{leftLabel}</Typography>}
+        {leftLabel && <Typography sx={graphLeftLabelSx}>{leftLabel}</Typography>}
 
-        {rightLabel && <Typography sx={graphLabelSx}>{rightLabel}</Typography>}
+        {rightLabel && <Typography sx={graphRightLabelSx}>{rightLabel}</Typography>}
       </Box>
     </Stack>
   );

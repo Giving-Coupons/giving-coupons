@@ -17,3 +17,11 @@ if coupon.secondary_donation.present?
 else
   json.secondaryDonation nil
 end
+
+if coupon.redemption.present?
+  json.redemption do
+    json.partial! 'redemptions/minimal', redemption: coupon.redemption
+  end
+else
+  json.redemption nil
+end

@@ -4,6 +4,7 @@ import CharitiesAPI from './charities';
 import CouponsAPI from './coupons';
 import InterestsAPI from './interests';
 import PrimaryDonorsAPI from './primaryDonors';
+import RedemptionsAPI from './redemptions';
 import SecondaryDonationsAPI from './secondaryDonations';
 
 const api = Object.freeze({
@@ -13,6 +14,7 @@ const api = Object.freeze({
   coupons: new CouponsAPI(),
   interests: new InterestsAPI(),
   primaryDonors: new PrimaryDonorsAPI(),
+  redemptions: new RedemptionsAPI(),
   secondaryDonations: new SecondaryDonationsAPI(),
 });
 

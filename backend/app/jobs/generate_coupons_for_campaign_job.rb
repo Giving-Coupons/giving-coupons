@@ -3,7 +3,7 @@
 class GenerateCouponsForCampaignJob < ApplicationJob
   queue_as :urgent
 
-  def perform(campaign)
-    campaign.generate_coupons
+  def perform(campaign, new_expiry_date)
+    campaign.generate_coupons(new_expiry_date)
   end
 end
