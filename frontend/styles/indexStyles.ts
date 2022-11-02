@@ -2,14 +2,24 @@ import { SxProps } from '@mui/system';
 import { theme } from '../utils/theme';
 import { alpha } from '@mui/material';
 
-export const sectionSx: SxProps = {
-  minHeight: `calc(100vh - ${theme.spacing(2)} - ${theme.mixins.toolbar.minHeight}px)`,
+const sectionSx: SxProps = {
   display: 'flex',
   alignItems: 'center',
   width: '100%',
   maxWidth: '1200px',
   paddingTop: 2,
   paddingBottom: 2,
+};
+
+export const mobileSectionSx: SxProps = {
+  minHeight: `calc(100vh - ${theme.spacing(2)} - ${theme.mixins.toolbar.minHeight}px)`,
+  ...sectionSx,
+};
+
+export const desktopSectionSx: SxProps = {
+  height: `calc(100vh - ${theme.spacing(2)} - ${theme.mixins.toolbar.minHeight}px)`,
+  maxHeight: '665px',
+  ...sectionSx,
 };
 
 export const sectionHeaderSx: SxProps = {
@@ -33,6 +43,9 @@ export const headlineBackgroundSx: SxProps = {
 export const desktopHeadlineTextContainerSx: SxProps = {
   padding: 8,
   height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
 };
 
 export const mobileHeadlineTextContainerSx: SxProps = {
@@ -128,12 +141,12 @@ export const mobileInstructionsDescriptionTextSx: SxProps = {
 };
 
 export const desktopHeadlineScreenImageSx: SxProps = {
-  height: '80vh',
+  height: '80%',
   width: 'auto',
 };
 
 export const mobileHeadlineScreenImageSx: SxProps = {
-  width: '80vw',
+  width: '80%',
   height: 'auto',
 };
 
@@ -157,6 +170,13 @@ export const mobileHeadlineImageContainerSx: SxProps = {
   justifyContent: 'center',
 };
 
+export const desktopHeadlineImageContainerSx: SxProps = {
+  display: 'flex',
+  justifyContent: 'center',
+  height: '100%',
+  alignItems: 'center',
+};
+
 export const instructionsImageContainerSx: SxProps = {
   display: 'flex',
   justifyContent: 'center',
@@ -176,7 +196,9 @@ export const statisticsMainTextSx: SxProps = {
 };
 
 export const statisticsSectionSx: SxProps = {
-  justifyContent: 'space-evenly',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
   minHeight: '50vh',
 };
 
@@ -212,7 +234,7 @@ export const statisticsIconSx: SxProps = {
 export const callToActionSectionSx: SxProps = {
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'space-evenly',
+  justifyContent: 'center',
 };
 
 export const callToActionItemSx: SxProps = {

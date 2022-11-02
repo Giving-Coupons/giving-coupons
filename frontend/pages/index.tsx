@@ -11,7 +11,7 @@ import {
   mobileDescriptionTextSx,
   mobileHeadlineTextContainerSx,
   mobileHeadlineTextSx,
-  sectionSx,
+  mobileSectionSx,
   desktopHeadlineScreenImageSx,
   mobileHeadlineScreenImageSx,
   mobileHeadlineImageContainerSx,
@@ -48,6 +48,8 @@ import {
   desktopFooterSectionSx,
   footerButtonSx,
   mobileFooterSectionSx,
+  desktopHeadlineImageContainerSx,
+  desktopSectionSx,
 } from '../styles/indexStyles';
 import { combineSxProps } from '../utils/types';
 import Typed from 'react-typed';
@@ -153,6 +155,7 @@ const Home: NextPage = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const router = useRouter();
 
+  const sectionSx = isMobile ? mobileSectionSx : desktopSectionSx;
   const headlineTextContainerSx = isMobile ? mobileHeadlineTextContainerSx : desktopHeadlineTextContainerSx;
   const headlineTextSx = isMobile ? mobileHeadlineTextSx : desktopHeadlineTextSx;
   const descriptionTextSx = isMobile ? mobileDescriptionTextSx : desktopDescriptionTextSx;
@@ -201,33 +204,41 @@ const Home: NextPage = () => {
 
         <Grid sx={sectionSx} container>
           <Grid sx={headlineTextContainerSx} item xs={12} md={8}>
-            <Typography sx={headlineTextSx}>Giving the</Typography>
+            <Box>
+              <Typography sx={headlineTextSx}>Giving the</Typography>
 
-            <Typography sx={combineSxProps(headlineTextSx, highlightedTextSx)}>Gift of Giving</Typography>
+              <Typography sx={combineSxProps(headlineTextSx, highlightedTextSx)}>Gift of Giving</Typography>
 
-            <Typography sx={descriptionTextSx}>Experience and share the joy of giving by</Typography>
+              <Typography sx={descriptionTextSx}>Experience and share the joy of giving by</Typography>
 
-            <Typed
-              style={descriptionTextSx}
-              strings={[
-                'empowering others to give',
-                'learning how your donations helps charities',
-                'directing donations to beneficiaries',
-                'donating to charities',
-              ]}
-              typeSpeed={40}
-              loop
-            />
+              <Typed
+                style={descriptionTextSx}
+                strings={[
+                  'empowering others to give',
+                  'learning how your donations helps charities',
+                  'directing donations to beneficiaries',
+                  'donating to charities',
+                ]}
+                typeSpeed={40}
+                loop
+              />
 
-            <br />
-            <br />
+              <br />
+              <br />
 
-            <Button actionType="primary" onClick={() => router.push('/campaigns')}>
-              Explore our campaigns now
-            </Button>
+              <Button actionType="primary" onClick={() => router.push('/campaigns')}>
+                Explore our campaigns now
+              </Button>
+            </Box>
           </Grid>
 
-          <Grid item xs={12} md={4} sx={isMobile ? mobileHeadlineImageContainerSx : {}}>
+          <Grid
+            item
+            xs={12}
+            md={4}
+            sx={isMobile ? mobileHeadlineImageContainerSx : desktopHeadlineImageContainerSx}
+            height="100%"
+          >
             <Box sx={headlineScreenImageSx} component="img" src="/landing-page/redeem-screen.png" />
           </Grid>
         </Grid>
@@ -354,7 +365,7 @@ const Home: NextPage = () => {
           </Stack>
         </Box>
 
-        <Stack sx={combineSxProps(sectionSx, callToActionSectionSx)} component="div">
+        <Stack sx={combineSxProps(sectionSx, callToActionSectionSx)} spacing={4} component="div">
           <SectionHeader
             title="Join Our Mission"
             subtitle="Feeling inspired? Join our mission through one of these ways."
@@ -383,19 +394,24 @@ const Home: NextPage = () => {
           <Stack direction="row" alignItems="center" spacing={1}>
             <CopyrightIcon sx={copyRightIconSx} />
 
-            <Typography variant="body2" color={theme.palette.grey[600]}> Giving Coupons 2022. All Rights Reserved.</Typography>
+            <Typography variant="body2" color={theme.palette.grey[600]}>
+              {' '}
+              Giving Coupons 2022. All Rights Reserved.
+            </Typography>
           </Stack>
 
           <Stack component="div" direction="row" spacing={2}>
             <Tooltip title="Instagram">
-              {/*TODO: Link to instagram*/}
-              <InstagramIcon sx={footerButtonSx} />
+              <InstagramIcon
+                sx={footerButtonSx}
+                onClick={() => window.open('https://www.instagram.com/givingcoupons/?igshid=YmMyMTA2M2Y%3D', '_blank')}
+              />
             </Tooltip>
 
             <Tooltip title="Github">
               <GitHubIcon
                 sx={footerButtonSx}
-                onClick={() => router.push('https://github.com/Giving-Coupons/giving-coupons')}
+                onClick={() => window.open('https://github.com/Giving-Coupons/giving-coupons', '_blank')}
               />
             </Tooltip>
           </Stack>
