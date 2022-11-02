@@ -21,7 +21,7 @@ import NotFound from '../../404';
 
 export default function CampaignDetail() {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
   const router = useRouter();
 
   const campaignId =
