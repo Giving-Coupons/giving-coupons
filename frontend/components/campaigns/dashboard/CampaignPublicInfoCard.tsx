@@ -78,7 +78,7 @@ const CampaignPublicInfoCard = ({ campaign }: Props) => {
                 onClick={() => setIsCouponHelpOpen(true)}
               />
 
-              {isCouponHelpOpen && <CouponHelpDialog campaign={campaign} setIsCouponHelpOpen={setIsCouponHelpOpen} />}
+              <CouponHelpDialog open={isCouponHelpOpen} campaign={campaign} setIsCouponHelpOpen={setIsCouponHelpOpen} />
             </Stack>
 
             <Stack component="div" direction="row" spacing={2}>
