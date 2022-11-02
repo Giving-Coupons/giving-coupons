@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 import { Stack } from '@mui/system';
 import { Moment } from 'moment';
 import { campaignDateIconSx } from '../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
-import { DATE_FORMAT } from '../../../utils/constants';
+import { USER_FACING_DATE_FORMAT } from '../../../utils/constants';
 
 interface CampaignDateInfoProps {
   label?: string;
@@ -16,7 +16,7 @@ const CampaignDateInfoIcon = ({ date, label }: CampaignDateInfoProps) => (
 
     {label ?? <Typography>{label}</Typography>}
 
-    <Typography>{date.format(DATE_FORMAT)}</Typography>
+    <Typography>{date.format(USER_FACING_DATE_FORMAT)}</Typography>
   </Stack>
 );
 
