@@ -37,6 +37,9 @@ import { DEFAULT_SECONDARY_DONATION_VALUE } from '../../../utils/constants';
 const validationSchema = Yup.object().shape({
   campaignCharityId: Yup.number().required('Campaign charity is required'),
   amount: Yup.number()
+    // Ensure falsey values like 0 and empty string are set to null.
+    // This is necessary for the min check and because text input can return "".
+    .transform((newValue) => newValue || null)
     .nullable()
     .typeError('Amount must be a number')
     .integer('Only dollar amounts are accepted')
@@ -259,8 +262,7 @@ const Redeem: NextPage = () => {
                           updateRedemptionStep(
                             redemptionState?.current ?? RedemptionStep.SELECT_CHARITY,
                             formikValues.campaignCharityId,
-                            // Empty string check as the FormTextInput component will return '' in some circumstances.
-                            formikValues.amount === '' ? 0 : formikValues.amount,
+                            formikValues.amount,
                           );
                         } else {
                           // If form has not been touched and there is no matching redemption state in cookie, do nothing.
