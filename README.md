@@ -7,6 +7,8 @@
 &nbsp; 
 <img src="https://github.com/Giving-Coupons/giving-coupons/actions/workflows/lint-frontend.yml/badge.svg"/>
 &nbsp; 
+<img src="https://github.com/Giving-Coupons/giving-coupons/actions/workflows/build-frontend.yml/badge.svg"/>
+&nbsp; 
 <img src="https://github.com/Giving-Coupons/giving-coupons/actions/workflows/lint-backend.yml/badge.svg"/>
 </p>
 
