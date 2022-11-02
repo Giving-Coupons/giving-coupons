@@ -1,247 +1,481 @@
-import { Grid, Typography } from '@mui/material';
-import { Box, Stack } from '@mui/system';
+import { Avatar, Grid, Tooltip, Typography, useMediaQuery } from '@mui/material';
+import { Box, Stack, useTheme } from '@mui/system';
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
-import ButtonCard from '../components/ButtonCard';
-import Button from '../components/generic/Button';
 import {
-  buttonSx,
-  callToActionSectionGridItemSx,
-  callToActionStackSx,
-  charityImageBlobResponsiveSx,
-  charityImageLargeResponsiveSx,
-  givingCouponsNoticeSx,
-  headlineImageSx,
-  headlineSectionBoxResponsiveSx,
-  headlineTextGridSx,
-  headlineTextStackSx,
-  howItWorksHeaderSx,
-  howItWorksImageSx,
-  howItWorksSectionSx,
-  howItWorksStackSx,
-  largeImpactTextSx,
-  logoIconTextSx,
-  logoTextSx,
-  orgDescriptionSx,
-  statsSectionGridItemStackSx,
-  statsSectionGridItemSx,
-  statsSectionGridSx,
-  statsSectionImageSx,
-  statsSectionSx,
+  desktopDescriptionTextSx,
+  desktopHeadlineTextContainerSx,
+  desktopHeadlineTextSx,
+  highlightedTextSx,
+  mobileDescriptionTextSx,
+  mobileHeadlineTextContainerSx,
+  mobileHeadlineTextSx,
+  mobileSectionSx,
+  desktopHeadlineScreenImageSx,
+  mobileHeadlineScreenImageSx,
+  mobileHeadlineImageContainerSx,
+  statisticsItemsContainerSx,
+  statisticsSectionSx,
+  statisticsItemSx,
+  statisticsIconSx,
+  statisticsItemCardSx,
+  statisticsIconAvatarSx,
+  mobileTextContainerSx,
+  desktopRightTextContainerSx,
+  mobileInstructionsTitleTextSx,
+  desktopInstructionsTitleTextSx,
+  mobileInstructionsDescriptionTextSx,
+  desktopRightInstructionsDescriptionTextSx,
+  mobileInstructionsImageSx,
+  desktopInstructionsImageSx,
+  instructionsImageShadowSx,
+  desktopLeftTextContainerSx,
+  desktopLeftInstructionsDescriptionTextSx,
+  desktopInstructionsImageContainerSx,
+  instructionsContainerSx,
+  statisticsMainTextSx,
+  callToActionItemSx,
+  callToActionSectionSx,
+  callToActionItemContainerSx,
+  callToActionIconAvatarSx,
+  callToActionIconSx,
+  callToActionLinkSx,
+  callToActionLinkIconSx,
+  sectionHeaderSx,
+  copyRightIconSx,
+  desktopFooterSectionSx,
+  footerButtonSx,
+  mobileFooterSectionSx,
+  desktopHeadlineImageContainerSx,
+  desktopSectionSx,
+  desktopHeadlineBackgroundSx,
+  mobileHeadlineBackgroundSx,
+  mobileTextBoxSx,
+  mobileInstructionsImageContainerSx,
+  givingCouponsInlineLogoSx,
+  sectionSeparationLineSx,
+  statisticsContainerSx,
 } from '../styles/indexStyles';
-import { log } from '../utils/analytics';
+import { combineSxProps } from '../utils/types';
+import Typed from 'react-typed';
+import Button from '../components/generic/Button';
+import { useRouter } from 'next/router';
+import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
+import LocalActivityIcon from '@mui/icons-material/LocalActivity';
+import Diversity1Icon from '@mui/icons-material/Diversity1';
 import { ReactNode } from 'react';
+import { theme } from '../utils/theme';
+import CampaignIcon from '@mui/icons-material/Campaign';
+import Link from 'next/link';
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import CopyrightIcon from '@mui/icons-material/Copyright';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import InstagramIcon from '@mui/icons-material/Instagram';
+
+interface StatisticItemProps {
+  statistic: string;
+  icon: ReactNode;
+  description: string;
+}
+
+const StatisticItem = ({ statistic, icon, description }: StatisticItemProps) => {
+  return (
+    <Grid sx={statisticsItemSx} item xs={12} md={4}>
+      <Stack sx={statisticsItemCardSx} component="div" spacing={1}>
+        <Avatar sx={statisticsIconAvatarSx}>{icon}</Avatar>
+
+        <Typography sx={statisticsMainTextSx}>{statistic}</Typography>
+
+        <Typography color={theme.palette.grey[800]}>{description}</Typography>
+      </Stack>
+    </Grid>
+  );
+};
+
+interface ActionButtonItemProps {
+  icon: ReactNode;
+  title: string;
+  description: string;
+  actionText: string;
+  link: string;
+}
+
+const ActionButtonItem = ({ icon, title, description, actionText, link }: ActionButtonItemProps) => {
+  return (
+    <Grid sx={callToActionItemSx} item xs={12} md={6}>
+      <Stack sx={callToActionItemContainerSx} component="div" spacing={1}>
+        <Avatar sx={callToActionIconAvatarSx}>{icon}</Avatar>
+
+        <Typography variant="h3" color="primary">
+          {title}
+        </Typography>
+
+        <Typography variant="body2" color={theme.palette.grey[800]}>
+          {description}
+        </Typography>
+
+        <Link href={link}>
+          <Stack component="div" direction="row" alignItems="center">
+            <Typography variant="h4" color="primary" sx={callToActionLinkSx}>
+              {actionText} <ArrowRightIcon sx={callToActionLinkIconSx} />
+            </Typography>
+          </Stack>
+        </Link>
+      </Stack>
+    </Grid>
+  );
+};
+
+interface SectionHeaderProps {
+  title: string;
+  subtitle?: ReactNode[];
+}
+
+const SectionHeader = ({ title, subtitle = [] }: SectionHeaderProps) => (
+  <Stack component="div" sx={sectionHeaderSx} alignItems="center">
+    <Typography variant="h1" align="center">
+      {title}
+    </Typography>
+
+    {subtitle.length > 0 && (
+      <Typography color={theme.palette.grey[700]} align="center">
+        {subtitle.map((item, index) => (
+          <Box key={index} component="span">
+            {item}
+          </Box>
+        ))}
+      </Typography>
+    )}
+  </Stack>
+);
+
+const statistics: StatisticItemProps[] = [
+  {
+    statistic: '$1600',
+    icon: <VolunteerActivismIcon sx={statisticsIconSx} />,
+    description: 'Raised for charities',
+  },
+  { statistic: '160', icon: <LocalActivityIcon sx={statisticsIconSx} />, description: 'Coupons distributed' },
+  { statistic: '8', icon: <Diversity1Icon sx={statisticsIconSx} />, description: 'Charities supported' },
+];
 
 const Home: NextPage = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const router = useRouter();
+
+  const sectionSx = isMobile ? mobileSectionSx : desktopSectionSx;
+  const headlineTextContainerSx = isMobile ? mobileHeadlineTextContainerSx : desktopHeadlineTextContainerSx;
+  const headlineTextSx = isMobile ? mobileHeadlineTextSx : desktopHeadlineTextSx;
+  const descriptionTextSx = isMobile ? mobileDescriptionTextSx : desktopDescriptionTextSx;
+  const headlineScreenImageSx = isMobile ? mobileHeadlineScreenImageSx : desktopHeadlineScreenImageSx;
+  const rightTextContainerSx = isMobile ? mobileTextContainerSx : desktopRightTextContainerSx;
+  const instructionsTitleTextSx = isMobile ? mobileInstructionsTitleTextSx : desktopInstructionsTitleTextSx;
+  const rightInstructionsDescriptionTextSx = isMobile
+    ? mobileInstructionsDescriptionTextSx
+    : desktopRightInstructionsDescriptionTextSx;
+  const instructionsImageSx = isMobile ? mobileInstructionsImageSx : desktopInstructionsImageSx;
+  const leftTextContainerSx = isMobile ? mobileTextContainerSx : desktopLeftTextContainerSx;
+  const leftInstructionsDescriptionTextSx = isMobile
+    ? mobileInstructionsDescriptionTextSx
+    : desktopLeftInstructionsDescriptionTextSx;
+  const instructionsImageContainerSx = isMobile
+    ? mobileInstructionsImageContainerSx
+    : desktopInstructionsImageContainerSx;
+
+  const buttonProps: ActionButtonItemProps[] = [
+    {
+      icon: <VolunteerActivismIcon sx={callToActionIconSx} />,
+      title: 'Donate to charities',
+      description: 'Feel strongly about any causes? Contribute directly to charities through our campaigns.',
+      actionText: 'Donate now',
+      link: '/campaigns',
+    },
+    {
+      icon: <CampaignIcon sx={callToActionIconSx} />,
+      title: 'Start a campaign',
+      description:
+        'Empower your loved ones to improve the lives of others. Sponsor a coupon for them to donate to a charity of their choice.',
+      actionText: 'Start now',
+      link: '/interest',
+    },
+  ];
+
   return (
     <Box>
       <Head>
         <title>Giving Coupons</title>
       </Head>
 
-      <HeadlineSection />
+      <Stack component="main" alignItems="center">
+        {isMobile ? (
+          <Box sx={mobileHeadlineBackgroundSx} component="img" src="/landing-page/mobile-header-background.png" />
+        ) : (
+          <Box sx={desktopHeadlineBackgroundSx} component="img" src="/landing-page/desktop-header-background.png" />
+        )}
 
-      <StatsSection />
+        <Grid sx={sectionSx} container>
+          <Grid sx={headlineTextContainerSx} item xs={12} md={8}>
+            <Box sx={isMobile ? mobileTextBoxSx : {}}>
+              <Typography sx={headlineTextSx}>Giving the</Typography>
 
-      <ResponsiveCharityImage />
+              <Typography sx={combineSxProps(headlineTextSx, highlightedTextSx)}>Gift of Giving</Typography>
 
-      <HowItWorksSection />
+              <Typography sx={descriptionTextSx}>Experience and share the joy of giving by</Typography>
 
-      <CallToActionSection />
+              <Typed
+                style={descriptionTextSx}
+                strings={[
+                  'empowering others to give',
+                  'learning how your donations help charities',
+                  'directing donations to beneficiaries',
+                  'donating to charities',
+                ]}
+                typeSpeed={40}
+                loop
+              />
 
-      <Stack sx={givingCouponsNoticeSx}>
-        <Typography variant="subtitle1">© Giving Coupons 2022</Typography>
-      </Stack>
-    </Box>
-  );
-};
+              <br />
+              <br />
 
-const HeadlineSection = () => (
-  // Adds bottom margin if breakpoint < md to account for extra length from text below image.
-  <Grid sx={headlineSectionBoxResponsiveSx} container spacing={2}>
-    <Grid item xs={12} sm={12} md={6} lg={6}>
-      <Box sx={headlineImageSx} component="img" src="/nusstudents.png" />
-    </Grid>
+              <Button actionType="primary" onClick={() => router.push('/campaigns')}>
+                Explore our campaigns now
+              </Button>
+            </Box>
+          </Grid>
 
-    <Grid item xs={12} sm={12} md={6} lg={6} sx={headlineTextGridSx}>
-      <Stack sx={headlineTextStackSx}>
-        <Typography variant="hero" align="center" textAlign="left" fontWeight="900">
-          Share the gift of giving
-        </Typography>
-
-        <Typography
-          sx={orgDescriptionSx}
-          variant="subtitle1"
-          align="center"
-          fontSize="20px"
-          textAlign="left"
-          fontWeight="500"
-        >
-          Giving Coupons is an initiative to raise awareness and money for charities by empowering more people to
-          donate.
-        </Typography>
-
-        <Button
-          sx={buttonSx}
-          actionType="primary"
-          href="/campaigns"
-          onClick={() => {
-            log('[Home] Click "Explore our campaigns"');
-          }}
-        >
-          Explore Our Campaigns
-        </Button>
-      </Stack>
-    </Grid>
-  </Grid>
-);
-
-const StatsSection = () => {
-  const StatItem = (props: { imgSrc: string; stat: string; subtitle: string }) => (
-    <Grid item xs={12} sm={12} md={4} lg={4} sx={statsSectionGridItemSx}>
-      <Stack sx={statsSectionGridItemStackSx}>
-        <Box sx={statsSectionImageSx} component="img" src={props.imgSrc} />
-
-        <Typography sx={largeImpactTextSx}>{props.stat}</Typography>
-
-        <Typography variant="subtitle1">{props.subtitle}</Typography>
-      </Stack>
-    </Grid>
-  );
-
-  return (
-    <Stack sx={statsSectionSx}>
-      <Typography variant="h1" align="center">
-        To Date
-      </Typography>
-
-      <Box width="80%">
-        <Grid sx={statsSectionGridSx} container spacing={2}>
-          <StatItem imgSrc="/icon-charity.png" stat="$1,600" subtitle="Additional funds raised for charity" />
-
-          <StatItem imgSrc="/icon-voucher.png" stat="160" subtitle="Coupons issued" />
-
-          <StatItem imgSrc="/icon-love.png" stat="8" subtitle="Charities supported" />
+          <Grid
+            item
+            xs={12}
+            md={4}
+            sx={isMobile ? mobileHeadlineImageContainerSx : desktopHeadlineImageContainerSx}
+            height="100%"
+          >
+            <Box sx={headlineScreenImageSx} component="img" src="/landing-page/redeem-screen.png" />
+          </Grid>
         </Grid>
-      </Box>
-    </Stack>
-  );
-};
 
-const ResponsiveCharityImage = () => (
-  <>
-    {/* Hides if breakpoint >= md */}
-    <Box sx={charityImageBlobResponsiveSx} component="img" src="/charity-image-blob.png" />
-    {/* Shows if breakpoint < md */}
-    <Box sx={charityImageLargeResponsiveSx} component="img" src="/charity-image.png" />
-  </>
-);
+        <Box sx={sectionSeparationLineSx} />
 
-const HowItWorksSection = () => {
-  const GridItem = (props: { imgSrc: string; content: ReactNode; alignTo: 'start' | 'end' }) => (
-    <Grid item xs={12}>
-      <Stack sx={howItWorksStackSx} alignItems={props.alignTo === 'start' ? 'flex-start' : 'flex-end'} spacing={2}>
+        <Stack sx={instructionsContainerSx} component="div">
+          <SectionHeader
+            title="How it works"
+            subtitle={[
+              'This is how ',
+              <Box key="inline-logo" sx={givingCouponsInlineLogoSx} component="img" src="/inline-logo.png" />,
+              ' empowers people to give. Join us at any step.',
+            ]}
+          />
+
+          <Grid sx={sectionSx} container>
+            {!isMobile && (
+              <Grid item xs={12} md={6} sx={instructionsImageContainerSx}>
+                <Box
+                  sx={combineSxProps(instructionsImageSx, instructionsImageShadowSx)}
+                  component="img"
+                  src="/landing-page/start-campaign-screen.png"
+                />
+              </Grid>
+            )}
+
+            <Grid sx={rightTextContainerSx} item xs={12} md={6}>
+              <Typography sx={instructionsTitleTextSx}>01. Start the</Typography>
+
+              <Typography sx={combineSxProps(instructionsTitleTextSx, highlightedTextSx)}>chain of giving</Typography>
+
+              <br />
+
+              <Typography sx={rightInstructionsDescriptionTextSx}>
+                Pledge to donate a sum of money to one or more charities by starting a campaign on{' '}
+                <Box sx={givingCouponsInlineLogoSx} component="img" src="/inline-logo.png" />.
+              </Typography>
+
+              <br />
+
+              <Button actionType="primary" onClick={() => router.push('/interest')}>
+                Start a campaign
+              </Button>
+            </Grid>
+
+            {isMobile && (
+              <Grid item xs={12} md={6} sx={instructionsImageContainerSx}>
+                <Box
+                  sx={combineSxProps(instructionsImageSx, instructionsImageShadowSx)}
+                  component="img"
+                  src="/landing-page/start-campaign-screen.png"
+                />
+              </Grid>
+            )}
+          </Grid>
+
+          <Grid sx={sectionSx} container>
+            <Grid sx={leftTextContainerSx} item xs={12} md={6}>
+              <Typography sx={combineSxProps(instructionsTitleTextSx, highlightedTextSx)}>02. Empower</Typography>
+
+              <Typography sx={instructionsTitleTextSx}>others to give</Typography>
+
+              <br />
+
+              <Typography sx={leftInstructionsDescriptionTextSx}>
+                <Box sx={givingCouponsInlineLogoSx} component="img" src="/inline-logo.png" /> will split the pledged
+                amount into coupons. Coupons are distributed to the public or organisations.
+              </Typography>
+
+              <br />
+
+              <Button actionType="primary" onClick={() => router.push('/campaigns')}>
+                Explore how coupons are used
+              </Button>
+            </Grid>
+
+            <Grid item xs={12} md={6} sx={instructionsImageContainerSx}>
+              <Box sx={instructionsImageSx} component="img" src="/landing-page/coupons.png" />
+            </Grid>
+          </Grid>
+
+          <Grid sx={sectionSx} container>
+            {!isMobile && (
+              <Grid item xs={12} md={6} sx={instructionsImageContainerSx}>
+                <Box sx={instructionsImageSx} component="img" src="/landing-page/select-charity.png" />
+              </Grid>
+            )}
+
+            <Grid sx={leftTextContainerSx} item xs={12} md={6}>
+              <Typography sx={instructionsTitleTextSx}>03. Direct donations to</Typography>
+
+              <Typography sx={combineSxProps(instructionsTitleTextSx, highlightedTextSx)}>help charities</Typography>
+
+              <br />
+
+              <Typography sx={leftInstructionsDescriptionTextSx}>
+                If you received a coupon, redeem it to choose where the money goes to. Learn about the charities and
+                their impact during the redemption process.
+              </Typography>
+
+              <br />
+
+              <Button actionType="primary" onClick={() => router.push('/campaigns')}>
+                Explore the impact by coupon recipients
+              </Button>
+            </Grid>
+
+            {isMobile && (
+              <Grid item xs={12} md={6} sx={instructionsImageContainerSx}>
+                <Box
+                  sx={combineSxProps(instructionsImageSx, instructionsImageShadowSx)}
+                  component="img"
+                  src="/landing-page/select-charity.png"
+                />
+              </Grid>
+            )}
+          </Grid>
+
+          <Grid sx={sectionSx} container>
+            <Grid sx={rightTextContainerSx} item xs={12} md={6}>
+              <Typography sx={combineSxProps(instructionsTitleTextSx, highlightedTextSx)}>04. Extend</Typography>
+
+              <Typography sx={instructionsTitleTextSx} align="right">
+                the chain of giving
+              </Typography>
+
+              <br />
+
+              <Typography sx={rightInstructionsDescriptionTextSx}>
+                Add a personal contribution during the coupon redemption process. Or donate directly to charities
+                through our campaigns.
+              </Typography>
+
+              <br />
+
+              <Button actionType="primary" onClick={() => router.push('/campaigns')}>
+                Explore our campaigns
+              </Button>
+            </Grid>
+
+            <Grid item xs={12} md={6} sx={instructionsImageContainerSx}>
+              <Box
+                sx={combineSxProps(instructionsImageSx, instructionsImageShadowSx)}
+                component="img"
+                src="/landing-page/contribute.png"
+              />
+            </Grid>
+          </Grid>
+        </Stack>
+
+        <Box sx={sectionSeparationLineSx} />
+
+        <Stack sx={statisticsContainerSx} component="div">
+          <Stack sx={combineSxProps(sectionSx, statisticsSectionSx)} spacing={4}>
+            <SectionHeader title="Our impact" />
+
+            <Grid sx={statisticsItemsContainerSx} spacing={2} container>
+              {statistics.map((statisticData, index) => (
+                <StatisticItem
+                  key={index}
+                  statistic={statisticData.statistic}
+                  icon={statisticData.icon}
+                  description={statisticData.description}
+                />
+              ))}
+            </Grid>
+          </Stack>
+        </Stack>
+
+        <Box sx={sectionSeparationLineSx} />
+
+        <Stack sx={combineSxProps(sectionSx, callToActionSectionSx)} spacing={4} component="div">
+          <SectionHeader
+            title="Join Our Mission"
+            subtitle={['Feeling inspired? Join our mission through one of these ways.']}
+          />
+
+          <Grid container rowSpacing={2}>
+            {buttonProps.map((buttonProp, index) => (
+              <ActionButtonItem
+                key={index}
+                icon={buttonProp.icon}
+                title={buttonProp.title}
+                description={buttonProp.description}
+                actionText={buttonProp.actionText}
+                link={buttonProp.link}
+              />
+            ))}
+          </Grid>
+        </Stack>
+
         <Stack
-          alignItems="center"
-          justifyContent="space-between"
-          direction={props.alignTo === 'start' ? 'row' : 'row-reverse'}
+          component="div"
+          sx={isMobile ? mobileFooterSectionSx : desktopFooterSectionSx}
+          direction={isMobile ? 'column' : 'row'}
+          spacing={1}
         >
-          <Box sx={howItWorksImageSx} component="img" src={props.imgSrc} />
+          <Stack component="div" direction="row" alignItems="center" spacing={1}>
+            <CopyrightIcon sx={copyRightIconSx} />
 
-          {props.content}
+            <Typography variant="body2" color={theme.palette.grey[600]}>
+              {' '}
+              Giving Coupons 2022. All Rights Reserved.
+            </Typography>
+          </Stack>
+
+          <Stack component="div" direction="row" spacing={2}>
+            <Tooltip title="Instagram">
+              <InstagramIcon
+                sx={footerButtonSx}
+                onClick={() => window.open('https://www.instagram.com/givingcoupons/?igshid=YmMyMTA2M2Y%3D', '_blank')}
+              />
+            </Tooltip>
+
+            <Tooltip title="Github">
+              <GitHubIcon
+                sx={footerButtonSx}
+                onClick={() => window.open('https://github.com/Giving-Coupons/giving-coupons', '_blank')}
+              />
+            </Tooltip>
+          </Stack>
         </Stack>
       </Stack>
-    </Grid>
-  );
-
-  const GridItemText = (props: { children: ReactNode }) => (
-    <Typography sx={{ margin: '2rem' }} variant="h3">
-      {props.children}
-    </Typography>
-  );
-
-  return (
-    <Grid sx={howItWorksSectionSx} container spacing={2}>
-      <Grid item xs={12}>
-        <Typography sx={howItWorksHeaderSx} variant="h1">
-          How It Works
-        </Typography>
-      </Grid>
-
-      <GridItem
-        imgSrc="/public-relation.png"
-        content={<GridItemText>Donors start a campaign by committing a sum to one or more charities</GridItemText>}
-        alignTo="start"
-      />
-
-      <GridItem
-        content={
-          <GridItemText>
-            <Box sx={logoIconTextSx} component="img" src="/logo-icon.png" />{' '}
-            <Typography sx={logoTextSx} component="span" color="primary" variant="h4">
-              GIVING COUPONS
-            </Typography>{' '}
-            generates and prints out coupons
-          </GridItemText>
-        }
-        imgSrc="/icon-voucher.png"
-        alignTo="end"
-      />
-
-      <GridItem
-        imgSrc="/icon-charity.png"
-        content={
-          <GridItemText>
-            Coupon recipients choose which charities gets the donation, and can add their own contributions
-          </GridItemText>
-        }
-        alignTo="start"
-      />
-
-      <GridItem
-        imgSrc="/icon-love.png"
-        content={
-          <GridItemText>The selected charities directly receive the funds from the donor or via Giving.SG</GridItemText>
-        }
-        alignTo="end"
-      />
-    </Grid>
-  );
-};
-const CallToActionSection = () => {
-  const router = useRouter();
-
-  return (
-    <Stack sx={callToActionStackSx} spacing={2}>
-      <Typography variant="h1" align="center">
-        Join Our Mission
-      </Typography>
-
-      <Grid container spacing={2} alignItems="center" justifyContent="center" width="100%" maxWidth="1000px">
-        <Grid item xs={12} sm={12} md={6} lg={6} sx={callToActionSectionGridItemSx}>
-          <ButtonCard
-            title="Create a Campaign"
-            content="Commit a sum and generate coupons to spread the gift of giving"
-            onClick={() => {
-              log('[Home] Click "Create a Campaign"');
-              router.push('/interest');
-            }}
-          />
-        </Grid>
-
-        <Grid item xs={12} sm={12} md={6} lg={6} sx={callToActionSectionGridItemSx}>
-          <ButtonCard
-            title="Contribute to a campaign"
-            content="Learn more about existing campaigns and contribute directly"
-            onClick={() => {
-              log('[Home] Click "Contribute to a campaign"');
-              router.push('/campaigns');
-            }}
-          />
-        </Grid>
-      </Grid>
-    </Stack>
+    </Box>
   );
 };
 

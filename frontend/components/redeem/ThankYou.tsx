@@ -42,7 +42,7 @@ const ThankYou = ({ campaignId }: Props) => {
     {
       icon: <CampaignIcon />,
       title: 'Start a campaign',
-      description: 'Pay it forward by sponsoring others. Empower your loved ones to improve the lives of others..',
+      description: 'Pay it forward by sponsoring others. Empower your loved ones to improve the lives of others.',
       onClick: () => {
         log('[ThankYou] Click "Start a campaign"');
         router.push('/interest');
