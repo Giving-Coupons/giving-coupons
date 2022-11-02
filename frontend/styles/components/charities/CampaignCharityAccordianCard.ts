@@ -6,10 +6,10 @@ export const accordianSx: SxProps = {
 
 export const stackSx: SxProps = {
   width: '100%',
+  padding: '5px 0',
 };
 
 export const charityGraphStackSx: SxProps = {
-  margin: '10px',
   width: '90%',
 };
 
@@ -20,7 +20,7 @@ export const graphSx: SxProps = {
 };
 
 export const charityLogoSx: SxProps = {
-  margin: '0 10px',
+  margin: 1,
   maxHeight: '40px',
   minHeight: '40px',
   height: '40px',

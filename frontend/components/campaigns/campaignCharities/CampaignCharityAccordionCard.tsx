@@ -30,7 +30,11 @@ const CustomAccordion = styled((props: AccordionProps) => <Accordion elevation={
   },
 }));
 
-const CustomAccordianSummary = styled(AccordionSummary)(() => ({ '&>.MuiAccordionSummary-content': { margin: 0 } }));
+const CustomAccordianSummary = styled(AccordionSummary)(() => ({
+  padding: 0,
+  '&>.MuiAccordionSummary-content': { margin: 0 },
+  '&>.MuiAccordionSummary-expandIconWrapper ': { margin: '8px' },
+}));
 
 const CampaignCharityAccordionCard = ({ campaignCharity }: Props) => {
   const primaryDonorDonationData = campaignCharity.primaryDonation;
@@ -39,7 +43,7 @@ const CampaignCharityAccordionCard = ({ campaignCharity }: Props) => {
   return (
     <CustomAccordion disableGutters sx={accordianSx}>
       <CustomAccordianSummary expandIcon={<ExpandMoreIcon />}>
-        <Stack direction="row" justifyContent="center" alignItems="center" sx={stackSx}>
+        <Stack direction="row" justifyContent="space-evenly" alignItems="center" sx={stackSx}>
           <Box sx={charityLogoSx} component="img" src={campaignCharity.charity.logoBase64} />
 
           <Stack sx={charityGraphStackSx}>
