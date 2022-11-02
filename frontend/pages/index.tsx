@@ -226,7 +226,7 @@ const Home: NextPage = () => {
                 style={descriptionTextSx}
                 strings={[
                   'empowering others to give',
-                  'learning how your donations helps charities',
+                  'learning how your donations help charities',
                   'directing donations to beneficiaries',
                   'donating to charities',
                 ]}
