@@ -2,6 +2,7 @@ import { Moment } from 'moment';
 import { CampaignCharityData } from './campaignCharities';
 import { CharityMinimalData } from './charity';
 import { SecondaryDonationData } from './donations';
+import { Nullable } from './utils';
 
 export type RedemptionMinimalData = {
   charity: CharityMinimalData;
@@ -14,3 +15,11 @@ export type RedemptionData = {
   campaignCharity: CampaignCharityData;
   secondaryDonation: SecondaryDonationData;
 };
+
+export type RedemptionPostData = {
+  urlToken: string;
+  amount: Nullable<number>;
+  campaignCharityId: number;
+};
+
+export type RedemptionFormData = Partial<Omit<RedemptionPostData, 'urlToken'>>;

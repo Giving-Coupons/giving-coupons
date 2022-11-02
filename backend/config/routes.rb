@@ -25,7 +25,6 @@ Rails.application.routes.draw do
       resources :coupons, only: %i[index show] do
         collection do
           get 'campaign/:campaign_id/unredeemed', to: 'coupons#campaign_unredeemed'
-          post 'redeem', to: 'redemptions#create'
 
           get ':url_token/progress', to: 'coupons#progress'
           put ':url_token/progress', to: 'coupons#update_progress'

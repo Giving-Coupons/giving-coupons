@@ -27,14 +27,6 @@ export type CouponProgressData = {
   progress: Nullable<string>;
 };
 
-export type CouponRedeemPostData = {
-  urlToken: string;
-  amount: Nullable<number>;
-  campaignCharityId: number;
-};
-
-export type CouponRedeemFormData = Partial<Omit<CouponRedeemPostData, 'urlToken'>>;
-
 export type CouponRedirectFormData = {
   hasAcknowledged: boolean;
 };

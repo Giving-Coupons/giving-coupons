@@ -28,8 +28,9 @@ import {
   mobileFormContainerSx,
   mobileHelpButtonSx,
 } from '../../../styles/components/redeem/RedeemStyles';
-import { CouponRedeemData, CouponRedeemFormData, CouponRedeemPostData } from '../../../types/coupons';
+import { CouponRedeemData } from '../../../types/coupons';
 import { CouponSponsorship } from '../../../types/primaryDonor';
+import { RedemptionFormData, RedemptionPostData } from '../../../types/redemptions';
 import { RedemptionState, RedemptionStep } from '../../../types/redemptionState';
 import { Nullable } from '../../../types/utils';
 import { log } from '../../../utils/analytics';
@@ -60,7 +61,7 @@ const Redeem: NextPage = () => {
 
   const minStep = 0;
   const maxStep = 2;
-  const [redeemFormValues, setRedeemFormValues] = useState<CouponRedeemFormData>({
+  const [redeemFormValues, setRedeemFormValues] = useState<RedemptionFormData>({
     amount: DEFAULT_SECONDARY_DONATION_VALUE,
   });
   const [openInstructions, setOpenInstructions] = useState<boolean>(true);
@@ -86,7 +87,7 @@ const Redeem: NextPage = () => {
     setHasReadCookie(true);
   }, [redemptionState]);
 
-  const handleSubmit = (values: CouponRedeemFormData) => {
+  const handleSubmit = (values: RedemptionFormData) => {
     if (urlToken === null) {
       // This should never be available as useSWR will set error / loading and form will not be visible. (Defensive)
       return Promise.reject('urlToken is invalid.');
@@ -101,18 +102,18 @@ const Redeem: NextPage = () => {
     validationSchema
       .validate(values)
       .then((values) => {
-        const couponRedeemPostData: CouponRedeemPostData = {
+        const couponRedeemPostData: RedemptionPostData = {
           urlToken: urlToken,
           campaignCharityId: values.campaignCharityId,
           amount: values.amount ?? 0,
         };
 
-        return api.coupons.redeemCoupon(couponRedeemPostData);
+        return api.redemptions.addRedemption(couponRedeemPostData);
       })
       .then(() => router.push({ pathname: '/redeem/thank-you', query: { campaignId: coupon?.campaign.id } }));
   };
 
-  const renderFormPage = (redemptionState: Nullable<RedemptionState>, values: CouponRedeemFormData) => {
+  const renderFormPage = (redemptionState: Nullable<RedemptionState>, values: RedemptionFormData) => {
     // Do not render if either of:
     // * The useRedemptionState has not found an existing state stored in a cookie and has not initialized a new state.
     // * Coupon has not been found by useSWR.
