@@ -1,10 +1,6 @@
 import { SxProps } from '@mui/material';
 import { theme } from '../../utils/theme';
 
-export const containerSx: SxProps = {
-  marginBottom: 10,
-};
-
 export const swiperSx = {
   display: 'flex',
   flexDirection: 'column' as const,
@@ -15,4 +11,8 @@ export const swiperSx = {
 
 export const swiperSlideSx = {
   padding: 20,
+};
+
+export const desktopStackSx: SxProps = {
+  width: '75%',
 };

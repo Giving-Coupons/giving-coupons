@@ -1,14 +1,7 @@
 import { SxProps } from '@mui/system';
-import { theme } from '../../../utils/theme';
 
 export const accordianSx: SxProps = {
   width: '100%',
-  boxShadow: `0px 0px 20px 5px ${theme.palette.neutral.light}`,
-  borderRadius: '20px !important',
-
-  '&:before': {
-    backgroundColor: 'transparent !important',
-  },
 };
 
 export const stackSx: SxProps = {
@@ -36,18 +29,10 @@ export const charityLogoSx: SxProps = {
   width: '40px',
 };
 
-export const charityDesktopImageSx: SxProps = {
-  width: '50%',
-};
-
-export const charityDesktopDescriptionSx: SxProps = {
-  width: '50%',
-};
-
-export const charityMobileImageSx: SxProps = {
+export const charityImageSx: SxProps = {
   width: '100%',
 };
 
-export const charityMobileDescriptionSx: SxProps = {
+export const charityDescriptionSx: SxProps = {
   width: '100%',
 };

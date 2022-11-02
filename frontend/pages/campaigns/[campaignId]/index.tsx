@@ -13,7 +13,7 @@ import CampaignDetailLoading from '../../../components/campaigns/dashboard/Campa
 import CampaignPublicInfoCard from '../../../components/campaigns/dashboard/CampaignPublicInfoCard';
 import StatsCard, { StatsCardProps } from '../../../components/StatsCard';
 import api from '../../../frontendApis';
-import { containerSx, swiperSlideSx, swiperSx } from '../../../styles/campaigns/detailStyles';
+import { desktopStackSx, swiperSlideSx, swiperSx } from '../../../styles/campaigns/detailStyles';
 import { CampaignPublicData } from '../../../types/campaigns';
 import { Nullable } from '../../../types/utils';
 import NotFound from '../../404';
@@ -75,40 +75,42 @@ export default function CampaignDetail() {
   ];
 
   return (
-    <Container sx={containerSx}>
+    <Container>
       <Head>
         <title>{campaign.name}</title>
       </Head>
 
-      <Stack spacing={3}>
-        <CampaignPublicInfoCard campaign={campaign} />
+      <Stack spacing={3} direction={isMobile ? 'column' : 'row'}>
+        <Stack spacing={3} sx={isMobile ? {} : desktopStackSx}>
+          <CampaignPublicInfoCard campaign={campaign} />
 
-        {!isMobile && (
-          <Stack direction="row" spacing={4}>
-            {statsCardsProps.map((statsCardsProp, index) => (
-              <StatsCard key={index} {...statsCardsProp} />
-            ))}
-          </Stack>
-        )}
+          {!isMobile && (
+            <Stack direction="row" spacing={3}>
+              {statsCardsProps.map((statsCardsProp, index) => (
+                <StatsCard key={index} {...statsCardsProp} />
+              ))}
+            </Stack>
+          )}
 
-        {isMobile && (
-          <Swiper
-            style={swiperSx}
-            modules={[Pagination, Autoplay]}
-            pagination
-            slidesPerView={1}
-            loop
-            autoplay={{
-              delay: 8000,
-            }}
-          >
-            {statsCardsProps.map((statsCardsProp, index) => (
-              <SwiperSlide key={index} style={swiperSlideSx}>
-                <StatsCard {...statsCardsProp} />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        )}
+          {isMobile && (
+            <Swiper
+              style={swiperSx}
+              modules={[Pagination, Autoplay]}
+              pagination
+              slidesPerView={1}
+              loop
+              autoplay={{
+                delay: 8000,
+              }}
+            >
+              {statsCardsProps.map((statsCardsProp, index) => (
+                <SwiperSlide key={index} style={swiperSlideSx}>
+                  <StatsCard {...statsCardsProp} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          )}
+        </Stack>
 
         <CampaignCharityOverview campaignCharities={campaign.charities} />
       </Stack>

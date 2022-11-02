@@ -1,16 +1,14 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Box, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
-import Accordion from '@mui/material/Accordion';
+import { Box, Stack, styled, Typography } from '@mui/material';
+import Accordion, { AccordionProps } from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import {
   accordianSx,
-  charityDesktopDescriptionSx,
-  charityDesktopImageSx,
+  charityDescriptionSx,
   charityGraphStackSx,
+  charityImageSx,
   charityLogoSx,
-  charityMobileDescriptionSx,
-  charityMobileImageSx,
   graphSx,
   stackSx,
 } from '../../../styles/components/charities/CampaignCharityAccordianCard';
@@ -21,16 +19,26 @@ interface Props {
   campaignCharity: CampaignCharityDonationPublicData;
 }
 
-const CampaignCharityAccordionCard = ({ campaignCharity }: Props) => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+const CustomAccordion = styled((props: AccordionProps) => <Accordion elevation={5} {...props} />)(() => ({
+  '&:before': {
+    display: 'none',
+  },
+  '&:first-of-type': { borderRadius: '20px 20px 0 0' },
+  '&:last-of-type': { borderRadius: '0 0 20px 20px' },
+  '&:not(:first-child)': {
+    marginTop: 0,
+  },
+}));
 
+const CustomAccordianSummary = styled(AccordionSummary)(() => ({ '&>.MuiAccordionSummary-content': { margin: 0 } }));
+
+const CampaignCharityAccordionCard = ({ campaignCharity }: Props) => {
   const primaryDonorDonationData = campaignCharity.primaryDonation;
   const secondaryDonorDonationData = campaignCharity.secondaryDonation;
 
   return (
-    <Accordion sx={accordianSx}>
-      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+    <CustomAccordion disableGutters sx={accordianSx}>
+      <CustomAccordianSummary expandIcon={<ExpandMoreIcon />}>
         <Stack direction="row" justifyContent="center" alignItems="center" sx={stackSx}>
           <Box sx={charityLogoSx} component="img" src={campaignCharity.charity.logoBase64} />
 
@@ -45,22 +53,16 @@ const CampaignCharityAccordionCard = ({ campaignCharity }: Props) => {
             />
           </Stack>
         </Stack>
-      </AccordionSummary>
+      </CustomAccordianSummary>
 
       <AccordionDetails>
-        <Stack spacing={2} direction={isMobile ? 'column' : 'row'}>
-          <Box
-            sx={isMobile ? charityMobileImageSx : charityDesktopImageSx}
-            component="img"
-            src={campaignCharity.charity.imageBase64}
-          />
+        <Stack spacing={2}>
+          <Box sx={charityImageSx} component="img" src={campaignCharity.charity.imageBase64} />
 
-          <Typography sx={isMobile ? charityMobileDescriptionSx : charityDesktopDescriptionSx}>
-            {campaignCharity.charity.description}
-          </Typography>
+          <Typography sx={charityDescriptionSx}>{campaignCharity.charity.description}</Typography>
         </Stack>
       </AccordionDetails>
-    </Accordion>
+    </CustomAccordion>
   );
 };
 

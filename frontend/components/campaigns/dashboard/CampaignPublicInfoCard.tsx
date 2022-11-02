@@ -31,9 +31,9 @@ const CampaignPublicInfoCard = ({ campaign }: Props) => {
       </Grid>
 
       <Grid item xs={12} md={6}>
-        <Stack component="div" spacing={2}>
+        <Stack component="div" spacing={1}>
           <Stack sx={campaignInfoCardHeaderSx} component="div" direction="row">
-            <Typography variant="h3">{campaign.name}</Typography>
+            <Typography variant="h1">{campaign.name}</Typography>
           </Stack>
 
           <Typography variant="body2">{campaign.description}</Typography>

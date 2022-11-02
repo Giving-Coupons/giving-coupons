@@ -8,19 +8,19 @@ interface Props {
 
 const CampaignCharityOverview = ({ campaignCharities }: Props) => {
   return (
-    <>
-      <Stack>
+    <Stack spacing={1}>
+      <Stack spacing={1}>
         <Typography variant="h1">Charities</Typography>
 
-        <Typography>Here&apos;s how each charity is benefitting from the campaign!</Typography>
+        <Typography variant="body2">Here&apos;s how each charity is benefitting from the campaign!</Typography>
       </Stack>
 
-      <Stack spacing={1.5}>
+      <Stack>
         {campaignCharities.map((campaignCharity, index) => (
           <CampaignCharityAccordionCard key={index} campaignCharity={campaignCharity} />
         ))}
       </Stack>
-    </>
+    </Stack>
   );
 };
 
