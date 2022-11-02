@@ -303,6 +303,7 @@ export const desktopFooterSectionSx: SxProps = {
   padding: 2,
   justifyContent: 'space-between',
   width: '100%',
+  maxWidth: '1200px',
 };
 
 export const mobileFooterSectionSx: SxProps = {
