@@ -12,6 +12,10 @@ export const sectionSx: SxProps = {
   paddingBottom: 2,
 };
 
+export const sectionHeaderSx: SxProps = {
+  width: '80%',
+};
+
 export const instructionsContainerSx: SxProps = {
   backgroundColor: alpha('#F1EAE6', 0.4),
   width: '100%',
@@ -203,4 +207,40 @@ export const statisticsIconAvatarSx: SxProps = {
 
 export const statisticsIconSx: SxProps = {
   color: theme.palette.primary.main,
+};
+
+export const callToActionSectionSx: SxProps = {
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-evenly',
+};
+
+export const callToActionItemSx: SxProps = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+};
+
+export const callToActionItemContainerSx: SxProps = {
+  width: '60%',
+};
+
+export const callToActionIconAvatarSx: SxProps = {
+  backgroundColor: theme.palette.primary.light,
+};
+
+export const callToActionIconSx: SxProps = {
+  color: theme.palette.primary.main,
+};
+
+export const callToActionLinkSx: SxProps = {
+  color: theme.palette.primary.main,
+  '&:hover': {
+    cursor: 'pointer',
+    color: theme.palette.primary.dark,
+  },
+};
+
+export const callToActionLinkIconSx: SxProps = {
+  verticalAlign: 'middle',
 };

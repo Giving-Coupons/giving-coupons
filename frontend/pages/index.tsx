@@ -36,6 +36,14 @@ import {
   instructionsContainerSx,
   statisticsContainerSx,
   statisticsMainTextSx,
+  callToActionItemSx,
+  callToActionSectionSx,
+  callToActionItemContainerSx,
+  callToActionIconAvatarSx,
+  callToActionIconSx,
+  callToActionLinkSx,
+  callToActionLinkIconSx,
+  sectionHeaderSx,
 } from '../styles/indexStyles';
 import { combineSxProps } from '../utils/types';
 import Typed from 'react-typed';
@@ -46,6 +54,9 @@ import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 import Diversity1Icon from '@mui/icons-material/Diversity1';
 import { ReactNode } from 'react';
 import { theme } from '../utils/theme';
+import CampaignIcon from '@mui/icons-material/Campaign';
+import Link from 'next/link';
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
 interface StatisticItemProps {
   statistic: string;
@@ -66,6 +77,59 @@ const StatisticItem = ({ statistic, icon, description }: StatisticItemProps) => 
     </Grid>
   );
 };
+
+interface ActionButtonItemProps {
+  icon: ReactNode;
+  title: string;
+  description: string;
+  actionText: string;
+  link: string;
+}
+
+const ActionButtonItem = ({ icon, title, description, actionText, link }: ActionButtonItemProps) => {
+  return (
+    <Grid sx={callToActionItemSx} item xs={12} md={6}>
+      <Stack sx={callToActionItemContainerSx} component="div" spacing={1}>
+        <Avatar sx={callToActionIconAvatarSx}>{icon}</Avatar>
+
+        <Typography variant="h3" color="primary">
+          {title}
+        </Typography>
+
+        <Typography variant="body2" color={theme.palette.grey[800]}>
+          {description}
+        </Typography>
+
+        <Link href={link}>
+          <Stack direction="row" alignItems="center">
+            <Typography variant="h4" color="primary" sx={callToActionLinkSx}>
+              {actionText} <ArrowRightIcon sx={callToActionLinkIconSx} />
+            </Typography>
+          </Stack>
+        </Link>
+      </Stack>
+    </Grid>
+  );
+};
+
+interface SectionHeaderProps {
+  title: string;
+  subtitle?: string;
+}
+
+const SectionHeader = ({ title, subtitle }: SectionHeaderProps) => (
+  <Stack sx={sectionHeaderSx} alignItems="center">
+    <Typography variant="h1" align="center">
+      {title}
+    </Typography>
+
+    {subtitle && (
+      <Typography color={theme.palette.grey[700]} align="center">
+        {subtitle}
+      </Typography>
+    )}
+  </Stack>
+);
 
 const statistics: StatisticItemProps[] = [
   {
@@ -96,6 +160,24 @@ const Home: NextPage = () => {
   const leftInstructionsDescriptionTextSx = isMobile
     ? mobileInstructionsDescriptionTextSx
     : desktopLeftInstructionsDescriptionTextSx;
+
+  const buttonProps: ActionButtonItemProps[] = [
+    {
+      icon: <VolunteerActivismIcon sx={callToActionIconSx} />,
+      title: 'Donate to charities',
+      description: 'Feel strongly about any causes? Contribute directly to charities through our campaigns.',
+      actionText: 'Donate now',
+      link: '/campaigns',
+    },
+    {
+      icon: <CampaignIcon sx={callToActionIconSx} />,
+      title: 'Start a campaign',
+      description:
+        'Empower your loved ones to improve the lives of others. Sponsor a coupon for them to donate to a charity of their choice.',
+      actionText: 'Start now',
+      link: '/interest',
+    },
+  ];
 
   return (
     <Box>
@@ -264,6 +346,26 @@ const Home: NextPage = () => {
             </Grid>
           </Stack>
         </Box>
+
+        <Stack sx={combineSxProps(sectionSx, callToActionSectionSx)} component="div">
+          <SectionHeader
+            title="Join Our Mission"
+            subtitle="Feeling inspired? Join our mission through one of these ways."
+          />
+
+          <Grid container rowSpacing={2}>
+            {buttonProps.map((buttonProp, index) => (
+              <ActionButtonItem
+                key={index}
+                icon={buttonProp.icon}
+                title={buttonProp.title}
+                description={buttonProp.description}
+                actionText={buttonProp.actionText}
+                link={buttonProp.link}
+              />
+            ))}
+          </Grid>
+        </Stack>
       </Stack>
     </Box>
   );
