@@ -21,7 +21,7 @@ const CampaignCharityCard = ({ campaignCharity, onClick, handleOpenInfoCard }: P
   const secondaryDonorDonationData = campaignCharity.secondaryDonation;
 
   return (
-    <Stack direction="row" justifyContent="center" alignItems="center" sx={stackSx} onClick={onClick}>
+    <Stack direction="row" justifyContent="space-evenly" alignItems="center" sx={stackSx} onClick={onClick}>
       <Box sx={charityLogoSx} component="img" src={campaignCharity.charity.logoBase64} />
 
       <Stack sx={charityGraphStackSx}>
