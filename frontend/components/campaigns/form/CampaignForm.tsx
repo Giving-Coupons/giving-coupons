@@ -72,7 +72,7 @@ const CampaignForm = ({
                     InputProps={{ startAdornment: <InputAdornment position="start">$</InputAdornment> }}
                   />
 
-                  <FormTextInput name="initialCouponValidityDays" label="Initial Coupon Validity (days)" />
+                  <FormTextInput name="initialCouponValidity" label="Initial Coupon Validity (days)" />
                 </>
               )}
 

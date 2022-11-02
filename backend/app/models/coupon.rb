@@ -19,7 +19,7 @@ class Coupon < ApplicationRecord
   end
 
   def expired?
-    expires_at < DateTime.current
+    expires_at < Date.current
   end
 
   def self.generate_unique_url_token
