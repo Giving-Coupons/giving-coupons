@@ -360,7 +360,11 @@ const Home: NextPage = () => {
 
             {isMobile && (
               <Grid item xs={12} md={6} sx={instructionsImageContainerSx}>
-                <Box sx={instructionsImageSx} component="img" src="/landing-page/select-charity.png" />
+                <Box
+                  sx={combineSxProps(instructionsImageSx, instructionsImageShadowSx)}
+                  component="img"
+                  src="/landing-page/select-charity.png"
+                />
               </Grid>
             )}
           </Grid>

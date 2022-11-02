@@ -2,6 +2,7 @@ import { maxWidth, SxProps } from '@mui/system';
 import { theme } from '../utils/theme';
 import DesktopHeaderImage from '../public/landing-page/desktop-header-background.png';
 import MobileHeaderImage from '../public/landing-page/mobile-header-background.png';
+import InstructionsImageBackground from '../public/landing-page/instructions-image-background.png';
 
 const MAX_WIDTH = '1200px';
 
@@ -119,7 +120,7 @@ export const desktopInstructionsTitleTextSx: SxProps = {
 };
 
 export const mobileInstructionsTitleTextSx: SxProps = {
-  fontSize: 40,
+  fontSize: 30,
   fontWeight: 700,
   textAlign: 'center',
   lineHeight: 'normal',
@@ -214,8 +215,11 @@ export const desktopInstructionsImageContainerSx: SxProps = {
 
 export const mobileInstructionsImageContainerSx: SxProps = {
   ...instructionsImageContainerSx,
-  paddingLeft: 2,
-  paddingRight: 2,
+  padding: 2,
+  backgroundImage: `url(${InstructionsImageBackground.src})`,
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
+  backgroundRepeat: 'no-repeat',
 };
 
 export const statisticsMainTextSx: SxProps = {
