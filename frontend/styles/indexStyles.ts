@@ -48,17 +48,9 @@ export const mobileHeadlineBackgroundSx: SxProps = {
 };
 
 export const instructionsContainerSx: SxProps = {
-  backgroundColor: alpha('#F1EAE6', 0.4),
+  backgroundColor: alpha('#F1EAE6', 0.2),
   width: '100%',
   alignItems: 'center',
-};
-
-export const headlineBackgroundSx: SxProps = {
-  position: 'absolute',
-  top: '0',
-  width: '100%',
-  objectFit: 'cover',
-  zIndex: '-1',
 };
 
 export const desktopHeadlineTextContainerSx: SxProps = {

@@ -112,7 +112,7 @@ const ActionButtonItem = ({ icon, title, description, actionText, link }: Action
         </Typography>
 
         <Link href={link}>
-          <Stack direction="row" alignItems="center">
+          <Stack component="div" direction="row" alignItems="center">
             <Typography variant="h4" color="primary" sx={callToActionLinkSx}>
               {actionText} <ArrowRightIcon sx={callToActionLinkIconSx} />
             </Typography>
@@ -129,7 +129,7 @@ interface SectionHeaderProps {
 }
 
 const SectionHeader = ({ title, subtitle }: SectionHeaderProps) => (
-  <Stack sx={sectionHeaderSx} alignItems="center">
+  <Stack component="div" sx={sectionHeaderSx} alignItems="center">
     <Typography variant="h1" align="center">
       {title}
     </Typography>
@@ -393,7 +393,7 @@ const Home: NextPage = () => {
           direction={isMobile ? 'column' : 'row'}
           spacing={1}
         >
-          <Stack direction="row" alignItems="center" spacing={1}>
+          <Stack component="div" direction="row" alignItems="center" spacing={1}>
             <CopyrightIcon sx={copyRightIconSx} />
 
             <Typography variant="body2" color={theme.palette.grey[600]}>
