@@ -244,3 +244,29 @@ export const callToActionLinkSx: SxProps = {
 export const callToActionLinkIconSx: SxProps = {
   verticalAlign: 'middle',
 };
+
+export const desktopFooterSectionSx: SxProps = {
+  padding: 2,
+  justifyContent: 'space-between',
+  width: '100%',
+};
+
+export const mobileFooterSectionSx: SxProps = {
+  padding: 2,
+  alignItems: 'center',
+  width: '100%',
+};
+
+export const copyRightIconSx: SxProps = {
+  color: theme.palette.grey[600],
+  fontSize: '1em',
+};
+
+export const footerButtonSx: SxProps = {
+  color: theme.palette.grey[600],
+  fontSize: 'medium',
+  '&:hover': {
+    cursor: 'pointer',
+    color: theme.palette.grey[900],
+  },
+};

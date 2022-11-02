@@ -1,4 +1,4 @@
-import { Avatar, Grid, Typography, useMediaQuery } from '@mui/material';
+import { Avatar, Grid, Tooltip, Typography, useMediaQuery } from '@mui/material';
 import { Box, Stack, useTheme } from '@mui/system';
 import type { NextPage } from 'next';
 import Head from 'next/head';
@@ -44,6 +44,10 @@ import {
   callToActionLinkSx,
   callToActionLinkIconSx,
   sectionHeaderSx,
+  copyRightIconSx,
+  desktopFooterSectionSx,
+  footerButtonSx,
+  mobileFooterSectionSx,
 } from '../styles/indexStyles';
 import { combineSxProps } from '../utils/types';
 import Typed from 'react-typed';
@@ -57,6 +61,9 @@ import { theme } from '../utils/theme';
 import CampaignIcon from '@mui/icons-material/Campaign';
 import Link from 'next/link';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import CopyrightIcon from '@mui/icons-material/Copyright';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import InstagramIcon from '@mui/icons-material/Instagram';
 
 interface StatisticItemProps {
   statistic: string;
@@ -365,6 +372,33 @@ const Home: NextPage = () => {
               />
             ))}
           </Grid>
+        </Stack>
+
+        <Stack
+          component="div"
+          sx={isMobile ? mobileFooterSectionSx : desktopFooterSectionSx}
+          direction={isMobile ? 'column' : 'row'}
+          spacing={1}
+        >
+          <Stack direction="row" alignItems="center" spacing={1}>
+            <CopyrightIcon sx={copyRightIconSx} />
+
+            <Typography variant="body2" color={theme.palette.grey[600]}> Giving Coupons 2022. All Rights Reserved.</Typography>
+          </Stack>
+
+          <Stack component="div" direction="row" spacing={2}>
+            <Tooltip title="Instagram">
+              {/*TODO: Link to instagram*/}
+              <InstagramIcon sx={footerButtonSx} />
+            </Tooltip>
+
+            <Tooltip title="Github">
+              <GitHubIcon
+                sx={footerButtonSx}
+                onClick={() => router.push('https://github.com/Giving-Coupons/giving-coupons')}
+              />
+            </Tooltip>
+          </Stack>
         </Stack>
       </Stack>
     </Box>
