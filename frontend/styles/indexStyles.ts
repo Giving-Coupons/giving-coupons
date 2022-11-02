@@ -1,6 +1,8 @@
 import { SxProps } from '@mui/system';
 import { theme } from '../utils/theme';
 import { alpha } from '@mui/material';
+import DesktopHeaderImage from '../public/landing-page/desktop-header-background.png';
+import MobileHeaderImage from '../public/landing-page/mobile-header-background.png';
 
 const sectionSx: SxProps = {
   display: 'flex',
@@ -24,6 +26,25 @@ export const desktopSectionSx: SxProps = {
 
 export const sectionHeaderSx: SxProps = {
   width: '80%',
+};
+
+const headlineContainerSx: SxProps = {
+  width: '100%',
+  alignItems: 'center',
+  backgroundSize: 'cover',
+  position: 'absolute',
+  top: theme.mixins.toolbar.minHeight,
+  zIndex: -1,
+};
+
+export const desktopHeadlineBackgroundSx: SxProps = {
+  backgroundImage: `url(${DesktopHeaderImage.src})`,
+  ...headlineContainerSx,
+};
+
+export const mobileHeadlineBackgroundSx: SxProps = {
+  backgroundImage: `url(${MobileHeaderImage.src})`,
+  ...headlineContainerSx,
 };
 
 export const instructionsContainerSx: SxProps = {
@@ -55,6 +76,12 @@ export const mobileHeadlineTextContainerSx: SxProps = {
   justifyContent: 'center',
   alignItems: 'center',
   height: '100%',
+};
+
+export const mobileTextBoxSx: SxProps = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
 };
 
 const desktopTextContainerSx: SxProps = {

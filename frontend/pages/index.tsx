@@ -6,7 +6,6 @@ import {
   desktopDescriptionTextSx,
   desktopHeadlineTextContainerSx,
   desktopHeadlineTextSx,
-  headlineBackgroundSx,
   highlightedTextSx,
   mobileDescriptionTextSx,
   mobileHeadlineTextContainerSx,
@@ -50,6 +49,9 @@ import {
   mobileFooterSectionSx,
   desktopHeadlineImageContainerSx,
   desktopSectionSx,
+  desktopHeadlineBackgroundSx,
+  mobileHeadlineBackgroundSx,
+  mobileTextBoxSx,
 } from '../styles/indexStyles';
 import { combineSxProps } from '../utils/types';
 import Typed from 'react-typed';
@@ -197,14 +199,14 @@ const Home: NextPage = () => {
 
       <Stack component="main" alignItems="center">
         {isMobile ? (
-          <Box sx={headlineBackgroundSx} component="img" src="/landing-page/mobile-header-background.png" />
+          <Box sx={mobileHeadlineBackgroundSx} component="img" src="/landing-page/mobile-header-background.png" />
         ) : (
-          <Box sx={headlineBackgroundSx} component="img" src="/landing-page/desktop-header-background.png" />
+          <Box sx={desktopHeadlineBackgroundSx} component="img" src="/landing-page/desktop-header-background.png" />
         )}
 
         <Grid sx={sectionSx} container>
           <Grid sx={headlineTextContainerSx} item xs={12} md={8}>
-            <Box>
+            <Box sx={isMobile ? mobileTextBoxSx : {}}>
               <Typography sx={headlineTextSx}>Giving the</Typography>
 
               <Typography sx={combineSxProps(headlineTextSx, highlightedTextSx)}>Gift of Giving</Typography>
