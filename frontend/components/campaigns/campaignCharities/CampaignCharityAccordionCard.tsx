@@ -1,5 +1,5 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Box, Stack, styled, Typography } from '@mui/material';
+import { Box, Divider, Stack, styled, Typography } from '@mui/material';
 import Accordion, { AccordionProps } from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -14,6 +14,7 @@ import {
 } from '../../../styles/components/charities/CampaignCharityAccordianCard';
 import { CampaignCharityDonationPublicData } from '../../../types/campaignCharities';
 import SmallCompetingGraph from '../../charts/SmallCompetingGraph';
+import Button from '../../generic/Button';
 
 interface Props {
   campaignCharity: CampaignCharityDonationPublicData;
@@ -61,9 +62,25 @@ const CampaignCharityAccordionCard = ({ campaignCharity }: Props) => {
 
       <AccordionDetails>
         <Stack spacing={2}>
+          <Typography variant="h3">About the charity</Typography>
+
+          <Divider />
+
           <Box sx={charityImageSx} component="img" src={campaignCharity.charity.imageBase64} />
 
           <Typography sx={charityDescriptionSx}>{campaignCharity.charity.description}</Typography>
+
+          <Divider />
+
+          <Button
+            actionType="primary"
+            fullWidth
+            onClick={() => {
+              window.open(campaignCharity.charity.websiteUrl, '_blank');
+            }}
+          >
+            Visit Charity Website
+          </Button>
         </Stack>
       </AccordionDetails>
     </CustomAccordion>
