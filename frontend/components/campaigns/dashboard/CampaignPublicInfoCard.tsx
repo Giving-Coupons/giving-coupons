@@ -2,12 +2,13 @@ import HelpIcon from '@mui/icons-material/Help';
 import LinearScaleIcon from '@mui/icons-material/LinearScale';
 import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 import PaidIcon from '@mui/icons-material/Paid';
-import { Grid, Typography } from '@mui/material';
+import { Grid, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { Box, Stack } from '@mui/system';
 import moment from 'moment';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import {
+  campaignImageStackSx,
   campaignImageSx,
   campaignInfoCardHeaderSx,
   campaignInfoItemSx,
@@ -26,6 +27,8 @@ interface Props {
 
 const CampaignPublicInfoCard = ({ campaign }: Props) => {
   const router = useRouter();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
   const [isCouponHelpOpen, setIsCouponHelpOpen] = useState<boolean>(false);
 
   const numTotalCoupons = campaign.promisedAmount / campaign.couponDenomination;
@@ -33,18 +36,22 @@ const CampaignPublicInfoCard = ({ campaign }: Props) => {
 
   return (
     <Grid container columnSpacing={2}>
-      <Grid item xs={12} md={6}>
-        <Box sx={campaignImageSx} component="img" src={campaign.imageBase64} />
+      <Grid item xs={12} marginBottom={1}>
+        <Stack sx={campaignInfoCardHeaderSx} component="div" direction="row">
+          <Typography variant="h1">{campaign.name}</Typography>
+        </Stack>
+
+        <Typography>{campaign.description}</Typography>
       </Grid>
 
-      <Grid item xs={12} md={6} marginTop={1}>
-        <Stack component="div" spacing={1}>
-          <Stack sx={campaignInfoCardHeaderSx} component="div" direction="row">
-            <Typography variant="h1">{campaign.name}</Typography>
-          </Stack>
+      <Grid item xs={12} md={6}>
+        <Stack justifyContent="center" alignItems="center" sx={campaignImageStackSx}>
+          <Box sx={campaignImageSx} component="img" src={campaign.imageBase64} />
+        </Stack>
+      </Grid>
 
-          <Typography variant="body2">{campaign.description}</Typography>
-
+      <Grid item xs={12} md={6} marginTop={isMobile ? 1 : 0}>
+        <Stack component="div" spacing={1} justifyContent="center" alignItems="center">
           <Stack sx={campaignInfoItemSx} component="div" spacing={1}>
             <Typography variant="h4">Status: {getCampaignStatus(campaign.start, campaign.end)}</Typography>
 
@@ -88,16 +95,19 @@ const CampaignPublicInfoCard = ({ campaign }: Props) => {
               />
             </Stack>
           </Stack>
-
-          <Button
-            actionType="primary"
-            onClick={() => {
-              router.push(`/campaigns/${campaign.id}/contribute`);
-            }}
-          >
-            Contribute
-          </Button>
         </Stack>
+      </Grid>
+
+      <Grid item xs={12} marginTop={1}>
+        <Button
+          fullWidth
+          actionType="primary"
+          onClick={() => {
+            router.push(`/campaigns/${campaign.id}/contribute`);
+          }}
+        >
+          Contribute
+        </Button>
       </Grid>
     </Grid>
   );

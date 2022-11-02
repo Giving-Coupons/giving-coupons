@@ -14,14 +14,14 @@ import CampaignDetailLoading from '../../../components/campaigns/dashboard/Campa
 import CampaignPublicInfoCard from '../../../components/campaigns/dashboard/CampaignPublicInfoCard';
 import StatsCard, { StatsCardProps } from '../../../components/StatsCard';
 import api from '../../../frontendApis';
-import { desktopStackSx, swiperSlideSx, swiperSx } from '../../../styles/campaigns/detailStyles';
+import { containerSx, desktopStackSx, swiperSlideSx, swiperSx } from '../../../styles/campaigns/detailStyles';
 import { CampaignPublicData } from '../../../types/campaigns';
 import { Nullable } from '../../../types/utils';
 import NotFound from '../../404';
 
 export default function CampaignDetail() {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
   const router = useRouter();
 
   const campaignId =
@@ -94,7 +94,7 @@ export default function CampaignDetail() {
     return (
       <Typography variant="h4">
         coupons were redeemed! This means <strong>{numCouponsRedeemed} more people are aware</strong> about the{' '}
-        {campaign.charities.length} charaties and their causes!
+        {campaign.charities.length} charities and their causes!
       </Typography>
     );
   };
@@ -115,7 +115,7 @@ export default function CampaignDetail() {
   ];
 
   return (
-    <Container>
+    <Container sx={containerSx}>
       <Head>
         <title>{campaign.name}</title>
       </Head>

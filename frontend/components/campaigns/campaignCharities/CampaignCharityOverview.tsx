@@ -9,10 +9,10 @@ interface Props {
 const CampaignCharityOverview = ({ campaignCharities }: Props) => {
   return (
     <Stack spacing={1}>
-      <Stack spacing={1}>
+      <Stack>
         <Typography variant="h1">Charities</Typography>
 
-        <Typography variant="body2">Here&apos;s how each charity is benefitting from the campaign!</Typography>
+        <Typography>Here&apos;s how each charity is benefitting from the campaign!</Typography>
       </Stack>
 
       <Stack>

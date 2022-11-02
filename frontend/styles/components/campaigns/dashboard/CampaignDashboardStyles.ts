@@ -65,11 +65,14 @@ export const couponsTableContainerSx: SxProps = {
   overflow: 'auto',
 };
 
-export const campaignImageSx: SxProps = {
+export const campaignImageStackSx: SxProps = {
   width: '100%',
   height: '100%',
-  minHeight: '100%',
-  maxHeight: '100%',
+  backgroundColor: '#F4F4F4',
+};
+
+export const campaignImageSx: SxProps = {
+  width: '100%',
 };
 
 export const campaignInfoCardHeaderSx: SxProps = {
