@@ -3,8 +3,8 @@ import { useField } from 'formik';
 import { ChangeEvent, useState } from 'react';
 import { formStepContainerSx, radioSx } from '../../../styles/components/redeem/RedeemStyles';
 import { CampaignCharityDonationPublicData } from '../../../types/campaignCharities';
-import { CouponRedeemFormData } from '../../../types/coupons';
 import { CouponSponsorship } from '../../../types/primaryDonor';
+import { RedemptionFormData } from '../../../types/redemptions';
 import { Nullable } from '../../../types/utils';
 import { log } from '../../../utils/analytics';
 import CampaignCharityCard from '../../campaigns/campaignCharities/CampaignCharityCard';
@@ -14,7 +14,7 @@ import FormNavigationButtons from '../FormNavigationButtons';
 interface Props {
   couponSponsorship?: CouponSponsorship;
   campaignCharities: CampaignCharityDonationPublicData[];
-  name: keyof CouponRedeemFormData;
+  name: keyof RedemptionFormData;
   activeStep: number;
   setActiveStep: (step: number) => void;
   minStep: number;
