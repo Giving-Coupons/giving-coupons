@@ -1,6 +1,5 @@
 import { SxProps } from '@mui/system';
 import { theme } from '../utils/theme';
-import { alpha } from '@mui/material';
 import DesktopHeaderImage from '../public/landing-page/desktop-header-background.png';
 import MobileHeaderImage from '../public/landing-page/mobile-header-background.png';
 
@@ -48,13 +47,13 @@ export const mobileHeadlineBackgroundSx: SxProps = {
 };
 
 export const instructionsContainerSx: SxProps = {
-  backgroundColor: alpha('#F1EAE6', 0.2),
   width: '100%',
   alignItems: 'center',
+  padding: '16px 0',
 };
 
 export const desktopHeadlineTextContainerSx: SxProps = {
-  padding: 8,
+  padding: 12,
   height: '100%',
   display: 'flex',
   flexDirection: 'column',
@@ -77,7 +76,7 @@ export const mobileTextBoxSx: SxProps = {
 };
 
 const desktopTextContainerSx: SxProps = {
-  padding: 8,
+  padding: 12,
   height: '100%',
   display: 'flex',
   flexDirection: 'column',
@@ -110,7 +109,7 @@ export const mobileHeadlineTextSx: SxProps = {
 };
 
 export const desktopInstructionsTitleTextSx: SxProps = {
-  fontSize: 60,
+  fontSize: 50,
   fontWeight: 700,
   lineHeight: 'normal',
 };
@@ -170,16 +169,16 @@ export const mobileHeadlineScreenImageSx: SxProps = {
 };
 
 export const desktopInstructionsImageSx: SxProps = {
-  width: '60%',
+  width: '100%',
   height: 'auto',
 };
 
 export const mobileInstructionsImageSx: SxProps = {
-  width: '60%',
+  width: '90%',
   height: 'auto',
 };
 
-export const startCampaignImageSx: SxProps = {
+export const instructionsImageShadowSx: SxProps = {
   borderRadius: '20px',
   boxShadow: `0px 0px 30px 0px ${theme.palette.neutral.light}`,
 };
@@ -196,9 +195,23 @@ export const desktopHeadlineImageContainerSx: SxProps = {
   alignItems: 'center',
 };
 
-export const instructionsImageContainerSx: SxProps = {
+const instructionsImageContainerSx: SxProps = {
   display: 'flex',
   justifyContent: 'center',
+  alignItems: 'center',
+  height: '100%',
+};
+
+export const desktopInstructionsImageContainerSx: SxProps = {
+  ...instructionsImageContainerSx,
+  paddingLeft: 12,
+  paddingRight: 12,
+};
+
+export const mobileInstructionsImageContainerSx: SxProps = {
+  ...instructionsImageContainerSx,
+  paddingLeft: 2,
+  paddingRight: 2,
 };
 
 export const statisticsContainerSx: SxProps = {
@@ -310,4 +323,12 @@ export const footerButtonSx: SxProps = {
     cursor: 'pointer',
     color: theme.palette.grey[900],
   },
+};
+
+export const givingCouponsInlineLogoSx: SxProps = {
+  maxHeight: '1.6em',
+  minHeight: '1.6em',
+  height: '1.6em',
+  verticalAlign: 'middle',
+  padding: '0 2px',
 };
