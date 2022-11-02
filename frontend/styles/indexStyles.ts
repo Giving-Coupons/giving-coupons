@@ -1,13 +1,16 @@
-import { SxProps } from '@mui/system';
+import { maxWidth, SxProps } from '@mui/system';
 import { theme } from '../utils/theme';
 import DesktopHeaderImage from '../public/landing-page/desktop-header-background.png';
 import MobileHeaderImage from '../public/landing-page/mobile-header-background.png';
 
+const MAX_WIDTH = '1200px';
+
 const sectionSx: SxProps = {
   display: 'flex',
   alignItems: 'center',
+  justifyContent: 'center',
   width: '100%',
-  maxWidth: '1200px',
+  maxWidth: MAX_WIDTH,
   paddingTop: 2,
   paddingBottom: 2,
 };
@@ -50,6 +53,7 @@ export const instructionsContainerSx: SxProps = {
   width: '100%',
   alignItems: 'center',
   padding: '16px 0',
+  maxWidth: maxWidth,
 };
 
 export const desktopHeadlineTextContainerSx: SxProps = {
@@ -214,12 +218,6 @@ export const mobileInstructionsImageContainerSx: SxProps = {
   paddingRight: 2,
 };
 
-export const statisticsContainerSx: SxProps = {
-  display: 'flex',
-  width: '100%',
-  justifyContent: 'center',
-};
-
 export const statisticsMainTextSx: SxProps = {
   fontSize: 40,
   fontWeight: 700,
@@ -230,7 +228,8 @@ export const statisticsSectionSx: SxProps = {
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
-  minHeight: '50vh',
+  alignItems: 'center',
+  width: '100%',
 };
 
 export const statisticsItemsContainerSx: SxProps = {
@@ -264,6 +263,8 @@ export const callToActionSectionSx: SxProps = {
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
+  alignItems: 'center',
+  width: '100%',
 };
 
 export const callToActionItemSx: SxProps = {
@@ -300,7 +301,7 @@ export const desktopFooterSectionSx: SxProps = {
   padding: 2,
   justifyContent: 'space-between',
   width: '100%',
-  maxWidth: '1200px',
+  maxWidth: MAX_WIDTH,
 };
 
 export const mobileFooterSectionSx: SxProps = {
@@ -329,4 +330,10 @@ export const givingCouponsInlineLogoSx: SxProps = {
   height: '1.6em',
   verticalAlign: 'middle',
   padding: '0 2px',
+};
+
+export const sectionSeparationLineSx: SxProps = {
+  width: '80%',
+  height: '1px',
+  backgroundColor: theme.palette.neutral.light,
 };
