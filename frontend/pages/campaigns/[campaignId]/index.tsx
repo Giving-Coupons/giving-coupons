@@ -48,8 +48,11 @@ export default function CampaignDetail() {
       title: `$${campaign.promisedAmount}`,
       children: (
         <Typography variant="h4">
-          will be donated to <strong>{campaign.charities.length} charities</strong> when the campaign ends. This was
-          sponsored by {campaign.primaryDonor.name}.
+          will be donated to{' '}
+          <strong>
+            {campaign.charities.length} {campaign.charities.length === 1 ? 'charity' : 'charities'}
+          </strong>{' '}
+          when the campaign ends. This was sponsored by {campaign.primaryDonor.name}.
         </Typography>
       ),
     },
