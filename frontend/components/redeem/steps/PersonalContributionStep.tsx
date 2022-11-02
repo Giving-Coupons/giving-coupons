@@ -39,7 +39,7 @@ const getEmoji = (amount: Nullable<number>) => {
   } else if (numericAmount < 25) {
     return '😍';
   } else {
-    return '🧡';
+    return '🤩';
   }
 };
 
