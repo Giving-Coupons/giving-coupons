@@ -1,4 +1,4 @@
-import { Container, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Container, Divider, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { isInteger } from 'formik';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -84,6 +84,8 @@ export default function CampaignDetail() {
         <Stack spacing={3} sx={isMobile ? {} : desktopStackSx}>
           <CampaignPublicInfoCard campaign={campaign} />
 
+          <Divider />
+
           {!isMobile && (
             <Stack direction="row" spacing={3}>
               {statsCardsProps.map((statsCardsProp, index) => (
@@ -111,6 +113,8 @@ export default function CampaignDetail() {
             </Swiper>
           )}
         </Stack>
+
+        <Divider />
 
         <CampaignCharityOverview campaignCharities={campaign.charities} />
       </Stack>
