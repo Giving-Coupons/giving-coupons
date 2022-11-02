@@ -1,13 +1,12 @@
 import { Container, Grid, Skeleton, useMediaQuery, useTheme } from '@mui/material';
 import { Stack } from '@mui/system';
-import { containerSx } from '../../../styles/campaigns/detailStyles';
 
 const CampaignDetailLoading = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
-    <Container sx={containerSx}>
+    <Container>
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Stack spacing={2}>
