@@ -37,6 +37,9 @@ import { DEFAULT_SECONDARY_DONATION_VALUE } from '../../../utils/constants';
 const validationSchema = Yup.object().shape({
   campaignCharityId: Yup.number().required('Campaign charity is required'),
   amount: Yup.number()
+    // Ensure falsey values like 0 and empty string are set to null.
+    // This is necessary for the min check and because text input can return "".
+    .transform((newValue) => newValue || null)
     .nullable()
     .typeError('Amount must be a number')
     .integer('Only dollar amounts are accepted')
