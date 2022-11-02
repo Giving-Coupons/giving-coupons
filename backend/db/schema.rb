@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_25_145537) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_01_163348) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -109,10 +109,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_25_145537) do
     t.bigint "campaign_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "campaign_charity_id"
     t.string "progress"
-    t.index ["campaign_charity_id"], name: "index_coupons_on_campaign_charity_id"
+    t.bigint "redemption_id"
+    t.datetime "expires_at", null: false
     t.index ["campaign_id"], name: "index_coupons_on_campaign_id"
+    t.index ["redemption_id"], name: "index_coupons_on_redemption_id", unique: true
     t.index ["url_token"], name: "index_coupons_on_url_token", unique: true
   end
 
@@ -137,6 +138,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_25_145537) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "coupon_denomination", null: false
+    t.integer "initial_coupon_validity", default: 3, null: false
   end
 
   create_table "primary_donors", force: :cascade do |t|
@@ -147,14 +149,22 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_25_145537) do
     t.index ["email"], name: "index_primary_donors_on_email", unique: true
   end
 
+  create_table "redemptions", force: :cascade do |t|
+    t.bigint "campaign_charity_id", null: false
+    t.datetime "redeemed_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["campaign_charity_id"], name: "index_redemptions_on_campaign_charity_id"
+  end
+
   create_table "secondary_donations", force: :cascade do |t|
     t.integer "amount", null: false
-    t.bigint "coupon_id"
     t.bigint "campaign_charity_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "redemption_id"
     t.index ["campaign_charity_id"], name: "index_secondary_donations_on_campaign_charity_id"
-    t.index ["coupon_id"], name: "index_secondary_donations_on_coupon_id", unique: true
+    t.index ["redemption_id"], name: "index_secondary_donations_on_redemption_id", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -163,10 +173,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_25_145537) do
   add_foreign_key "campaign_charities", "charities"
   add_foreign_key "campaigns", "interests"
   add_foreign_key "campaigns", "primary_donors"
-  add_foreign_key "coupons", "campaign_charities"
   add_foreign_key "coupons", "campaigns"
+  add_foreign_key "coupons", "redemptions"
   add_foreign_key "interest_charities", "charities"
   add_foreign_key "interest_charities", "interests"
+  add_foreign_key "redemptions", "campaign_charities"
   add_foreign_key "secondary_donations", "campaign_charities"
-  add_foreign_key "secondary_donations", "coupons"
+  add_foreign_key "secondary_donations", "redemptions"
 end

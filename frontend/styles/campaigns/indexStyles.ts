@@ -12,6 +12,7 @@ export const messageContainerSx: SxProps = {
   justifyContent: 'center',
   width: '100%',
   padding: '8px',
+  textAlign: 'center',
 };
 
 export const mobileSearchButtonSx: SxProps = {
