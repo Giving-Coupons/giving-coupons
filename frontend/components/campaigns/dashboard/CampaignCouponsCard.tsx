@@ -70,17 +70,22 @@ const CampaignCouponsCard = ({ campaign, coupons }: Props) => {
             title: 'Charity',
             key: 'redemption',
             transformValue: (redemption) => redemption?.charity.name ?? 'Not redeemed yet',
+            getSortValue: (redemption) => redemption?.charity.name,
+            notPresentIs: 'last',
           },
           {
             title: 'Secondary donation',
             key: 'redemption',
             transformValue: (redemption) =>
               redemption?.secondaryDonation?.amount ? `$${redemption?.secondaryDonation.amount}` : '-',
+            getSortValue: (redemption) => redemption?.secondaryDonation?.amount,
+            notPresentIs: 'last',
           },
           {
             title: 'Expires At',
             key: 'expiresAt',
             transformValue: (expiresAt) => expiresAt.format(DATE_FORMAT),
+            getSortValue: (expiresAt) => expiresAt.valueOf(),
           },
         ]}
         rows={coupons}

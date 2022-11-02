@@ -1,12 +1,10 @@
 import { InfoOutlined } from '@mui/icons-material';
-import { Box, Grid, Stack, Typography } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import {
-  charityGraphInfoStackSx,
   charityGraphStackSx,
-  charityLogoContainerSx,
   charityLogoSx,
   graphSx,
-  gridSx,
+  stackSx,
 } from '../../../styles/components/charities/CampaignCharityCardStyles';
 import { CampaignCharityDonationPublicData } from '../../../types/campaignCharities';
 import SmallCompetingGraph from '../../charts/SmallCompetingGraph';
@@ -23,37 +21,24 @@ const CampaignCharityCard = ({ campaignCharity, onClick, handleOpenInfoCard }: P
   const secondaryDonorDonationData = campaignCharity.secondaryDonation;
 
   return (
-    <Grid container justifyContent="center" alignItems="center" sx={gridSx} onClick={onClick}>
-      <Grid item xs={2} sx={charityLogoContainerSx}>
-        <Box sx={charityLogoSx} component="img" src={campaignCharity.charity.logoBase64} />
-      </Grid>
+    <Stack direction="row" justifyContent="space-evenly" alignItems="center" sx={stackSx} onClick={onClick}>
+      <Box sx={charityLogoSx} component="img" src={campaignCharity.charity.logoBase64} />
 
-      <Grid item xs={10}>
-        <Stack direction="row" sx={charityGraphInfoStackSx}>
-          <Stack sx={charityGraphStackSx}>
-            <Typography variant="h4">{campaignCharity.charity.name}</Typography>
+      <Stack sx={charityGraphStackSx}>
+        <Typography variant="h4">{campaignCharity.charity.name}</Typography>
 
-            <SmallCompetingGraph
-              overrideGraphSx={graphSx}
-              leftLabel={`$${primaryDonorDonationData.amount} from ${campaignCharity.primaryDonor.name}`}
-              rightLabel={`$${secondaryDonorDonationData.amount} from people like you`}
-              barFractions={[primaryDonorDonationData.fraction, secondaryDonorDonationData.fraction]}
-            />
-          </Stack>
+        <SmallCompetingGraph
+          overrideGraphSx={graphSx}
+          leftLabel={`$${primaryDonorDonationData.amount} from ${campaignCharity.primaryDonor.name}`}
+          rightLabel={`$${secondaryDonorDonationData.amount} from people like you`}
+          barFractions={[primaryDonorDonationData.fraction, secondaryDonorDonationData.fraction]}
+        />
+      </Stack>
 
-          <Box>
-            <IconButtonWithTooltip
-              icon={<InfoOutlined />}
-              tooltip="More Info"
-              onClick={(e) => {
-                e.stopPropagation();
-                if (handleOpenInfoCard) handleOpenInfoCard();
-              }}
-            />
-          </Box>
-        </Stack>
-      </Grid>
-    </Grid>
+      {handleOpenInfoCard && (
+        <IconButtonWithTooltip icon={<InfoOutlined />} tooltip="More Info" onClick={handleOpenInfoCard} />
+      )}
+    </Stack>
   );
 };
 
