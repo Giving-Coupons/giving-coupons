@@ -237,6 +237,7 @@ export const statisticsContainerSx: SxProps = {
   width: '100%',
   backgroundImage: `url(${StatisticsBackground.src})`,
   backgroundSize: 'cover',
+  backgroundRepeat: 'no-repeat',
 };
 
 export const statisticsSectionSx: SxProps = {
@@ -245,9 +246,6 @@ export const statisticsSectionSx: SxProps = {
   justifyContent: 'center',
   alignItems: 'center',
   width: '100%',
-  backgroundImage: `url(${StatisticsBackground.src})`,
-  backgroundSize: 'cover',
-  backgroundRepeat: 'no-repeat',
 };
 
 export const statisticsItemsContainerSx: SxProps = {
