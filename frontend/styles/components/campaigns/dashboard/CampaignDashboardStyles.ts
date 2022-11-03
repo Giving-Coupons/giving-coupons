@@ -2,15 +2,13 @@ import { SxProps } from '@mui/system';
 import { theme } from '../../../../utils/theme';
 
 export const containerSx: SxProps = {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  width: '100%',
-  paddingBottom: '16px',
+  paddingTop: 4,
+  paddingBottom: 4,
 };
 
 export const sectionSx: SxProps = {
-  padding: '40px',
+  paddingLeft: 4,
+  paddingRight: 4,
 };
 
 export const cardSx: SxProps = {
@@ -39,7 +37,7 @@ export const givingSgLinkSx: SxProps = {
     color: theme.palette.info.dark,
     textDecoration: 'none',
   },
-}
+};
 
 export const primaryDonorItemSx: SxProps = {
   width: '100%',
