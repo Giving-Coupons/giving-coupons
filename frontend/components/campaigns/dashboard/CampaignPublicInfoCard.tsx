@@ -77,7 +77,7 @@ const CampaignPublicInfoCard = ({ campaign }: Props) => {
               <IconButtonWithTooltip
                 sx={couponHelpIconButtonSx}
                 icon={<HelpIcon />}
-                tooltip="Learn more about coupon distribution"
+                tooltip="Learn more about coupons"
                 onClick={() => setIsCouponHelpOpen(true)}
               />
 

@@ -1,8 +1,9 @@
-import { Stack, Typography } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+import { givingCouponsInlineLogoSx } from '../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
 import { CampaignPublicData } from '../../../types/campaigns';
 import Button from '../../generic/Button';
 
@@ -18,29 +19,19 @@ const CouponHelpDialog = ({ open, campaign, setIsCouponHelpOpen }: Props) => {
   return (
     <Dialog open={open} onClose={() => setIsCouponHelpOpen(false)}>
       <DialogTitle>
-        <Typography variant="h1">More about coupon distribution</Typography>
+        <Typography variant="h1">What are coupons?</Typography>
       </DialogTitle>
 
       <DialogContent>
         <Stack spacing={1}>
-          <Typography>
-            {campaign.primaryDonor.name} has promised to donate <strong>${campaign.promisedAmount}</strong> as part of
-            this campaign. The total amount has been split into coupons of{' '}
-            <strong>${campaign.couponDenomination} each</strong>.
-          </Typography>
+          <Typography>Coupons are generated from a sponsor&apos;s donation.</Typography>
 
           <Typography>
-            <strong>{numTotalCoupons} coupons</strong> was given out to the public as part of the {campaign.name}{' '}
-            campaign.
-          </Typography>
-
-          <Typography>
-            Coupon recipients{' '}
-            <strong>
-              can choose which charity to donate the ${campaign.couponDenomination} to and they will have a chance to
-              make a personal contribution
-            </strong>{' '}
-            if they wish.
+            In this campaign, {campaign.primaryDonor.name} has sponsored ${campaign.promisedAmount}.
+            <Box sx={givingCouponsInlineLogoSx} component="img" src="/inline-logo.png" /> split the amount into{' '}
+            {numTotalCoupons} coupons at ${campaign.couponDenomination} each. The coupons were distributed to the
+            public. Coupon recipients can choose which charity to donate the ${campaign.couponDenomination} to and they
+            can add a personal contribution if they wish.
           </Typography>
         </Stack>
       </DialogContent>

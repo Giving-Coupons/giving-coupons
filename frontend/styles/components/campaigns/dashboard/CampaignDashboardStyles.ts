@@ -106,3 +106,11 @@ export const campaignDateIconSx: SxProps = {
 export const expiredCouponSx: SxProps = {
   backgroundColor: '#FCCFCF',
 };
+
+export const givingCouponsInlineLogoSx: SxProps = {
+  maxHeight: '1.5em',
+  minHeight: '1.5em',
+  height: '1.5em',
+  verticalAlign: 'middle',
+  marginLeft: '4px',
+};
