@@ -42,8 +42,8 @@ class CampaignsController < ApplicationController
     @campaign.save!
 
     initial_coupon_expiry = [@campaign.start, Date.current].max + params[:initial_coupon_validity].days
-    initial_coupon_expiry = [initial_coupon_expiry, @campaign.end].min
-    @campaign.queue_generate_coupons_job(initial_coupon_expiry)
+    coupon_expiry_end_of_day = (initial_coupon_expiry - 1.day).end_of_day
+    @campaign.queue_generate_coupons_job(coupon_expiry_end_of_day)
 
     add_success_message "Campaign \"#{@campaign.name}\" successfully created!"
     render :response, status: :created, location: @campaign
