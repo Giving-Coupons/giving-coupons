@@ -31,6 +31,16 @@ export const charityItemSx: SxProps = {
   justifyContent: 'space-evenly',
 };
 
+export const givingSgLinkSx: SxProps = {
+  color: theme.palette.info.main,
+  textDecoration: 'none',
+  '&:hover': {
+    cursor: 'pointer',
+    color: theme.palette.info.dark,
+    textDecoration: 'none',
+  },
+}
+
 export const primaryDonorItemSx: SxProps = {
   width: '100%',
   alignItems: 'center',

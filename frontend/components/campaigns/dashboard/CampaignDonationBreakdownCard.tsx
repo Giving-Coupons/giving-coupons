@@ -15,7 +15,7 @@ import { ReactNode } from 'react';
 import {
   charityContainerSx,
   charityItemSx,
-  donationTableHeaderSx,
+  donationTableHeaderSx, givingSgLinkSx,
   logoSx,
 } from '../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
 import { CampaignCharityData, CampaignCharityDonationData } from '../../../types/campaignCharities';
@@ -58,8 +58,8 @@ const CharityDonationLabel = (campaignCharity: CampaignCharityData) => (
     <Stack sx={charityItemSx} component="div">
       <Typography variant="h4">{campaignCharity.charity.name}</Typography>
 
-      <MuiLink component={Link} href={campaignCharity.givingSgUrl}>
-        <Typography variant="caption" color="info.main">
+      <MuiLink sx={givingSgLinkSx} component={Link} href={campaignCharity.givingSgUrl}>
+        <Typography variant="caption">
           GivingSg Campaign
         </Typography>
       </MuiLink>
