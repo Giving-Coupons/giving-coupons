@@ -8,6 +8,7 @@ import { useState } from 'react';
 import useSWR from 'swr';
 import * as Yup from 'yup';
 import ContributeStepper from '../../../../components/campaigns/contribute/ContributeStepper';
+import CampaignEndedDisplay from '../../../../components/redeem/CampaignEndedDisplay';
 import RedeemLoading from '../../../../components/redeem/RedeemLoading';
 import CharitySelectionStep from '../../../../components/redeem/steps/CharitySelectionStep';
 import PersonalContributionStep from '../../../../components/redeem/steps/PersonalContributionStep';
@@ -42,6 +43,8 @@ const Contribute: NextPage = () => {
   );
   const isLoading = !campaign && !error;
   const hasLoadedSuccessfully = !error && campaign;
+
+  const hasCampaignEnded = hasLoadedSuccessfully && campaign.end.isBefore();
 
   const minStep = 0;
   const maxStep = 2;
@@ -153,19 +156,22 @@ const Contribute: NextPage = () => {
             </Stack>
           )}
 
-          {hasLoadedSuccessfully && (
-            <>
-              <ContributeStepper activeStep={activeStep} />
+          {hasLoadedSuccessfully &&
+            (!hasCampaignEnded ? (
+              <>
+                <ContributeStepper activeStep={activeStep} />
 
-              <Formik initialValues={redeemFormValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
-                {({ values }) => (
-                  <Form style={isMobile ? mobileFormContainerSx : desktopFormContainerSx}>
-                    {renderFormPage(activeStep, values)}
-                  </Form>
-                )}
-              </Formik>
-            </>
-          )}
+                <Formik initialValues={redeemFormValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
+                  {({ values }) => (
+                    <Form style={isMobile ? mobileFormContainerSx : desktopFormContainerSx}>
+                      {renderFormPage(activeStep, values)}
+                    </Form>
+                  )}
+                </Formik>
+              </>
+            ) : (
+              <CampaignEndedDisplay campaign={campaign} isFromRedemption={false} />
+            ))}
         </Stack>
       </Container>
     </Box>

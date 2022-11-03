@@ -213,7 +213,7 @@ const Redeem: NextPage = () => {
     const { campaign } = coupon;
     const hasCampaignEnded = campaign.end.isBefore();
     if (hasCampaignEnded) {
-      return <CampaignEndedDisplay campaign={campaign} />;
+      return <CampaignEndedDisplay campaign={campaign} isFromRedemption />;
     }
 
     const hasCouponExpired = coupon.expiresAt.isBefore();

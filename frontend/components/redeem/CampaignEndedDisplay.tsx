@@ -9,9 +9,10 @@ import RandomKawaii from '../notFound/RandomKawaii';
 
 type Props = {
   campaign: CampaignBaseData;
+  isFromRedemption: boolean;
 };
 
-export default function CampaignEndedDisplay({ campaign }: Props) {
+export default function CampaignEndedDisplay({ campaign, isFromRedemption }: Props) {
   return (
     <Stack component="div" spacing={2} sx={rootSx}>
       <RandomKawaii isHappy={false} />
@@ -23,18 +24,20 @@ export default function CampaignEndedDisplay({ campaign }: Props) {
         <Box component="span" sx={boldSx}>
           {`${campaign.end.format(DATE_FORMAT)}`}
         </Box>
-        .
+        {` and you are no longer able to ${isFromRedemption ? 'redeem this coupon' : 'contribute to this campaign'}.`}
       </Typography>
 
-      <Typography variant="subtitle1">
-        {'Fret not, the pledged coupon amount will not go to waste as '}
+      {isFromRedemption && (
+        <Typography variant="subtitle1">
+          {'Fret not, the pledged coupon amount will not go to waste as '}
 
-        <Box component="span" sx={boldSx}>
-          {`${campaign.primaryDonor.name}`}
-        </Box>
+          <Box component="span" sx={boldSx}>
+            {`${campaign.primaryDonor.name}`}
+          </Box>
 
-        {' will be donating it to a charity of their choice.'}
-      </Typography>
+          {' will be donating it to a charity of their choice.'}
+        </Typography>
+      )}
 
       <Button
         actionType="primary"
