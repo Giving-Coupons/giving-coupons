@@ -94,7 +94,7 @@ export default function CampaignDetail() {
 
     return (
       <Typography variant="h4">
-        coupons out of {numTotalCoupons} were redeemed! This means{' '}
+        out of {numTotalCoupons} coupons were redeemed! This means{' '}
         <strong>{numCouponsRedeemed} more people are aware</strong> about the {campaign.charities.length} charities and
         their causes!
       </Typography>
