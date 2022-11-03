@@ -44,7 +44,7 @@ export const avatarSx: SxProps = {
 
 export const logoSx: SxProps = {
   height: '32px',
-  width: 'auto',
+  width: '32px',
   objectFit: 'contain',
 };
 
