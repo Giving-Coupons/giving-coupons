@@ -5,3 +5,7 @@ export const rootSx: SxProps = {
   alignItems: 'center',
   textAlign: 'center',
 };
+
+export const boldSx: SxProps = {
+  fontWeight: 'bold',
+};

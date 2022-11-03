@@ -1,7 +1,7 @@
-import { Stack, Typography } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import { Moment } from 'moment';
 import router from 'next/router';
-import { rootSx } from '../../styles/components/redeem/ExpiredDisplayStyles';
+import { boldSx, rootSx } from '../../styles/components/redeem/ExpiredDisplayStyles';
 import { log } from '../../utils/analytics';
 import { DATE_FORMAT } from '../../utils/constants';
 import Button from '../generic/Button';
@@ -21,10 +21,20 @@ export default function ExpiredDisplay({ couponExpiry, primaryDonorName, campaig
       <Typography variant="h1">Uh-oh, the coupon has expired.</Typography>
 
       <Typography variant="subtitle1">
-        {`Unfortunately, the coupon was only valid until ${couponExpiry.format(DATE_FORMAT)}.`}
+        {'Unfortunately, the coupon was only valid until '}
+        <Box component="span" sx={boldSx}>
+          {couponExpiry.format(DATE_FORMAT)}
+        </Box>
+        .
       </Typography>
 
-      <Typography variant="subtitle1">{`You may want to reach out to the person who issued you this coupon or contact ${primaryDonorName} directly.`}</Typography>
+      <Typography variant="subtitle1">
+        {`You may want to reach out to the person who issued you this coupon or contact `}
+        <Box component="span" sx={boldSx}>
+          {primaryDonorName}
+        </Box>
+        {' directly.`'}
+      </Typography>
 
       <Button
         actionType="primary"

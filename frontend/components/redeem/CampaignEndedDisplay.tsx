@@ -1,6 +1,6 @@
-import { Stack, Typography } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import router from 'next/router';
-import { rootSx } from '../../styles/components/redeem/CampaignEndedDisplayStyles';
+import { boldSx, rootSx } from '../../styles/components/redeem/CampaignEndedDisplayStyles';
 import { CampaignBaseData } from '../../types/campaigns';
 import { log } from '../../utils/analytics';
 import { DATE_FORMAT } from '../../utils/constants';
@@ -19,10 +19,22 @@ export default function CampaignEndedDisplay({ campaign }: Props) {
       <Typography variant="h1">Oops, the campaign is already over!</Typography>
 
       <Typography variant="subtitle1">
-        {`Unfortunately, the campaign ended on ${campaign.end.format(DATE_FORMAT)}.`}
+        {'Unfortunately, the campaign ended on '}
+        <Box component="span" sx={boldSx}>
+          {`${campaign.end.format(DATE_FORMAT)}`}
+        </Box>
+        .
       </Typography>
 
-      <Typography variant="subtitle1">{`Fret not, the pledged coupon amount will not go to waste as ${campaign.primaryDonor.name} will be donating it to a charity of their choice.`}</Typography>
+      <Typography variant="subtitle1">
+        {'Fret not, the pledged coupon amount will not go to waste as '}
+
+        <Box component="span" sx={boldSx}>
+          {`${campaign.primaryDonor.name}`}
+        </Box>
+
+        {' will be donating it to a charity of their choice.'}
+      </Typography>
 
       <Button
         actionType="primary"
