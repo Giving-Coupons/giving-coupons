@@ -340,14 +340,16 @@ const Home: NextPage = () => {
               </Grid>
             )}
 
-            <Grid sx={leftTextContainerSx} item xs={12} md={6}>
-              <Typography sx={instructionsTitleTextSx}>03. Direct donations to</Typography>
+            <Grid sx={rightTextContainerSx} item xs={12} md={6}>
+              <Typography sx={instructionsTitleTextSx} align="right">
+                03. Direct donations to
+              </Typography>
 
               <Typography sx={combineSxProps(instructionsTitleTextSx, highlightedTextSx)}>help charities</Typography>
 
               <br />
 
-              <Typography sx={leftInstructionsDescriptionTextSx}>
+              <Typography sx={rightInstructionsDescriptionTextSx}>
                 If you received a coupon, redeem it to choose where the money goes to. Learn about the charities and
                 their impact during the redemption process.
               </Typography>
@@ -371,16 +373,14 @@ const Home: NextPage = () => {
           </Grid>
 
           <Grid sx={sectionSx} container>
-            <Grid sx={rightTextContainerSx} item xs={12} md={6}>
+            <Grid sx={leftTextContainerSx} item xs={12} md={6}>
               <Typography sx={combineSxProps(instructionsTitleTextSx, highlightedTextSx)}>04. Extend</Typography>
 
-              <Typography sx={instructionsTitleTextSx} align="right">
-                the chain of giving
-              </Typography>
+              <Typography sx={instructionsTitleTextSx}>the chain of giving</Typography>
 
               <br />
 
-              <Typography sx={rightInstructionsDescriptionTextSx}>
+              <Typography sx={leftInstructionsDescriptionTextSx}>
                 Add a personal contribution during the coupon redemption process. Or donate directly to charities
                 through our campaigns.
               </Typography>
