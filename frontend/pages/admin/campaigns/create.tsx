@@ -157,7 +157,7 @@ const CampaignCreate = () => {
           ...values,
           interestId: interest?.id ?? null,
           start: moment(values.start),
-          end: moment(values.end),
+          end: moment(values.end).endOf('day'),
           charities: charitiesPostData,
           primaryDonor: primaryDonorPostData,
         };

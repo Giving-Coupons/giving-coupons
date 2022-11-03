@@ -125,7 +125,7 @@ const CampaignEdit = () => {
           charities: charitiesPutData,
           interestId: campaign?.interestId ?? null,
           start: moment(values.start),
-          end: moment(values.end),
+          end: moment(values.end).endOf('day'),
           primaryDonor: primaryDonorPutData,
         };
 
