@@ -1,10 +1,10 @@
 import { Grid, Skeleton } from '@mui/material';
 import { Stack } from '@mui/system';
-import { sectionSx } from '../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
+import { containerSx, sectionSx } from '../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
 import CampaignCard from './CampaignCard';
 
 const CampaignLoading = () => (
-  <Grid container>
+  <Grid sx={containerSx} container>
     <Grid item sm={12} md={8}>
       <Stack sx={sectionSx} spacing={2}>
         <Grid container columnSpacing={2}>
