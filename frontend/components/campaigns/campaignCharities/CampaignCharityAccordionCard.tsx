@@ -4,14 +4,14 @@ import Accordion, { AccordionProps } from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import {
-  accordianSx,
+  accordionSx,
   charityDescriptionSx,
   charityGraphStackSx,
   charityImageSx,
   charityLogoSx,
   graphSx,
   stackSx,
-} from '../../../styles/components/charities/CampaignCharityAccordianCard';
+} from '../../../styles/components/charities/CampaignCharityAccordionCardStyles';
 import { CampaignCharityDonationPublicData } from '../../../types/campaignCharities';
 import SmallCompetingGraph from '../../charts/SmallCompetingGraph';
 import Button from '../../generic/Button';
@@ -34,7 +34,7 @@ const CustomAccordion = styled((props: AccordionProps) => <Accordion {...props} 
   },
 }));
 
-const CustomAccordianSummary = styled(AccordionSummary)(() => ({
+const CustomAccordionSummary = styled(AccordionSummary)(() => ({
   padding: 0,
   '&>.MuiAccordionSummary-content': { margin: 0 },
   '&>.MuiAccordionSummary-expandIconWrapper ': { margin: '8px' },
@@ -45,8 +45,8 @@ const CampaignCharityAccordionCard = ({ campaignCharity }: Props) => {
   const secondaryDonorDonationData = campaignCharity.secondaryDonation;
 
   return (
-    <CustomAccordion disableGutters sx={accordianSx}>
-      <CustomAccordianSummary expandIcon={<ExpandMoreIcon />}>
+    <CustomAccordion disableGutters sx={accordionSx}>
+      <CustomAccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Stack direction="row" justifyContent="space-evenly" alignItems="center" sx={stackSx}>
           <Box sx={charityLogoSx} component="img" src={campaignCharity.charity.logoBase64} />
 
@@ -61,7 +61,7 @@ const CampaignCharityAccordionCard = ({ campaignCharity }: Props) => {
             />
           </Stack>
         </Stack>
-      </CustomAccordianSummary>
+      </CustomAccordionSummary>
 
       <AccordionDetails>
         <Stack spacing={2}>

@@ -1,6 +1,6 @@
 import { SxProps } from '@mui/system';
 
-export const accordianSx: SxProps = {
+export const accordionSx: SxProps = {
   width: '100%',
 };
 
