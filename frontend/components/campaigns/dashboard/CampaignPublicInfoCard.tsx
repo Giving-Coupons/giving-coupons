@@ -13,6 +13,7 @@ import {
   campaignInfoCardHeaderSx,
   campaignInfoItemSx,
   campaignStatusTextSx,
+  couponHelpIconButtonSx,
 } from '../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
 import { CampaignPublicData } from '../../../types/campaigns';
 import { getCampaignStatus } from '../../../utils/campaigns';
@@ -56,7 +57,7 @@ const CampaignPublicInfoCard = ({ campaign }: Props) => {
           <Stack sx={campaignInfoItemSx} component="div" spacing={1}>
             <Typography variant="h4">Status: {getCampaignStatus(campaign.start, campaign.end)}</Typography>
 
-            <Typography variant="h5" sx={campaignStatusTextSx}>
+            <Typography variant="h4" sx={campaignStatusTextSx}>
               Campaign ends in {numOfDaysTillEnd} {numOfDaysTillEnd === 1 ? 'day' : 'days'}!
             </Typography>
 
@@ -74,6 +75,7 @@ const CampaignPublicInfoCard = ({ campaign }: Props) => {
               <Typography variant="h4">{`${numTotalCoupons} coupons in total`}</Typography>
 
               <IconButtonWithTooltip
+                sx={couponHelpIconButtonSx}
                 icon={<HelpIcon />}
                 tooltip="Learn more about coupon distribution"
                 onClick={() => setIsCouponHelpOpen(true)}
