@@ -12,6 +12,7 @@ import {
   campaignImageSx,
   campaignInfoCardHeaderSx,
   campaignInfoItemSx,
+  campaignStatusTextSx,
 } from '../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
 import { CampaignPublicData } from '../../../types/campaigns';
 import { getCampaignStatus } from '../../../utils/campaigns';
@@ -55,6 +56,10 @@ const CampaignPublicInfoCard = ({ campaign }: Props) => {
           <Stack sx={campaignInfoItemSx} component="div" spacing={1}>
             <Typography variant="h4">Status: {getCampaignStatus(campaign.start, campaign.end)}</Typography>
 
+            <Typography variant="h5" sx={campaignStatusTextSx}>
+              Campaign ends in {numOfDaysTillEnd} {numOfDaysTillEnd === 1 ? 'day' : 'days'}!
+            </Typography>
+
             <Stack component="div" direction="row" spacing={2}>
               <CampaignDateInfoIcon label="Start" date={campaign.start} />
 
@@ -62,10 +67,6 @@ const CampaignPublicInfoCard = ({ campaign }: Props) => {
 
               <CampaignDateInfoIcon label="End" date={campaign.end} />
             </Stack>
-
-            <Typography variant="h4">
-              Campaign ends in {numOfDaysTillEnd} {numOfDaysTillEnd === 1 ? 'day' : 'days'}!
-            </Typography>
           </Stack>
 
           <Stack sx={campaignInfoItemSx} component="div" spacing={1}>

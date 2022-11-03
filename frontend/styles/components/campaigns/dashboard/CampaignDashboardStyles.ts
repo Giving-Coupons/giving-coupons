@@ -89,6 +89,10 @@ export const campaignInfoItemSx: SxProps = {
   backgroundColor: '#F4F4F4',
 };
 
+export const campaignStatusTextSx: SxProps = {
+  color: 'gray',
+};
+
 export const campaignMoneyIconSx: SxProps = {
   alignItems: 'center',
 };
