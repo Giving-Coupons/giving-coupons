@@ -20,7 +20,7 @@ interface Props {
   campaignCharity: CampaignCharityDonationPublicData;
 }
 
-const CustomAccordion = styled((props: AccordionProps) => <Accordion elevation={5} {...props} />)(() => ({
+const CustomAccordion = styled((props: AccordionProps) => <Accordion {...props} />)(() => ({
   '&:before': {
     display: 'none',
   },
@@ -28,6 +28,9 @@ const CustomAccordion = styled((props: AccordionProps) => <Accordion elevation={
   '&:last-of-type': { borderRadius: '0 0 20px 20px' },
   '&:not(:first-child)': {
     marginTop: 0,
+  },
+  '&:not(:last-child)': {
+    borderBottom: '1px solid lightGray',
   },
 }));
 
