@@ -77,8 +77,7 @@ export default function CampaignDetail() {
     if (numCouponsRedeemed === 0) {
       return (
         <Typography variant="h4">
-          <strong>out of {numTotalCoupons}</strong> coupons have been redeemed. Let&apos;s wait for the first coupon to
-          be redeemed!
+          coupons have been redeemed. Let&apos;s wait for the first coupon to be redeemed!
         </Typography>
       );
     }
@@ -86,17 +85,16 @@ export default function CampaignDetail() {
     if (numCouponsRedeemed === numTotalCoupons) {
       return (
         <Typography variant="h4">
-          <strong>out of {numTotalCoupons}</strong> coupons have been redeemed! You can still donate to the campaign if
-          you wish to by clicking the contribute button above.
+          coupons have been redeemed! You can still donate to the campaign if you wish to by clicking the contribute
+          button above.
         </Typography>
       );
     }
 
     return (
       <Typography variant="h4">
-        out of {numTotalCoupons} coupons were redeemed! This means{' '}
-        <strong>{numCouponsRedeemed} more people are aware</strong> about the {campaign.charities.length} charities and
-        their causes!
+        coupons were redeemed! This means <strong>{numCouponsRedeemed} more people are aware</strong> about the{' '}
+        {campaign.charities.length} charities and their causes!
       </Typography>
     );
   };
@@ -111,7 +109,7 @@ export default function CampaignDetail() {
       children: getDonationAmountStatsCardChild(),
     },
     {
-      title: `${numCouponsRedeemed}`,
+      title: `${numCouponsRedeemed} of ${numTotalCoupons}`,
       children: getNumCouponsRedeemedStatsCardChild(),
     },
   ];
