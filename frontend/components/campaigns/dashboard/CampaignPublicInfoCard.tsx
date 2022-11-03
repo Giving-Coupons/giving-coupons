@@ -8,8 +8,8 @@ import moment from 'moment';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import {
+  campaignDetailImageSx,
   campaignImageStackSx,
-  campaignImageSx,
   campaignInfoCardHeaderSx,
   campaignInfoItemSx,
   campaignStatusTextSx,
@@ -48,7 +48,7 @@ const CampaignPublicInfoCard = ({ campaign }: Props) => {
 
       <Grid item xs={12} md={6}>
         <Stack justifyContent="center" alignItems="center" sx={campaignImageStackSx}>
-          <Box sx={campaignImageSx} component="img" src={campaign.imageBase64} />
+          <Box sx={campaignDetailImageSx} component="img" src={campaign.imageBase64} />
         </Stack>
       </Grid>
 
