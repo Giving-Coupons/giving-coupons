@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddDonatedAtToSecondaryDonations < ActiveRecord::Migration[7.0]
   def up
     add_column :secondary_donations, :donated_at, :datetime

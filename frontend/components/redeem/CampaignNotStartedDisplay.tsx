@@ -10,50 +10,40 @@ import RandomKawaii from '../notFound/RandomKawaii';
 
 type Props = {
   campaign: CampaignBaseData;
-  isFromRedemption: boolean;
 };
 
-export default function CampaignEndedDisplay({ campaign, isFromRedemption }: Props) {
+export default function CampaignNotStartedDisplay({ campaign }: Props) {
   return (
     <Stack component="div" spacing={2} sx={rootSx}>
       <RandomKawaii isHappy={false} />
 
-      <Typography variant="h1">Oops, the campaign is already over!</Typography>
+      <Typography variant="h1">Wait, the campaign has not begun!</Typography>
 
       <Typography variant="subtitle1">
-        Unfortunately, the campaign
+        The campaign
         <BoldText spaceBefore spaceAfter>
           {campaign.name}
         </BoldText>
-        ended on
-        <BoldText spaceBefore spaceAfter>{`${campaign.end.format(DATE_FORMAT)}`}</BoldText>
-        and you are no longer able to {isFromRedemption ? 'redeem this coupon' : 'contribute to this campaign'}.
+        will only start on
+        <BoldText spaceBefore>{`${campaign.end.format(DATE_FORMAT)}`}</BoldText>.
       </Typography>
 
-      {isFromRedemption && (
-        <Typography variant="subtitle1">
-          Fret not, the pledged coupon amount will not go to waste as the sponsor
-          <BoldText spaceBefore spaceAfter>
-            {campaign.primaryDonor.name}
-          </BoldText>
-          will be donating it to a charity of their choice.
-        </Typography>
-      )}
+      <Typography variant="subtitle1">Sit tight, we are just as excited as you are!</Typography>
 
       <Button
         actionType="primary"
         onClick={() => {
-          log("[CampaignEndedDisplay] Click 'View Campaign'");
+          log("[CampaignNotStartedDisplay] Click 'View Campaign'");
           router.push(`/campaigns/${campaign.id}`);
         }}
       >
-        View Campaign Statistics
+        View Campaign
       </Button>
 
       <Button
         actionType="secondary"
         onClick={() => {
-          log("[CampaignEndedDisplay] Click 'View Others'");
+          log("[CampaignNotStartedDisplay] Click 'View Active'");
           router.push(`/campaigns`);
         }}
       >

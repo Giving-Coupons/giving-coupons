@@ -12,6 +12,7 @@ import FormikValuesListener from '../../../components/forms/FormikValuesListener
 import IconButtonWithTooltip from '../../../components/IconButtonWithTooltip';
 import AlreadyRedeemedDisplay from '../../../components/redeem/AlreadyRedeemedDisplay';
 import CampaignEndedDisplay from '../../../components/redeem/CampaignEndedDisplay';
+import CampaignNotStartedDisplay from '../../../components/redeem/CampaignNotStartedDisplay';
 import ExpiredDisplay from '../../../components/redeem/ExpiredDisplay';
 import InstructionsDialog from '../../../components/redeem/instructions/InstructionsDialog';
 import RedeemLoading from '../../../components/redeem/RedeemLoading';
@@ -36,6 +37,7 @@ import { RedemptionState, RedemptionStep } from '../../../types/redemptionState'
 import { Nullable } from '../../../types/utils';
 import { log } from '../../../utils/analytics';
 import { DEFAULT_SECONDARY_DONATION_VALUE } from '../../../utils/constants';
+import { isCouponRedeemable } from '../../../utils/coupons';
 
 const validationSchema = Yup.object().shape({
   campaignCharityId: Yup.number().required('Campaign charity is required'),
@@ -59,9 +61,8 @@ const Redeem: NextPage = () => {
   );
   const isLoading = !coupon && !error;
   const hasLoadedSuccessfully = !error && coupon;
-  const hasCouponExpired = hasLoadedSuccessfully && coupon.expiresAt.isBefore();
-  const hasBeenRedeemed = hasLoadedSuccessfully && coupon.redemption;
-  const canCouponBeRedeemed = hasLoadedSuccessfully && !coupon.redemption && !hasCouponExpired;
+
+  const canCouponBeRedeemed = hasLoadedSuccessfully && isCouponRedeemable(coupon);
 
   const minStep = 0;
   const maxStep = 2;
@@ -214,6 +215,11 @@ const Redeem: NextPage = () => {
     const hasCampaignEnded = campaign.end.isBefore();
     if (hasCampaignEnded) {
       return <CampaignEndedDisplay campaign={campaign} isFromRedemption />;
+    }
+
+    const hasCampaignStarted = campaign.start.isBefore();
+    if (!hasCampaignStarted) {
+      return <CampaignNotStartedDisplay campaign={campaign} />;
     }
 
     const hasCouponExpired = coupon.expiresAt.isBefore();
