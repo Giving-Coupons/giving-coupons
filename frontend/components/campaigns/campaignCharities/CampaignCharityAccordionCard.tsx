@@ -65,18 +65,20 @@ const CampaignCharityAccordionCard = ({ campaignCharity }: Props) => {
 
       <AccordionDetails>
         <Stack spacing={2}>
-          <Typography variant="h3">About the charity</Typography>
+          <Typography variant="h4">About the charity</Typography>
 
           <Divider />
 
           <Box sx={charityImageSx} component="img" src={campaignCharity.charity.imageBase64} />
 
-          <Typography sx={charityDescriptionSx}>{campaignCharity.charity.description}</Typography>
+          <Typography variant="body2" sx={charityDescriptionSx}>
+            {campaignCharity.charity.description}
+          </Typography>
 
           <Divider />
 
           <Button
-            actionType="primary"
+            actionType="secondary"
             fullWidth
             onClick={() => {
               window.open(campaignCharity.charity.websiteUrl, '_blank');
