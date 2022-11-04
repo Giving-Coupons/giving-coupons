@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CouponsController < ApplicationController
-  before_action :authenticate_admin!, except: %i[show redeem progress update_progress]
+  before_action :authenticate_admin!, except: %i[show progress update_progress]
 
   def index
     @coupons = Coupon.all.includes({ secondary_donation: { campaign_charity: :charity } })
@@ -24,26 +24,6 @@ class CouponsController < ApplicationController
                     .find_by!(url_token: params[:id])
   end
 
-  def redeem
-    @coupon = Coupon.find_by!(url_token: params[:url_token])
-
-    if @coupon.redeemed?
-      add_error_message('Coupon is already redeemed!')
-      render 'layouts/empty', status: :bad_request
-      return
-    end
-
-    @coupon.assign_attributes(redeem_params)
-
-    if params[:amount].positive?
-      @coupon.build_secondary_donation(campaign_charity_id: params[:campaign_charity_id],
-                                       amount: params[:amount])
-    end
-
-    @coupon.save!
-    render 'show', status: :created
-  end
-
   def progress
     @coupon = Coupon.find_by!(url_token: params[:url_token])
   end
@@ -53,11 +33,5 @@ class CouponsController < ApplicationController
     @coupon.update!(progress: params[:progress])
 
     render 'progress', status: :ok
-  end
-
-  private
-
-  def redeem_params
-    params.require(:coupon).permit(:campaign_charity_id)
   end
 end
