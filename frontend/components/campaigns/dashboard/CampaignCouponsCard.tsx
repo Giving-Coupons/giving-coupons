@@ -52,7 +52,7 @@ const CampaignCouponsCard = ({ campaign, coupons }: Props) => {
         </Button>
 
         <Button actionType="primary" onClick={() => router.push(`/admin/campaigns/${campaign.id}/coupons`)}>
-          View unredeemed
+          Download for distribution
         </Button>
       </Stack>
 

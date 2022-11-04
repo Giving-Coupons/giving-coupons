@@ -5,6 +5,7 @@ import {
   buttonSx,
   charityLogoSx,
   descriptionContainerSx,
+  descriptionSx,
   graphContainerSx,
   graphSx,
 } from '../../../styles/components/campaigns/list/CampaignListCardStyles';
@@ -38,7 +39,7 @@ const CampaignListCard = ({ campaign }: Props) => {
   );
 
   const description = (
-    <Stack key="description" sx={descriptionContainerSx} spacing={0.5} component="div">
+    <Stack key="description" sx={descriptionContainerSx} component="div">
       <Typography variant="h3">{campaign.name}</Typography>
 
       <Typography variant="caption">For the following beneficiaries</Typography>
@@ -51,7 +52,9 @@ const CampaignListCard = ({ campaign }: Props) => {
         ))}
       </Grid>
 
-      <Typography variant="caption">{campaign.description}</Typography>
+      <Typography sx={descriptionSx} variant="caption">
+        {campaign.description}
+      </Typography>
     </Stack>
   );
 

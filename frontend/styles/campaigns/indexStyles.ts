@@ -7,6 +7,10 @@ export const containerSx: SxProps = {
   padding: '32px 0',
 };
 
+export const stackSx: SxProps = {
+  width: '100%',
+};
+
 export const messageContainerSx: SxProps = {
   alignItems: 'center',
   justifyContent: 'center',
