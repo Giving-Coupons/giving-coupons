@@ -38,7 +38,7 @@ const CampaignListCard = ({ campaign }: Props) => {
   );
 
   const description = (
-    <Stack key="description" sx={descriptionContainerSx} spacing={0.5} component="div">
+    <Stack key="description" sx={descriptionContainerSx} component="div">
       <Typography variant="h3">{campaign.name}</Typography>
 
       <Typography variant="caption">For the following beneficiaries</Typography>
