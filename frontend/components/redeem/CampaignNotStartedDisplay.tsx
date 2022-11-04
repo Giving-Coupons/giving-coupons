@@ -1,6 +1,6 @@
 import { Stack, Typography } from '@mui/material';
 import router from 'next/router';
-import { rootSx } from '../../styles/components/redeem/CampaignEndedDisplayStyles';
+import { buttonSx, rootSx } from '../../styles/components/redeem/CampaignNotStartedDisplayStyles';
 import { CampaignBaseData } from '../../types/campaigns';
 import { log } from '../../utils/analytics';
 import { USER_FACING_DATE_FORMAT } from '../../utils/constants';
@@ -30,25 +30,29 @@ export default function CampaignNotStartedDisplay({ campaign }: Props) {
 
       <Typography variant="subtitle1">Sit tight, we are just as excited as you are!</Typography>
 
-      <Button
-        actionType="primary"
-        onClick={() => {
-          log("[CampaignNotStartedDisplay] Click 'View Campaign'");
-          router.push(`/campaigns/${campaign.id}`);
-        }}
-      >
-        View Campaign
-      </Button>
+      <Stack spacing={2}>
+        <Button
+          actionType="primary"
+          onClick={() => {
+            log("[CampaignNotStartedDisplay] Click 'View Campaign'");
+            router.push(`/campaigns/${campaign.id}`);
+          }}
+          sx={buttonSx}
+        >
+          View Campaign
+        </Button>
 
-      <Button
-        actionType="secondary"
-        onClick={() => {
-          log("[CampaignNotStartedDisplay] Click 'View Active'");
-          router.push(`/campaigns`);
-        }}
-      >
-        Browse Active Campaigns
-      </Button>
+        <Button
+          actionType="secondary"
+          onClick={() => {
+            log("[CampaignNotStartedDisplay] Click 'View Active'");
+            router.push(`/campaigns`);
+          }}
+          sx={buttonSx}
+        >
+          Browse Active Campaigns
+        </Button>
+      </Stack>
     </Stack>
   );
 }

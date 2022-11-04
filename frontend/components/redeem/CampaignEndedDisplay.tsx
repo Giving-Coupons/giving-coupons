@@ -1,6 +1,6 @@
 import { Stack, Typography } from '@mui/material';
 import router from 'next/router';
-import { rootSx } from '../../styles/components/redeem/CampaignEndedDisplayStyles';
+import { buttonSx, rootSx } from '../../styles/components/redeem/CampaignEndedDisplayStyles';
 import { CampaignBaseData } from '../../types/campaigns';
 import { log } from '../../utils/analytics';
 import { USER_FACING_DATE_FORMAT } from '../../utils/constants';
@@ -40,25 +40,29 @@ export default function CampaignEndedDisplay({ campaign, isFromRedemption }: Pro
         </Typography>
       )}
 
-      <Button
-        actionType="primary"
-        onClick={() => {
-          log("[CampaignEndedDisplay] Click 'View Campaign'");
-          router.push(`/campaigns/${campaign.id}`);
-        }}
-      >
-        View Campaign Statistics
-      </Button>
+      <Stack spacing={2}>
+        <Button
+          actionType="primary"
+          onClick={() => {
+            log("[CampaignEndedDisplay] Click 'View Campaign'");
+            router.push(`/campaigns/${campaign.id}`);
+          }}
+          sx={buttonSx}
+        >
+          View Campaign Statistics
+        </Button>
 
-      <Button
-        actionType="secondary"
-        onClick={() => {
-          log("[CampaignEndedDisplay] Click 'View Others'");
-          router.push(`/campaigns`);
-        }}
-      >
-        Browse Active Campaigns
-      </Button>
+        <Button
+          actionType="secondary"
+          onClick={() => {
+            log("[CampaignEndedDisplay] Click 'View Others'");
+            router.push(`/campaigns`);
+          }}
+          sx={buttonSx}
+        >
+          Browse Active Campaigns
+        </Button>
+      </Stack>
     </Stack>
   );
 }
