@@ -35,6 +35,10 @@ const CampaignPublicInfoCard = ({ campaign }: Props) => {
 
   const numTotalCoupons = campaign.promisedAmount / campaign.couponDenomination;
   const numOfDaysTillEnd = campaign.end.diff(moment(), 'days');
+  const numOfDaysTillStart = campaign.start.diff(moment(), 'days') + 1;
+  const campaignStatus = getCampaignStatus(campaign.start, campaign.end);
+  const campaignIsActive = campaignStatus === 'Active';
+  const campaignIsUpcoming = campaignStatus === 'Upcoming';
 
   return (
     <Grid container columnSpacing={2}>
@@ -55,11 +59,19 @@ const CampaignPublicInfoCard = ({ campaign }: Props) => {
       <Grid item xs={12} md={6} marginTop={isMobile ? 1 : 0}>
         <Stack component="div" spacing={1} justifyContent="center" alignItems="center">
           <Stack sx={campaignInfoItemSx} component="div" spacing={1}>
-            <Typography variant="h4">Status: {getCampaignStatus(campaign.start, campaign.end)}</Typography>
+            <Typography variant="h4">Status: {campaignStatus}</Typography>
 
-            <Typography variant="h4" sx={campaignStatusTextSx}>
-              Campaign ends in {numOfDaysTillEnd} {numOfDaysTillEnd === 1 ? 'day' : 'days'}!
-            </Typography>
+            {campaignIsActive && (
+              <Typography variant="h4" sx={campaignStatusTextSx}>
+                Campaign ends in {numOfDaysTillEnd} {numOfDaysTillEnd === 1 ? 'day' : 'days'}!
+              </Typography>
+            )}
+
+            {campaignIsUpcoming && (
+              <Typography variant="h4" sx={campaignStatusTextSx}>
+                Campaign starts in {numOfDaysTillStart} {numOfDaysTillStart === 1 ? 'day' : 'days'}!
+              </Typography>
+            )}
 
             <Stack component="div" direction="row" spacing={2}>
               <CampaignDateInfoIcon label="Start" date={campaign.start} />
