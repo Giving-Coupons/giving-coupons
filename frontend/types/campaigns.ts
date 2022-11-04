@@ -116,7 +116,7 @@ export type CampaignPublicData = Omit<CampaignBaseData, 'charities'> & {
   charities: CampaignCharityDonationPublicData[];
 };
 
-export type CampaignAdminData = CampaignBaseData & {
+export type CampaignAdminData = Omit<CampaignBaseData, 'charities'> & {
   donations: DonationBreakdownData;
   charities: CampaignCharityDonationData[];
   coupons: CouponListData[];
