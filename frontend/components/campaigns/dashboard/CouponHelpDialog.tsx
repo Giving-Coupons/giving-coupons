@@ -6,6 +6,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { givingCouponsInlineLogoSx } from '../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
 import { CampaignPublicData } from '../../../types/campaigns';
 import Button from '../../generic/Button';
+import { useTheme } from '@mui/system';
 
 interface Props {
   open: boolean;
@@ -14,24 +15,27 @@ interface Props {
 }
 
 const CouponHelpDialog = ({ open, campaign, setIsCouponHelpOpen }: Props) => {
+  const theme = useTheme();
   const numTotalCoupons = campaign.promisedAmount / campaign.couponDenomination;
 
   return (
     <Dialog open={open} onClose={() => setIsCouponHelpOpen(false)}>
       <DialogTitle>
-        <Typography variant="h1">What are coupons?</Typography>
+        <Typography component="div" variant="h1">
+          What are coupons?
+        </Typography>
       </DialogTitle>
 
       <DialogContent>
         <Stack spacing={1}>
           <Typography>Coupons are generated from a sponsor&apos;s donation.</Typography>
 
-          <Typography>
+          <Typography variant="body2" color={theme.palette.grey[700]}>
             In this campaign, {campaign.primaryDonor.name} has sponsored ${campaign.promisedAmount}.
             <Box sx={givingCouponsInlineLogoSx} component="img" src="/inline-logo.png" /> split the amount into{' '}
             {numTotalCoupons} coupons at ${campaign.couponDenomination} each. The coupons were distributed to the
-            public. Coupon recipients can choose which charity to donate the ${campaign.couponDenomination} to and they
-            can add a personal contribution if they wish.
+            public.A coupon recipient can redeem the coupon to choose which charity to donate the $
+            {campaign.couponDenomination} to and they can add a personal contribution if they wish.
           </Typography>
         </Stack>
       </DialogContent>
