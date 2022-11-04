@@ -2,15 +2,13 @@ import { SxProps } from '@mui/system';
 import { theme } from '../../../../utils/theme';
 
 export const containerSx: SxProps = {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  width: '100%',
-  paddingBottom: '16px',
+  paddingTop: 4,
+  paddingBottom: 4,
 };
 
 export const sectionSx: SxProps = {
-  padding: '40px',
+  paddingLeft: 4,
+  paddingRight: 4,
 };
 
 export const cardSx: SxProps = {
@@ -31,6 +29,16 @@ export const charityItemSx: SxProps = {
   justifyContent: 'space-evenly',
 };
 
+export const givingSgLinkSx: SxProps = {
+  color: theme.palette.info.main,
+  textDecoration: 'none',
+  '&:hover': {
+    cursor: 'pointer',
+    color: theme.palette.info.dark,
+    textDecoration: 'none',
+  },
+};
+
 export const primaryDonorItemSx: SxProps = {
   width: '100%',
   alignItems: 'center',
@@ -44,7 +52,7 @@ export const avatarSx: SxProps = {
 
 export const logoSx: SxProps = {
   height: '32px',
-  width: 'auto',
+  width: '32px',
   objectFit: 'contain',
 };
 
@@ -63,6 +71,16 @@ export const couponsTableContainerSx: SxProps = {
   maxHeight: '400px',
   width: '100%',
   overflow: 'auto',
+};
+
+export const campaignImageStackSx: SxProps = {
+  width: '100%',
+  height: '100%',
+  backgroundColor: '#F4F4F4',
+};
+
+export const campaignDetailImageSx: SxProps = {
+  width: '100%',
 };
 
 export const nonCouponDonationsTableHeaderSx: SxProps = {
@@ -94,8 +112,25 @@ export const campaignInfoItemSx: SxProps = {
   justifyContent: 'center',
   alignItems: 'center',
   borderRadius: '20px',
-  padding: '4%',
+  padding: '5px',
   backgroundColor: '#F4F4F4',
+};
+
+export const campaignStatusTextSx: SxProps = {
+  color: theme.palette.primary.main,
+};
+
+export const couponHelpIconButtonSx: SxProps = {
+  padding: 0,
+  color: 'gray',
+  marginLeft: 0.5,
+};
+
+export const couponHelpIconSx: SxProps = {
+  '&:hover': {
+    backgroundColor: theme.palette.grey[300],
+    borderRadius: '50%',
+  },
 };
 
 export const campaignMoneyIconSx: SxProps = {
@@ -108,4 +143,12 @@ export const campaignDateIconSx: SxProps = {
 
 export const expiredCouponSx: SxProps = {
   backgroundColor: '#FCCFCF',
+};
+
+export const givingCouponsInlineLogoSx: SxProps = {
+  maxHeight: '1.5em',
+  minHeight: '1.5em',
+  height: '1.5em',
+  verticalAlign: 'middle',
+  marginLeft: '4px',
 };

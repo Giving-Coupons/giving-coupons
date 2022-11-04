@@ -20,9 +20,9 @@ const CardWithImage = ({ imageUrl, imageOverlayContent, descriptionContent }: Pr
         <ImageWithOverlay imageSrc={imageUrl}>{imageOverlayContent}</ImageWithOverlay>
       </Box>
 
-      <Box sx={descriptionContainerSx} component="div">
+      <Stack sx={descriptionContainerSx} component="div" spacing={1}>
         {descriptionContent}
-      </Box>
+      </Stack>
     </Stack>
   );
 };
