@@ -70,6 +70,7 @@ const createCampaignSchema = Yup.object().shape(
       .integer('Initial coupon validity must be an integer.')
       .typeError('Initial coupon validity must be a number.')
       .min(1, 'Initial coupon validity must be at least 1 day.')
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore - there is a bug in the type declaration of the `when` method,
       // causing Typescript to complain even though the code works at runtime.
       // See https://github.com/jquense/yup/issues/1529 and https://github.com/jquense/yup/issues/1813
