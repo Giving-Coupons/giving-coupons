@@ -20,7 +20,7 @@ class SecondaryDonation < ApplicationRecord
 
     return if campaign.start <= donated_at && donated_at <= campaign.end
 
-    errors.add(:redeemed_at, 'must be between campaign start and end dates')
+    errors.add(:donated_at, 'must be between campaign start and end dates')
   end
 
   def same_time_as_redemption
