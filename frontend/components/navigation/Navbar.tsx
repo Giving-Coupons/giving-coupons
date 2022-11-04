@@ -54,12 +54,10 @@ const NavBar = () => {
           <Link href={isAdminSignedInPage ? adminPathPrefix : '/'}>
             <Stack sx={toolbarLogoSx} component="div" direction="row" spacing={1}>
               {isMobile ? (
-                <Box sx={toolbarMobileLogoIconSx} component="img" src="/logo-icon.png" />
+                <Box sx={toolbarMobileLogoIconSx} component="img" src="/inline-logo.png" />
               ) : (
-                <Box sx={toolbarDesktopLogoIconSx} component="img" src="/logo-icon.png" />
+                <Box sx={toolbarDesktopLogoIconSx} component="img" src="/inline-logo.png" />
               )}
-
-              <Typography variant={isMobile ? 'h4' : 'h3'}>Giving Coupons</Typography>
 
               {isAdminSignedInPage && (
                 <Typography sx={adminCaptionSx} variant="caption" color="primary">

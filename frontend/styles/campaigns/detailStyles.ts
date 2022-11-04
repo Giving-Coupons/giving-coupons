@@ -1,22 +1,22 @@
-import { SxProps } from '@mui/system';
+import { SxProps } from '@mui/material';
 import { theme } from '../../utils/theme';
 
-export const donationBreakdownItemContainer: SxProps = {
+export const containerSx: SxProps = {
+  marginBottom: 2,
+};
+
+export const swiperSx = {
+  display: 'flex',
+  flexDirection: 'column' as const,
   alignItems: 'center',
-  width: '100%',
+  justifyContent: 'center',
+  '--swiper-navigation-color': theme.palette.secondaryTranslucent.main,
 };
 
-export const donationBreakdownLabelSx: SxProps = {
-  alignItems: 'center',
-  width: '20%',
+export const swiperSlideSx = {
+  padding: 20,
 };
 
-export const charityLogoSx: SxProps = {
-  maxHeight: '48px',
-  minHeight: '48px',
-  height: '48px',
-};
-
-export const rightBarSx: SxProps = {
-  backgroundColor: theme.palette.secondaryTranslucent.main,
+export const desktopStackSx: SxProps = {
+  width: '90%',
 };

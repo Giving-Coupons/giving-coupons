@@ -21,10 +21,10 @@ export const imageContainerSx: SxProps = {
 };
 
 export const descriptionContainerSx: SxProps = {
-  display: 'flex',
-  flexDirection: 'column',
   justifyContent: 'space-between',
-  margin: '4px 0',
+  paddingTop: 1,
+  paddingBottom: 1,
   width: '90%',
-  height: '100%',
+  height: '55%',
+  maxHeight: '55%',
 };
