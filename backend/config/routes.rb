@@ -9,6 +9,8 @@ Rails.application.routes.draw do
         token_validations: 'auth/token_validations'
       }
 
+      get 'stats', to: 'stats#index'
+
       resources :campaigns do
         collection do
           get :admin_index
