@@ -1,3 +1,4 @@
+import { HttpStatusCode } from 'axios';
 import { Nullable } from './utils';
 
 export enum StatusMessageType {
@@ -13,6 +14,7 @@ export interface StatusMessage {
 export interface Response<D> {
   payload: D;
   message: Nullable<StatusMessage>;
+  statusCode?: HttpStatusCode;
 }
 
 export type ApiResponse<D> = Response<D | null>;

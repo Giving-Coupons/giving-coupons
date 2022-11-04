@@ -58,7 +58,7 @@ export default function useRedemptionState(
         setRedemptionState(currentState);
       }
     } catch (err) {
-      enqueueSnackbar('Unable to retrieve your past coupon history.', { variant: 'error' });
+      enqueueSnackbar('Unable to retrieve your past coupon history.', { variant: 'error', preventDuplicate: true });
     }
   });
 

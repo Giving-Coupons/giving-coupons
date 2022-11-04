@@ -7,9 +7,11 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { SnackbarProvider } from 'notistack';
 import { useCallback } from 'react';
+import { SWRConfig } from 'swr';
 import NavBar from '../components/navigation/Navbar';
 import { AxiosInterceptor } from '../frontendApis/interceptor';
 import '../styles/globals.scss';
+import { swrConfig } from '../utils/swrConfig';
 import { theme } from '../utils/theme';
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -37,13 +39,15 @@ function MyApp({ Component, pageProps }: AppProps) {
       <LocalizationProvider dateAdapter={AdapterMoment}>
         <SnackbarProvider maxSnack={3}>
           <AxiosInterceptor>
-            <Head>
-              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-            </Head>
+            <SWRConfig value={swrConfig}>
+              <Head>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+              </Head>
 
-            <NavBar />
+              <NavBar />
 
-            <Component {...pageProps} />
+              <Component {...pageProps} />
+            </SWRConfig>
           </AxiosInterceptor>
         </SnackbarProvider>
       </LocalizationProvider>
