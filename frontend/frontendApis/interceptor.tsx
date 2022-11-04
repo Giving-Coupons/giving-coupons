@@ -34,8 +34,11 @@ const AxiosInterceptor = ({ children }: Props) => {
       },
       (error: AxiosError<ApiResponse<null>>) => {
         const statusMessage = error?.response?.data?.message?.message;
+        const statusCode = error?.response?.status;
+
         if (statusMessage) {
-          enqueueSnackbar(statusMessage, { variant: 'error' });
+          const preventDuplicate = statusCode === 404;
+          enqueueSnackbar(statusMessage, { variant: 'error', preventDuplicate });
         } else if (error?.message == 'Network Error') {
           enqueueSnackbar('Unable to connect to the server, please try again later.', { variant: 'error' });
         }
