@@ -15,7 +15,7 @@ type Props = {
 export default function CampaignNotStartedDisplay({ campaign }: Props) {
   return (
     <Stack component="div" spacing={2} sx={rootSx}>
-      <RandomKawaii isHappy={false} />
+      <RandomKawaii isHappy />
 
       <Typography variant="h1">Wait, the campaign has not begun!</Typography>
 
