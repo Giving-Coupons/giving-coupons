@@ -97,7 +97,7 @@ export const campaignInfoItemSx: SxProps = {
 };
 
 export const campaignStatusTextSx: SxProps = {
-  color: 'gray',
+  color: theme.palette.primary.main,
 };
 
 export const couponHelpIconButtonSx: SxProps = {
