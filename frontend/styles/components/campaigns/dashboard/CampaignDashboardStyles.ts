@@ -65,6 +65,12 @@ export const couponsTableContainerSx: SxProps = {
   overflow: 'auto',
 };
 
+export const nonCouponDonationsTableContainerSx: SxProps = {
+  maxHeight: '400px',
+  width: '100%',
+  overflow: 'auto',
+};
+
 export const campaignImageSx: SxProps = {
   width: '100%',
   height: '100%',
