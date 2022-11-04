@@ -16,5 +16,6 @@ json.coupons do
 end
 
 json.nonCouponDonations do
-  json.array! (@campaign.secondary_donations - @campaign.coupons.map(&:secondary_donation).compact), partial: 'secondary_donations/secondary_donation', as: :secondary_donation
+  json.array! (@campaign.secondary_donations - @campaign.coupons.map(&:secondary_donation).compact),
+              partial: 'secondary_donations/secondary_donation', as: :secondary_donation
 end
