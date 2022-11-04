@@ -71,14 +71,20 @@ const CampaignForm = ({
                     label="Coupon Denomination"
                     InputProps={{ startAdornment: <InputAdornment position="start">$</InputAdornment> }}
                   />
-
-                  <FormTextInput name="initialCouponValidity" label="Initial Coupon Validity (days)" />
                 </>
               )}
 
               <FormDatePicker name="start" label="Start Date" />
 
               <FormDatePicker name="end" label="End Date" minDate={values.start ?? undefined} />
+
+              {!isForEditCampaign && (
+                <FormTextInput
+                  name="initialCouponValidity"
+                  label="Initial Coupon Validity"
+                  InputProps={{ endAdornment: <InputAdornment position="end">day(s)</InputAdornment> }}
+                />
+              )}
 
               <FormImageUpload name="imageBase64" label="Upload Campaign Image" />
             </Stack>

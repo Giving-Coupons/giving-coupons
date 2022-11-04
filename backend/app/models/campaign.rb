@@ -12,7 +12,7 @@ class Campaign < ApplicationRecord
   has_many :charities, through: :campaign_charities
   has_many :secondary_donations, through: :campaign_charities
 
-  before_save :update_coupons_expiry_if_needed
+  before_validation :update_coupons_expiry_if_needed
   after_create :approve_associated_interest
 
   validates :name, presence: true, allow_blank: false
@@ -102,8 +102,6 @@ class Campaign < ApplicationRecord
   end
 
   def update_coupons_expiry_if_needed
-    return unless end_changed?
-
     coupons.each do |coupon|
       coupon.expires_at = [coupon.expires_at, self.end].min
     end

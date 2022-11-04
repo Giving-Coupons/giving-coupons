@@ -52,10 +52,6 @@ const createCampaignSchema = Yup.object().shape(
           message: `Coupon denomination must be a factor of $${promisedAmount}.`,
         });
       }),
-    initialCouponValidity: Yup.number()
-      .required('Initial coupon validity is required.')
-      .integer('Initial coupon validity must be an integer.')
-      .typeError('Initial coupon validity must be a number.'),
     start: Yup.date()
       .required('Start date is required.')
       .typeError('Start date must be a date.')
@@ -69,6 +65,25 @@ const createCampaignSchema = Yup.object().shape(
         isValidDate(startDate) ? schema.min(startDate, 'End date cannot be before Start date') : schema,
       )
       .min(moment().endOf('day'), 'End date cannot be today or in the past.'),
+    initialCouponValidity: Yup.number()
+      .required('Initial coupon validity is required.')
+      .integer('Initial coupon validity must be an integer.')
+      .typeError('Initial coupon validity must be a number.')
+      .min(1, 'Initial coupon validity must be at least 1 day.')
+      // @ts-ignore - there is a bug in the type declaration of the `when` method,
+      // causing Typescript to complain even though the code works at runtime.
+      // See https://github.com/jquense/yup/issues/1529 and https://github.com/jquense/yup/issues/1813
+      .when(['start', 'end'], (start, end, schema) => {
+        return schema.test({
+          test: (initialCouponValidity: number) => {
+            console.log(moment(end).diff(start, 'days'));
+            return isValidDate(start) && isValidDate(end)
+              ? initialCouponValidity <= moment(end).diff(start, 'days') + 1
+              : true;
+          },
+          message: 'Initial coupon validity cannot be longer than the campaign duration.',
+        });
+      }),
     imageBase64: Yup.string().required('Campaign image is required.'),
     charities: Yup.array()
       .of(
