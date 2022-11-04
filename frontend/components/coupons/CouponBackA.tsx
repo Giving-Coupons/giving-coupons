@@ -12,7 +12,7 @@ import {
   sugarFontSx,
 } from '../../styles/components/coupons/couponStyles';
 import { CouponBaseData } from '../../types/coupons';
-import { DATE_FORMAT } from '../../utils/constants';
+import { USER_FACING_DATE_FORMAT } from '../../utils/constants';
 
 interface Props {
   coupon: CouponBaseData;
@@ -65,7 +65,7 @@ const CouponBackA = ({ coupon }: Props) => {
           <Divider />
 
           <Typography align="center" color="gray" variant="caption" fontWeight={600}>
-            {`Valid Till: ${coupon.expiresAt.format(DATE_FORMAT)}`}
+            {`Valid Till: ${coupon.expiresAt.format(USER_FACING_DATE_FORMAT)}`}
           </Typography>
         </Stack>
       </Stack>

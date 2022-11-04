@@ -3,7 +3,7 @@ import router from 'next/router';
 import { rootSx } from '../../styles/components/redeem/CampaignEndedDisplayStyles';
 import { CampaignBaseData } from '../../types/campaigns';
 import { log } from '../../utils/analytics';
-import { DATE_FORMAT } from '../../utils/constants';
+import { USER_FACING_DATE_FORMAT } from '../../utils/constants';
 import BoldText from '../generic/BoldText';
 import Button from '../generic/Button';
 import RandomKawaii from '../notFound/RandomKawaii';
@@ -26,7 +26,7 @@ export default function CampaignEndedDisplay({ campaign, isFromRedemption }: Pro
           {campaign.name}
         </BoldText>
         ended on
-        <BoldText spaceBefore spaceAfter>{`${campaign.end.format(DATE_FORMAT)}`}</BoldText>
+        <BoldText spaceBefore spaceAfter>{`${campaign.end.format(USER_FACING_DATE_FORMAT)}`}</BoldText>
         and you are no longer able to {isFromRedemption ? 'redeem this coupon' : 'contribute to this campaign'}.
       </Typography>
 

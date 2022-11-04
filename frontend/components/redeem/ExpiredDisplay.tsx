@@ -3,7 +3,7 @@ import { Moment } from 'moment';
 import router from 'next/router';
 import { rootSx } from '../../styles/components/redeem/ExpiredDisplayStyles';
 import { log } from '../../utils/analytics';
-import { DATE_FORMAT } from '../../utils/constants';
+import { USER_FACING_DATE_FORMAT } from '../../utils/constants';
 import BoldText from '../generic/BoldText';
 import Button from '../generic/Button';
 import RandomKawaii from '../notFound/RandomKawaii';
@@ -23,7 +23,7 @@ export default function ExpiredDisplay({ couponExpiry, primaryDonorName, campaig
 
       <Typography variant="subtitle1">
         Unfortunately, the coupon was only valid until
-        <BoldText spaceBefore>{couponExpiry.format(DATE_FORMAT)}</BoldText>.
+        <BoldText spaceBefore>{couponExpiry.format(USER_FACING_DATE_FORMAT)}</BoldText>.
       </Typography>
 
       <Typography variant="subtitle1">

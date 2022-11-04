@@ -3,7 +3,7 @@ import router from 'next/router';
 import { rootSx } from '../../styles/components/redeem/CampaignEndedDisplayStyles';
 import { CampaignBaseData } from '../../types/campaigns';
 import { log } from '../../utils/analytics';
-import { DATE_FORMAT } from '../../utils/constants';
+import { USER_FACING_DATE_FORMAT } from '../../utils/constants';
 import BoldText from '../generic/BoldText';
 import Button from '../generic/Button';
 import RandomKawaii from '../notFound/RandomKawaii';
@@ -25,7 +25,7 @@ export default function CampaignNotStartedDisplay({ campaign }: Props) {
           {campaign.name}
         </BoldText>
         will only start on
-        <BoldText spaceBefore>{`${campaign.end.format(DATE_FORMAT)}`}</BoldText>.
+        <BoldText spaceBefore>{`${campaign.end.format(USER_FACING_DATE_FORMAT)}`}</BoldText>.
       </Typography>
 
       <Typography variant="subtitle1">Sit tight, we are just as excited as you are!</Typography>
