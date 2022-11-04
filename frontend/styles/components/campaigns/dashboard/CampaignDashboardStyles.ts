@@ -2,15 +2,13 @@ import { SxProps } from '@mui/system';
 import { theme } from '../../../../utils/theme';
 
 export const containerSx: SxProps = {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  width: '100%',
-  paddingBottom: '16px',
+  paddingTop: 4,
+  paddingBottom: 4,
 };
 
 export const sectionSx: SxProps = {
-  padding: '40px',
+  paddingLeft: 4,
+  paddingRight: 4,
 };
 
 export const cardSx: SxProps = {
@@ -31,6 +29,16 @@ export const charityItemSx: SxProps = {
   justifyContent: 'space-evenly',
 };
 
+export const givingSgLinkSx: SxProps = {
+  color: theme.palette.info.main,
+  textDecoration: 'none',
+  '&:hover': {
+    cursor: 'pointer',
+    color: theme.palette.info.dark,
+    textDecoration: 'none',
+  },
+};
+
 export const primaryDonorItemSx: SxProps = {
   width: '100%',
   alignItems: 'center',
@@ -44,7 +52,7 @@ export const avatarSx: SxProps = {
 
 export const logoSx: SxProps = {
   height: '32px',
-  width: 'auto',
+  width: '32px',
   objectFit: 'contain',
 };
 

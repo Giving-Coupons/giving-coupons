@@ -35,8 +35,10 @@ const CampaignInfoCard = ({ campaign }: Props) => {
     });
   };
 
+  const numOfRedeemedCoupons = campaign.coupons.filter((coupon) => coupon.redemptionId != null).length;
+
   return (
-    <Grid container columnSpacing={2}>
+    <Grid container columnSpacing={2} rowSpacing={2}>
       <Grid item xs={12} md={6}>
         <Box sx={campaignImageSx} component="img" src={campaign.imageBase64} />
       </Grid>
@@ -77,6 +79,8 @@ const CampaignInfoCard = ({ campaign }: Props) => {
 
           <Stack sx={campaignInfoItemSx} component="div" spacing={1}>
             <Typography variant="h4">{`${campaign.coupons.length} coupons in total`}</Typography>
+
+            <Typography variant="h5">{`${numOfRedeemedCoupons} of ${campaign.coupons.length} coupons redeemed`}</Typography>
 
             <Stack component="div" direction="row" spacing={2}>
               <CampaignMoneyInfoIcon

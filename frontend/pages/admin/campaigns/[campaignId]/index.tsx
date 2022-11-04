@@ -12,7 +12,7 @@ import CampaignPrimaryDonorCard from '../../../../components/campaigns/dashboard
 import api from '../../../../frontendApis';
 import CampaignsAPI from '../../../../frontendApis/campaigns';
 import useAdminLoginCheck from '../../../../hooks/useAdminLogInCheck';
-import { sectionSx } from '../../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
+import { containerSx, sectionSx } from '../../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
 import { CampaignAdminData } from '../../../../types/campaigns';
 import { Nullable } from '../../../../types/utils';
 
@@ -43,7 +43,7 @@ const AdminCampaign = () => {
         )}
 
         {campaign && !error && (
-          <Grid container>
+          <Grid sx={containerSx} container rowSpacing={4}>
             <Grid item xs={12} md={8}>
               <Stack sx={sectionSx} component="div" spacing={4}>
                 <CampaignInfoCard campaign={campaign} />
