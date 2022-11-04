@@ -35,8 +35,8 @@ const CampaignPublicInfoCard = ({ campaign }: Props) => {
   const [isCouponHelpOpen, setIsCouponHelpOpen] = useState<boolean>(false);
 
   const numTotalCoupons = campaign.promisedAmount / campaign.couponDenomination;
-  const numOfDaysTillEnd = campaign.end.diff(moment(), 'days');
-  const numOfDaysTillStart = campaign.start.diff(moment(), 'days') + 1;
+  const numOfDaysTillEnd = campaign.end.diff(moment().startOf('day'), 'days');
+  const numOfDaysTillStart = campaign.start.diff(moment().startOf('day'), 'days');
   const campaignStatus = getCampaignStatus(campaign.start, campaign.end);
   const campaignIsActive = campaignStatus === 'Active';
   const campaignIsUpcoming = campaignStatus === 'Upcoming';
