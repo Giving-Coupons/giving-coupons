@@ -65,6 +65,16 @@ export const couponsTableContainerSx: SxProps = {
   overflow: 'auto',
 };
 
+export const campaignImageStackSx: SxProps = {
+  width: '100%',
+  height: '100%',
+  backgroundColor: '#F4F4F4',
+};
+
+export const campaignDetailImageSx: SxProps = {
+  width: '100%',
+};
+
 export const campaignImageSx: SxProps = {
   width: '100%',
   height: '100%',
@@ -82,8 +92,25 @@ export const campaignInfoItemSx: SxProps = {
   justifyContent: 'center',
   alignItems: 'center',
   borderRadius: '20px',
-  padding: '4%',
+  padding: '5px',
   backgroundColor: '#F4F4F4',
+};
+
+export const campaignStatusTextSx: SxProps = {
+  color: theme.palette.primary.main,
+};
+
+export const couponHelpIconButtonSx: SxProps = {
+  padding: 0,
+  color: 'gray',
+  marginLeft: 0.5,
+};
+
+export const couponHelpIconSx: SxProps = {
+  '&:hover': {
+    backgroundColor: theme.palette.grey[300],
+    borderRadius: '50%',
+  },
 };
 
 export const campaignMoneyIconSx: SxProps = {
@@ -96,4 +123,12 @@ export const campaignDateIconSx: SxProps = {
 
 export const expiredCouponSx: SxProps = {
   backgroundColor: '#FCCFCF',
+};
+
+export const givingCouponsInlineLogoSx: SxProps = {
+  maxHeight: '1.5em',
+  minHeight: '1.5em',
+  height: '1.5em',
+  verticalAlign: 'middle',
+  marginLeft: '4px',
 };
