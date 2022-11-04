@@ -21,11 +21,11 @@ class CouponsController < ApplicationController
                                                                                 image_attachment: :blob } }] },
                                             { primary_donor: [image_attachment: :blob] },
                                             { image_attachment: :blob }] }])
-                    .find_by(url_token: params[:id])
+                    .find_by!(url_token: params[:id])
   end
 
   def redeem
-    @coupon = Coupon.find_by(url_token: params[:url_token])
+    @coupon = Coupon.find_by!(url_token: params[:url_token])
 
     if @coupon.redeemed?
       add_error_message('Coupon is already redeemed!')
