@@ -6,7 +6,7 @@ class StatsAPI extends BaseAPI {
   static STATS_URL = 'stats';
 
   public getSummaryStats(): ApiPromise<SummaryData> {
-    return this.get(`${StatsAPI.STATS_URL}`);
+    return this.get(StatsAPI.STATS_URL);
   }
 }
 
