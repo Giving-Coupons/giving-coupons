@@ -23,7 +23,7 @@ function Stats() {
         {stats ? <Typography variant="hero">${stats.totalContributionAmount}</Typography> : heroSkeleton}
       </Stack>
       <Stack>
-        <Typography variant="h1">Total Coupon Redemptions:</Typography>
+        <Typography variant="h1">Total Coupons Redeemed:</Typography>
         {stats ? <Typography variant="hero">{stats.totalRedemptionCount}</Typography> : heroSkeleton}
       </Stack>
     </Stack>
