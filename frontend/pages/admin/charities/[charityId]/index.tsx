@@ -122,7 +122,7 @@ const CharityView = () => {
           </Stack>
         )}
 
-        {error && <ErrorDisplay />}
+        {error && <ErrorDisplay statusCode={error.statusCode} entity="charity" />}
       </Stack>
     </Box>
   );
