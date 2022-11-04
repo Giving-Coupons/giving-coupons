@@ -32,6 +32,7 @@ const CustomAccordion = styled((props: AccordionProps) => <Accordion {...props} 
   '&:not(:last-child)': {
     borderBottom: '1px solid lightGray',
   },
+  boxShadow: 'none',
 }));
 
 const CustomAccordionSummary = styled(AccordionSummary)(() => ({
