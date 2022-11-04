@@ -1,8 +1,8 @@
 import { Typography } from '@mui/material';
 import { Stack } from '@mui/system';
 import {
-  couponsTableHeaderSx,
   nonCouponDonationsTableContainerSx,
+  nonCouponDonationsTableHeaderSx,
 } from '../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
 import { CampaignAdminData } from '../../../types/campaigns';
 import { CharityData } from '../../../types/charity';
@@ -21,7 +21,7 @@ const CampaignNonCouponDonationsCard = ({ campaign, nonCouponDonations }: Props)
 
   return (
     <CampaignCard>
-      <Stack sx={couponsTableHeaderSx} component="div" direction="row" spacing={2}>
+      <Stack sx={nonCouponDonationsTableHeaderSx} component="div" direction="row" spacing={2}>
         <Typography variant="h3" flex={2}>
           Additional Donations
         </Typography>

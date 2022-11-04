@@ -65,6 +65,12 @@ export const couponsTableContainerSx: SxProps = {
   overflow: 'auto',
 };
 
+export const nonCouponDonationsTableHeaderSx: SxProps = {
+  width: '100%',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+};
+
 export const nonCouponDonationsTableContainerSx: SxProps = {
   maxHeight: '400px',
   width: '100%',
