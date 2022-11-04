@@ -26,3 +26,8 @@ export const charityLogoSx: SxProps = {
 export const buttonSx: SxProps = {
   width: '100%',
 };
+
+export const descriptionSx: SxProps = {
+  overflowY: 'auto',
+  flex: 1,
+};
