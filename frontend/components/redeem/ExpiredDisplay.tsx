@@ -5,7 +5,7 @@ import { rootSx } from '../../styles/components/redeem/ExpiredDisplayStyles';
 import { log } from '../../utils/analytics';
 import { DATE_FORMAT } from '../../utils/constants';
 import Button from '../generic/Button';
-import RandomKawaii from '../notFound/RandomKawaii';
+import RandomKawaii from '../RandomKawaii';
 
 type Props = {
   couponExpiry: Moment;

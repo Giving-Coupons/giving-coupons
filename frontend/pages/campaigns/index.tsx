@@ -7,6 +7,7 @@ import useSWR from 'swr';
 import CampaignList from '../../components/campaigns/list/CampaignList';
 import CampaignListLoading from '../../components/campaigns/list/CampaignListLoading';
 import CampaignSearch from '../../components/campaigns/search/CampaignSearch';
+import ErrorDisplay from '../../components/generic/ErrorDisplay';
 import api from '../../frontendApis';
 import CampaignsAPI from '../../frontendApis/campaigns';
 import { containerSx, messageContainerSx, mobileSearchButtonSx } from '../../styles/campaigns/indexStyles';
@@ -50,12 +51,7 @@ const Campaigns = () => {
 
         {isLoading && <CampaignListLoading />}
 
-        {error && (
-          <Stack sx={messageContainerSx} spacing={2}>
-            <Typography variant="h1">Error</Typography>
-            <Typography variant="h2">That is all we know right now.</Typography>
-          </Stack>
-        )}
+        {error && <ErrorDisplay />}
 
         {hasLoadedSuccessfully && campaigns.length > 0 && <CampaignList campaigns={campaigns} />}
 

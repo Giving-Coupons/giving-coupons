@@ -1,5 +1,5 @@
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import { Box, Typography, useMediaQuery } from '@mui/material';
+import { Box, useMediaQuery } from '@mui/material';
 import { Container, Stack, useTheme } from '@mui/system';
 import { Form, Formik } from 'formik';
 import { NextPage } from 'next';
@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 import * as Yup from 'yup';
 import FormikValuesListener from '../../../components/forms/FormikValuesListener';
+import ErrorDisplay from '../../../components/generic/ErrorDisplay';
 import IconButtonWithTooltip from '../../../components/IconButtonWithTooltip';
 import AlreadyRedeemedDisplay from '../../../components/redeem/AlreadyRedeemedDisplay';
 import ExpiredDisplay from '../../../components/redeem/ExpiredDisplay';
@@ -20,7 +21,6 @@ import PersonalContributionStep from '../../../components/redeem/steps/PersonalC
 import VerifyStep from '../../../components/redeem/steps/VerifyStep';
 import api from '../../../frontendApis';
 import useRedemptionState from '../../../hooks/useRedemptionState';
-import { messageContainerSx } from '../../../styles/campaigns/indexStyles';
 import {
   containerSx,
   desktopFormContainerSx,
@@ -221,13 +221,7 @@ const Redeem: NextPage = () => {
             </>
           )}
 
-          {error && (
-            <Stack component="div" sx={messageContainerSx} spacing={2}>
-              <Typography variant="h1">Error</Typography>
-
-              <Typography variant="h2">That is all we know right now.</Typography>
-            </Stack>
-          )}
+          {error && <ErrorDisplay statusCode={error.statusCode} entity="coupon" />}
 
           {hasLoadedSuccessfully && coupon.redemption && (
             <AlreadyRedeemedDisplay
