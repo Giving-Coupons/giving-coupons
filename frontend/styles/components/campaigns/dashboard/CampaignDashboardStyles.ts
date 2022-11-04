@@ -100,7 +100,18 @@ export const campaignStatusTextSx: SxProps = {
   color: 'gray',
 };
 
-export const couponHelpIconButtonSx: SxProps = { padding: 0, color: 'gray', marginLeft: 0.5 };
+export const couponHelpIconButtonSx: SxProps = {
+  padding: 0,
+  color: 'gray',
+  marginLeft: 0.5,
+};
+
+export const couponHelpIconSx: SxProps = {
+  '&:hover': {
+    backgroundColor: theme.palette.grey[300],
+    borderRadius: '50%',
+  },
+};
 
 export const campaignMoneyIconSx: SxProps = {
   alignItems: 'center',

@@ -1,4 +1,3 @@
-import HelpIcon from '@mui/icons-material/Help';
 import LinearScaleIcon from '@mui/icons-material/LinearScale';
 import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 import PaidIcon from '@mui/icons-material/Paid';
@@ -14,6 +13,7 @@ import {
   campaignInfoItemSx,
   campaignStatusTextSx,
   couponHelpIconButtonSx,
+  couponHelpIconSx,
 } from '../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
 import { CampaignPublicData } from '../../../types/campaigns';
 import { getCampaignStatus } from '../../../utils/campaigns';
@@ -22,6 +22,7 @@ import IconButtonWithTooltip from '../../IconButtonWithTooltip';
 import CampaignDateInfoIcon from './CampaignDateInfoIcon';
 import CampaignMoneyInfoIcon from './CampaignMoneyInfoIcon';
 import CouponHelpDialog from './CouponHelpDialog';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 
 interface Props {
   campaign: CampaignPublicData;
@@ -88,7 +89,7 @@ const CampaignPublicInfoCard = ({ campaign }: Props) => {
 
               <IconButtonWithTooltip
                 sx={couponHelpIconButtonSx}
-                icon={<HelpIcon />}
+                icon={<HelpOutlineIcon fontSize="small" sx={couponHelpIconSx} />}
                 tooltip="Learn more about coupons"
                 onClick={() => setIsCouponHelpOpen(true)}
               />
