@@ -22,6 +22,8 @@ export type CampaignListData = {
   charities: CharityListData[];
   donations: DonationBreakdownData;
   couponsRedeemedCount: number;
+  start: Moment;
+  end: Moment;
 };
 
 export type CampaignSearchFormData = {

@@ -1,4 +1,4 @@
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 
 export const isValidDate = (date: unknown) => date && moment(date).isValid();
 
@@ -28,4 +28,8 @@ export function handleDates(body: unknown): unknown {
   return Object.fromEntries(
     Object.entries(body as { [key: string]: unknown }).map(([k, v]: [string, unknown]) => [k, handleDates(v)]),
   );
+}
+
+export function isNowBetweenInclusive(start: Moment, end: Moment) {
+  return moment().isBetween(start, end, 'milliseconds', '[]');
 }
