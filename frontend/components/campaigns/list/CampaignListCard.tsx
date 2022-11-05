@@ -11,6 +11,7 @@ import {
 } from '../../../styles/components/campaigns/list/CampaignListCardStyles';
 import { CampaignListData } from '../../../types/campaigns';
 import { log } from '../../../utils/analytics';
+import { USER_FACING_DATE_FORMAT } from '../../../utils/constants';
 import { isNowBetweenInclusive } from '../../../utils/dates';
 import CompetingGraph from '../../charts/CompetingGraph';
 import Button from '../../generic/Button';
@@ -61,7 +62,7 @@ const CampaignListCard = ({ campaign }: Props) => {
 
   const actionButtons = (
     <Box key="actionButtons">
-      {isNowBetweenInclusive(campaign.start, campaign.end) && (
+      {isNowBetweenInclusive(campaign.start, campaign.end) ? (
         <Button
           sx={buttonSx}
           actionType="primary"
@@ -71,6 +72,12 @@ const CampaignListCard = ({ campaign }: Props) => {
           }}
         >
           Contribute
+        </Button>
+      ) : (
+        <Button disabled actionType="muted" sx={buttonSx}>
+          {campaign.end.isBefore()
+            ? `Ended on ${campaign.end.format(USER_FACING_DATE_FORMAT)}`
+            : `Starts on ${campaign.start.format(USER_FACING_DATE_FORMAT)}`}
         </Button>
       )}
 
