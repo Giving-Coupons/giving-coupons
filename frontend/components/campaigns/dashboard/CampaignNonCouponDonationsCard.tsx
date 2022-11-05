@@ -1,5 +1,6 @@
 import { Typography } from '@mui/material';
 import { Stack } from '@mui/system';
+import { Moment } from 'moment';
 import {
   nonCouponDonationsTableContainerSx,
   nonCouponDonationsTableHeaderSx,
@@ -7,6 +8,7 @@ import {
 import { CampaignAdminData } from '../../../types/campaigns';
 import { CharityData } from '../../../types/charity';
 import { SecondaryDonationData } from '../../../types/donations';
+import { DATETIME_FORMAT } from '../../../utils/constants';
 import SimpleTable from '../../generic/SimpleTable';
 import CampaignCard from './CampaignCard';
 
@@ -34,14 +36,20 @@ const CampaignNonCouponDonationsCard = ({ campaign, nonCouponDonations }: Props)
           {
             title: 'Charity',
             key: 'campaignCharityId',
-            transformValue: (campaignCharityId) => charities[campaignCharityId]?.name,
-            getSortValue: (campaignCharityId) => charities[campaignCharityId]?.name,
+            transformValue: (campaignCharityId: number) => charities[campaignCharityId]?.name,
+            getSortValue: (campaignCharityId: number) => charities[campaignCharityId]?.name,
             notPresentIs: 'last',
           },
           {
             title: 'Amount',
             key: 'amount',
             transformValue: (amount: number) => `$${amount}`,
+          },
+          {
+            title: 'Donated At',
+            key: 'donatedAt',
+            transformValue: (donatedAt: Moment) => donatedAt.format(DATETIME_FORMAT),
+            getSortValue: (donatedAt: Moment) => donatedAt.valueOf(),
           },
         ]}
         rows={nonCouponDonations}
