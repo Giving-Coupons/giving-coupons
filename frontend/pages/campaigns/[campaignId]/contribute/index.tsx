@@ -160,7 +160,7 @@ const Contribute: NextPage = () => {
   return (
     <Box>
       <Head>
-        <title>Redeem</title>
+        <title>Contribute</title>
       </Head>
 
       <Container component="main" maxWidth="md">
