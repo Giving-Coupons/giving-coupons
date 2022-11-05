@@ -42,7 +42,7 @@ class Redemption < ApplicationRecord
   end
 
   def redemption_when_campaign_active
-    return if campaign_charity.nil?
+    return if campaign_charity.nil? || redeemed_at.nil?
 
     campaign = campaign_charity.campaign
     return if campaign.nil?
@@ -50,5 +50,12 @@ class Redemption < ApplicationRecord
     return if campaign.start <= redeemed_at && redeemed_at <= campaign.end
 
     errors.add(:redeemed_at, 'must be between campaign start and end dates')
+  end
+
+  def same_time_as_donation
+    return if secondary_donation.nil? || redeemed_at.nil?
+    return if redeemed_at == secondary_donation.donated_at
+
+    errors.add(:redeemed_at, 'must be the same as donation time')
   end
 end

@@ -13,7 +13,7 @@ class SecondaryDonation < ApplicationRecord
   validate :same_time_as_redemption
 
   def donation_when_campaign_active
-    return if campaign_charity.nil?
+    return if campaign_charity.nil? || donated_at.nil?
 
     campaign = campaign_charity.campaign
     return if campaign.nil?
@@ -24,7 +24,7 @@ class SecondaryDonation < ApplicationRecord
   end
 
   def same_time_as_redemption
-    return if redemption.nil?
+    return if redemption.nil? || donated_at.nil?
     return if donated_at == redemption.redeemed_at
 
     errors.add(:donated_at, 'must be the same as redemption time')
