@@ -10,7 +10,7 @@ import {
 } from '../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
 import { CampaignAdminData, CouponRegenerationFormData } from '../../../types/campaigns';
 import { CouponListData } from '../../../types/coupons';
-import { DATE_FORMAT } from '../../../utils/constants';
+import { DATETIME_FORMAT, DATE_FORMAT } from '../../../utils/constants';
 import Button from '../../generic/Button';
 import SimpleTable from '../../generic/SimpleTable';
 import Tabbed from '../../Tabs';
@@ -58,6 +58,12 @@ const CampaignCouponsCard = ({ campaign, coupons }: Props) => {
             redemption?.secondaryDonation?.amount ? `$${redemption?.secondaryDonation.amount}` : '-',
           getSortValue: (redemption) => redemption?.secondaryDonation?.amount,
           notPresentIs: 'last',
+        },
+        {
+          title: 'Redeemed At',
+          key: 'redemption',
+          transformValue: (redemption) => redemption?.redeemedAt.format(DATETIME_FORMAT) ?? '-',
+          getSortValue: (redemption) => redemption?.redeemedAt.valueOf(),
         },
         {
           title: 'Expires At',
