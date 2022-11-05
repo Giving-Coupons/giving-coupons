@@ -7,11 +7,12 @@ class Campaign < ApplicationRecord
 
   belongs_to :primary_donor, autosave: true
   belongs_to :interest, optional: true
-  has_many :coupons, dependent: :destroy
+  has_many :coupons, dependent: :destroy, autosave: true
   has_many :campaign_charities, dependent: :destroy, autosave: true
   has_many :charities, through: :campaign_charities
   has_many :secondary_donations, through: :campaign_charities
 
+  before_validation :update_coupons_expiry_if_needed
   after_create :approve_associated_interest
 
   validates :name, presence: true, allow_blank: false
@@ -98,5 +99,11 @@ class Campaign < ApplicationRecord
     return unless interest
 
     interest.approve
+  end
+
+  def update_coupons_expiry_if_needed
+    coupons.each do |coupon|
+      coupon.expires_at = [coupon.expires_at, self.end].min
+    end
   end
 end

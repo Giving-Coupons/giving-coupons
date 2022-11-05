@@ -9,6 +9,7 @@ class SecondaryDonationsController < ApplicationController
 
   def create
     @secondary_donation = SecondaryDonation.new(secondary_donation_params)
+    @secondary_donation.donated_at = DateTime.current
     @secondary_donation.campaign_charity = CampaignCharity.find(params[:campaign_charity_id])
     @secondary_donation.save!
   end

@@ -9,6 +9,8 @@ import useSWR from 'swr';
 import * as Yup from 'yup';
 import ContributeStepper from '../../../../components/campaigns/contribute/ContributeStepper';
 import ErrorDisplay from '../../../../components/generic/ErrorDisplay';
+import CampaignEndedDisplay from '../../../../components/redeem/CampaignEndedDisplay';
+import CampaignNotStartedDisplay from '../../../../components/redeem/CampaignNotStartedDisplay';
 import RedeemLoading from '../../../../components/redeem/RedeemLoading';
 import CharitySelectionStep from '../../../../components/redeem/steps/CharitySelectionStep';
 import PersonalContributionStep from '../../../../components/redeem/steps/PersonalContributionStep';
@@ -129,10 +131,36 @@ const Contribute: NextPage = () => {
     }
   };
 
+  const renderMainContent = (campaign: CampaignPublicData) => {
+    const hasCampaignStarted = campaign.start.isBefore();
+    if (!hasCampaignStarted) {
+      return <CampaignNotStartedDisplay campaign={campaign} />;
+    }
+
+    const hasCampaignEnded = campaign.end.isBefore();
+    if (hasCampaignEnded) {
+      return <CampaignEndedDisplay campaign={campaign} isFromRedemption={false} />;
+    }
+
+    return (
+      <>
+        <ContributeStepper activeStep={activeStep} />
+
+        <Formik initialValues={redeemFormValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
+          {({ values }) => (
+            <Form style={isMobile ? mobileFormContainerSx : desktopFormContainerSx}>
+              {renderFormPage(activeStep, values)}
+            </Form>
+          )}
+        </Formik>
+      </>
+    );
+  };
+
   return (
     <Box>
       <Head>
-        <title>Redeem</title>
+        <title>Contribute</title>
       </Head>
 
       <Container component="main" maxWidth="md">
@@ -147,19 +175,7 @@ const Contribute: NextPage = () => {
 
           {error && <ErrorDisplay statusCode={error.statusCode} entity="campaign" />}
 
-          {hasLoadedSuccessfully && (
-            <>
-              <ContributeStepper activeStep={activeStep} />
-
-              <Formik initialValues={redeemFormValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
-                {({ values }) => (
-                  <Form style={isMobile ? mobileFormContainerSx : desktopFormContainerSx}>
-                    {renderFormPage(activeStep, values)}
-                  </Form>
-                )}
-              </Formik>
-            </>
-          )}
+          {hasLoadedSuccessfully && renderMainContent(campaign)}
         </Stack>
       </Container>
     </Box>

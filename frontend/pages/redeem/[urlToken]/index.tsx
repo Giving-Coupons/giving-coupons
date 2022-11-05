@@ -12,6 +12,8 @@ import FormikValuesListener from '../../../components/forms/FormikValuesListener
 import ErrorDisplay from '../../../components/generic/ErrorDisplay';
 import IconButtonWithTooltip from '../../../components/IconButtonWithTooltip';
 import AlreadyRedeemedDisplay from '../../../components/redeem/AlreadyRedeemedDisplay';
+import CampaignEndedDisplay from '../../../components/redeem/CampaignEndedDisplay';
+import CampaignNotStartedDisplay from '../../../components/redeem/CampaignNotStartedDisplay';
 import ExpiredDisplay from '../../../components/redeem/ExpiredDisplay';
 import InstructionsDialog from '../../../components/redeem/instructions/InstructionsDialog';
 import RedeemLoading from '../../../components/redeem/RedeemLoading';
@@ -35,6 +37,7 @@ import { RedemptionState, RedemptionStep } from '../../../types/redemptionState'
 import { Nullable } from '../../../types/utils';
 import { log } from '../../../utils/analytics';
 import { DEFAULT_SECONDARY_DONATION_VALUE } from '../../../utils/constants';
+import { isCouponRedeemable } from '../../../utils/coupons';
 
 const validationSchema = Yup.object().shape({
   campaignCharityId: Yup.number().required('Campaign charity is required'),
@@ -58,9 +61,8 @@ const Redeem: NextPage = () => {
   );
   const isLoading = !coupon && !error;
   const hasLoadedSuccessfully = !error && coupon;
-  const hasCouponExpired = hasLoadedSuccessfully && coupon.expiresAt.isBefore();
-  const hasBeenRedeemed = hasLoadedSuccessfully && coupon.redemption;
-  const canCouponBeRedeemed = hasLoadedSuccessfully && !coupon.redemption && !hasCouponExpired;
+
+  const canCouponBeRedeemed = hasLoadedSuccessfully && isCouponRedeemable(coupon);
 
   const minStep = 0;
   const maxStep = 2;
@@ -193,6 +195,83 @@ const Redeem: NextPage = () => {
     }
   };
 
+  const renderMainContent = (coupon: CouponRedeemData) => {
+    if (coupon.redemption !== null) {
+      return (
+        <AlreadyRedeemedDisplay
+          campaignId={coupon.campaign.id}
+          campaignCharity={coupon.redemption.campaignCharity}
+          couponSponsorship={{
+            couponId: coupon.id,
+            primaryDonor: coupon.campaign.primaryDonor,
+            couponDenomination: coupon.denomination,
+          }}
+          secondaryDonorAmount={coupon.redemption.secondaryDonation?.amount ?? 0}
+        />
+      );
+    }
+
+    const { campaign } = coupon;
+    const hasCampaignEnded = campaign.end.isBefore();
+    if (hasCampaignEnded) {
+      return <CampaignEndedDisplay campaign={campaign} isFromRedemption />;
+    }
+
+    const hasCampaignStarted = campaign.start.isBefore();
+    if (!hasCampaignStarted) {
+      return <CampaignNotStartedDisplay campaign={campaign} />;
+    }
+
+    const hasCouponExpired = coupon.expiresAt.isBefore();
+    if (hasCouponExpired) {
+      return (
+        <ExpiredDisplay
+          couponExpiry={coupon.expiresAt}
+          primaryDonorName={coupon.campaign.primaryDonor.name}
+          campaignId={coupon.campaignId}
+        />
+      );
+    }
+
+    return (
+      <>
+        <RedeemStepper redemptionState={redemptionState} />
+
+        <Formik
+          initialValues={redeemFormValues}
+          initialTouched={{
+            campaignCharityId: redeemFormValues.campaignCharityId !== undefined,
+            amount: redeemFormValues.amount !== undefined,
+          }}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
+          enableReinitialize={true}
+        >
+          {({ values, dirty }) => (
+            <Form style={isMobile ? mobileFormContainerSx : desktopFormContainerSx}>
+              <FormikValuesListener
+                handleChange={(formikValues) => {
+                  if (dirty) {
+                    // If the form has been touched, replace the redemption state with the latest values on each Formik rerender
+                    // (triggered by changes to Formik vars touched / values / error / etc.).
+                    updateRedemptionStep(
+                      redemptionState?.current ?? RedemptionStep.SELECT_CHARITY,
+                      formikValues.campaignCharityId,
+                      formikValues.amount,
+                    );
+                  } else {
+                    // If form has not been touched and there is no matching redemption state in cookie, do nothing.
+                  }
+                }}
+              />
+              {renderFormPage(redemptionState, values)}
+            </Form>
+          )}
+        </Formik>
+      </>
+    );
+  };
+
   return (
     <Box>
       <Head>
@@ -223,64 +302,7 @@ const Redeem: NextPage = () => {
 
           {error && <ErrorDisplay statusCode={error.statusCode} entity="coupon" />}
 
-          {hasLoadedSuccessfully && coupon.redemption && (
-            <AlreadyRedeemedDisplay
-              campaignId={coupon.campaign.id}
-              campaignCharity={coupon.redemption.campaignCharity}
-              couponSponsorship={{
-                couponId: coupon.id,
-                primaryDonor: coupon.campaign.primaryDonor,
-                couponDenomination: coupon.denomination,
-              }}
-              secondaryDonorAmount={coupon.redemption.secondaryDonation?.amount ?? 0}
-            />
-          )}
-
-          {hasLoadedSuccessfully && hasCouponExpired && !hasBeenRedeemed && (
-            <ExpiredDisplay
-              couponExpiry={coupon.expiresAt}
-              primaryDonorName={coupon.campaign.primaryDonor.name}
-              campaignId={coupon.campaignId}
-            />
-          )}
-
-          {canCouponBeRedeemed && (
-            <>
-              <RedeemStepper redemptionState={redemptionState} />
-
-              <Formik
-                initialValues={redeemFormValues}
-                initialTouched={{
-                  campaignCharityId: redeemFormValues.campaignCharityId !== undefined,
-                  amount: redeemFormValues.amount !== undefined,
-                }}
-                validationSchema={validationSchema}
-                onSubmit={handleSubmit}
-                enableReinitialize={true}
-              >
-                {({ values, dirty }) => (
-                  <Form style={isMobile ? mobileFormContainerSx : desktopFormContainerSx}>
-                    <FormikValuesListener
-                      handleChange={(formikValues) => {
-                        if (dirty) {
-                          // If the form has been touched, replace the redemption state with the latest values on each Formik rerender
-                          // (triggered by changes to Formik vars touched / values / error / etc.).
-                          updateRedemptionStep(
-                            redemptionState?.current ?? RedemptionStep.SELECT_CHARITY,
-                            formikValues.campaignCharityId,
-                            formikValues.amount,
-                          );
-                        } else {
-                          // If form has not been touched and there is no matching redemption state in cookie, do nothing.
-                        }
-                      }}
-                    />
-                    {renderFormPage(redemptionState, values)}
-                  </Form>
-                )}
-              </Formik>
-            </>
-          )}
+          {hasLoadedSuccessfully && renderMainContent(coupon)}
         </Stack>
 
         {canCouponBeRedeemed && (

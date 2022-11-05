@@ -27,7 +27,10 @@ const InterestFormPage: NextPage = () => {
       status: InterestStatus.PENDING,
       couponDenomination: DEFAULT_COUPON_DENOMINATION,
       start: moment(data.start),
-      end: moment(data.start).clone().add(lengthOfCampaign, 'days'),
+      end: moment(data.start)
+        .clone()
+        .add(lengthOfCampaign - 1, 'days')
+        .endOf('day'),
     };
 
     return interestsApi.addInterest(interestPostData).then(() => router.push('/interest/thank-you'));
