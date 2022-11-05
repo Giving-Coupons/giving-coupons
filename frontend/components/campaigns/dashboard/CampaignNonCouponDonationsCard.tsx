@@ -39,8 +39,9 @@ const CampaignNonCouponDonationsCard = ({ campaign, nonCouponDonations }: Props)
             notPresentIs: 'last',
           },
           {
-            title: 'Donation',
+            title: 'Amount',
             key: 'amount',
+            transformValue: (amount: number) => `$${amount}`,
           },
         ]}
         rows={nonCouponDonations}
