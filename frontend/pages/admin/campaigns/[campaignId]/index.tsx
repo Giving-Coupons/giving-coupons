@@ -8,6 +8,7 @@ import CampaignCouponsCard from '../../../../components/campaigns/dashboard/Camp
 import CampaignDonationBreakdownCard from '../../../../components/campaigns/dashboard/CampaignDonationBreakdownCard';
 import CampaignInfoCard from '../../../../components/campaigns/dashboard/CampaignInfoCard';
 import CampaignLoading from '../../../../components/campaigns/dashboard/CampaignLoading';
+import CampaignNonCouponDonationsCard from '../../../../components/campaigns/dashboard/CampaignNonCouponDonationsCard';
 import CampaignPrimaryDonorCard from '../../../../components/campaigns/dashboard/CampaignPrimaryDonorCard';
 import ErrorDisplay from '../../../../components/generic/ErrorDisplay';
 import api from '../../../../frontendApis';
@@ -45,6 +46,8 @@ const AdminCampaign = () => {
                 <CampaignInfoCard campaign={campaign} />
 
                 <CampaignCouponsCard campaign={campaign} coupons={campaign.coupons} />
+
+                <CampaignNonCouponDonationsCard campaign={campaign} nonCouponDonations={campaign.nonCouponDonations} />
               </Stack>
             </Grid>
 

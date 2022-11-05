@@ -7,7 +7,7 @@ import {
 } from './campaignCharities';
 import { CharityListData } from './charity';
 import { CouponListData } from './coupons';
-import { DonationBreakdownData } from './donations';
+import { DonationBreakdownData, SecondaryDonationData } from './donations';
 import { PrimaryDonorData, PrimaryDonorPostData } from './primaryDonor';
 import { Nullable, WithoutId } from './utils';
 
@@ -116,8 +116,9 @@ export type CampaignPublicData = Omit<CampaignBaseData, 'charities'> & {
   charities: CampaignCharityDonationPublicData[];
 };
 
-export type CampaignAdminData = CampaignBaseData & {
+export type CampaignAdminData = Omit<CampaignBaseData, 'charities'> & {
   donations: DonationBreakdownData;
   charities: CampaignCharityDonationData[];
   coupons: CouponListData[];
+  nonCouponDonations: SecondaryDonationData[];
 };
