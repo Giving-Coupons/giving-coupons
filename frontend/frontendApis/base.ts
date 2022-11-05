@@ -59,6 +59,8 @@ function processRequest<D>(endpoint: string, promise: AxiosPromise<ApiResponse<D
     .then((response: AxiosResponse<ApiResponse<D>>) => {
       const apiResponse: ApiResponse<D> = response.data;
 
+      apiResponse.statusCode = response.status;
+
       if (process.env.NODE_ENV === 'development') {
         console.info(
           `[API] ${endpoint} : ${apiResponse.message ? apiResponse.message.message : 'No message for response'}`,
@@ -69,6 +71,8 @@ function processRequest<D>(endpoint: string, promise: AxiosPromise<ApiResponse<D
     })
     .catch((error: AxiosError<ApiResponse<D>>) => {
       const apiResponse: ApiResponse<D> = error.response?.data ?? DEFAULT_API_RESPONSE;
+
+      apiResponse.statusCode = error.response?.status;
 
       if (process.env.NODE_ENV === 'development') {
         console.error(

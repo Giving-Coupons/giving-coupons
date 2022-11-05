@@ -1,4 +1,4 @@
-import { Grid, Typography } from '@mui/material';
+import { Grid } from '@mui/material';
 import { Box, Stack } from '@mui/system';
 import { isInteger } from 'formik';
 import Head from 'next/head';
@@ -10,6 +10,7 @@ import CampaignInfoCard from '../../../../components/campaigns/dashboard/Campaig
 import CampaignLoading from '../../../../components/campaigns/dashboard/CampaignLoading';
 import CampaignNonCouponDonationsCard from '../../../../components/campaigns/dashboard/CampaignNonCouponDonationsCard';
 import CampaignPrimaryDonorCard from '../../../../components/campaigns/dashboard/CampaignPrimaryDonorCard';
+import ErrorDisplay from '../../../../components/generic/ErrorDisplay';
 import api from '../../../../frontendApis';
 import CampaignsAPI from '../../../../frontendApis/campaigns';
 import useAdminLoginCheck from '../../../../hooks/useAdminLogInCheck';
@@ -36,12 +37,7 @@ const AdminCampaign = () => {
       <Box component="main">
         {isLoading && <CampaignLoading />}
 
-        {error && (
-          <Stack spacing={2}>
-            <Typography variant="h1">Error</Typography>
-            <Typography variant="h2">That is all we know right now.</Typography>
-          </Stack>
-        )}
+        {error && <ErrorDisplay statusCode={error.statusCode} entity="campaign" />}
 
         {campaign && !error && (
           <Grid sx={containerSx} container rowSpacing={4}>

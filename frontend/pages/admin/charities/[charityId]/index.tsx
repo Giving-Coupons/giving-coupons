@@ -9,6 +9,7 @@ import { useState } from 'react';
 import useSWR from 'swr';
 import Button from '../../../../components/generic/Button';
 import DeletionDialog from '../../../../components/generic/DeletionDialog';
+import ErrorDisplay from '../../../../components/generic/ErrorDisplay';
 import ImageWithOverlay from '../../../../components/generic/ImageWithOverlay';
 import IconButtonWithTooltip from '../../../../components/IconButtonWithTooltip';
 import api from '../../../../frontendApis';
@@ -121,12 +122,7 @@ const CharityView = () => {
           </Stack>
         )}
 
-        {error && (
-          <Stack sx={sadPathStackSx}>
-            <Typography variant="h1">Error</Typography>
-            <Typography variant="h2">That is all we know right now.</Typography>
-          </Stack>
-        )}
+        {error && <ErrorDisplay statusCode={error.statusCode} entity="charity" />}
       </Stack>
     </Box>
   );
