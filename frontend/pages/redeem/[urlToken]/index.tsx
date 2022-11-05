@@ -5,6 +5,7 @@ import { Form, Formik } from 'formik';
 import { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { useSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 import * as Yup from 'yup';
@@ -35,7 +36,7 @@ import { CouponSponsorship } from '../../../types/primaryDonor';
 import { RedemptionFormData, RedemptionPostData } from '../../../types/redemptions';
 import { RedemptionState, RedemptionStep } from '../../../types/redemptionState';
 import { Nullable } from '../../../types/utils';
-import { log } from '../../../utils/analytics';
+import { log, logException } from '../../../utils/analytics';
 import { DEFAULT_SECONDARY_DONATION_VALUE } from '../../../utils/constants';
 import { isCouponRedeemable } from '../../../utils/coupons';
 
@@ -54,6 +55,7 @@ const validationSchema = Yup.object().shape({
 
 const Redeem: NextPage = () => {
   const router = useRouter();
+  const { enqueueSnackbar } = useSnackbar();
   const urlToken = router.query.urlToken && typeof router.query.urlToken === 'string' ? router.query.urlToken : null;
   const [redemptionState, updateRedemptionStep] = useRedemptionState(urlToken);
   const { data: coupon, error } = useSWR<Nullable<CouponRedeemData>>([urlToken], (urlToken) =>
@@ -98,14 +100,17 @@ const Redeem: NextPage = () => {
       return Promise.reject('urlToken is invalid.');
     }
 
-    log('[Redeem] Submit', {
-      campaignCharityId: values.campaignCharityId,
-      couponId: coupon?.id,
-      amount: values.amount,
-    });
-
     validationSchema
       .validate(values)
+      .catch((e) => {
+        // If the user somehow entered an invalid state that prevents the validation from passing.
+        enqueueSnackbar(
+          'We could not redeem the coupon based on the data submitted. Please go through the flow and try again.',
+          { variant: 'error' },
+        );
+
+        throw e;
+      })
       .then((values) => {
         const couponRedeemPostData: RedemptionPostData = {
           urlToken: urlToken,
@@ -115,7 +120,17 @@ const Redeem: NextPage = () => {
 
         return api.redemptions.addRedemption(couponRedeemPostData);
       })
-      .then(() => router.push({ pathname: '/redeem/thank-you', query: { campaignId: coupon?.campaign.id } }));
+      .then(() =>
+        log('[Redeem] Submit', {
+          campaignCharityId: values.campaignCharityId,
+          couponId: coupon?.id,
+          amount: values.amount,
+        }),
+      )
+      .then(() => router.push({ pathname: '/redeem/thank-you', query: { campaignId: coupon?.campaign.id } }))
+      .catch((e) => {
+        logException('Unable to complete redemption on submit', false, { msg: e.toString() });
+      });
   };
 
   const renderFormPage = (redemptionState: Nullable<RedemptionState>, values: RedemptionFormData) => {
