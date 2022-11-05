@@ -34,7 +34,7 @@ const CharitySelectionStep = ({
   const [, { value, error, touched }, { setValue, setTouched }] = useField(name);
   const selectCharity = (e: ChangeEvent<HTMLInputElement>) => {
     setTouched(true);
-    setValue(Number((e.target as HTMLInputElement).value), true);
+    setValue(Number(e.target.value), true);
   };
 
   return (

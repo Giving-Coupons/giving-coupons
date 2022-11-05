@@ -37,7 +37,7 @@ const CharityEdit = () => {
           ...values,
         };
 
-        return api.charities.putCharity(charityId as number, charityPostData);
+        return api.charities.putCharity(charityId, charityPostData);
       })
       .then(() => {
         router.push(`/admin/charities/${charityId}`);
