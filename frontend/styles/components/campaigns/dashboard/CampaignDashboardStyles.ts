@@ -83,6 +83,18 @@ export const campaignDetailImageSx: SxProps = {
   width: '100%',
 };
 
+export const nonCouponDonationsTableHeaderSx: SxProps = {
+  width: '100%',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+};
+
+export const nonCouponDonationsTableContainerSx: SxProps = {
+  maxHeight: '400px',
+  width: '100%',
+  overflow: 'auto',
+};
+
 export const campaignImageSx: SxProps = {
   width: '100%',
   height: '100%',

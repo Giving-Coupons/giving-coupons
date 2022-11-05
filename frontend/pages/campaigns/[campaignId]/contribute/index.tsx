@@ -1,4 +1,4 @@
-import { Box, Typography, useMediaQuery } from '@mui/material';
+import { Box, useMediaQuery } from '@mui/material';
 import { Container, Stack, useTheme } from '@mui/system';
 import { Form, Formik, isInteger } from 'formik';
 import { NextPage } from 'next';
@@ -8,6 +8,7 @@ import { useState } from 'react';
 import useSWR from 'swr';
 import * as Yup from 'yup';
 import ContributeStepper from '../../../../components/campaigns/contribute/ContributeStepper';
+import ErrorDisplay from '../../../../components/generic/ErrorDisplay';
 import CampaignEndedDisplay from '../../../../components/redeem/CampaignEndedDisplay';
 import CampaignNotStartedDisplay from '../../../../components/redeem/CampaignNotStartedDisplay';
 import RedeemLoading from '../../../../components/redeem/RedeemLoading';
@@ -15,7 +16,6 @@ import CharitySelectionStep from '../../../../components/redeem/steps/CharitySel
 import PersonalContributionStep from '../../../../components/redeem/steps/PersonalContributionStep';
 import VerifyStep from '../../../../components/redeem/steps/VerifyStep';
 import api from '../../../../frontendApis';
-import { messageContainerSx } from '../../../../styles/campaigns/indexStyles';
 import {
   containerSx,
   desktopFormContainerSx,
@@ -173,13 +173,7 @@ const Contribute: NextPage = () => {
             </>
           )}
 
-          {error && (
-            <Stack component="div" sx={messageContainerSx} spacing={2}>
-              <Typography variant="h1">Error</Typography>
-
-              <Typography variant="h2">That is all we know right now.</Typography>
-            </Stack>
-          )}
+          {error && <ErrorDisplay statusCode={error.statusCode} entity="campaign" />}
 
           {hasLoadedSuccessfully && renderMainContent(campaign)}
         </Stack>

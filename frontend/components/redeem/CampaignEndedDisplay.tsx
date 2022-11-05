@@ -6,7 +6,7 @@ import { log } from '../../utils/analytics';
 import { USER_FACING_DATE_FORMAT } from '../../utils/constants';
 import BoldText from '../generic/BoldText';
 import Button from '../generic/Button';
-import RandomKawaii from '../notFound/RandomKawaii';
+import RandomKawaii from '../RandomKawaii';
 
 type Props = {
   campaign: CampaignBaseData;

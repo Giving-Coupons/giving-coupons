@@ -1,7 +1,7 @@
 import { Stack, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import Button from '../components/generic/Button';
-import RandomKawaii from '../components/notFound/RandomKawaii';
+import RandomKawaii from '../components/RandomKawaii';
 import { log } from '../utils/analytics';
 
 interface Props {

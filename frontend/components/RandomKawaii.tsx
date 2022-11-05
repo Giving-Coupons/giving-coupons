@@ -11,8 +11,8 @@ import {
   Planet,
   SpeechBubble,
 } from 'react-kawaii';
-import { getRandomItem } from '../../utils/array';
-import { theme } from '../../utils/theme';
+import { getRandomItem } from '../utils/array';
+import { theme } from '../utils/theme';
 
 interface Props {
   isHappy: boolean;

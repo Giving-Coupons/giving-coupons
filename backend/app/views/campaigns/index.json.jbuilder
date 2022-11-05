@@ -6,6 +6,8 @@ json.array! @campaigns do |campaign|
   json.description campaign.description
   json.imageBase64 encoded_file_data_url(campaign.image)
   json.primaryDonorName campaign.primary_donor.name
+  json.start campaign.start
+  json.end campaign.end
 
   json.charities do
     json.array! campaign.charities, partial: 'charities/list', as: :charity

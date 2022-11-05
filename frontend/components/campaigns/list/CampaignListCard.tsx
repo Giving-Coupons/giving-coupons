@@ -11,6 +11,7 @@ import {
 } from '../../../styles/components/campaigns/list/CampaignListCardStyles';
 import { CampaignListData } from '../../../types/campaigns';
 import { log } from '../../../utils/analytics';
+import { isNowBetweenInclusive } from '../../../utils/dates';
 import CompetingGraph from '../../charts/CompetingGraph';
 import Button from '../../generic/Button';
 import CardWithImage from '../../generic/CardWithImage';
@@ -60,16 +61,18 @@ const CampaignListCard = ({ campaign }: Props) => {
 
   const actionButtons = (
     <Box key="actionButtons">
-      <Button
-        sx={buttonSx}
-        actionType="primary"
-        onClick={() => {
-          log('[CampaignListCard] Click "Contribute"', { campaignId: campaign.id });
-          router.push(`/campaigns/${campaign.id}/contribute`);
-        }}
-      >
-        Contribute
-      </Button>
+      {isNowBetweenInclusive(campaign.start, campaign.end) && (
+        <Button
+          sx={buttonSx}
+          actionType="primary"
+          onClick={() => {
+            log('[CampaignListCard] Click "Contribute"', { campaignId: campaign.id });
+            router.push(`/campaigns/${campaign.id}/contribute`);
+          }}
+        >
+          Contribute
+        </Button>
+      )}
 
       <Button
         sx={buttonSx}

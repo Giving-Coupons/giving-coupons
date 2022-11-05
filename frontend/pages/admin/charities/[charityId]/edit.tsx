@@ -5,10 +5,10 @@ import { useRouter } from 'next/router';
 import useSWR from 'swr';
 import * as Yup from 'yup';
 import CharityForm, { charitySchema } from '../../../../components/charities/form/CharityForm';
+import ErrorDisplay from '../../../../components/generic/ErrorDisplay';
 import api from '../../../../frontendApis';
 import useAdminLoginCheck from '../../../../hooks/useAdminLogInCheck';
 import { containerSx } from '../../../../styles/admin/charities/createStyles';
-import { errorStackSx } from '../../../../styles/admin/charities/editStyles';
 import { CharityData, CharityFormData, CharityPutData } from '../../../../types/charity';
 import { Nullable } from '../../../../types/utils';
 
@@ -59,17 +59,14 @@ const CharityEdit = () => {
             onSubmit={handleSubmit(charityId)}
           />
         )}
+
         {isLoading && (
           <Stack>
             <Typography variant="h1">Loading...</Typography>
           </Stack>
         )}
-        {error && (
-          <Stack spacing={2} sx={errorStackSx}>
-            <Typography variant="h1">Error</Typography>
-            <Typography variant="h2">That is all we know right now.</Typography>
-          </Stack>
-        )}
+
+        {error && <ErrorDisplay statusCode={error.statusCode} entity="charity" />}
       </Container>
     </Box>
   );
