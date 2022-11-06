@@ -86,7 +86,7 @@ export default function CampaignDetail() {
     if (campaignHasEnded && campaign.donations.secondaryDonation.amount === 0) {
       return (
         <Typography variant="h4">
-          was donated by the public. Unfortunately, no personal contributions were made. However, the sponsored amount
+          was donated by the public. However, the sponsored amount
           will still be donated!
         </Typography>
       );
@@ -95,7 +95,7 @@ export default function CampaignDetail() {
     if (campaignHasEnded && campaign.donations.secondaryDonation.amount !== 0) {
       return (
         <Typography variant="h4">
-          was donated by the public. <strong>We thank everyone who have donated!</strong>
+          was donated by the public. <strong>We thank everyone who donated!</strong>
         </Typography>
       );
     }
@@ -130,7 +130,7 @@ export default function CampaignDetail() {
     if (campaignHasEnded) {
       return (
         <Typography variant="h4">
-          coupons have been redeemed. <strong>Thank you for redeeming</strong> and helping us changing the way we give
+          coupons have been redeemed. Thank you for helping us change the way we give
           and build a city of good!
         </Typography>
       );
