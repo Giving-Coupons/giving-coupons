@@ -78,7 +78,7 @@ export default function CampaignDetail() {
     if (campaignIsUpcoming) {
       return (
         <Typography variant="h4">
-          was donated by the public. <strong>Be the first to donate when the campaign starts!</strong>
+          was donated by the public. <strong>Be the first to donate</strong> when the campaign starts!
         </Typography>
       );
     }
@@ -86,8 +86,7 @@ export default function CampaignDetail() {
     if (campaignHasEnded && campaign.donations.secondaryDonation.amount === 0) {
       return (
         <Typography variant="h4">
-          was donated by the public. However, the sponsored amount
-          will still be donated!
+          was donated by the public. However, the sponsored amount will still be donated!
         </Typography>
       );
     }
@@ -130,8 +129,7 @@ export default function CampaignDetail() {
     if (campaignHasEnded) {
       return (
         <Typography variant="h4">
-          coupons have been redeemed. Thank you for helping us change the way we give
-          and build a city of good!
+          coupons have been redeemed. Thank you for helping us change the way we give and build a city of good!
         </Typography>
       );
     }
