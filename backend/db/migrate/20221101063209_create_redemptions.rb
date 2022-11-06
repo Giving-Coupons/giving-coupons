@@ -14,7 +14,7 @@ class CreateRedemptions < ActiveRecord::Migration[7.0]
     add_reference :coupons, :redemption, foreign_key: true, index: { unique: true }
     Coupon.select { |c| c.campaign_charity_id.present? }.each do |c|
       result = execute "INSERT INTO redemptions (campaign_charity_id, redeemed_at, created_at, updated_at)
-values (#{c.campaign_charity_id}, '#{migration_time}', '#{migration_time}', '#{migration_time}')
+values (#{c.campaign_charity_id}, '#{c.campaign.end}', '#{migration_time}', '#{migration_time}')
 returning id as redemption_id"
       redemption_id = result[0]['redemption_id']
       execute "UPDATE coupons SET redemption_id = #{redemption_id} WHERE id = #{c.id}"

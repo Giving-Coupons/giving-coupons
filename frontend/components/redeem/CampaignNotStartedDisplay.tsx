@@ -34,7 +34,7 @@ export default function CampaignNotStartedDisplay({ campaign }: Props) {
         <Button
           actionType="primary"
           onClick={() => {
-            log('CampaignNotStartedDisplay_clickViewCampaign');
+            log('CampaignNotStartedDisplay_clickViewCampaign', { campaignId: campaign.id });
             router.push(`/campaigns/${campaign.id}`);
           }}
           sx={buttonSx}
@@ -45,7 +45,7 @@ export default function CampaignNotStartedDisplay({ campaign }: Props) {
         <Button
           actionType="secondary"
           onClick={() => {
-            log('CampaignNotStartedDisplay_clickViewActive');
+            log('CampaignNotStartedDisplay_clickViewActive', { campaignId: campaign.id });
             router.push(`/campaigns`);
           }}
           sx={buttonSx}

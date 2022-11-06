@@ -239,13 +239,7 @@ const Redeem: NextPage = () => {
 
     const hasCouponExpired = coupon.expiresAt.isBefore();
     if (hasCouponExpired) {
-      return (
-        <ExpiredDisplay
-          couponExpiry={coupon.expiresAt}
-          primaryDonorName={coupon.campaign.primaryDonor.name}
-          campaignId={coupon.campaignId}
-        />
-      );
+      return <ExpiredDisplay coupon={coupon} />;
     }
 
     return (
