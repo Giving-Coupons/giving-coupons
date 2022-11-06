@@ -21,8 +21,6 @@ services:
     image: ghcr.io/giving-coupons/giving-coupons-backend:latest
     container_name: giving-coupons-backend
     restart: always
-    volumes:
-      - ~/file_storage:/backend/storage
     depends_on:
       - database
     networks:

@@ -13,5 +13,5 @@ export type AutocompleteData = {
 export type SelectOptionData = {
   id: number;
   name: string;
-  logoBase64?: string;
+  logoUrl?: string;
 };

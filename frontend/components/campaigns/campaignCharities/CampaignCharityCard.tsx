@@ -22,7 +22,7 @@ const CampaignCharityCard = ({ campaignCharity, onClick, handleOpenInfoCard }: P
 
   return (
     <Stack direction="row" justifyContent="space-evenly" alignItems="center" sx={stackSx} onClick={onClick}>
-      <Box sx={charityLogoSx} component="img" src={campaignCharity.charity.logoBase64} />
+      <Box sx={charityLogoSx} component="img" src={campaignCharity.charity.logoUrl} />
 
       <Stack sx={charityGraphStackSx}>
         <Typography variant="h4">{campaignCharity.charity.name}</Typography>

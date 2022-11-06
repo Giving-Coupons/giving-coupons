@@ -85,7 +85,7 @@ const createCampaignSchema = Yup.object().shape(
           message: 'Initial coupon validity cannot be longer than the campaign duration.',
         });
       }),
-    imageBase64: Yup.string().required('Campaign image is required.'),
+    imageUrl: Yup.string().required('Campaign image is required.'),
     charities: Yup.array()
       .of(
         Yup.object().shape({
@@ -107,7 +107,7 @@ const createCampaignSchema = Yup.object().shape(
       email: Yup.string()
         .required('Primary donor email is required.')
         .email('Primary donor email is not in the correct form.'),
-      imageBase64: Yup.string().required('Avatar is required'),
+      imageUrl: Yup.string().required('Avatar is required'),
     }).required('Primary donor is required'),
   },
   [
@@ -142,9 +142,9 @@ const CampaignCreate = () => {
         primaryDonor: {
           name: interest.donorName,
           email: interest.donorEmail,
-          imageBase64: interest.donorImageBase64,
+          imageUrl: interest.donorImageUrl,
         },
-        imageBase64: interest.campaignImageBase64,
+        imageUrl: interest.campaignImageUrl,
       });
     } else {
       // Note: This has to be here otherwise the previous interest values may be shown
@@ -167,7 +167,7 @@ const CampaignCreate = () => {
         const primaryDonorPostData: PrimaryDonorPostData = {
           name: values.primaryDonor.name,
           email: values.primaryDonor.email,
-          imageBase64: values.primaryDonor.imageBase64,
+          imageUrl: values.primaryDonor.imageUrl,
         };
         const campaignPostData: CampaignPostData = {
           ...values,

@@ -11,10 +11,10 @@ export type InterestData = {
   id: number;
   donorName: string;
   donorEmail: string;
-  donorImageBase64: string;
+  donorImageUrl: string;
   campaignName: string;
   campaignDescription: string;
-  campaignImageBase64: string;
+  campaignImageUrl: string;
   promisedAmount: number;
   start: Moment;
   end: Moment;

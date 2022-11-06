@@ -25,10 +25,10 @@ const FormAutocomplete = <T extends SelectOptionData>({
       fullWidth
       multiple={multiple}
       options={options}
-      renderOption={(props, { name, logoBase64 }) => (
+      renderOption={(props, { name, logoUrl }) => (
         <li {...props}>
           <Stack direction="row" spacing={2} alignItems="center">
-            {logoBase64 && <Box component="img" src={logoBase64} sx={logoSx} />}
+            {logoUrl && <Box component="img" src={logoUrl} sx={logoSx} />}
             <Typography>{name}</Typography>
           </Stack>
         </li>

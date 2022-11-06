@@ -1,3 +1,4 @@
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import LinearScaleIcon from '@mui/icons-material/LinearScale';
 import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 import PaidIcon from '@mui/icons-material/Paid';
@@ -17,13 +18,12 @@ import {
 } from '../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
 import { CampaignPublicData } from '../../../types/campaigns';
 import { getCampaignStatus } from '../../../utils/campaigns';
+import { USER_FACING_DATE_FORMAT } from '../../../utils/constants';
 import Button from '../../generic/Button';
 import IconButtonWithTooltip from '../../IconButtonWithTooltip';
 import CampaignDateInfoIcon from './CampaignDateInfoIcon';
 import CampaignMoneyInfoIcon from './CampaignMoneyInfoIcon';
 import CouponHelpDialog from './CouponHelpDialog';
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import { USER_FACING_DATE_FORMAT } from '../../../utils/constants';
 
 interface Props {
   campaign: CampaignPublicData;
@@ -55,7 +55,7 @@ const CampaignPublicInfoCard = ({ campaign }: Props) => {
 
       <Grid item xs={12} md={6}>
         <Stack justifyContent="center" alignItems="center" sx={campaignImageStackSx}>
-          <Box sx={campaignDetailImageSx} component="img" src={campaign.imageBase64} />
+          <Box sx={campaignDetailImageSx} component="img" src={campaign.imageUrl} />
         </Stack>
       </Grid>
 

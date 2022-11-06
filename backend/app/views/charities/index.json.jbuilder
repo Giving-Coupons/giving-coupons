@@ -3,5 +3,5 @@
 json.array! @charities do |charity|
   json.id charity.id
   json.name charity.name
-  json.logoBase64 encoded_file_data_url(charity.logo)
+  json.logoUrl charity.logo_url
 end

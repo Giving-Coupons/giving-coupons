@@ -21,8 +21,8 @@ export const charitySchema = Yup.object().shape({
   websiteUrl: Yup.string()
     .required('Charity website url is required')
     .url('A valid url including http:// or https:// is required'),
-  logoBase64: Yup.string().required('Charity logo is required'),
-  imageBase64: Yup.string().required('Charity image is required'),
+  logoUrl: Yup.string().required('Charity logo is required'),
+  imageUrl: Yup.string().required('Charity image is required'),
 });
 
 const CharityForm = ({ title, submitButtonTitle, initialValues, onSubmit }: Props) => {
@@ -47,9 +47,9 @@ const CharityForm = ({ title, submitButtonTitle, initialValues, onSubmit }: Prop
 
             <FormTextInput name="websiteUrl" label="Charity Website" placeholder="Enter the charity website" />
 
-            <FormImageUpload name="imageBase64" label="Upload Charity Image" />
+            <FormImageUpload name="imageUrl" label="Upload Charity Image" />
 
-            <FormImageUpload name="logoBase64" label="Upload Logo Image" />
+            <FormImageUpload name="logoUrl" label="Upload Logo Image" />
 
             <Button type="submit" disabled={!isValid || !dirty} actionType="primary" fullWidth>
               {submitButtonTitle}

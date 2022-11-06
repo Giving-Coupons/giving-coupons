@@ -5,7 +5,7 @@ class InterestsController < ApplicationController
   before_action :set_interest, only: %i[show update reject destroy]
 
   def index
-    @interests = Interest.includes(charities: [logo_attachment: :blob, image_attachment: :blob]).all
+    @interests = Interest.includes(:charities).all
   end
 
   def show; end
@@ -13,8 +13,6 @@ class InterestsController < ApplicationController
   def create
     @interest = Interest.new(interest_params)
     @interest.charity_ids = params[:charity_ids]
-    @interest.campaign_image.attach(data: params[:campaign_image_base64]) if params[:campaign_image_base64].present?
-    @interest.donor_image.attach(data: params[:donor_image_base64]) if params[:donor_image_base64].present?
     @interest.save!
 
     add_success_message "Interest form for \"#{@interest.donor_name}\" successfully submitted!"
@@ -49,13 +47,13 @@ class InterestsController < ApplicationController
   private
 
   def set_interest
-    @interest = Interest.includes(campaign_image_attachment: :blob, donor_image_attachment: :blob,
-                                  charities: [logo_attachment: :blob, image_attachment: :blob]).find(params[:id])
+    @interest = Interest.includes(:charities).find(params[:id])
   end
 
   def interest_params
     permitted_params = %i[donor_name donor_email campaign_name campaign_description promised_amount
-                          start end status coupon_denomination initial_coupon_validity]
+                          start end status coupon_denomination initial_coupon_validity
+                          campaign_image_url donor_image_url]
 
     params.require(:interest).permit(permitted_params)
   end

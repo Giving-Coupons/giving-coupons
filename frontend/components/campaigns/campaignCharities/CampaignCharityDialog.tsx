@@ -38,7 +38,7 @@ const CampaignCharityDialog = ({ campaignCharity, open, handleClose }: Props) =>
       <DialogTitle sx={dialogTitleSx}>
         <Stack component="div" direction="row" justifyContent="space-between">
           <Stack component="div" direction="row" spacing={2} alignItems="center">
-            <Box sx={charityLogoSx} component="img" src={campaignCharity.charity.logoBase64} />
+            <Box sx={charityLogoSx} component="img" src={campaignCharity.charity.logoUrl} />
 
             <Typography variant="h2">{campaignCharity.charity.name}</Typography>
           </Stack>
@@ -49,7 +49,7 @@ const CampaignCharityDialog = ({ campaignCharity, open, handleClose }: Props) =>
         <Box
           sx={!isMobile ? charityDesktopImageSx : charityMobileImageSx}
           component="img"
-          src={campaignCharity.charity.imageBase64}
+          src={campaignCharity.charity.imageUrl}
         />
 
         <Typography sx={dialogContentTextSx}>{campaignCharity.charity.description}</Typography>

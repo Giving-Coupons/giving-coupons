@@ -54,7 +54,7 @@ const DonationTableRow = ({ label, donationBreakdown }: DonationTableRowProps) =
 
 const CharityDonationLabel = (campaignCharity: CampaignCharityData) => (
   <Stack sx={charityContainerSx} component="div" direction="row" spacing={2}>
-    <Avatar sx={logoSx} variant="square" src={campaignCharity.charity.logoBase64} />
+    <Avatar sx={logoSx} variant="square" src={campaignCharity.charity.logoUrl} />
 
     <Stack sx={charityItemSx} component="div">
       <Typography variant="h4">{campaignCharity.charity.name}</Typography>

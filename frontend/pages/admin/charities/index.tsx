@@ -14,7 +14,6 @@ import api from '../../../frontendApis';
 import CharitiesAPI from '../../../frontendApis/charities';
 import useAdminLoginCheck from '../../../hooks/useAdminLogInCheck';
 import { headerSx, logoSx, rootSx } from '../../../styles/admin/charities/indexStyles';
-import { Base64String } from '../../../types/base64';
 import { CharityListData } from '../../../types/charity';
 import { Nullable } from '../../../types/utils';
 
@@ -32,7 +31,7 @@ const AdminCharities = () => {
     setSelectedCharity(charity);
   };
 
-  const createLogos = (logoBase64: Base64String) => logoBase64 && <Box component="img" src={logoBase64} sx={logoSx} />;
+  const createLogos = (logoUrl: string) => logoUrl && <Box component="img" src={logoUrl} sx={logoSx} />;
 
   const viewCharityAction = {
     component: <IconButtonWithTooltip icon={<Info />} tooltip="View charity" />,
@@ -69,7 +68,7 @@ const AdminCharities = () => {
           isLoading={!charities}
           columns={[
             { title: 'ID', key: 'id' },
-            { title: 'Logo', key: 'logoBase64', transformValue: createLogos },
+            { title: 'Logo', key: 'logoUrl', transformValue: createLogos },
             { title: 'Name', key: 'name' },
           ]}
           actions={[viewCharityAction, editCharityAction, deleteCharityAction]}

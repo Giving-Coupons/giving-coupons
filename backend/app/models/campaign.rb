@@ -3,8 +3,6 @@
 class Campaign < ApplicationRecord
   include PromisedAmountValidator
 
-  has_one_base64_attached :image
-
   belongs_to :primary_donor, autosave: true
   belongs_to :interest, optional: true
   has_many :coupons, dependent: :destroy, autosave: true
@@ -23,12 +21,7 @@ class Campaign < ApplicationRecord
   validates :promised_amount, final: true
   validates :coupon_denomination, final: true
   validates :interest_id, allow_nil: true, uniqueness: true
-  validates :image, presence: true,
-                    content_type: {
-                      in: ['image/png', 'image/jpg', 'image/jpeg'],
-                      message: 'is mot of a supported file type. Please upload a PNG, JPG or JPEG file.'
-                    },
-                    size: { less_than: 1.megabytes, message: 'must be less than 1MB.' }
+  # validates :image_url, presence: true, allow_blank: false
 
   scope :contains, ->(name) { where('name ILIKE ?', "%#{Campaign.sanitize_sql_like(name)}%") }
 

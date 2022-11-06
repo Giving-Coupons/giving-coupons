@@ -40,7 +40,7 @@ const CampaignInfoCard = ({ campaign }: Props) => {
   return (
     <Grid container columnSpacing={2} rowSpacing={2}>
       <Grid item xs={12} md={6}>
-        <Box sx={campaignImageSx} component="img" src={campaign.imageBase64} />
+        <Box sx={campaignImageSx} component="img" src={campaign.imageUrl} />
       </Grid>
 
       <Grid item xs={12} md={6}>
