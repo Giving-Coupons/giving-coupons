@@ -5,7 +5,7 @@ class InterestsController < ApplicationController
   before_action :set_interest, only: %i[show update reject destroy]
 
   def index
-    @interests = Interest.all
+    @interests = Interest.includes(:charities).all
   end
 
   def show; end
