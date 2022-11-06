@@ -24,7 +24,7 @@ const ThankYou = ({ campaignId }: Props) => {
             title: 'Contribute more',
             description: 'Have another charity in mind? Contribute more to this campaign.',
             onClick: () => {
-              log('[ThankYou] Click "Contribute..."');
+              log('[ThankYou] Click "Contribute..."', { campaignId });
               router.push(`/campaigns/${campaignId}/contribute`);
             },
           },
@@ -35,7 +35,7 @@ const ThankYou = ({ campaignId }: Props) => {
       title: 'Explore other campaigns',
       description: 'Feel strongly about any causes? Contribute directly to other campaigns.',
       onClick: () => {
-        log('[ThankYou] Click "Explore..."');
+        log('[ThankYou] Click "Explore..."', { campaignId });
         router.push('/campaigns');
       },
     },
@@ -44,7 +44,7 @@ const ThankYou = ({ campaignId }: Props) => {
       title: 'Start a campaign',
       description: 'Pay it forward by sponsoring others. Empower your loved ones to improve the lives of others.',
       onClick: () => {
-        log('[ThankYou] Click "Start a campaign"');
+        log('[ThankYou] Click "Start a campaign"', { campaignId });
         router.push('/interest');
       },
     },

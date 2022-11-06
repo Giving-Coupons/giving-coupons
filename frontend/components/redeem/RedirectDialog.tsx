@@ -109,7 +109,7 @@ const RedirectDialog = ({
                           size="small"
                           icon={<InfoIcon fontSize="small" />}
                           onClick={() => {
-                            log("[RedirectDialog] Click 'Learn More' icon");
+                            log("[RedirectDialog] Click 'Learn More' icon", { couponId: couponSponsorship.couponId });
                             setShouldShowLearnMore((prev) => !prev);
                           }}
                         />
@@ -156,7 +156,7 @@ const RedirectDialog = ({
                   <Button
                     actionType="muted"
                     onClick={() => {
-                      log('[RedirectDialog] Click cancel');
+                      log('[RedirectDialog] Click cancel', { couponId: couponSponsorship?.couponId });
                       handleClose();
                     }}
                     fullWidth
