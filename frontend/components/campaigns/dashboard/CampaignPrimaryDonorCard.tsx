@@ -14,7 +14,7 @@ const CampaignPrimaryDonorCard = ({ primaryDonor }: Props) => (
   <CampaignCard>
     <Typography variant="h3">Initiated by</Typography>
 
-    <Avatar variant="rounded" sx={avatarSx} src={primaryDonor.imageBase64} />
+    <Avatar variant="rounded" sx={avatarSx} src={primaryDonor.imageUrl} />
 
     <Stack sx={primaryDonorItemSx} component="div" direction="row" spacing={2}>
       <Avatar variant="rounded">

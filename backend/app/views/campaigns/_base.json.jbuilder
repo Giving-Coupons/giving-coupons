@@ -7,7 +7,7 @@ json.promisedAmount campaign.promised_amount
 json.couponDenomination campaign.coupon_denomination
 json.start campaign.start
 json.end campaign.end
-json.imageBase64 encoded_file_data_url(campaign.image)
+json.imageUrl campaign.image_url
 
 json.charities campaign.campaign_charities do |campaign_charity|
   json.partial! 'campaign_charities/base', campaign_charity: campaign_charity

@@ -32,7 +32,7 @@ const AdminCharities = () => {
     setSelectedCharity(charity);
   };
 
-  const createLogos = (logoBase64: Base64String) => logoBase64 && <Box component="img" src={logoBase64} sx={logoSx} />;
+  const createLogos = (logoUrl: Base64String) => logoUrl && <Box component="img" src={logoUrl} sx={logoSx} />;
 
   const viewCharityAction = {
     component: <IconButtonWithTooltip icon={<Info />} tooltip="View charity" />,
@@ -69,7 +69,7 @@ const AdminCharities = () => {
           isLoading={!charities}
           columns={[
             { title: 'ID', key: 'id' },
-            { title: 'Logo', key: 'logoBase64', transformValue: createLogos },
+            { title: 'Logo', key: 'logoUrl', transformValue: createLogos },
             { title: 'Name', key: 'name' },
           ]}
           actions={[viewCharityAction, editCharityAction, deleteCharityAction]}

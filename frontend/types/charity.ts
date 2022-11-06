@@ -6,13 +6,13 @@ export type CharityMinimalData = {
 };
 
 export type CharityListData = CharityMinimalData & {
-  logoBase64: string;
+  logoUrl: string;
 };
 
 export type CharityData = CharityListData & {
   description: string;
   websiteUrl: string;
-  imageBase64: string;
+  imageUrl: string;
 };
 
 export type CharityFormData = Partial<CharityData>;

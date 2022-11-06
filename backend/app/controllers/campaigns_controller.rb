@@ -6,8 +6,7 @@ class CampaignsController < ApplicationController
   before_action :set_campaign, only: %i[show update destroy regenerate_expired_coupons]
 
   def index
-    scope = Campaign.includes(:primary_donor, :coupons, :secondary_donations, image_attachment: :blob,
-                                                                              charities: [logo_attachment: :blob]).all
+    scope = Campaign.includes(:primary_donor, :coupons, :secondary_donations, :charities).all
     @campaigns = filtered(scope)
   end
 
@@ -20,12 +19,11 @@ class CampaignsController < ApplicationController
   def admin_show
     @campaign = Campaign.includes(
       :secondary_donations,
-      image_attachment: :blob,
-      primary_donor: { image_attachment: :blob },
+      :primary_donor,
       coupons: { redemption: [secondary_donation: { campaign_charity: :charity }] },
-      campaign_charities: [:secondary_donations,
-                           :coupons,
-                           { charity: [logo_attachment: :blob, image_attachment: :blob] }]
+      campaign_charities: %i[secondary_donations
+                             coupons
+                             charity]
     )
                         .find(params[:id])
   end
@@ -37,7 +35,7 @@ class CampaignsController < ApplicationController
     set_interest
     create_campaign_charities
 
-    @campaign.image.attach(data: params[:image_base64]) if params[:image_base64].present?
+    # @campaign.image.attach(data: params[:image_base64]) if params[:image_base64].present?
 
     @campaign.save!
 
@@ -55,12 +53,12 @@ class CampaignsController < ApplicationController
     set_donor
     set_interest
     create_or_update_campaign_charities
-
-    if params[:image_base64].nil?
-      @campaign.image.purge
-    else
-      @campaign.image.attach(data: params[:image_base64])
-    end
+    #
+    # if params[:image_base64].nil?
+    #   @campaign.image.purge
+    # else
+    #   @campaign.image.attach(data: params[:image_base64])
+    # end
 
     @campaign.save!
 
@@ -92,11 +90,9 @@ class CampaignsController < ApplicationController
 
   def set_campaign
     @campaign = Campaign.includes(:coupons, :secondary_donations,
-                                  image_attachment: :blob,
-                                  primary_donor: [image_attachment: :blob],
-                                  campaign_charities: [:coupons, :secondary_donations,
-                                                       { charity: [logo_attachment: :blob,
-                                                                   image_attachment: :blob] }]).find(params[:id])
+                                  :primary_donor,
+                                  campaign_charities: %i[coupons secondary_donations
+                                                         charity]).find(params[:id])
   end
 
   def campaign_params
@@ -104,18 +100,15 @@ class CampaignsController < ApplicationController
     params.require(top_level_params)
     params.permit(:interest_id)
 
-    campaign_params = %i[name description promised_amount start end coupon_denomination]
+    campaign_params = %i[name description promised_amount start end coupon_denomination image_url]
     params.require(:campaign).permit(campaign_params)
   end
 
   def set_donor
-    primary_donor_params = params[:primary_donor]
+    primary_donor_params = params.require(:primary_donor).permit(:name, :email, :image_url)
 
     primary_donor = PrimaryDonor.find_or_initialize_by(email: primary_donor_params[:email])
-    primary_donor.name = primary_donor_params[:name]
-    if primary_donor_params[:image_base64].present?
-      primary_donor.image.attach(data: primary_donor_params[:image_base64])
-    end
+    primary_donor.assign_attributes(primary_donor_params)
 
     @campaign.primary_donor = primary_donor
   end

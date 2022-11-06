@@ -5,9 +5,6 @@ class Interest < ApplicationRecord
 
   enum :status, { pending: 'pending', approved: 'approved', rejected: 'rejected' }
 
-  has_one_base64_attached :campaign_image
-  has_one_base64_attached :donor_image
-
   has_one :campaign, required: false, dependent: nil
   has_many :interest_charities, dependent: :destroy
   has_many :charities, through: :interest_charities
@@ -19,6 +16,8 @@ class Interest < ApplicationRecord
   validates :start, presence: true
   validates :end, comparison: { greater_than: :start }
   validates :interest_charities, length: { minimum: 1, maximum: 5 }
+  # validates :campaign_image_url, presence: true, allow_blank: false
+  # validates :donor_image_url, presence: true, allow_blank: false
   validates :initial_coupon_validity, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validate :must_be_pending, on: :create
 

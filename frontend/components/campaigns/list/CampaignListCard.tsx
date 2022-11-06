@@ -49,7 +49,7 @@ const CampaignListCard = ({ campaign }: Props) => {
       <Grid container>
         {campaign.charities.map((charity, index) => (
           <Grid item xs={12 / 5} key={index}>
-            <Box sx={charityLogoSx} component="img" src={charity.logoBase64} />
+            <Box sx={charityLogoSx} component="img" src={charity.logoUrl} />
           </Grid>
         ))}
       </Grid>
@@ -96,7 +96,7 @@ const CampaignListCard = ({ campaign }: Props) => {
 
   return (
     <CardWithImage
-      imageUrl={campaign.imageBase64}
+      imageUrl={campaign.imageUrl}
       imageOverlayContent={imageOverlayContent}
       descriptionContent={[description, actionButtons]}
     />

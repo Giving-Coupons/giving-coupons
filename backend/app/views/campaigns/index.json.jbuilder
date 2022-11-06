@@ -4,7 +4,7 @@ json.array! @campaigns do |campaign|
   json.id campaign.id
   json.name campaign.name
   json.description campaign.description
-  json.imageBase64 encoded_file_data_url(campaign.image)
+  json.imageUrl campaign.image_url
   json.primaryDonorName campaign.primary_donor.name
   json.start campaign.start
   json.end campaign.end

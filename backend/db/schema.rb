@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_03_182638) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_06_073647) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -91,6 +91,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_03_182638) do
     t.datetime "updated_at", null: false
     t.bigint "interest_id"
     t.integer "coupon_denomination", null: false
+    t.string "image_url"
     t.index ["interest_id"], name: "index_campaigns_on_interest_id", unique: true
     t.index ["primary_donor_id"], name: "index_campaigns_on_primary_donor_id"
   end
@@ -101,6 +102,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_03_182638) do
     t.string "name", null: false
     t.text "description", null: false
     t.string "website_url", null: false
+    t.string "logo_url"
+    t.string "image_url"
   end
 
   create_table "coupons", force: :cascade do |t|
@@ -139,6 +142,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_03_182638) do
     t.datetime "updated_at", null: false
     t.integer "coupon_denomination", null: false
     t.integer "initial_coupon_validity", default: 3, null: false
+    t.string "campaign_image_url"
+    t.string "donor_image_url"
   end
 
   create_table "primary_donors", force: :cascade do |t|
@@ -146,6 +151,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_03_182638) do
     t.string "email", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "image_url"
     t.index ["email"], name: "index_primary_donors_on_email", unique: true
   end
 

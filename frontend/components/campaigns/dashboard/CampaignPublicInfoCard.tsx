@@ -1,3 +1,4 @@
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import LinearScaleIcon from '@mui/icons-material/LinearScale';
 import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 import PaidIcon from '@mui/icons-material/Paid';
@@ -22,7 +23,6 @@ import IconButtonWithTooltip from '../../IconButtonWithTooltip';
 import CampaignDateInfoIcon from './CampaignDateInfoIcon';
 import CampaignMoneyInfoIcon from './CampaignMoneyInfoIcon';
 import CouponHelpDialog from './CouponHelpDialog';
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 
 interface Props {
   campaign: CampaignPublicData;
@@ -53,7 +53,7 @@ const CampaignPublicInfoCard = ({ campaign }: Props) => {
 
       <Grid item xs={12} md={6}>
         <Stack justifyContent="center" alignItems="center" sx={campaignImageStackSx}>
-          <Box sx={campaignDetailImageSx} component="img" src={campaign.imageBase64} />
+          <Box sx={campaignDetailImageSx} component="img" src={campaign.imageUrl} />
         </Stack>
       </Grid>
 

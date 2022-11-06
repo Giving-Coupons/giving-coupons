@@ -59,8 +59,8 @@ const CharityView = () => {
             <Stack sx={headerSx} spacing={2} component="div" direction="row">
               <Stack spacing={2} component="div" direction="row">
                 <Box sx={logoContainerSx}>
-                  {charityData?.logoBase64 && (
-                    <ImageWithOverlay imageSrc={charityData?.logoBase64} shouldApplyOverlay={false} />
+                  {charityData?.logoUrl && (
+                    <ImageWithOverlay imageSrc={charityData?.logoUrl} shouldApplyOverlay={false} />
                   )}
                 </Box>
 
@@ -91,8 +91,8 @@ const CharityView = () => {
             </Stack>
 
             <Box sx={imageContainerSx}>
-              {charityData?.imageBase64 ? (
-                <ImageWithOverlay imageSrc={charityData?.imageBase64} shouldApplyOverlay={false} />
+              {charityData?.imageUrl ? (
+                <ImageWithOverlay imageSrc={charityData?.imageUrl} shouldApplyOverlay={false} />
               ) : (
                 <Skeleton sx={imageContainerSx} />
               )}

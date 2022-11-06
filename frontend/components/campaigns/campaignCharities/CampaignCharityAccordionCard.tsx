@@ -49,7 +49,7 @@ const CampaignCharityAccordionCard = ({ campaignCharity }: Props) => {
     <CustomAccordion disableGutters sx={accordionSx}>
       <CustomAccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Stack direction="row" justifyContent="space-evenly" alignItems="center" sx={stackSx}>
-          <Box sx={charityLogoSx} component="img" src={campaignCharity.charity.logoBase64} />
+          <Box sx={charityLogoSx} component="img" src={campaignCharity.charity.logoUrl} />
 
           <Stack sx={charityGraphStackSx}>
             <Typography variant="h4">{campaignCharity.charity.name}</Typography>
@@ -70,7 +70,7 @@ const CampaignCharityAccordionCard = ({ campaignCharity }: Props) => {
 
           <Divider />
 
-          <Box sx={charityImageSx} component="img" src={campaignCharity.charity.imageBase64} />
+          <Box sx={charityImageSx} component="img" src={campaignCharity.charity.imageUrl} />
 
           <Typography variant="body2" sx={charityDescriptionSx}>
             {campaignCharity.charity.description}

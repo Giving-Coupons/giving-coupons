@@ -90,7 +90,7 @@ const RedirectDialog = ({
                   </Stack>
 
                   <Stack component="div" direction="row" spacing={2} alignItems="center">
-                    <Box sx={charityLogoSx} component="img" src={campaignCharity.charity.logoBase64} />
+                    <Box sx={charityLogoSx} component="img" src={campaignCharity.charity.logoUrl} />
 
                     <Typography variant="h4">{campaignCharity.charity.name}</Typography>
                   </Stack>

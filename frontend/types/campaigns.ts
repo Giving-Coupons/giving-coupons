@@ -17,7 +17,7 @@ export type CampaignListData = {
   id: number;
   name: string;
   description: string;
-  imageBase64: string;
+  imageUrl: string;
   primaryDonorName: string;
   charities: CharityListData[];
   donations: DonationBreakdownData;
@@ -47,7 +47,7 @@ export type CampaignFormData = {
   initialCouponValidity?: number;
   start: Nullable<Moment>;
   end: Nullable<Moment>;
-  imageBase64?: string;
+  imageUrl?: string;
   charities: Partial<CampaignCharityBaseData>[];
   primaryDonor?: Partial<PrimaryDonorData>;
 };
@@ -93,7 +93,7 @@ export type CampaignBaseData = {
   couponDenomination: number;
   start: Moment;
   end: Moment;
-  imageBase64: string;
+  imageUrl: string;
   charities: CampaignCharityBaseData[];
   primaryDonor: PrimaryDonorData;
   interestId: Nullable<number>;
