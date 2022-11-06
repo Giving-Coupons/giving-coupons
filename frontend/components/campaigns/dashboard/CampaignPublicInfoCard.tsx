@@ -17,6 +17,7 @@ import {
   couponHelpIconSx,
 } from '../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
 import { CampaignPublicData } from '../../../types/campaigns';
+import { log } from '../../../utils/analytics';
 import { getCampaignStatus } from '../../../utils/campaigns';
 import { USER_FACING_DATE_FORMAT } from '../../../utils/constants';
 import Button from '../../generic/Button';
@@ -128,6 +129,7 @@ const CampaignPublicInfoCard = ({ campaign }: Props) => {
             fullWidth
             actionType="primary"
             onClick={() => {
+              log("[CampaignPublicInfoCard] Click 'Contribute'");
               router.push(`/campaigns/${campaign.id}/contribute`);
             }}
           >

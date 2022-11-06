@@ -138,16 +138,13 @@ const InstructionsDialog = ({ open, handleClose, primaryDonor, couponDenominatio
     },
   ];
 
+  const handleCloseWithLog = () => {
+    log('[InstructionsDialog] Close instructions', { slideNumber: slideIndex + 1 });
+    handleClose();
+  };
+
   return (
-    <Dialog
-      fullScreen
-      open={open}
-      onClose={() => {
-        log('[InstructionsDialog] Close instructions', { slideNumber: slideIndex + 1 });
-        handleClose();
-      }}
-      PaperProps={{ sx: dialogPaperSx }}
-    >
+    <Dialog fullScreen open={open} onClose={handleCloseWithLog} PaperProps={{ sx: dialogPaperSx }}>
       <Container sx={containerSx} component="div">
         <Stack sx={stackSx} component="div">
           <Typography align="center" component="div" variant="h2">
@@ -171,7 +168,7 @@ const InstructionsDialog = ({ open, handleClose, primaryDonor, couponDenominatio
             ))}
           </Swiper>
 
-          <Button sx={buttonSx} variant="outlined" onClick={handleClose}>
+          <Button sx={buttonSx} variant="outlined" onClick={handleCloseWithLog}>
             Close Instructions
           </Button>
         </Stack>

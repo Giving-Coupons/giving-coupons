@@ -108,7 +108,10 @@ const RedirectDialog = ({
                           tooltip="Learn More"
                           size="small"
                           icon={<InfoIcon fontSize="small" />}
-                          onClick={() => setShouldShowLearnMore((prev) => !prev)}
+                          onClick={() => {
+                            log("[RedirectDialog] Click 'Learn More' icon");
+                            setShouldShowLearnMore((prev) => !prev);
+                          }}
                         />
                       )}
                     </Typography>
