@@ -17,6 +17,7 @@ import {
   couponHelpIconSx,
 } from '../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
 import { CampaignPublicData } from '../../../types/campaigns';
+import { log } from '../../../utils/analytics';
 import { getCampaignStatus } from '../../../utils/campaigns';
 import { USER_FACING_DATE_FORMAT } from '../../../utils/constants';
 import Button from '../../generic/Button';
@@ -99,7 +100,10 @@ const CampaignPublicInfoCard = ({ campaign }: Props) => {
                 sx={couponHelpIconButtonSx}
                 icon={<HelpOutlineIcon fontSize="small" sx={couponHelpIconSx} />}
                 tooltip="Learn more about coupons"
-                onClick={() => setIsCouponHelpOpen(true)}
+                onClick={() => {
+                  log('[CampaignPublicInfoCard] Click coupon info button', { campaignId: campaign.id });
+                  setIsCouponHelpOpen(true);
+                }}
               />
 
               <CouponHelpDialog open={isCouponHelpOpen} campaign={campaign} setIsCouponHelpOpen={setIsCouponHelpOpen} />
@@ -128,6 +132,7 @@ const CampaignPublicInfoCard = ({ campaign }: Props) => {
             fullWidth
             actionType="primary"
             onClick={() => {
+              log("[CampaignPublicInfoCard] Click 'Contribute'", { campaignId: campaign.id });
               router.push(`/campaigns/${campaign.id}/contribute`);
             }}
           >

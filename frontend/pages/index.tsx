@@ -1,76 +1,77 @@
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import CampaignIcon from '@mui/icons-material/Campaign';
+import CopyrightIcon from '@mui/icons-material/Copyright';
+import Diversity1Icon from '@mui/icons-material/Diversity1';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import LocalActivityIcon from '@mui/icons-material/LocalActivity';
+import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
 import { Avatar, Grid, Tooltip, Typography, useMediaQuery } from '@mui/material';
 import { Box, Stack, useTheme } from '@mui/system';
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import {
-  desktopDescriptionTextSx,
-  desktopHeadlineTextContainerSx,
-  desktopHeadlineTextSx,
-  highlightedTextSx,
-  mobileDescriptionTextSx,
-  mobileHeadlineTextContainerSx,
-  mobileHeadlineTextSx,
-  mobileSectionSx,
-  desktopHeadlineScreenImageSx,
-  mobileHeadlineScreenImageSx,
-  mobileHeadlineImageContainerSx,
-  statisticsItemsContainerSx,
-  statisticsSectionSx,
-  statisticsItemSx,
-  statisticsIconSx,
-  statisticsItemCardSx,
-  statisticsIconAvatarSx,
-  mobileTextContainerSx,
-  desktopRightTextContainerSx,
-  mobileInstructionsTitleTextSx,
-  desktopInstructionsTitleTextSx,
-  mobileInstructionsDescriptionTextSx,
-  desktopRightInstructionsDescriptionTextSx,
-  mobileInstructionsImageSx,
-  desktopInstructionsImageSx,
-  instructionsImageShadowSx,
-  desktopLeftTextContainerSx,
-  desktopLeftInstructionsDescriptionTextSx,
-  desktopInstructionsImageContainerSx,
-  instructionsContainerSx,
-  statisticsMainTextSx,
-  callToActionItemSx,
-  callToActionSectionSx,
-  callToActionItemContainerSx,
-  callToActionIconAvatarSx,
-  callToActionIconSx,
-  callToActionLinkSx,
-  callToActionLinkIconSx,
-  sectionHeaderSx,
-  copyRightIconSx,
-  desktopFooterSectionSx,
-  footerButtonSx,
-  mobileFooterSectionSx,
-  desktopHeadlineImageContainerSx,
-  desktopSectionSx,
-  desktopHeadlineBackgroundSx,
-  mobileHeadlineBackgroundSx,
-  mobileTextBoxSx,
-  mobileInstructionsImageContainerSx,
-  givingCouponsInlineLogoSx,
-  sectionSeparationLineSx,
-  statisticsContainerSx,
-} from '../styles/indexStyles';
-import { combineSxProps } from '../utils/types';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { ReactNode } from 'react';
 import Typed from 'react-typed';
 import Button from '../components/generic/Button';
-import { useRouter } from 'next/router';
-import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
-import LocalActivityIcon from '@mui/icons-material/LocalActivity';
-import Diversity1Icon from '@mui/icons-material/Diversity1';
-import { ReactNode } from 'react';
+import {
+  callToActionIconAvatarSx,
+  callToActionIconSx,
+  callToActionItemContainerSx,
+  callToActionItemSx,
+  callToActionLinkIconSx,
+  callToActionLinkSx,
+  callToActionSectionSx,
+  copyRightIconSx,
+  desktopDescriptionTextSx,
+  desktopFooterSectionSx,
+  desktopHeadlineBackgroundSx,
+  desktopHeadlineImageContainerSx,
+  desktopHeadlineScreenImageSx,
+  desktopHeadlineTextContainerSx,
+  desktopHeadlineTextSx,
+  desktopInstructionsImageContainerSx,
+  desktopInstructionsImageSx,
+  desktopInstructionsTitleTextSx,
+  desktopLeftInstructionsDescriptionTextSx,
+  desktopLeftTextContainerSx,
+  desktopRightInstructionsDescriptionTextSx,
+  desktopRightTextContainerSx,
+  desktopSectionSx,
+  footerButtonSx,
+  givingCouponsInlineLogoSx,
+  highlightedTextSx,
+  instructionsContainerSx,
+  instructionsImageShadowSx,
+  mobileDescriptionTextSx,
+  mobileFooterSectionSx,
+  mobileHeadlineBackgroundSx,
+  mobileHeadlineImageContainerSx,
+  mobileHeadlineScreenImageSx,
+  mobileHeadlineTextContainerSx,
+  mobileHeadlineTextSx,
+  mobileInstructionsDescriptionTextSx,
+  mobileInstructionsImageContainerSx,
+  mobileInstructionsImageSx,
+  mobileInstructionsTitleTextSx,
+  mobileSectionSx,
+  mobileTextBoxSx,
+  mobileTextContainerSx,
+  sectionHeaderSx,
+  sectionSeparationLineSx,
+  statisticsContainerSx,
+  statisticsIconAvatarSx,
+  statisticsIconSx,
+  statisticsItemCardSx,
+  statisticsItemsContainerSx,
+  statisticsItemSx,
+  statisticsMainTextSx,
+  statisticsSectionSx,
+} from '../styles/indexStyles';
+import { log } from '../utils/analytics';
 import { theme } from '../utils/theme';
-import CampaignIcon from '@mui/icons-material/Campaign';
-import Link from 'next/link';
-import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-import CopyrightIcon from '@mui/icons-material/Copyright';
-import GitHubIcon from '@mui/icons-material/GitHub';
-import InstagramIcon from '@mui/icons-material/Instagram';
+import { combineSxProps } from '../utils/types';
 
 interface StatisticItemProps {
   statistic: string;
@@ -114,7 +115,12 @@ const ActionButtonItem = ({ icon, title, description, actionText, link }: Action
           {description}
         </Typography>
 
-        <Link href={link}>
+        <Link
+          href={link}
+          onClick={() => {
+            log(`[Landing-JoinMission] Click ${title}`);
+          }}
+        >
           <Stack component="div" direction="row" alignItems="center">
             <Typography variant="h4" color="primary" sx={callToActionLinkSx}>
               {actionText} <ArrowRightIcon sx={callToActionLinkIconSx} />
@@ -238,7 +244,13 @@ const Home: NextPage = () => {
               <br />
               <br />
 
-              <Button actionType="primary" onClick={() => router.push('/campaigns')}>
+              <Button
+                actionType="primary"
+                onClick={() => {
+                  log("[Landing] Click top 'Explore campaigns'");
+                  router.push('/campaigns');
+                }}
+              >
                 Explore our campaigns now
               </Button>
             </Box>
@@ -292,7 +304,13 @@ const Home: NextPage = () => {
 
               <br />
 
-              <Button actionType="primary" onClick={() => router.push('/interest')}>
+              <Button
+                actionType="primary"
+                onClick={() => {
+                  log("[Landing] Click 'Start a campaign'");
+                  router.push('/interest');
+                }}
+              >
                 Start a campaign
               </Button>
             </Grid>
@@ -323,7 +341,13 @@ const Home: NextPage = () => {
 
               <br />
 
-              <Button actionType="primary" onClick={() => router.push('/campaigns')}>
+              <Button
+                actionType="primary"
+                onClick={() => {
+                  log("[Landing] Click 'Explore how coupons are used'");
+                  router.push('/campaigns');
+                }}
+              >
                 Explore how coupons are used
               </Button>
             </Grid>
@@ -356,7 +380,13 @@ const Home: NextPage = () => {
 
               <br />
 
-              <Button actionType="primary" onClick={() => router.push('/campaigns')}>
+              <Button
+                actionType="primary"
+                onClick={() => {
+                  log("[Landing] Click 'Explore impact'");
+                  router.push('/campaigns');
+                }}
+              >
                 Explore the impact by coupon recipients
               </Button>
             </Grid>
@@ -387,7 +417,13 @@ const Home: NextPage = () => {
 
               <br />
 
-              <Button actionType="primary" onClick={() => router.push('/campaigns')}>
+              <Button
+                actionType="primary"
+                onClick={() => {
+                  log("[Landing] Click bottom 'Explore campaigns'");
+                  router.push('/campaigns');
+                }}
+              >
                 Explore our campaigns
               </Button>
             </Grid>
@@ -462,14 +498,20 @@ const Home: NextPage = () => {
             <Tooltip title="Instagram">
               <InstagramIcon
                 sx={footerButtonSx}
-                onClick={() => window.open('https://www.instagram.com/givingcoupons/?igshid=YmMyMTA2M2Y%3D', '_blank')}
+                onClick={() => {
+                  log('[Landing] Click Instagram');
+                  window.open('https://www.instagram.com/givingcoupons/?igshid=YmMyMTA2M2Y%3D', '_blank');
+                }}
               />
             </Tooltip>
 
             <Tooltip title="Github">
               <GitHubIcon
                 sx={footerButtonSx}
-                onClick={() => window.open('https://github.com/Giving-Coupons/giving-coupons', '_blank')}
+                onClick={() => {
+                  log('[Landing] Click Github');
+                  window.open('https://github.com/Giving-Coupons/giving-coupons', '_blank');
+                }}
               />
             </Tooltip>
           </Stack>

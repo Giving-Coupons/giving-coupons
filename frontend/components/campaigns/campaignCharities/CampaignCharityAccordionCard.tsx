@@ -3,6 +3,7 @@ import { Box, Divider, Stack, styled, Typography } from '@mui/material';
 import Accordion, { AccordionProps } from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
+import React from 'react';
 import {
   accordionSx,
   charityDescriptionSx,
@@ -13,6 +14,7 @@ import {
   stackSx,
 } from '../../../styles/components/charities/CampaignCharityAccordionCardStyles';
 import { CampaignCharityDonationPublicData } from '../../../types/campaignCharities';
+import { log } from '../../../utils/analytics';
 import SmallCompetingGraph from '../../charts/SmallCompetingGraph';
 import Button from '../../generic/Button';
 
@@ -47,7 +49,18 @@ const CampaignCharityAccordionCard = ({ campaignCharity }: Props) => {
   const secondaryDonorDonationData = campaignCharity.secondaryDonation;
 
   return (
-    <CustomAccordion disableGutters sx={accordionSx}>
+    <CustomAccordion
+      disableGutters
+      sx={accordionSx}
+      onChange={(event: React.SyntheticEvent, isExpanded: boolean) => {
+        if (isExpanded) {
+          log('[CampaignCharityAccordionCard] Expand charity', {
+            campaignCharityId: campaignCharity.id,
+            charity: campaignCharity.charity.name,
+          });
+        }
+      }}
+    >
       <CustomAccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Stack direction="row" justifyContent="space-evenly" alignItems="center" sx={stackSx}>
           <Box sx={charityLogoSx} component="img" src={campaignCharity.charity.logoUrl} />
@@ -83,6 +96,10 @@ const CampaignCharityAccordionCard = ({ campaignCharity }: Props) => {
             actionType="secondary"
             fullWidth
             onClick={() => {
+              log('[CampaignCharityAccordionCard] Visit charity website', {
+                charityId: campaignCharity.charity.id,
+                charityName: campaignCharity.charity.name,
+              });
               window.open(campaignCharity.charity.websiteUrl, '_blank');
             }}
           >
