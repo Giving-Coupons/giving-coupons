@@ -1,6 +1,8 @@
-<p align="center"><img src="assets/logo-full.png"/></p>
+<img src="assets/inline-logo.png">
 
-<h1 align="center">Giving Coupons</h1>
+<h3 align="center">Changing the way we give to build a city of good!</h5>
+
+<br>
 
 <p align="center">
 <img src="https://github.com/Giving-Coupons/giving-coupons/actions/workflows/build-docker-images.yml/badge.svg" /> 
@@ -16,16 +18,16 @@
 
 <p align="center"><img src="assets/logo-soc.png"/></p>
 
-## Overview
+### Overview
 
-Giving Coupons aims to increase the fundraising ROI on charitable donations and raise awareness about charities that the donor wishes to support by giving out donation coupons. Recipients of the coupon get to decide which charity receives the money specified, and can choose to top it up with their own money. The end goal of Giving Coupons is to encourage more Singaporeans to donate.
+Giving Coupons aims to increase fundraising donations and raise awareness about charities a primary donor wishes to support by distributing coupons. Coupon recipients get to choose which charity receives the money specified and can choose to make a personal contribution if they wish to do so. The end goal of Giving Coupons is to encourage more Singaporeans to donate and change the way we give to build a city of good!
 
-How Giving Coupons works for a campaign.
+### How does Giving Coupons work?
 
-1. A campaign in Giving Coupons kicks off when a primary donor pledges to donate a lump sum for one or more causes.
-1. The lump sum is then represented by coupons of smaller denominations. For example, a donation of $1000 could be split into 100 $10 coupons.
-1. Giving Coupons then distributes these coupons to a targeted group of people that they want to encourage to donate. These people are coupon recipients.
-1. Coupon recipients scan the coupon and can browse through the charities the money could go to. They gain awareness, while making their choice. While doing this, they can choose to make an additional personal contribution too, becoming a secondary donor.
+1. A donor pledges to donate a sum of money to one or more charities by starting a campaign on Giving Coupons.
+1. Giving Coupons will split the pledged amount into coupons. Coupons are distributed to the public or organisations.
+1. Coupon recipients can redeem it to choose where the money goes and learn about the charities and their impact during the redemption process.
+1. They may choose to add a personal contribution during the coupon redemption process. Or donate directly to charities through our campaigns.
 
 ## Team Members
 
