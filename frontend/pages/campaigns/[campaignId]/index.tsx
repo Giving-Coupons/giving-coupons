@@ -17,6 +17,7 @@ import api from '../../../frontendApis';
 import { containerSx, desktopStackSx, swiperSlideSx, swiperSx } from '../../../styles/campaigns/detailStyles';
 import { CampaignPublicData } from '../../../types/campaigns';
 import { Nullable } from '../../../types/utils';
+import { getCampaignStatus } from '../../../utils/campaigns';
 import NotFound from '../../404';
 
 export default function CampaignDetail() {
@@ -43,18 +44,61 @@ export default function CampaignDetail() {
 
   const numTotalCoupons = campaign.promisedAmount / campaign.couponDenomination;
   const numCouponsRedeemed = campaign.donations.primaryDonation.amount / campaign.couponDenomination;
+  const campaignStatus = getCampaignStatus(campaign.start, campaign.end);
+  const campaignIsUpcoming = campaignStatus === 'Upcoming';
+  const campaignHasEnded = campaignStatus === 'Completed';
 
-  const getPromisedAmountStatsCardChild = (): ReactNode => (
-    <Typography variant="h4">
-      was sponsored by {campaign.primaryDonor.name}. This will be donated to{' '}
-      <strong>
-        {campaign.charities.length} {campaign.charities.length === 1 ? 'charity' : 'charities'}
-      </strong>{' '}
-      when the campaign ends.
-    </Typography>
-  );
+  const getPromisedAmountStatsCardChild = (): ReactNode => {
+    if (campaignHasEnded) {
+      return (
+        <Typography variant="h4">
+          was sponsored by {campaign.primaryDonor.name}. This will be donated to{' '}
+          <strong>
+            {campaign.charities.length} {campaign.charities.length === 1 ? 'charity' : 'charities'}
+          </strong>
+          {campaign.charities.length === 1
+            ? '.'
+            : ' according to the redemption distribution shown under the charities section.'}
+        </Typography>
+      );
+    }
+
+    return (
+      <Typography variant="h4">
+        was sponsored by {campaign.primaryDonor.name}. This will be donated to{' '}
+        <strong>
+          {campaign.charities.length} {campaign.charities.length === 1 ? 'charity' : 'charities'}
+        </strong>{' '}
+        when the campaign ends.
+      </Typography>
+    );
+  };
 
   const getDonationAmountStatsCardChild = (): ReactNode => {
+    if (campaignIsUpcoming) {
+      return (
+        <Typography variant="h4">
+          was donated by the public. <strong>Be the first to donate</strong> when the campaign starts!
+        </Typography>
+      );
+    }
+
+    if (campaignHasEnded && campaign.donations.secondaryDonation.amount === 0) {
+      return (
+        <Typography variant="h4">
+          was donated by the public. However, the sponsored amount will still be donated!
+        </Typography>
+      );
+    }
+
+    if (campaignHasEnded && campaign.donations.secondaryDonation.amount !== 0) {
+      return (
+        <Typography variant="h4">
+          was donated by the public. <strong>We thank everyone who donated!</strong>
+        </Typography>
+      );
+    }
+
     if (campaign.donations.secondaryDonation.amount === 0) {
       return (
         <Typography variant="h4">
@@ -74,6 +118,22 @@ export default function CampaignDetail() {
   };
 
   const getNumCouponsRedeemedStatsCardChild = (): ReactNode => {
+    if (campaignIsUpcoming) {
+      return (
+        <Typography variant="h4">
+          coupons have been redeemed. Let&apos;s wait for the first coupon to be redeemed once the campaign starts!
+        </Typography>
+      );
+    }
+
+    if (campaignHasEnded) {
+      return (
+        <Typography variant="h4">
+          coupons have been redeemed. Thank you for helping us change the way we give and build a city of good!
+        </Typography>
+      );
+    }
+
     if (numCouponsRedeemed === 0) {
       return (
         <Typography variant="h4">
@@ -156,7 +216,7 @@ export default function CampaignDetail() {
 
         <Divider />
 
-        <CampaignCharityOverview campaignCharities={campaign.charities} />
+        <CampaignCharityOverview campaign={campaign} />
       </Stack>
     </Container>
   );

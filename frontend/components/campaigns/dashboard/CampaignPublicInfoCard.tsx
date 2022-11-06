@@ -23,6 +23,7 @@ import CampaignDateInfoIcon from './CampaignDateInfoIcon';
 import CampaignMoneyInfoIcon from './CampaignMoneyInfoIcon';
 import CouponHelpDialog from './CouponHelpDialog';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import { USER_FACING_DATE_FORMAT } from '../../../utils/constants';
 
 interface Props {
   campaign: CampaignPublicData;
@@ -40,6 +41,7 @@ const CampaignPublicInfoCard = ({ campaign }: Props) => {
   const campaignStatus = getCampaignStatus(campaign.start, campaign.end);
   const campaignIsActive = campaignStatus === 'Active';
   const campaignIsUpcoming = campaignStatus === 'Upcoming';
+  const campaignHasEnded = campaignStatus === 'Completed';
 
   return (
     <Grid container columnSpacing={2}>
@@ -71,6 +73,12 @@ const CampaignPublicInfoCard = ({ campaign }: Props) => {
             {campaignIsUpcoming && (
               <Typography variant="h4" sx={campaignStatusTextSx}>
                 Campaign starts in {numOfDaysTillStart} {numOfDaysTillStart === 1 ? 'day' : 'days'}!
+              </Typography>
+            )}
+
+            {campaignHasEnded && (
+              <Typography variant="h4" sx={campaignStatusTextSx}>
+                Campaign has ended on {campaign.end.format(USER_FACING_DATE_FORMAT)}!
               </Typography>
             )}
 
@@ -114,17 +122,19 @@ const CampaignPublicInfoCard = ({ campaign }: Props) => {
         </Stack>
       </Grid>
 
-      <Grid item xs={12} marginTop={1}>
-        <Button
-          fullWidth
-          actionType="primary"
-          onClick={() => {
-            router.push(`/campaigns/${campaign.id}/contribute`);
-          }}
-        >
-          Contribute
-        </Button>
-      </Grid>
+      {campaignIsActive && (
+        <Grid item xs={12} marginTop={1}>
+          <Button
+            fullWidth
+            actionType="primary"
+            onClick={() => {
+              router.push(`/campaigns/${campaign.id}/contribute`);
+            }}
+          >
+            Contribute
+          </Button>
+        </Grid>
+      )}
     </Grid>
   );
 };
