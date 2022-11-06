@@ -70,9 +70,7 @@ function processRequest<D>(endpoint: string, promise: AxiosPromise<ApiResponse<D
       return apiResponse;
     })
     .catch((error: AxiosError<ApiResponse<D>>) => {
-      const apiResponse: ApiResponse<D> = error.response?.data ?? DEFAULT_API_RESPONSE;
-
-      apiResponse.statusCode = error.response?.status;
+      const apiResponse = { statusCode: error.response?.status, ...(error.response?.data ?? DEFAULT_API_RESPONSE) };
 
       if (process.env.NODE_ENV === 'development') {
         console.error(
