@@ -13,8 +13,6 @@ class InterestsController < ApplicationController
   def create
     @interest = Interest.new(interest_params)
     @interest.charity_ids = params[:charity_ids]
-    # @interest.campaign_image.attach(data: params[:campaign_image]) if params[:campaign_image_base64].present?
-    # @interest.donor_image.attach(data: params[:donor_image]) if params[:donor_image_base64].present?
     @interest.save!
 
     add_success_message "Interest form for \"#{@interest.donor_name}\" successfully submitted!"

@@ -21,11 +21,8 @@ class CampaignsController < ApplicationController
       :secondary_donations,
       :primary_donor,
       coupons: { redemption: [secondary_donation: { campaign_charity: :charity }] },
-      campaign_charities: %i[secondary_donations
-                             coupons
-                             charity]
-    )
-                        .find(params[:id])
+      campaign_charities: %i[secondary_donations coupons charity]
+    ).find(params[:id])
   end
 
   def create
@@ -34,8 +31,6 @@ class CampaignsController < ApplicationController
     set_donor
     set_interest
     create_campaign_charities
-
-    # @campaign.image.attach(data: params[:image_base64]) if params[:image_base64].present?
 
     @campaign.save!
 
@@ -53,12 +48,6 @@ class CampaignsController < ApplicationController
     set_donor
     set_interest
     create_or_update_campaign_charities
-    #
-    # if params[:image_base64].nil?
-    #   @campaign.image.purge
-    # else
-    #   @campaign.image.attach(data: params[:image_base64])
-    # end
 
     @campaign.save!
 
@@ -91,8 +80,7 @@ class CampaignsController < ApplicationController
   def set_campaign
     @campaign = Campaign.includes(:coupons, :secondary_donations,
                                   :primary_donor,
-                                  campaign_charities: %i[coupons secondary_donations
-                                                         charity]).find(params[:id])
+                                  campaign_charities: %i[coupons secondary_donations charity]).find(params[:id])
   end
 
   def campaign_params

@@ -11,10 +11,7 @@ class CharitiesController < ApplicationController
   def show; end
 
   def create
-    @charity = Charity.new(charity_params)
-    # @charity.logo.attach(data: params[:logo_base64]) if params[:logo_base64].present?
-    # @charity.image.attach(data: params[:image_base64]) if params[:image_base64].present?
-    @charity.save!
+    @charity = Charity.create!(charity_params)
 
     add_success_message "Charity, \"#{@charity.name}\", successfully created!"
     render :show, status: :created
@@ -22,18 +19,6 @@ class CharitiesController < ApplicationController
 
   def update
     @charity.assign_attributes(charity_params)
-
-    # if params[:logo_base64].nil?
-    #   @charity.logo.purge
-    # else
-    #   @charity.logo.attach(data: params[:logo_base64])
-    # end
-    #
-    # if params[:image_base64].nil?
-    #   @charity.image.purge
-    # else
-    #   @charity.image.attach(data: params[:image_base64])
-    # end
 
     @charity.save!
 
