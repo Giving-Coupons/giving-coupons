@@ -34,33 +34,41 @@ PrimaryDonor.create!(name: 'Cinnamon', email: 'cinna@mon.com')
 PrimaryDonor.create!(name: 'Derek Zoolander', email: 'derek@gmail.com')
 PrimaryDonor.create!(name: 'Eddie and Mary Foundation', email: 'contact@jamf.com')
 
+start_of_today = DateTime.now.beginning_of_day
+end_of_today = DateTime.now.end_of_day
+
 i1 = Interest.create!(donor_name: 'Alice Tan', donor_email: 'alicetan@gmail.com', campaign_name: 'Alice Tan Campaign',
                       campaign_description: 'Alice Tan is raising funds!', promised_amount: 500,
-                      start: DateTime.now - 1.month, end: DateTime.now + 1.month, status: 'pending',
+                      start: start_of_today - 1.month, end: end_of_today + 1.month, status: 'pending',
+                      initial_coupon_validity: 60,
                       coupon_denomination: 10, charities: [c1, c2, c3, c4, c5])
 i2 = Interest.create!(donor_name: 'Johnny Deep', donor_email: 'johnnydeep@hotmail.com',
                       campaign_name: 'Johnny Deep Campaign', campaign_description: 'Johnny Deep is raising funds!',
-                      promised_amount: 1000, start: DateTime.now - 2.months, end: DateTime.now + 3.months,
+                      promised_amount: 1000, start: start_of_today - 2.months, end: end_of_today + 3.months,
+                      initial_coupon_validity: 90,
                       status: 'pending', coupon_denomination: 10, charities: [c2, c4, c6, c7, c8])
 i3 = Interest.create!(donor_name: 'Burger Queen', donor_email: 'community@burgerqueen.com',
                       campaign_name: 'Burger Queen Campaign', campaign_description: 'Burger Queen is raising funds!',
-                      promised_amount: 2000, start: DateTime.now - 3.months, end: DateTime.now + 3.months,
+                      promised_amount: 2000, start: start_of_today - 3.months, end: end_of_today + 3.months,
+                      initial_coupon_validity: 120,
                       status: 'pending', coupon_denomination: 100, charities: [c1, c2, c3, c4, c7])
 i4 = Interest.create!(donor_name: 'Google', donor_email: 'contributing@google.com', campaign_name: 'Google Campaign',
                       campaign_description: 'Google is raising funds!', promised_amount: 3000,
-                      start: DateTime.now - 1.month, end: DateTime.now + 3.months, status: 'pending',
+                      start: start_of_today - 1.month, end: end_of_today + 3.months, status: 'pending',
+                      initial_coupon_validity: 60,
                       coupon_denomination: 20, charities: [c1, c3, c4, c5, c8])
 i5 = Interest.create!(donor_name: 'National University of Singapore', donor_email: 'coupons@nus.edu.sg',
                       campaign_name: 'NUS Campaign', campaign_description: 'NUS is raising funds!',
-                      promised_amount: 800, start: DateTime.now - 3.months, end: DateTime.now + 3.months,
+                      promised_amount: 800, start: start_of_today - 3.months, end: end_of_today + 3.months,
+                      initial_coupon_validity: 180,
                       status: 'pending', coupon_denomination: 10, charities: [c6, c7, c8, c9, c10])
 Interest.create!(donor_name: 'Cinnamon College', donor_email: 'cinnamon@nus.edu.sg',
                  campaign_name: 'Cinnamon Campaign', campaign_description: 'Cinnamon is raising funds!',
-                 promised_amount: 800, start: DateTime.now + 1.month, end: DateTime.now + 3.months, status: 'pending',
-                 coupon_denomination: 50, charities: [c1, c4, c5, c7, c10])
+                 promised_amount: 800, start: start_of_today + 1.month, end: end_of_today + 3.months, status: 'pending',
+                 initial_coupon_validity: 30, coupon_denomination: 50, charities: [c1, c4, c5, c7, c10])
 Interest.create!(donor_name: 'Derek Zoolander', donor_email: 'derek@gmail.com', campaign_name: 'Derek Campaign',
-                 campaign_description: 'Derek is raising funds!', promised_amount: 300, start: DateTime.now + 1.month,
-                 end: DateTime.now + 3.months, status: 'pending', coupon_denomination: 10,
+                 campaign_description: 'Derek is raising funds!', promised_amount: 300, start: start_of_today + 1.month,
+                 initial_coupon_validity: 7, end: end_of_today + 3.months, status: 'pending', coupon_denomination: 10,
                  charities: [c1, c2, c3, c4, c5])
 
 def create_campaign_from_interest(interest)
@@ -83,7 +91,7 @@ campaign5 = create_campaign_from_interest(i5)
 
 # Campaign without interest
 campaign6 = Campaign.new(name: "Siva's fundraiser", description: 'Siva is raising funds!', promised_amount: 800,
-                         start: DateTime.now + 1.month, end: DateTime.now + 12.months,
+                         start: start_of_today + 1.month, end: end_of_today + 12.months,
                          primary_donor: PrimaryDonor.new(name: 'Siva', email: 'sivarn@gmail.com'),
                          coupon_denomination: 10,
                          campaign_charities: [c1, c2, c4, c8, c9].map do |c|
@@ -96,24 +104,35 @@ campaigns.each do |c|
   c.image.attach(data: images.sample)
 
   c.save!
+
+  c.queue_generate_coupons_job(c.end)
 end
 
-# Required before filtering for active campaigns as something before this line is not synchronous.
-sleep 1
+num_coupons_expected = campaigns.map(&:num_coupons_allowed).sum
+
+# Wait for background coupon creation ActiveJobs to complete before redeeming coupons.
+Coupon.uncached do
+  sleep 1 while Coupon.count < num_coupons_expected
+end
 
 active_campaigns = Campaign.where('start <= :now AND campaigns.end >= :now', { now: DateTime.now })
 
 # Redeem 30% of coupons with additional contributions
 coupons_to_redeem = active_campaigns.flat_map(&:coupons).sample(Coupon.count * 0.30)
 coupons_to_redeem.each do |c|
-  c.campaign_charity = c.campaign.campaign_charities.sample
-  c.save!
-  SecondaryDonation.create!(coupon: c, amount: Random.rand(10..30),
-                            campaign_charity: c.campaign_charity)
+  campaign_charity = c.campaign.campaign_charities.sample
+  secondary_donation = SecondaryDonation.new(amount: Random.rand(10..30), campaign_charity: campaign_charity,
+                                             donated_at: DateTime.now)
+  redemption = Redemption.new(campaign_charity: campaign_charity,
+                              secondary_donation: secondary_donation,
+                              redeemed_at: secondary_donation.donated_at,
+                              coupon: c)
+  redemption.save!
 end
 
 # Some donations without coupons
 10.times do
-  SecondaryDonation.create!(coupon: nil, amount: Random.rand(10..30),
-                            campaign_charity: active_campaigns.sample.campaign_charities.sample)
+  SecondaryDonation.create!(amount: Random.rand(10..30),
+                            campaign_charity: active_campaigns.sample.campaign_charities.sample,
+                            donated_at: DateTime.now)
 end
