@@ -1,10 +1,10 @@
+import { Box, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
-import { Typography, Box } from '@mui/material';
 import {
-  couponContainerSx,
+  containerCenterSx,
   containerLeftSx,
   containerRightSx,
-  containerCenterSx,
+  couponContainerSx,
   denominationBSx,
 } from '../../styles/components/coupons/couponStyles';
 import { CouponBaseData } from '../../types/coupons';
@@ -13,7 +13,7 @@ interface Props {
   coupon: CouponBaseData;
 }
 
-const CouponFrontB = ({ coupon }: Props) => {
+const CouponFront = ({ coupon }: Props) => {
   return (
     <Stack sx={couponContainerSx} component="div" direction="row">
       <Box sx={containerLeftSx} />
@@ -38,4 +38,4 @@ const CouponFrontB = ({ coupon }: Props) => {
   );
 };
 
-export default CouponFrontB;
+export default CouponFront;
