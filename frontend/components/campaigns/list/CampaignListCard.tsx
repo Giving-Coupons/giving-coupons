@@ -67,7 +67,7 @@ const CampaignListCard = ({ campaign }: Props) => {
           sx={buttonSx}
           actionType="primary"
           onClick={() => {
-            log('[CampaignListCard] Click "Contribute"', { campaignId: campaign.id });
+            log('CampaignListCard_clickContribute', { campaignId: campaign.id });
             router.push(`/campaigns/${campaign.id}/contribute`);
           }}
         >
@@ -85,7 +85,7 @@ const CampaignListCard = ({ campaign }: Props) => {
         sx={buttonSx}
         actionType="tertiary"
         onClick={() => {
-          log(`[CampaignListCard] Click 'Learn more'`, { campaignId: campaign.id });
+          log('CampaignListCard_clickLearnMore', { campaignId: campaign.id });
           router.push(`/campaigns/${campaign.id}`);
         }}
       >

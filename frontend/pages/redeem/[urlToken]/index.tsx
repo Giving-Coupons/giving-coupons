@@ -121,7 +121,7 @@ const Redeem: NextPage = () => {
         return api.redemptions.addRedemption(couponRedeemPostData);
       })
       .then(() =>
-        log('[Redeem] Submit', {
+        log('Redeem_submit', {
           campaignCharityId: values.campaignCharityId,
           couponId: coupon?.id,
           amount: values.amount,
@@ -300,7 +300,7 @@ const Redeem: NextPage = () => {
             icon={<HelpOutlineIcon />}
             tooltip="Instructions"
             onClick={() => {
-              log('[Redeem] Open instructions');
+              log('Redeem_openInstructions');
               setOpenInstructions(true);
             }}
           />

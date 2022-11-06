@@ -19,7 +19,7 @@ const interestsApi = api.interests;
 const InterestFormPage: NextPage = () => {
   const router = useRouter();
   const onSubmit: InterestFormSubmitHandler = (formData) => {
-    log('[InterestFormPage] Submit');
+    log('InterestFormPage_submit');
 
     const { lengthOfCampaign, ...data } = formData;
     const interestPostData: InterestPostData = {

@@ -68,7 +68,7 @@ const Campaigns = () => {
             <Fab
               sx={mobileSearchButtonSx}
               onClick={() => {
-                log('[CampaignList] Click Search FAB');
+                log('CampaignList_clickSearchFAB');
                 setSearchDrawerIsOpen(true);
               }}
             >

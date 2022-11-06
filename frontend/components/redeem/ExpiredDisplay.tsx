@@ -37,7 +37,7 @@ export default function ExpiredDisplay({ couponExpiry, primaryDonorName, campaig
       <Button
         actionType="primary"
         onClick={() => {
-          log("[Redeem] Click 'Contribute without coupon'");
+          log('Redeem_clickContributeWithoutCoupon');
           router.push(`/campaigns/${campaignId}/contribute`);
         }}
       >

@@ -67,7 +67,7 @@ export const campaignSearchFormSchema = Yup.object().shape(
 
 const CampaignSearchForm = ({ initialValues, search, handleReset }: Props) => {
   const handleSubmit = (values: CampaignSearchFormData) => {
-    log('[CampaignSearchForm] Submit search');
+    log('CampaignSearchForm_submitSearch');
 
     campaignSearchFormSchema
       .validate(values)
@@ -170,7 +170,7 @@ const CampaignSearchForm = ({ initialValues, search, handleReset }: Props) => {
                 fullWidth
                 actionType="secondary"
                 onClick={() => {
-                  log('[CampaignSearchForm] Reset search filters');
+                  log('CampaignSearchForm_resetSearchFilters');
                   handleReset();
                   resetForm();
                 }}

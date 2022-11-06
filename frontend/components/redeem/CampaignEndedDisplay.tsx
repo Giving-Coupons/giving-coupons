@@ -44,7 +44,7 @@ export default function CampaignEndedDisplay({ campaign, isFromRedemption }: Pro
         <Button
           actionType="primary"
           onClick={() => {
-            log("[CampaignEndedDisplay] Click 'View Campaign'");
+            log('CampaignEndedDisplay_clickViewCampaign');
             router.push(`/campaigns/${campaign.id}`);
           }}
           sx={buttonSx}
@@ -55,7 +55,7 @@ export default function CampaignEndedDisplay({ campaign, isFromRedemption }: Pro
         <Button
           actionType="secondary"
           onClick={() => {
-            log("[CampaignEndedDisplay] Click 'View Others'");
+            log('CampaignEndedDisplay_clickViewOthers');
             router.push(`/campaigns`);
           }}
           sx={buttonSx}

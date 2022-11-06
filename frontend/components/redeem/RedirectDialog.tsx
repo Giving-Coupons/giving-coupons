@@ -45,7 +45,7 @@ const RedirectDialog = ({
   const [shouldShowLearnMore, setShouldShowLearnMore] = useState<boolean>(false);
 
   const handleRedirect = (values: CouponRedirectFormData) => {
-    log('[RedirectDialog] Redirect to Giving.sg', {
+    log('RedirectDialog_redirectToGivingSg', {
       campaignCharityId: campaignCharity.id,
       couponId: couponSponsorship?.couponId,
       amount: secondaryDonationAmount,
@@ -153,7 +153,7 @@ const RedirectDialog = ({
                   <Button
                     actionType="muted"
                     onClick={() => {
-                      log('[RedirectDialog] Click cancel');
+                      log('RedirectDialog_clickCancel');
                       handleClose();
                     }}
                     fullWidth

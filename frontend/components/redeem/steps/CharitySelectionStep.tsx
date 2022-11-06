@@ -65,7 +65,7 @@ const CharitySelectionStep = ({
                     setValue(campaignCharity.id, true);
                   }}
                   handleOpenInfoCard={() => {
-                    log('[CharitySelectionStep] Click card', {
+                    log('CharitySelectionStep_clickCard', {
                       campaignCharityId: campaignCharity.id,
                       charity: campaignCharity.charity.name,
                     });
@@ -77,7 +77,7 @@ const CharitySelectionStep = ({
                   campaignCharity={campaignCharity}
                   open={openCharityDialogId === campaignCharity.id}
                   handleClose={() => {
-                    log('[CharitySelectionStep] Close card', {
+                    log('CharitySelectionStep_closeCard', {
                       campaignCharityId: campaignCharity.id,
                       charity: campaignCharity.charity.name,
                     });

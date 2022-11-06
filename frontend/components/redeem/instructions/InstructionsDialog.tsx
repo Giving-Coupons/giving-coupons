@@ -143,7 +143,7 @@ const InstructionsDialog = ({ open, handleClose, primaryDonor, couponDenominatio
       fullScreen
       open={open}
       onClose={() => {
-        log('[InstructionsDialog] Close instructions', { slideNumber: slideIndex + 1 });
+        log('InstructionsDialog_closeInstructions', { slideNumber: slideIndex + 1 });
         handleClose();
       }}
       PaperProps={{ sx: dialogPaperSx }}

@@ -32,7 +32,7 @@ const AlreadyRedeemedDisplay = ({ campaignId, campaignCharity, couponSponsorship
       <Button
         actionType="primary"
         onClick={() => {
-          log("[AlreadyRedeemedDisplay] Click 'Contribute directly'");
+          log('AlreadyRedeemedDisplay_clickContributeDirectly');
           router.push(`/campaigns/${campaignId}/contribute`);
         }}
       >
