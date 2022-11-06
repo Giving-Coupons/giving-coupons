@@ -34,7 +34,7 @@ const CouponHelpDialog = ({ open, campaign, setIsCouponHelpOpen }: Props) => {
             In this campaign, {campaign.primaryDonor.name} has sponsored ${campaign.promisedAmount}.
             <Box sx={givingCouponsInlineLogoSx} component="img" src="/inline-logo.png" /> split the amount into{' '}
             {numTotalCoupons} coupons at ${campaign.couponDenomination} each. The coupons were distributed to the
-            public.A coupon recipient can redeem the coupon to choose which charity to donate the $
+            public. A coupon recipient can redeem the coupon to choose which charity to donate the $
             {campaign.couponDenomination} to and they can add a personal contribution if they wish.
           </Typography>
         </Stack>

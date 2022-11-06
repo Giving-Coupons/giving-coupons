@@ -1,23 +1,33 @@
 import { Stack, Typography } from '@mui/material';
 import { accordionStackSx } from '../../../styles/components/charities/CampaignCharityOverviewStyles';
-import { CampaignCharityDonationPublicData } from '../../../types/campaignCharities';
+import { CampaignPublicData } from '../../../types/campaigns';
+import { getCampaignStatus } from '../../../utils/campaigns';
 import CampaignCharityAccordionCard from './CampaignCharityAccordionCard';
 
 interface Props {
-  campaignCharities: CampaignCharityDonationPublicData[];
+  campaign: CampaignPublicData;
 }
 
-const CampaignCharityOverview = ({ campaignCharities }: Props) => {
+const CampaignCharityOverview = ({ campaign }: Props) => {
+  const campaignStatus = getCampaignStatus(campaign.start, campaign.end);
+  const campaignIsActive = campaignStatus === 'Active';
+  const campaignIsUpcoming = campaignStatus === 'Upcoming';
+  const campaignHasEnded = campaignStatus === 'Completed';
+
   return (
     <Stack spacing={1}>
       <Stack>
         <Typography variant="h1">Charities</Typography>
 
-        <Typography>Here&apos;s how each charity is benefitting from the campaign!</Typography>
+        {campaignIsUpcoming && <Typography>Here are the charities involved in this campaign!</Typography>}
+
+        {campaignIsActive && <Typography>Here&apos;s how each charity is benefitting from the campaign!</Typography>}
+
+        {campaignHasEnded && <Typography>Here&apos;s how each charity has benefitted from this campaign!</Typography>}
       </Stack>
 
       <Stack sx={accordionStackSx}>
-        {campaignCharities.map((campaignCharity, index) => (
+        {campaign.charities.map((campaignCharity, index) => (
           <CampaignCharityAccordionCard key={index} campaignCharity={campaignCharity} />
         ))}
       </Stack>
