@@ -130,7 +130,7 @@ export default function CampaignDetail() {
     if (campaignHasEnded) {
       return (
         <Typography variant="h4">
-          coupons have been redeemed. <strong>Thank you for redeeming</strong> and helping us reinvent the way we give
+          coupons have been redeemed. <strong>Thank you for redeeming</strong> and helping us changing the way we give
           and build a city of good!
         </Typography>
       );
