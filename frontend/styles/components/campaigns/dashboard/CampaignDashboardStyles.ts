@@ -118,6 +118,7 @@ export const campaignInfoItemSx: SxProps = {
 
 export const campaignStatusTextSx: SxProps = {
   color: theme.palette.primary.main,
+  textAlign: 'center',
 };
 
 export const couponHelpIconButtonSx: SxProps = {
@@ -151,4 +152,5 @@ export const givingCouponsInlineLogoSx: SxProps = {
   height: '1.5em',
   verticalAlign: 'middle',
   marginLeft: '4px',
+  marginBottom: '3px',
 };

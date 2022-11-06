@@ -16,7 +16,7 @@ interface Props {
   coupon: CouponBaseData;
 }
 
-const CouponBackB = ({ coupon }: Props) => {
+const CouponBack = ({ coupon }: Props) => {
   const websiteUrl = process.env.NEXT_PUBLIC_BASE_CLIENT_URL;
   const redeemUrl = `${websiteUrl}/redeem/${coupon.urlToken}`;
 
@@ -73,4 +73,4 @@ const CouponBackB = ({ coupon }: Props) => {
   );
 };
 
-export default CouponBackB;
+export default CouponBack;

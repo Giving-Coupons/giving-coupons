@@ -6,7 +6,7 @@ export const DATE_FORMAT = 'DD-MM-YYYY';
 
 export const DATETIME_FORMAT = 'DD-MM-YYYY HH:mm';
 
-export const USER_FACING_DATE_FORMAT = 'DD MMM YYYY';
+export const USER_FACING_DATE_FORMAT = 'D MMM YYYY';
 
 export const MAX_NUM_OF_CAMPAIGN_CHARITIES = 5;
 

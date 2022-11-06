@@ -9,7 +9,7 @@ const imageCompressionOptions = Object.freeze({
 
 // Adapted from https://github.com/0dy553y/odyssey/blob/master/frontend/src/utils/file.ts
 export const compressImageThenConvertToBase64String = async (file: File): Promise<Base64String> => {
-  const compressedFile = await imageCompression(file, imageCompressionOptions);
+  const compressedFile = await imageCompression(file, { ...imageCompressionOptions });
 
   return new Promise((resolve, reject) => {
     const reader = new FileReader();

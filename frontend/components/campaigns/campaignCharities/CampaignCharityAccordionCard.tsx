@@ -26,6 +26,7 @@ const CustomAccordion = styled((props: AccordionProps) => <Accordion {...props} 
   },
   '&:first-of-type': { borderRadius: '20px 20px 0 0' },
   '&:last-of-type': { borderRadius: '0 0 20px 20px' },
+  '&:only-child': { borderRadius: '20px' },
   '&:not(:first-of-type)': {
     marginTop: 0,
   },
