@@ -77,7 +77,6 @@ const createCampaignSchema = Yup.object().shape(
       .when(['start', 'end'], (start, end, schema) => {
         return schema.test({
           test: (initialCouponValidity: number) => {
-            console.log(moment(end).diff(start, 'days'));
             return isValidDate(start) && isValidDate(end)
               ? initialCouponValidity <= moment(end).diff(start, 'days') + 1
               : true;

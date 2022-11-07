@@ -101,7 +101,7 @@ const CampaignPublicInfoCard = ({ campaign }: Props) => {
                 icon={<HelpOutlineIcon fontSize="small" sx={couponHelpIconSx} />}
                 tooltip="Learn more about coupons"
                 onClick={() => {
-                  log('[CampaignPublicInfoCard] Click coupon info button', { campaignId: campaign.id });
+                  log('CampaignPublicInfoCard_clickCouponInfoButton', { campaignId: campaign.id });
                   setIsCouponHelpOpen(true);
                 }}
               />
@@ -132,7 +132,7 @@ const CampaignPublicInfoCard = ({ campaign }: Props) => {
             fullWidth
             actionType="primary"
             onClick={() => {
-              log("[CampaignPublicInfoCard] Click 'Contribute'", { campaignId: campaign.id });
+              log('CampaignPublicInfoCard_clickContribute', { campaignId: campaign.id });
               router.push(`/campaigns/${campaign.id}/contribute`);
             }}
           >

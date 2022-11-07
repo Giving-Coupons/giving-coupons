@@ -499,7 +499,7 @@ const Home: NextPage = () => {
               <InstagramIcon
                 sx={footerButtonSx}
                 onClick={() => {
-                  log('[Landing] Click Instagram');
+                  log('Landing_clickInstagram');
                   window.open('https://www.instagram.com/givingcoupons/?igshid=YmMyMTA2M2Y%3D', '_blank');
                 }}
               />
@@ -509,7 +509,7 @@ const Home: NextPage = () => {
               <GitHubIcon
                 sx={footerButtonSx}
                 onClick={() => {
-                  log('[Landing] Click Github');
+                  log('Landing_clickGithub');
                   window.open('https://github.com/Giving-Coupons/giving-coupons', '_blank');
                 }}
               />

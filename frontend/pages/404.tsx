@@ -27,7 +27,7 @@ function NotFound({ entity = 'page', message }: Props) {
       <Button
         actionType="secondary"
         onClick={() => {
-          log("[404] Click 'Go back' button");
+          log('notFound404_clickGoBack');
           router.back();
         }}
       >
