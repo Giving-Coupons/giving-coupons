@@ -18,9 +18,11 @@ export default function CampaignDescription({ campaign }: Props) {
       <Stack>
         <Quotes variant="open" />
 
-        <Typography variant="body1" align="center" color="contrast.dark">
-          {campaign.description}
-        </Typography>
+        {campaign.description.split('\n').map((paragraph, index) => (
+          <Typography variant="body1" align="center" color="contrast.dark" gutterBottom key={index}>
+            {paragraph}
+          </Typography>
+        ))}
 
         <Quotes variant="close" sxProps={closeQuotesProps} />
       </Stack>

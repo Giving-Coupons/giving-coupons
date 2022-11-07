@@ -54,9 +54,11 @@ const CampaignListCard = ({ campaign }: Props) => {
         ))}
       </Grid>
 
-      <Typography sx={descriptionSx} variant="caption">
-        {campaign.description}
-      </Typography>
+      {campaign.description.split('\n').map((paragraph, index) => (
+        <Typography sx={descriptionSx} variant="caption" gutterBottom key={index}>
+          {paragraph}
+        </Typography>
+      ))}
     </Stack>
   );
 

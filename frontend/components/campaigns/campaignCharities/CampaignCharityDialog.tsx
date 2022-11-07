@@ -52,7 +52,13 @@ const CampaignCharityDialog = ({ campaignCharity, open, handleClose }: Props) =>
           src={campaignCharity.charity.imageUrl}
         />
 
-        <Typography sx={dialogContentTextSx}>{campaignCharity.charity.description}</Typography>
+        <Box sx={dialogContentTextSx}>
+          {campaignCharity.charity.description.split('\n').map((paragraph, index) => (
+            <Typography gutterBottom key={index}>
+              {paragraph}
+            </Typography>
+          ))}
+        </Box>
       </DialogContent>
 
       <DialogActions>

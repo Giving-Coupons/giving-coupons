@@ -51,7 +51,11 @@ const CampaignPublicInfoCard = ({ campaign }: Props) => {
           <Typography variant="h1">{campaign.name}</Typography>
         </Stack>
 
-        <Typography>{campaign.description}</Typography>
+        {campaign.description.split('\n').map((paragraph, index) => (
+          <Typography gutterBottom key={index}>
+            {paragraph}
+          </Typography>
+        ))}
       </Grid>
 
       <Grid item xs={12} md={6}>

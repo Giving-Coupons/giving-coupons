@@ -86,9 +86,11 @@ const CampaignCharityAccordionCard = ({ campaignCharity }: Props) => {
 
           <Box sx={charityImageSx} component="img" src={campaignCharity.charity.imageUrl} />
 
-          <Typography variant="body2" sx={charityDescriptionSx}>
-            {campaignCharity.charity.description}
-          </Typography>
+          {campaignCharity.charity.description.split('\n').map((paragraph, index) => (
+            <Typography variant="body2" sx={charityDescriptionSx} gutterBottom key={index}>
+              {paragraph}
+            </Typography>
+          ))}
 
           <Divider />
 

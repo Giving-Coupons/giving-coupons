@@ -63,7 +63,11 @@ const CampaignInfoCard = ({ campaign }: Props) => {
             </Stack>
           </Stack>
 
-          <Typography variant="body2">{campaign.description}</Typography>
+          {campaign.description.split('\n').map((paragraph, index) => (
+            <Typography variant="body2" gutterBottom key={index}>
+              {paragraph}
+            </Typography>
+          ))}
 
           <Stack sx={campaignInfoItemSx} component="div" spacing={1}>
             <Typography variant="h4">Status: {getCampaignStatus(campaign.start, campaign.end)}</Typography>
