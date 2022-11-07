@@ -7,6 +7,7 @@ import { SummaryData } from '../types/summary';
 import { Nullable } from '../types/utils';
 import { theme } from '../utils/theme';
 import GlassCard from '../components/GlassCard';
+import AnimatedNumber from '../components/AnimatedNumber';
 
 function Stats() {
   const { data: stats } = useSWR<Nullable<SummaryData>>(
@@ -26,10 +27,22 @@ function Stats() {
       </Box>
       <Stack spacing={2}>
         <GlassCard title="Total Amount Raised">
-          {stats ? <Typography sx={numberSx}>${stats.totalContributionAmount}</Typography> : heroSkeleton}
+          {stats ? (
+            <Typography sx={numberSx}>
+              <AnimatedNumber initialAmount={0} finalAmount={stats.totalContributionAmount} />
+            </Typography>
+          ) : (
+            heroSkeleton
+          )}
         </GlassCard>
         <GlassCard title="Coupons Redeemed">
-          {stats ? <Typography sx={numberSx}>{stats.totalRedemptionCount}</Typography> : heroSkeleton}
+          {stats ? (
+            <Typography sx={numberSx}>
+              <AnimatedNumber initialAmount={0} finalAmount={stats.totalRedemptionCount} />
+            </Typography>
+          ) : (
+            heroSkeleton
+          )}
         </GlassCard>
       </Stack>
     </Stack>
