@@ -22,12 +22,6 @@ export const dialogActionStackSx: SxProps = {
   width: '100%',
 };
 
-export const charityLogoSx: SxProps = {
-  maxHeight: '40px',
-  minHeight: '40px',
-  height: '40px',
-};
-
 export const charityDesktopImageSx: SxProps = {
   maxHeight: '80%',
   width: '100%',

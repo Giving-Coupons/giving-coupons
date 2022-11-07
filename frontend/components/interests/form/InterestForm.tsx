@@ -22,7 +22,7 @@ export type InterestFormData = Partial<
   lengthOfCampaign?: number;
 };
 
-export const interestFormSchema = Yup.object({
+const interestFormSchema = Yup.object({
   donorName: Yup.string().required('Donor name is required.'),
   donorEmail: Yup.string().required('Donor email is required.').email('Donor email is not in the correct form.'),
   donorImageUrl: Yup.string().required('Avatar is required.'),

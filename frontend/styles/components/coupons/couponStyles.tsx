@@ -5,41 +5,6 @@ export const couponContainerSx = {
   pageBreakInside: 'avoid',
 };
 
-export const leftSectionSx = {
-  width: '55%',
-  color: '#000000',
-  backgroundColor: '#FFFFFF',
-  alignItems: 'center',
-  justifyContent: 'center',
-};
-
-export const rightSectionSx = {
-  backgroundImage: 'url("/coupon/wave-background.png")',
-  backgroundPosition: 'center',
-  backgroundRepeat: 'no-repeat',
-  backgroundSize: 'cover',
-  width: '45%',
-  alignItems: 'center',
-  justifyContent: 'center',
-};
-
-export const logoSx = {
-  width: '80%',
-};
-
-export const sponsorLogoSx = {
-  width: '40mm',
-  marginTop: '8px',
-};
-
-export const denominationSx = {
-  fontFamily: 'MoreSugar',
-  fontSize: '120px',
-  fontWeight: '800',
-  color: '#FFFFFF',
-  transform: 'rotate(10deg)',
-};
-
 export const denominationBSx = {
   fontSize: '80px',
   fontWeight: '1000',
@@ -55,12 +20,6 @@ export const instructionsSx = {
   alignItems: 'flex-start',
 };
 
-export const instructionsTitleSx = {
-  color: '#FF7300',
-  fontFamily: 'MoreSugar',
-  fontSize: '36px',
-};
-
 export const instructionsListSx = {
   paddingLeft: '12px',
 };
@@ -74,12 +33,6 @@ export const instructionsItemSx = {
 export const instructionsLogoSx = {
   width: '40px',
   margin: '10px',
-};
-
-export const sugarFontSx = {
-  fontFamily: 'MoreSugar',
-  color: '#00ADEF',
-  fontWeight: '400',
 };
 
 export const qrCodeSx = {
