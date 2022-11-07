@@ -7,7 +7,7 @@ export const graphLegendSx: SxProps = {
   userSelect: 'none',
 };
 
-export const graphLabelSx: SxProps = {
+const graphLabelSx: SxProps = {
   fontSize: '0.8rem',
 };
 
