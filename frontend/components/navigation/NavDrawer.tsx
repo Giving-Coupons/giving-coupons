@@ -54,7 +54,7 @@ const NavDrawer = ({ isOpen, setIsOpen, navigationTextPathMap }: Props) => {
             <ListItemButton
               sx={isTabForCurrentPage(path, router.pathname) ? activeTabSx : inactiveTabSx}
               onClick={() => {
-                log(`[NavDrawer] Click "${label}"`);
+                log('NavDrawer_click', { label });
                 router.push(path);
                 setIsOpen(false);
               }}

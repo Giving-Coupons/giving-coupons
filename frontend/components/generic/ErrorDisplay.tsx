@@ -35,7 +35,7 @@ function ErrorDisplay({ message, entity, statusCode }: Props) {
       <Button
         actionType="secondary"
         onClick={() => {
-          log("[ErrorDisplay] Click 'Reload' button");
+          log('ErrorDisplay_clickReloadButton');
           router.reload();
         }}
       >

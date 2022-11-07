@@ -74,7 +74,7 @@ const NavBar = () => {
               <Link key={label} href={path}>
                 <Box
                   sx={isTabForCurrentPage(path, router.pathname) ? activeTabSx : inactiveTabSx}
-                  onClick={() => log(`[Navbar] Click "${label}"`)}
+                  onClick={() => log('Navbar_click', { label })}
                 >
                   <Typography variant="h4">{label}</Typography>
                 </Box>

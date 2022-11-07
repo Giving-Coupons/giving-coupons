@@ -15,7 +15,7 @@ const FormAmountButton = ({ name, value }: Props) => {
       key={value}
       actionType="secondary"
       onClick={() => {
-        log('[FormAmountButton] Select', { value });
+        log('FormAmountButton_select', { value });
         setValue(value, true);
       }}
     >

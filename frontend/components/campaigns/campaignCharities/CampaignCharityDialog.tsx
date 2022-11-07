@@ -65,7 +65,7 @@ const CampaignCharityDialog = ({ campaignCharity, open, handleClose }: Props) =>
             actionType="secondary"
             fullWidth
             onClick={() => {
-              log('[CampaignCharityDialog] Visit charity', {
+              log('CampaignCharityDialog_visitCharity', {
                 campaignCharityId: campaignCharity.id,
                 charity: campaignCharity.charity.name,
               });

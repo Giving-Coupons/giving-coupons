@@ -58,7 +58,7 @@ const Contribute: NextPage = () => {
       return Promise.reject('campaignId is invalid.');
     }
 
-    log('[Contribute] Submit', {
+    log('Contribute_submit', {
       campaignCharityId: values.campaignCharityId,
       amount: values.amount,
     });
