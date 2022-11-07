@@ -15,11 +15,7 @@ const AnimatedNumber = ({ initialAmount, finalAmount }: AnimatedNumberProps) => 
 
   const AnimatedDiv = animated.div;
 
-  return (
-    <AnimatedDiv>
-      {number.to((n: number) => n.toFixed(0))}
-    </AnimatedDiv>
-  );
+  return <AnimatedDiv>{number.to((n: number) => n.toFixed(0))}</AnimatedDiv>;
 };
 
 export default AnimatedNumber;
