@@ -8,6 +8,7 @@ import { Nullable } from '../types/utils';
 import { theme } from '../utils/theme';
 import GlassCard from '../components/GlassCard';
 import AnimatedNumber from '../components/AnimatedNumber';
+import Head from 'next/head';
 
 function Stats() {
   const { data: stats } = useSWR<Nullable<SummaryData>>(
@@ -16,18 +17,24 @@ function Stats() {
     { refreshInterval: 5000, refreshWhenHidden: true },
   );
 
-  const heroSkeleton = <Skeleton variant="text" sx={{ fontSize: theme.typography.hero.fontSize }} />;
+  const isLoading = !stats;
+  const heroSkeleton = <Skeleton variant="text" height="100%" sx={{ fontSize: theme.typography.hero.fontSize }} />;
 
   return (
     <Stack direction="row" spacing={2} sx={rootSx}>
+      <Head>
+        <title>STePs Statistics</title>
+      </Head>
+
       <Box sx={leftSectionSx}>
         <Typography sx={ctaSx} align="left">
           Ask one of our members for a coupon
         </Typography>
       </Box>
+
       <Stack spacing={2}>
         <GlassCard title="Total Amount Raised">
-          {stats ? (
+          {!isLoading ? (
             <Typography sx={numberSx}>
               <AnimatedNumber initialAmount={0} finalAmount={stats.totalContributionAmount} />
             </Typography>
@@ -35,8 +42,9 @@ function Stats() {
             heroSkeleton
           )}
         </GlassCard>
+
         <GlassCard title="Coupons Redeemed">
-          {stats ? (
+          {!isLoading ? (
             <Typography sx={numberSx}>
               <AnimatedNumber initialAmount={0} finalAmount={stats.totalRedemptionCount} />
             </Typography>
