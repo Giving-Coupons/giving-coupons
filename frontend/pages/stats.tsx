@@ -1,11 +1,14 @@
-import { Skeleton, Stack, Typography } from '@mui/material';
+import { Skeleton, Stack, Typography, Box } from '@mui/material';
 import useSWR from 'swr';
 import api from '../frontendApis';
 import StatsAPI from '../frontendApis/stats';
-import { rootSx } from '../styles/statsStyles';
+import { rootSx, numberSx, ctaSx, leftSectionSx } from '../styles/statsStyles';
 import { SummaryData } from '../types/summary';
 import { Nullable } from '../types/utils';
 import { theme } from '../utils/theme';
+import GlassCard from '../components/GlassCard';
+import AnimatedNumber from '../components/AnimatedNumber';
+import Head from 'next/head';
 
 function Stats() {
   const { data: stats } = useSWR<Nullable<SummaryData>>(
@@ -14,17 +17,41 @@ function Stats() {
     { refreshInterval: 5000, refreshWhenHidden: true },
   );
 
-  const heroSkeleton = <Skeleton variant="text" sx={{ fontSize: theme.typography.hero.fontSize }} />;
+  const isLoading = !stats;
+  const heroSkeleton = <Skeleton variant="text" height="100%" sx={{ fontSize: theme.typography.hero.fontSize }} />;
 
   return (
-    <Stack spacing={2} sx={rootSx}>
-      <Stack>
-        <Typography variant="h1">Total Amount Raised:</Typography>
-        {stats ? <Typography variant="hero">${stats.totalContributionAmount}</Typography> : heroSkeleton}
-      </Stack>
-      <Stack>
-        <Typography variant="h1">Total Coupons Redeemed:</Typography>
-        {stats ? <Typography variant="hero">{stats.totalRedemptionCount}</Typography> : heroSkeleton}
+    <Stack direction="row" spacing={2} sx={rootSx}>
+      <Head>
+        <title>STePs Statistics</title>
+      </Head>
+
+      <Box sx={leftSectionSx}>
+        <Typography sx={ctaSx} align="left">
+          Ask one of our members for a coupon
+        </Typography>
+      </Box>
+
+      <Stack spacing={2}>
+        <GlassCard title="Total Amount Raised">
+          {!isLoading ? (
+            <Typography sx={numberSx}>
+              <AnimatedNumber initialAmount={0} finalAmount={stats.totalContributionAmount} />
+            </Typography>
+          ) : (
+            heroSkeleton
+          )}
+        </GlassCard>
+
+        <GlassCard title="Coupons Redeemed">
+          {!isLoading ? (
+            <Typography sx={numberSx}>
+              <AnimatedNumber initialAmount={0} finalAmount={stats.totalRedemptionCount} />
+            </Typography>
+          ) : (
+            heroSkeleton
+          )}
+        </GlassCard>
       </Stack>
     </Stack>
   );
