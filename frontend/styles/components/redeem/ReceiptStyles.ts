@@ -11,6 +11,7 @@ export const headerSx: SxProps = {
 };
 
 export const imageSx: SxProps = {
+  objectFit: 'contain',
   padding: '10px',
   borderRadius: '15px',
   minHeight: '40px',
