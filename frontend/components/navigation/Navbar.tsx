@@ -35,6 +35,7 @@ const NavBar = () => {
 
   const isAuthPage =
     router.pathname === `${adminPathPrefix}/sign-up` || router.pathname === `${adminPathPrefix}/sign-in`;
+  const stepsPage = router.pathname === `/stats`;
   const isAdminSignedInPage = router.pathname.startsWith(adminPathPrefix) && !isAuthPage;
   const navigationTextPathMap = isAdminSignedInPage ? adminNavigationTextPathMap : defaultNavigationTextPathMap;
 
@@ -43,7 +44,7 @@ const NavBar = () => {
     router.push(`${adminPathPrefix}/sign-in`);
   };
 
-  return isAuthPage ? (
+  return isAuthPage || stepsPage ? (
     <></>
   ) : (
     <AppBar position="sticky" elevation={0}>

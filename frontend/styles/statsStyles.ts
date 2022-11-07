@@ -3,7 +3,7 @@ import { theme } from '../utils/theme';
 import StepsBackground from '../public/steps-background.png';
 
 export const rootSx: SxProps = {
-  minHeight: `calc(100vh - ${theme.mixins.toolbar.minHeight}px)`,
+  height: '100vh',
   // color: theme.palette.primary.contrastText,
   backgroundImage: `url(${StepsBackground.src})`,
   backgroundSize: 'cover',
