@@ -6,11 +6,11 @@ import {
   containerRightSx,
   couponContainerSx,
   denominationBSx,
+  primaryDonorImageSx,
 } from '../../styles/components/coupons/couponStyles';
-import { CouponBaseData } from '../../types/coupons';
-
+import { CouponDownloadData } from '../../types/coupons';
 interface Props {
-  coupon: CouponBaseData;
+  coupon: CouponDownloadData;
 }
 
 const CouponFront = ({ coupon }: Props) => {
@@ -28,11 +28,14 @@ const CouponFront = ({ coupon }: Props) => {
       </Stack>
 
       <Stack sx={containerRightSx} component="div">
-        <Typography variant="h6" align="center" marginBottom="8px">
+        <Typography variant="h5" align="center" marginBottom="8px">
           Kindly Sponsored By:
         </Typography>
 
-        <Box component="img" src="/anon-donor.png" width="40mm" marginBottom="8px" />
+        <Stack component="div" direction="row" alignItems="center" spacing={2}>
+          <Box component="img" src={coupon.primaryDonor.imageUrl} sx={primaryDonorImageSx} />
+          <Typography variant="subtitle2">{coupon.primaryDonor.name}</Typography>
+        </Stack>
       </Stack>
     </Stack>
   );
