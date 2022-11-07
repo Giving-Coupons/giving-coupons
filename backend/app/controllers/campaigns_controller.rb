@@ -20,8 +20,8 @@ class CampaignsController < ApplicationController
     @campaign = Campaign.includes(
       :secondary_donations,
       :primary_donor,
-      coupons: { redemption: [secondary_donation: { campaign_charity: :charity }] },
-      campaign_charities: %i[secondary_donations coupons charity]
+      coupons: { redemption: [:campaign_charity, secondary_donation: { campaign_charity: :charity }] },
+      campaign_charities: %i[secondary_donations coupons charity],
     ).find(params[:id])
   end
 
