@@ -54,7 +54,7 @@ const CampaignCharityAccordionCard = ({ campaignCharity }: Props) => {
       sx={accordionSx}
       onChange={(event: React.SyntheticEvent, isExpanded: boolean) => {
         if (isExpanded) {
-          log('[CampaignCharityAccordionCard] Expand charity', {
+          log('CampaignCharityAccordionCard_expandCharity', {
             campaignCharityId: campaignCharity.id,
             charity: campaignCharity.charity.name,
           });
@@ -96,7 +96,7 @@ const CampaignCharityAccordionCard = ({ campaignCharity }: Props) => {
             actionType="secondary"
             fullWidth
             onClick={() => {
-              log('[CampaignCharityAccordionCard] Visit charity website', {
+              log('CampaignCharityAccordionCard_visitCharityWebsite', {
                 charityId: campaignCharity.charity.id,
                 charityName: campaignCharity.charity.name,
               });
