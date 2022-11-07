@@ -52,10 +52,16 @@ export const containerRightSx = {
   width: '30%',
   justifyContent: 'flex-end',
   alignItems: 'center',
+  padding: 2,
 };
 
 export const containerCenterSx = {
   width: '40%',
   justifyContent: 'center',
   alignItems: 'center',
+};
+
+export const primaryDonorImageSx = {
+  width: '20mm',
+  objectFit: 'contain',
 };

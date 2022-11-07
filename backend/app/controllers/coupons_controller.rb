@@ -8,7 +8,7 @@ class CouponsController < ApplicationController
   end
 
   def campaign_unredeemed
-    @coupons = Coupon.all
+    @coupons = Coupon.includes(campaign: :primary_donor)
                      .where(campaign_id: params[:campaign_id])
                      .filter { |coupon| !coupon.redeemed? && !coupon.expired? }
   end

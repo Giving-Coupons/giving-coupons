@@ -1,11 +1,11 @@
 import { ApiPromise } from '../types/api';
-import { CouponBaseData, CouponProgressData, CouponRedeemData } from '../types/coupons';
+import { CouponDownloadData, CouponProgressData, CouponRedeemData } from '../types/coupons';
 import BaseAPI from './base';
 
 class CouponsAPI extends BaseAPI {
   static COUPONS_URL = 'coupons';
 
-  public listCampaignUnredeemed(campaignId: number): ApiPromise<CouponBaseData[]> {
+  public listCampaignUnredeemed(campaignId: number): ApiPromise<CouponDownloadData[]> {
     return this.get(`${CouponsAPI.COUPONS_URL}/campaign/${campaignId}/unredeemed`);
   }
 
