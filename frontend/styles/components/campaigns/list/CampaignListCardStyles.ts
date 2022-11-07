@@ -19,6 +19,7 @@ export const descriptionContainerSx: SxProps = {
 };
 
 export const charityLogoSx: SxProps = {
+  objectFit: 'contain',
   width: '80%',
   aspectRatio: '1 / 1',
 };
