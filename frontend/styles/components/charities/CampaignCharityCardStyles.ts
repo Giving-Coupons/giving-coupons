@@ -20,6 +20,7 @@ export const graphSx: SxProps = {
 };
 
 export const charityLogoSx: SxProps = {
+  objectFit: 'contain',
   margin: 1,
   maxHeight: '40px',
   minHeight: '40px',
