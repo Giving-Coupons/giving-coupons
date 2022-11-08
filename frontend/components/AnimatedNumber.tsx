@@ -1,11 +1,16 @@
-import { useSpring, animated } from 'react-spring';
+import { animated, useSpring } from 'react-spring';
 
 export interface AnimatedNumberProps {
   initialAmount: number;
   finalAmount: number;
+  numToString?: (n: number) => string;
 }
 
-const AnimatedNumber = ({ initialAmount, finalAmount }: AnimatedNumberProps) => {
+const AnimatedNumber = ({
+  initialAmount,
+  finalAmount,
+  numToString = (n: number) => n.toFixed(0),
+}: AnimatedNumberProps) => {
   const { number } = useSpring({
     from: { number: initialAmount },
     number: finalAmount,
@@ -15,7 +20,7 @@ const AnimatedNumber = ({ initialAmount, finalAmount }: AnimatedNumberProps) => 
 
   const AnimatedDiv = animated.div;
 
-  return <AnimatedDiv>{number.to((n: number) => n.toFixed(0))}</AnimatedDiv>;
+  return <AnimatedDiv>{number.to(numToString)}</AnimatedDiv>;
 };
 
 export default AnimatedNumber;

@@ -1,6 +1,6 @@
 import { SxProps } from '@mui/system';
-import { theme } from '../utils/theme';
 import StepsBackground from '../public/steps-background.png';
+import { theme } from '../utils/theme';
 
 export const rootSx: SxProps = {
   height: '100vh',
@@ -17,20 +17,7 @@ export const numberSx: SxProps = {
   fontFamily: 'Saira Condensed, sans-serif',
   fontWeight: '800',
   fontSize: '10em',
-  background: `-webkit-linear-gradient(45deg, blue 30%, ${theme.palette.secondary.main} 90%)`,
+  background: `-webkit-linear-gradient(45deg, ${theme.palette.primary.main} 60%, ${theme.palette.primary.light} 100%)`,
   WebkitBackgroundClip: 'text',
   WebkitTextFillColor: 'transparent',
-};
-
-export const ctaSx: SxProps = {
-  fontFamily: 'MoreSugar',
-  fontWeight: '500',
-  fontSize: '7em',
-  background: `-webkit-linear-gradient(45deg, blue 30%, indigo 90%)`,
-  WebkitBackgroundClip: 'text',
-  WebkitTextFillColor: 'transparent',
-};
-
-export const leftSectionSx: SxProps = {
-  width: '50%',
 };

@@ -5,7 +5,7 @@ import AnimatedNumber from '../components/AnimatedNumber';
 import GlassCard from '../components/GlassCard';
 import api from '../frontendApis';
 import StatsAPI from '../frontendApis/stats';
-import { ctaSx, leftSectionSx, numberSx, rootSx } from '../styles/statsStyles';
+import { numberSx, rootSx } from '../styles/statsStyles';
 import { StepsStatsData } from '../types/summary';
 import { Nullable } from '../types/utils';
 import { theme } from '../utils/theme';
@@ -26,17 +26,17 @@ function Stats() {
         <title>STePS Statistics</title>
       </Head>
 
-      <Box sx={leftSectionSx}>
-        <Typography sx={ctaSx} align="left">
-          Ask one of our members for a coupon
-        </Typography>
-      </Box>
+      <Box component="img" src="/logo-white.png" />
 
       <Stack spacing={2}>
         <GlassCard title="Total Amount Raised">
           {!isLoading ? (
             <Typography sx={numberSx}>
-              <AnimatedNumber initialAmount={0} finalAmount={stats.totalContributionAmount} />
+              <AnimatedNumber
+                initialAmount={0}
+                finalAmount={stats.totalContributionAmount}
+                numToString={(n: number) => `$${n.toFixed(0)}`}
+              />
             </Typography>
           ) : (
             heroSkeleton

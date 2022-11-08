@@ -1,7 +1,7 @@
 import { SxProps } from '@mui/system';
 
 export const glassSx: SxProps = {
-  backgroundColor: 'rgba(255, 255, 255, 0.4)',
+  backgroundColor: 'rgba(255, 255, 255, 0.5)',
   backgroundImage: 'linear-graident(to bottom right, rgba(255, 255 255, 0.2), rgba(255, 255, 255, 0))',
   backdropFilter: 'blur(7px)',
   padding: '40px',
