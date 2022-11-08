@@ -86,7 +86,7 @@ const CampaignCharityAccordionCard = ({ campaignCharity }: Props) => {
 
           <Box sx={charityImageSx} component="img" src={campaignCharity.charity.imageUrl} />
 
-          <Typography variant="body2" sx={charityDescriptionSx}>
+          <Typography variant="body2" sx={charityDescriptionSx} whiteSpace="pre-line">
             {campaignCharity.charity.description}
           </Typography>
 

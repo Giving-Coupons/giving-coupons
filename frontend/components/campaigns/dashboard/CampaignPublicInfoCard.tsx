@@ -51,7 +51,7 @@ const CampaignPublicInfoCard = ({ campaign }: Props) => {
           <Typography variant="h1">{campaign.name}</Typography>
         </Stack>
 
-        <Typography>{campaign.description}</Typography>
+        <Typography whiteSpace="pre-line">{campaign.description}</Typography>
       </Grid>
 
       <Grid item xs={12} md={6}>

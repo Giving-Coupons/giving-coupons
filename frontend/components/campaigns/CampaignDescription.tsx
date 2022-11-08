@@ -18,7 +18,7 @@ export default function CampaignDescription({ campaign }: Props) {
       <Stack>
         <Quotes variant="open" />
 
-        <Typography variant="body1" align="center" color="contrast.dark">
+        <Typography variant="body1" align="center" color="contrast.dark" whiteSpace="pre-line">
           {campaign.description}
         </Typography>
 

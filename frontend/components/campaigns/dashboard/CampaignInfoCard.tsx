@@ -63,7 +63,9 @@ const CampaignInfoCard = ({ campaign }: Props) => {
             </Stack>
           </Stack>
 
-          <Typography variant="body2">{campaign.description}</Typography>
+          <Typography variant="body2" whiteSpace="pre-line">
+            {campaign.description}
+          </Typography>
 
           <Stack sx={campaignInfoItemSx} component="div" spacing={1}>
             <Typography variant="h4">Status: {getCampaignStatus(campaign.start, campaign.end)}</Typography>

@@ -52,7 +52,9 @@ const CampaignCharityDialog = ({ campaignCharity, open, handleClose }: Props) =>
           src={campaignCharity.charity.imageUrl}
         />
 
-        <Typography sx={dialogContentTextSx}>{campaignCharity.charity.description}</Typography>
+        <Typography sx={dialogContentTextSx} whiteSpace="pre-line">
+          {campaignCharity.charity.description}
+        </Typography>
       </DialogContent>
 
       <DialogActions>
