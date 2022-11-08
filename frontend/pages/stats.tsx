@@ -6,14 +6,14 @@ import GlassCard from '../components/GlassCard';
 import api from '../frontendApis';
 import StatsAPI from '../frontendApis/stats';
 import { numberSx, rootSx } from '../styles/statsStyles';
-import { SummaryData } from '../types/summary';
+import { StepsStatsData } from '../types/summary';
 import { Nullable } from '../types/utils';
 import { theme } from '../utils/theme';
 
 function Stats() {
-  const { data: stats } = useSWR<Nullable<SummaryData>>(
+  const { data: stats } = useSWR<Nullable<StepsStatsData>>(
     StatsAPI.STATS_URL,
-    () => api.stats.getSummaryStats().then((r) => r.payload),
+    () => api.stats.getStepsStats().then((r) => r.payload),
     { refreshInterval: 5000, refreshWhenHidden: true },
   );
 
