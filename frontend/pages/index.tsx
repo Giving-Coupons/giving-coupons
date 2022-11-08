@@ -217,12 +217,12 @@ const Home: NextPage = () => {
       description: 'Raised for charities',
     },
     {
-      statistic: `${stats?.totalRedemptionCount}`,
+      statistic: String(stats?.totalRedemptionCount),
       icon: <LocalActivityIcon sx={statisticsIconSx} />,
       description: 'Coupons redeemed',
     },
     {
-      statistic: `${stats?.totalCharitiesSupported}`,
+      statistic: String(stats?.totalCharitiesSupported),
       icon: <Diversity1Icon sx={statisticsIconSx} />,
       description: 'Charities supported',
     },
