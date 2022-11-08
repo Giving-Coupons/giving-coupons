@@ -1,6 +1,7 @@
 import { Moment } from 'moment';
 import { CampaignCharityDonationPublicData } from './campaignCharities';
 import { CampaignBaseData } from './campaigns';
+import { PrimaryDonorData } from './primaryDonor';
 import { RedemptionData, RedemptionMinimalData } from './redemptions';
 import { Nullable } from './utils';
 
@@ -29,4 +30,8 @@ export type CouponProgressData = {
 
 export type CouponRedirectFormData = {
   hasAcknowledged: boolean;
+};
+
+export type CouponDownloadData = CouponBaseData & {
+  primaryDonor: PrimaryDonorData;
 };

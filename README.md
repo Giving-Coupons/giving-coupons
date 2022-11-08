@@ -1,6 +1,6 @@
 <img src="assets/inline-logo.png">
 
-<h3 align="center">Changing the way we give to build a city of good!</h5>
+<h3 align="center">Giving the gift of giving!</h5>
 
 <br>
 
