@@ -6,7 +6,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
-import { Avatar, Grid, Tooltip, Typography, useMediaQuery } from '@mui/material';
+import { Avatar, Grid, Skeleton, Tooltip, Typography, useMediaQuery } from '@mui/material';
 import { Box, Stack, useTheme } from '@mui/system';
 import type { NextPage } from 'next';
 import Head from 'next/head';
@@ -14,7 +14,10 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ReactNode } from 'react';
 import Typed from 'react-typed';
+import useSWR from 'swr';
 import Button from '../components/generic/Button';
+import api from '../frontendApis';
+import StatsAPI from '../frontendApis/stats';
 import {
   callToActionIconAvatarSx,
   callToActionIconSx,
@@ -69,12 +72,14 @@ import {
   statisticsMainTextSx,
   statisticsSectionSx,
 } from '../styles/indexStyles';
+import { LandingPageStatsData } from '../types/summary';
+import { Nullable } from '../types/utils';
 import { log } from '../utils/analytics';
 import { theme } from '../utils/theme';
 import { combineSxProps } from '../utils/types';
 
 interface StatisticItemProps {
-  statistic: string;
+  statistic?: number;
   icon: ReactNode;
   description: string;
 }
@@ -85,7 +90,11 @@ const StatisticItem = ({ statistic, icon, description }: StatisticItemProps) => 
       <Stack sx={statisticsItemCardSx} component="div" spacing={1}>
         <Avatar sx={statisticsIconAvatarSx}>{icon}</Avatar>
 
-        <Typography sx={statisticsMainTextSx}>{statistic}</Typography>
+        {statistic ? (
+          <Typography sx={statisticsMainTextSx}>{statistic}</Typography>
+        ) : (
+          <Skeleton width="50%" height="60px" />
+        )}
 
         <Typography color={theme.palette.grey[800]}>{description}</Typography>
       </Stack>
@@ -155,17 +164,11 @@ const SectionHeader = ({ title, subtitle = [] }: SectionHeaderProps) => (
   </Stack>
 );
 
-const statistics: StatisticItemProps[] = [
-  {
-    statistic: '$1600',
-    icon: <VolunteerActivismIcon sx={statisticsIconSx} />,
-    description: 'Raised for charities',
-  },
-  { statistic: '160', icon: <LocalActivityIcon sx={statisticsIconSx} />, description: 'Coupons distributed' },
-  { statistic: '8', icon: <Diversity1Icon sx={statisticsIconSx} />, description: 'Charities supported' },
-];
-
 const Home: NextPage = () => {
+  const { data: stats } = useSWR<Nullable<LandingPageStatsData>>(StatsAPI.STATS_URL, () =>
+    api.stats.getLandingPageStats().then((r) => r.payload),
+  );
+
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const router = useRouter();
@@ -204,6 +207,24 @@ const Home: NextPage = () => {
         'Empower your loved ones to improve the lives of others. Sponsor a coupon for them to donate to a charity of their choice.',
       actionText: 'Start now',
       link: '/interest',
+    },
+  ];
+
+  const statistics: StatisticItemProps[] = [
+    {
+      statistic: stats?.totalContributionAmount,
+      icon: <VolunteerActivismIcon sx={statisticsIconSx} />,
+      description: 'Raised for charities',
+    },
+    {
+      statistic: stats?.totalRedemptionCount,
+      icon: <LocalActivityIcon sx={statisticsIconSx} />,
+      description: 'Coupons redeemed',
+    },
+    {
+      statistic: stats?.totalCharitiesSupported,
+      icon: <Diversity1Icon sx={statisticsIconSx} />,
+      description: 'Charities supported',
     },
   ];
 
