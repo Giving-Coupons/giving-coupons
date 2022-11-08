@@ -1,19 +1,19 @@
-import { Skeleton, Stack, Typography, Box } from '@mui/material';
+import { Box, Skeleton, Stack, Typography } from '@mui/material';
+import Head from 'next/head';
 import useSWR from 'swr';
+import AnimatedNumber from '../components/AnimatedNumber';
+import GlassCard from '../components/GlassCard';
 import api from '../frontendApis';
 import StatsAPI from '../frontendApis/stats';
-import { rootSx, numberSx, ctaSx, leftSectionSx } from '../styles/statsStyles';
-import { SummaryData } from '../types/summary';
+import { ctaSx, leftSectionSx, numberSx, rootSx } from '../styles/statsStyles';
+import { StepsStatsData } from '../types/summary';
 import { Nullable } from '../types/utils';
 import { theme } from '../utils/theme';
-import GlassCard from '../components/GlassCard';
-import AnimatedNumber from '../components/AnimatedNumber';
-import Head from 'next/head';
 
 function Stats() {
-  const { data: stats } = useSWR<Nullable<SummaryData>>(
+  const { data: stats } = useSWR<Nullable<StepsStatsData>>(
     StatsAPI.STATS_URL,
-    () => api.stats.getSummaryStats().then((r) => r.payload),
+    () => api.stats.getStepsStats().then((r) => r.payload),
     { refreshInterval: 5000, refreshWhenHidden: true },
   );
 
@@ -23,7 +23,7 @@ function Stats() {
   return (
     <Stack direction="row" spacing={2} sx={rootSx}>
       <Head>
-        <title>STePs Statistics</title>
+        <title>STePS Statistics</title>
       </Head>
 
       <Box sx={leftSectionSx}>

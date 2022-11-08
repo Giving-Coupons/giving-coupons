@@ -2,4 +2,3 @@
 
 json.totalContributionAmount @total_contribution_amount
 json.totalRedemptionCount @total_redemption_count
-json.totalCharitiesSupported @total_charities_supported
