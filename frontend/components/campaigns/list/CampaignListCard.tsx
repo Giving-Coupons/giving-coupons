@@ -54,7 +54,7 @@ const CampaignListCard = ({ campaign }: Props) => {
         ))}
       </Grid>
 
-      <Typography sx={descriptionSx} variant="caption">
+      <Typography sx={descriptionSx} variant="caption" whiteSpace="pre-line">
         {campaign.description}
       </Typography>
     </Stack>
