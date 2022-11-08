@@ -23,7 +23,7 @@ function Stats() {
   return (
     <Stack direction="row" spacing={2} sx={rootSx}>
       <Head>
-        <title>STePs Statistics</title>
+        <title>STePS Statistics</title>
       </Head>
 
       <Box sx={leftSectionSx}>
