@@ -79,7 +79,7 @@ import { theme } from '../utils/theme';
 import { combineSxProps } from '../utils/types';
 
 interface StatisticItemProps {
-  statistic?: string;
+  statistic?: Nullable<string | number>;
   icon: ReactNode;
   description: string;
 }
@@ -212,17 +212,17 @@ const Home: NextPage = () => {
 
   const statistics: StatisticItemProps[] = [
     {
-      statistic: `$${stats?.totalContributionAmount}`,
+      statistic: stats && `$${stats.totalContributionAmount}`,
       icon: <VolunteerActivismIcon sx={statisticsIconSx} />,
       description: 'Raised for charities',
     },
     {
-      statistic: String(stats?.totalRedemptionCount),
+      statistic: stats?.totalRedemptionCount,
       icon: <LocalActivityIcon sx={statisticsIconSx} />,
       description: 'Coupons redeemed',
     },
     {
-      statistic: String(stats?.totalCharitiesSupported),
+      statistic: stats?.totalCharitiesSupported,
       icon: <Diversity1Icon sx={statisticsIconSx} />,
       description: 'Charities supported',
     },
