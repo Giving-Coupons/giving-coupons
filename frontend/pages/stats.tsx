@@ -1,14 +1,14 @@
-import { Skeleton, Stack, Typography, Box } from '@mui/material';
+import { Box, Skeleton, Stack, Typography } from '@mui/material';
+import Head from 'next/head';
 import useSWR from 'swr';
+import AnimatedNumber from '../components/AnimatedNumber';
+import GlassCard from '../components/GlassCard';
 import api from '../frontendApis';
 import StatsAPI from '../frontendApis/stats';
-import { rootSx, numberSx, ctaSx, leftSectionSx } from '../styles/statsStyles';
+import { numberSx, rootSx } from '../styles/statsStyles';
 import { SummaryData } from '../types/summary';
 import { Nullable } from '../types/utils';
 import { theme } from '../utils/theme';
-import GlassCard from '../components/GlassCard';
-import AnimatedNumber from '../components/AnimatedNumber';
-import Head from 'next/head';
 
 function Stats() {
   const { data: stats } = useSWR<Nullable<SummaryData>>(
@@ -23,20 +23,20 @@ function Stats() {
   return (
     <Stack direction="row" spacing={2} sx={rootSx}>
       <Head>
-        <title>STePs Statistics</title>
+        <title>STePS Statistics</title>
       </Head>
 
-      <Box sx={leftSectionSx}>
-        <Typography sx={ctaSx} align="left">
-          Ask one of our members for a coupon
-        </Typography>
-      </Box>
+      <Box component="img" src="/logo-white.png" />
 
       <Stack spacing={2}>
         <GlassCard title="Total Amount Raised">
           {!isLoading ? (
             <Typography sx={numberSx}>
-              <AnimatedNumber initialAmount={0} finalAmount={stats.totalContributionAmount} />
+              <AnimatedNumber
+                initialAmount={0}
+                finalAmount={stats.totalContributionAmount}
+                numToString={(n: number) => `$${n.toFixed(0)}`}
+              />
             </Typography>
           ) : (
             heroSkeleton
