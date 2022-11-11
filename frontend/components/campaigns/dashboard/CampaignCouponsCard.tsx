@@ -68,7 +68,7 @@ const CampaignCouponsCard = ({ campaign, coupons }: Props) => {
         {
           title: 'Expires At',
           key: 'expiresAt',
-          transformValue: (expiresAt) => expiresAt.format(DATE_FORMAT),
+          transformValue: (expiresAt) => expiresAt.format(DATETIME_FORMAT),
           getSortValue: (expiresAt) => expiresAt.valueOf(),
         },
       ]}

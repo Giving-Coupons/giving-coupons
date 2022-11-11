@@ -76,7 +76,7 @@ const CampaignForm = ({
 
               <FormDatePicker name="start" label="Start Date" />
 
-              <FormDatePicker name="end" label="End Date" minDate={values.start ?? undefined} />
+              <FormDatePicker name="end" label="End Date" minDate={values.start ?? undefined} endOfDay />
 
               {!isForEditCampaign && (
                 <FormTextInput
