@@ -10,7 +10,7 @@ import {
 } from '../../../styles/components/campaigns/dashboard/CampaignDashboardStyles';
 import { CampaignAdminData, CouponRegenerationFormData } from '../../../types/campaigns';
 import { CouponListData } from '../../../types/coupons';
-import { DATETIME_FORMAT, DATE_FORMAT } from '../../../utils/constants';
+import { DATETIME_FORMAT } from '../../../utils/constants';
 import Button from '../../generic/Button';
 import SimpleTable from '../../generic/SimpleTable';
 import Tabbed from '../../Tabs';
