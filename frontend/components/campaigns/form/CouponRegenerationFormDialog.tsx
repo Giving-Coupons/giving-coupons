@@ -50,7 +50,14 @@ export default function CouponRegenerationFormDialog({
                 <DialogContentText>
                   Please input the new expiry date for the coupons you wish to regenerate.
                 </DialogContentText>
-                <FormDatePicker name={'expiryDate'} label={'New Expiry Date'} minDate={minDate} maxDate={maxDate} />
+
+                <FormDatePicker
+                  name={'expiryDate'}
+                  label={'New Expiry Date'}
+                  minDate={minDate}
+                  maxDate={maxDate}
+                  endOfDay
+                />
               </Stack>
             </DialogContent>
 
