@@ -122,7 +122,7 @@ const PersonalContributionStep = ({
         setActiveStep={setActiveStep}
         minStep={minStep}
         maxStep={maxStep}
-        handleClickNext={() => (value === null ? setActiveStep(activeStep + 1) : setOpenRedirectDialog(true))}
+        handleClickNext={() => (value || null === null ? setActiveStep(activeStep + 1) : setOpenRedirectDialog(true))}
       />
 
       <RedirectDialog
