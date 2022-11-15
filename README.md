@@ -1,6 +1,10 @@
-<img src="assets/inline-logo.png">
+<h1 align="center">Giving Coupons</h1>
 
-<h3 align="center">Giving the gift of giving!</h5>
+<div align='center'>
+  <img src="assets/giving-coupons.gif">
+</div>
+
+<h2 align="center">Giving the gift of giving!</h2>
 
 <br>
 
@@ -14,7 +18,7 @@
 <img src="https://github.com/Giving-Coupons/giving-coupons/actions/workflows/lint-backend.yml/badge.svg"/>
 </p>
 
-<h3 align="center">Supported by the:</h1>
+<h3 align="center">Supported by the:</h3>
 
 <p align="center"><img src="assets/logo-soc.png"/></p>
 
@@ -35,10 +39,10 @@ Giving Coupons is made as a final project in CS3216. Made with ❤️ by:
 
 | Member    | Role                                   |
 | --------- | -------------------------------------- |
-| Bharath   | Marketing lead, Backend developer      |
+| Bharath   | Marketing lead, Full-stack developer   |
 | Hong Yao  | Backend lead, Full-stack developer     |
-| Geng Ning | UIUX lead, Full-stack developer        |
-| Owen      | UI/UX Co-lead, Frontend developer      |
+| Geng Ning | UIUX lead, Frontend developer          |
+| Owen      | Designer, Frontend developer           |
 | Siva      | Team lead, Full-stack developer        |
 | Wayne     | Project advisor (External Contributor) |
 
