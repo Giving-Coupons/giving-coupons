@@ -37,14 +37,9 @@ Giving Coupons aims to increase fundraising donations and raise awareness about 
 
 Giving Coupons is made as a final project in CS3216. Made with ❤️ by:
 
-| Member    | Role                                   |
-| --------- | -------------------------------------- |
-| Bharath   | Marketing lead, Full-stack developer   |
-| Hong Yao  | Backend lead, Full-stack developer     |
-| Geng Ning | UIUX lead, Frontend developer          |
-| Owen      | Designer, Frontend developer           |
-| Siva      | Team lead, Full-stack developer        |
-| Wayne     | Project advisor (External Contributor) |
+<div align='center'>
+  <img src="assets/roles.png">
+</div>
 
 ## Getting started
 
