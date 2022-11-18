@@ -8,9 +8,9 @@ updates:
   - package-ecosystem: 'npm'
     directory: '/frontend'
     schedule:
-      interval: 'daily'
+      interval: 'monthly'
   
   - package-ecosystem: 'bundler'
     directory: '/backend'
     schedule:
-      interval: 'daily'
+      interval: 'monthly'
