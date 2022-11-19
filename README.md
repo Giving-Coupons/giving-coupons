@@ -24,7 +24,7 @@
 
 ### Overview
 
-Giving coupons is a social enterprise project with a simple idea — spread the joy of giving. There are so many worthy causes that are in need of funds, and we believe that people would give more if they had the right nudge, and Giving Coupons does that for them. Our aim is to encourage more Singaporeans to donate and foster a stronger culture of giving.
+Giving coupons is a social enterprise project with a simple idea — to spread the joy of giving. There are so many worthy causes that are in need of funds, and we believe that people would give more if they had the right nudge, and Giving Coupons does that for them. Our aim is to encourage more Singaporeans to donate and foster a stronger culture of giving.
 
 ### How does Giving Coupons work?
 
