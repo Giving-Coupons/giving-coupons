@@ -33,6 +33,8 @@ Giving coupons is a social enterprise project with a simple idea — to spread t
 1. Coupon recipients can redeem it to choose where the money goes and learn about the charities and their impact during the redemption process.
 1. They may choose to add a personal contribution during the coupon redemption process. Or donate directly to charities through our campaigns.
 
+Watch our [video](https://www.youtube.com/watch?v=n02Co0pLkS0&feature=youtu.be) to learn more about Giving Coupons!
+
 ### What have we done so far?
 
 We've distributed hundreds of coupons in NUS and raised thousands of dollars for local beneficiaries. We learnt that the idea works — 1 in 4 people gave at least $10 of their own money when redeeming the coupon, and the average person tops up the coupon value by 33%. Learn more in our [campaign report](./campaign-report.pdf).
