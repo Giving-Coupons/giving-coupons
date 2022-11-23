@@ -22,7 +22,7 @@
 
 <p align="center"><img src="assets/logo-soc.png"/></p>
 
-### Overview
+## Overview
 
 Giving coupons is a social enterprise project with a simple idea — to spread the joy of giving. There are so many worthy causes that are in need of funds, and we believe that people would give more if they had the right nudge, and Giving Coupons does that for them. Our aim is to encourage more Singaporeans to donate and foster a stronger culture of giving.
 
@@ -38,6 +38,14 @@ Watch our [video](https://www.youtube.com/watch?v=n02Co0pLkS0&feature=youtu.be) 
 ### What have we done so far?
 
 We've distributed hundreds of coupons in NUS and raised thousands of dollars for local beneficiaries. We learnt that the idea works — 1 in 4 people gave at least $10 of their own money when redeeming the coupon, and the average person tops up the coupon value by 33%. Learn more in our [campaign report](./campaign-report.pdf).
+
+## STePS
+
+Giving Coupons [won the second place](https://uvents.nus.edu.sg/event/21st-steps) for the 21st SoC Term Project Showcase (STePS).
+
+<div align='center'>
+  <img src="assets/steps.jpg">
+</div>
 
 ## Team Members
 
