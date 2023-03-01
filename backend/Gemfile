@@ -40,7 +40,7 @@ gem 'rack-cors'
 
 gem 'rubocop', '~> 1.39'
 
-gem 'rubocop-rails', '~> 2.17'
+gem 'rubocop-rails', '~> 2.18'
 
 # Authentication
 gem 'devise'
